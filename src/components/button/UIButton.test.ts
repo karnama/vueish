@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { UIButton } from '../../src/components/index';
+import { UIButton } from '../index';
 
 describe('UIButton', () => {
     it('can be enabled', () => {
@@ -11,6 +11,9 @@ describe('UIButton', () => {
 
         expect(wrapper.get('button').attributes().disabled).toBeUndefined();
     });
+
+
+
 
     it('can be disabled', () => {
         const wrapper = mount(UIButton, {
