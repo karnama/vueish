@@ -15,13 +15,26 @@
   "scripts": {
     "dev": "vite",
     "build": "vuedx-typecheck . && vite build",
-    "test": "jest"
+    "test": "jest",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "peerDependencies": {
     "vue": "^3.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
+    "@storybook/addon-a11y": "https://gitpkg.now.sh/zipme/storybook/addons/a11y?vue-3-support",
+    "@storybook/addon-actions": "https://gitpkg.now.sh/zipme/storybook/addons/actions?vue-3-support",
+    "@storybook/addon-backgrounds": "https://gitpkg.now.sh/zipme/storybook/addons/backgrounds?vue-3-support",
+    "@storybook/addon-essentials": "https://gitpkg.now.sh/zipme/storybook/addons/essentials?vue-3-support",
+    "@storybook/addon-knobs": "https://gitpkg.now.sh/zipme/storybook/addons/knobs?vue-3-support",
+    "@storybook/addon-links": "https://gitpkg.now.sh/zipme/storybook/addons/links?vue-3-support",
+    "@storybook/addon-storysource": "https://gitpkg.now.sh/zipme/storybook/addons/storysource?vue-3-support",
+    "@storybook/addon-viewport": "https://gitpkg.now.sh/zipme/storybook/addons/viewport?vue-3-support",
+    "@storybook/source-loader": "https://gitpkg.now.sh/zipme/storybook/lib/source-loader?vue-3-support",
+    "@storybook/vue": "^6.2.0-alpha.18",
+    "@storybook/vue3": "https://gitpkg.now.sh/zipme/storybook/app/vue3?vue-3-support",
     "@types/jest": "^26.0.20",
     "@vitejs/plugin-vue": "^1.0.4",
     "@vue/compiler-sfc": "^3.0.5",
@@ -39,5 +52,9 @@
     "vue-jest": "^5.0.0-alpha.7",
     "vue-loader": "^16.1.2",
     "vue-template-compiler": "^2.6.12"
+  },
+  "resolutions": {
+    "@storybook/core": "^6.2.0-alpha.7",
+    "@storybook/addons": "^6.2.0-alpha.7"
   }
 }
