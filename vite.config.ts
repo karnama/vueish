@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-
-const path = require('path');
+import path from 'path';
 
 export default defineConfig({
     build: {
@@ -20,7 +19,7 @@ export default defineConfig({
                     vue: 'Vue'
                 }
             }
-        }
+        }// todo - set '@' alias here as well
     },
     plugins: [vue()]
 });

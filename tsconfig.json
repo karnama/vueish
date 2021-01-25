@@ -6,13 +6,18 @@
     "strict": true,
     "jsx": "preserve",
     "sourceMap": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    },
     "lib": [
       "esnext",
       "dom"
     ],
     "types": [
       "vite/client",
-      "jest"
+      "jest",
+      "node"
     ],
     "plugins": [
       {

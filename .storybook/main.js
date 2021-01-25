@@ -1,16 +1,19 @@
-const path = require('path');
-
 module.exports = {
-  stories: ['../src/**/*.story.@(js|ts|mdx)'],
+  stories: ['../src/**/*.story.@(ts)'],
   addons: [
     "@storybook/addon-actions",
     "@storybook/addon-links"
   ],
   webpackFinal: async (config) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@': path.resolve(__dirname, "../src")
-    };
+    config.module.rules.push({
+      test: /\.ts$/,
+      loader: "ts-loader",
+      options: { appendTsSuffixTo: [/\.vue$/] },
+    });
+
+    config.resolve.plugins = config.resolve.plugins || [];
+    config.resolve.plugins.push(new TsconfigPathsPlugin({}));
+
     return config;
-  },
+  }
 };
