@@ -2,23 +2,22 @@ import { mount } from '@vue/test-utils';
 import UIButton from '../button/UIButton.vue';
 
 describe('UIButton', () => {
-    it('can be enabled', () => {
+    it('is enabled by default', () => {
+        const wrapper = mount(UIButton);
+
+        expect(wrapper.get('button').attributes().disabled).toBeUndefined();
+    });
+
+    it('can be disabled', async() => {
         const wrapper = mount(UIButton, {
             props: {
                 disabled: false
             }
         });
 
+        //TODO-KD: Need to add an assertion to check for the click event.
         expect(wrapper.get('button').attributes().disabled).toBeUndefined();
-    });
-
-    it('can be disabled', () => {
-        const wrapper = mount(UIButton, {
-            props: {
-                disabled: true
-            }
-        });
-
+        await wrapper.setProps({ disabled: true });
         expect(wrapper.get('button').attributes().disabled).toBe('');
     });
 
