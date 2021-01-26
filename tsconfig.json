@@ -14,11 +14,11 @@
       "vite/client",
       "jest"
     ],
-//    "plugins": [
-//      {
-//        "name": "@vuedx/typescript-plugin-vue"
-//      }
-//    ],
+    "plugins": [
+      {
+        "name": "@vuedx/typescript-plugin-vue"
+      }
+    ],
     "esModuleInterop": true
   },
   "include": [
