@@ -1,0 +1,13 @@
+@import 'variables/font.css';
+@import 'variables/colours.css';
+@import "variables/dark.css";
+@import "variables/light.css";
+
+@import 'base.css';
+@import "transitions.css";
+@import "text.css";
+@import "utilities.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

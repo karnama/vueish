@@ -1,0 +1,13 @@
+.themed.light {
+    --color-bg-darker: #ddd;
+    --color-bg-dark: #eee;
+    --color-bg: #fcfcfc;
+    --color-bg-light: #fff;
+    --color-bg-lighter: #fff;
+
+    --color-text-strong: #222;
+    --color-text: #707070;
+    --color-text-muted: #bfbfbf;
+
+    --color-border: #ddd;
+}

@@ -1,0 +1,19 @@
+.transition-all {
+    transition: all 150ms ease-out;
+}
+
+.transition-bg-color {
+    transition: background-color 100ms ease-out;
+}
+
+.transition-border-color {
+    transition: border-color 100ms ease-out;
+}
+
+.transition-text-color {
+    transition: color 100ms ease-out;
+}
+
+.transition-text-size {
+    transition: font-size 100ms ease-out;
+}
