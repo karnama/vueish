@@ -9,7 +9,10 @@
 </template>
 
 <script lang="ts">
-export const TYPES = {
+import { computed } from "vue";
+
+const propClass = ['default', 'primary', 'info', 'success', 'warning', 'danger', 'brand'] as const;
+export const types = {
     default: '',
     primary: 'text-white bg-primary',
     info: 'text-white bg-info',
@@ -34,25 +37,29 @@ export default {
         /**
          * The type of button (default, primary, etc).
          */
-        type: {
-            type: String,
+        smt: {
+            required: true,
             default: 'default',
-            validator: function(value) {
-                return Object.keys(TYPES).includes(value);
-            }
+            validator: (value: typeof propClass[number]) => propClass.includes(value)
         }
     },
 
-    computed: {
-        classes() {
-            if (this.type === 'default') {
-                return this.disabled ? 'bg-dark cursor-not-allowed' : 'hover:bg-dark';
+    setup(ctx: Record<string, unknown>) {
+        // @ts-ignore
+        const classes = computed(() => {
+            // @ts-ignore
+            if (ctx.smt === 'default') {
+                // @ts-ignore
+                return ctx.disabled ? 'bg-dark cursor-not-allowed' : 'hover:bg-dark';
             }
-            if (!this.disabled) {
-                return TYPES[this.type] + ' hover:bg-' + this.type + '-light';
+            // @ts-ignore
+            if (!ctx.disabled) {
+                // @ts-ignore
+                return types[this.type] + ' hover:bg-' + ctx.type + '-light';
             }
+            // @ts-ignore
             return 'bg-' + this.type + '-dark text-white cursor-not-allowed';
-        }
+        })
     }
 };
 </script>

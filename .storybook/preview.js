@@ -1,9 +1,10 @@
-import { app } from "@storybook/vue3";
-
-import YourPlugin from "../src/main"; // whatever your plugin entry point is
-
-app.use(YourPlugin);
-
-export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
-}
+// import Vue from 'vue';
+// import VueCompositionAPI from '@vue/composition-api';
+// import Vueish from '../src/main';
+//
+// Vue.use(VueCompositionAPI)
+// Vue.use(Vueish);
+//
+// export const parameters = {
+//   actions: { argTypesRegex: "^on[A-Z].*" },
+// }
