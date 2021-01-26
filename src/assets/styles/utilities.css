@@ -1,8 +1,0 @@
-.themed .show-on-hover {
-    opacity: 0;
-    transition: opacity 100ms ease;
-}
-
-.themed .show-on-hover-parent:hover .show-on-hover {
-    opacity: 1;
-}
