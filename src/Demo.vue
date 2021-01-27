@@ -3,24 +3,30 @@
         <h1>Vueish Demo</h1>
         <div class="py-10 space-y-10">
             <div class="space-x-2">
-                <UIButton>Default</UIButton>
-                <UIButton type="primary">Primary</UIButton>
-                <UIButton type="info">Info</UIButton>
-                <UIButton type="success">Success</UIButton>
-                <UIButton type="warning">Warning</UIButton>
-                <UIButton type="danger">Danger</UIButton>
-                <UIButton type="brand">Brand</UIButton>
+                <UIButton @click="buttonType = 'default'">Default</UIButton>
+                <UIButton type="primary" @click="buttonType = 'primary'">Primary</UIButton>
+                <UIButton type="info" @click="buttonType = 'info'">Info</UIButton>
+                <UIButton type="success" @click="buttonType = 'success'">Success</UIButton>
+                <UIButton type="warning" @click="buttonType = 'warning'">Warning</UIButton>
+                <UIButton type="danger" @click="buttonType = 'danger'">Danger</UIButton>
+                <UIButton type="brand" @click="buttonType = 'brand'">Brand</UIButton>
+                <p v-if="buttonType" class="mt-2">Clicked {{ buttonType }}!</p>
             </div>
         </div>
     </main>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import UIButton from './components/button/UIButton.vue';
 
 export default defineComponent({
     name: 'App',
-    components: { UIButton }
+    components: { UIButton },
+    setup() {
+        const buttonType = ref('');
+
+        return { buttonType };
+    }
 });
 </script>
