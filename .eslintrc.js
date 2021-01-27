@@ -27,7 +27,7 @@ module.exports = {
         ecmaVersion: 2020,
         parser: '@typescript-eslint/parser',
         sourceType: 'module',
-        project: 'development.tsconfig.json',
+        project: 'tsconfig.dev.json',
         tsconfigRootDir: __dirname,
         extraFileExtensions: ['.vue'],
     },
@@ -132,6 +132,10 @@ module.exports = {
         }],
         'vue/eqeqeq': 'error',
         'vue/no-extra-parens': 'warn',
+        'vue/html-closing-bracket-newline': ['warn', {
+            'multiline': 'never'
+        }],
+        'vue/require-default-prop': 'off'
     },
     overrides: [
         {

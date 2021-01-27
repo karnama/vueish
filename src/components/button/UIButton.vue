@@ -2,8 +2,7 @@
     <button type="button"
             :class="classes"
             class="vue-ui-button rounded px-4 disabled:cursor-not-allowed disabled:opacity-50"
-            :disabled="disabled"
-    >
+            :disabled="disabled">
         <slot>
             {{ label }}
         </slot>
@@ -22,10 +21,7 @@ export default defineComponent({
         /**
          * String label to use as the button text.
          */
-        label: {
-            type: String,
-            default: undefined
-        },
+        label: String,
 
         /**
          * Boolean flag to enable/disable the button.
@@ -45,8 +41,8 @@ export default defineComponent({
         }
     },
 
-    setup(ctx: SetupArg) {
-        const classes = computed(() => typeClasses[ctx.type as ButtonType]);
+    setup(props: SetupArg) {
+        const classes = computed(() => typeClasses[props.type as ButtonType]);
 
         return { classes };
     }

@@ -2,8 +2,6 @@ import { mount } from '@vue/test-utils';
 import UIButton from '../button/UIButton.vue';
 
 describe('UIButton', () => {
-    const msg = 'Click Me';
-
     it('is enabled by default', () => {
         const wrapper = mount(UIButton);
 
@@ -42,6 +40,8 @@ describe('UIButton', () => {
     });
 
     it('should display the label via the slot when provided', () => {
+        const msg = 'Click Me';
+
         const wrapper = mount(UIButton, {
             slots: {
                 default: msg
@@ -52,6 +52,8 @@ describe('UIButton', () => {
     });
 
     it('should display the label via the prop when provided', () => {
+        const msg = 'Click Me';
+
         const wrapper = mount(UIButton, {
             props: {
                 label: msg
