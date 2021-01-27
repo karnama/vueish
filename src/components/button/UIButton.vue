@@ -11,7 +11,8 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { types } from './types';
+import { ButtonType, types } from './types';
+import { SetupArg } from "../../shims-vue";
 
 export default defineComponent({
     name: 'UIButton',
@@ -36,11 +37,11 @@ export default defineComponent({
         type: {
             type: String,
             default: 'default',
-            validator: (value: string) => Object.keys(types).includes(value)
+            validator: (value: ButtonType) => Object.keys(types).includes(value)
         }
     },
 
-    setup(props: any) { // TODO-KD: Find better typing
+    setup(props: SetupArg) {
         const classes = computed(() => types[props.type]);
 
         return { classes };

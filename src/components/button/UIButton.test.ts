@@ -17,10 +17,9 @@ describe('UIButton', () => {
 
         const button = wrapper.get('button');
 
-        //TODO-KD: Need to add an assertion to check for the click event.
         expect(button.attributes().disabled).toBeUndefined();
         await wrapper.setProps({ disabled: true });
-        expect(button.attributes().disabled).toBe(''); //TODO-KD: Got to be a better way to do this?
+        expect(button.attributes().disabled).not.toBeUndefined();
     });
 
     it('can display the label via the slot', () => {
