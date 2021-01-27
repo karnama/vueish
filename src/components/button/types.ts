@@ -1,8 +1,7 @@
-
 export const types = ['default', 'primary', 'info', 'success', 'warning', 'danger', 'brand'] as const;
 export type ButtonType = typeof types[number];
 
-export const classTypes = {
+export const typeClasses = {
     default: 'hover:bg-gray-200 active:bg-gray-300',
     primary: 'text-white bg-blue-600 hover:bg-blue-400 active:bg-blue-700',
     info: 'text-white bg-blue-400 hover:bg-blue-300 active:bg-blue-500',

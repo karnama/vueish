@@ -1,7 +1,7 @@
 <template>
     <button type="button"
             :class="classes"
-            class="vue-ui-button rounded px-4"
+            class="vue-ui-button rounded px-4 "
             :disabled="disabled">
         <slot>
             {{ label }}
@@ -11,8 +11,8 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { ButtonType, types } from './types';
-import { SetupArg } from "../../shims-vue";
+import { ButtonType, types, typeClasses } from './types';
+import { SetupArg } from '../../shims-vue';
 
 export default defineComponent({
     name: 'UIButton',
@@ -42,7 +42,7 @@ export default defineComponent({
     },
 
     setup(props: SetupArg) {
-        const classes = computed(() => types[props.type]);
+        const classes = computed(() => typeClasses[props.type]);
 
         return { classes };
     }
