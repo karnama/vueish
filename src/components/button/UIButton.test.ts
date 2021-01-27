@@ -40,7 +40,7 @@ describe('UIButton', () => {
 
     });
 
-    it('can display the label via the slot', () => {
+    it('should display the label via the slot when provided', () => {
         let msg = 'Click Me';
 
         const wrapper = mount(UIButton, {
@@ -52,7 +52,7 @@ describe('UIButton', () => {
         expect(wrapper.text()).toBe(msg);
     });
 
-    it('can display the label via the prop', () => {
+    it('should display the label via the prop when provided', () => {
         let msg = 'Click Me';
 
         const wrapper = mount(UIButton, {
