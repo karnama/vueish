@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils';
+//@ts-ignore - TODO: Investigate "module not found error"
 import UIButton from '../button/UIButton.vue';
 
 describe('UIButton', () => {
