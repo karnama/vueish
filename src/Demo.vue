@@ -30,14 +30,30 @@
             </div>
 
             <div class="space-x-2">
-                <h1 class="text-2xl mb-2">Disabled</h1>
-                <UIButton @click="buttonType = 'default'" disabled>Default</UIButton>
-                <UIButton type="primary" @click="buttonType = 'primary'" disabled>Primary</UIButton>
-                <UIButton type="info" @click="buttonType = 'info'" disabled>Info</UIButton>
-                <UIButton type="success" @click="buttonType = 'success'" disabled>Success</UIButton>
-                <UIButton type="warning" @click="buttonType = 'warning'" disabled>Warning</UIButton>
-                <UIButton type="danger" @click="buttonType = 'danger'" disabled>Danger</UIButton>
-                <UIButton type="brand" @click="buttonType = 'brand'" disabled>Brand</UIButton>
+                <h1 class="text-2xl mb-2">
+                    Disabled
+                </h1>
+                <UIButton disabled @click="buttonType = 'default'">
+                    Default
+                </UIButton>
+                <UIButton type="primary" disabled @click="buttonType = 'primary'">
+                    Primary
+                </UIButton>
+                <UIButton type="info" disabled @click="buttonType = 'info'">
+                    Info
+                </UIButton>
+                <UIButton type="success" disabled @click="buttonType = 'success'">
+                    Success
+                </UIButton>
+                <UIButton type="warning" disabled @click="buttonType = 'warning'">
+                    Warning
+                </UIButton>
+                <UIButton type="danger" disabled @click="buttonType = 'danger'">
+                    Danger
+                </UIButton>
+                <UIButton type="brand" disabled @click="buttonType = 'brand'">
+                    Brand
+                </UIButton>
             </div>
         </div>
     </main>

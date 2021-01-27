@@ -42,8 +42,6 @@ describe('UIButton', () => {
     });
 
     it('should display the label via the slot when provided', () => {
-        let msg = 'Click Me';
-
         const wrapper = mount(UIButton, {
             slots: {
                 default: msg
@@ -54,8 +52,6 @@ describe('UIButton', () => {
     });
 
     it('should display the label via the prop when provided', () => {
-        let msg = 'Click Me';
-
         const wrapper = mount(UIButton, {
             props: {
                 label: msg
