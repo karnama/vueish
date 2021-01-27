@@ -21,7 +21,10 @@ export default defineComponent({
         /**
          * String label to use as the button text.
          */
-        label: String,
+        label: {
+            type: String,
+            default: undefined
+        },
 
         /**
          * Boolean flag to enable/disable the button.
@@ -41,8 +44,8 @@ export default defineComponent({
         }
     },
 
-    setup(props: SetupArg) {
-        const classes = computed(() => typeClasses[props.type]);
+    setup(ctx: SetupArg) {
+        const classes = computed(() => typeClasses[ctx.type as ButtonType]);
 
         return { classes };
     }

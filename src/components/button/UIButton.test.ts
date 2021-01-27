@@ -2,6 +2,8 @@ import { mount } from '@vue/test-utils';
 import UIButton from '../button/UIButton.vue';
 
 describe('UIButton', () => {
+    const msg = 'Click Me';
+
     it('is enabled by default', () => {
         const wrapper = mount(UIButton);
 
@@ -22,7 +24,7 @@ describe('UIButton', () => {
         expect(button.attributes().disabled).not.toBeUndefined();
     });
 
-    it('should not be triggering the click event on disabled', async () => {
+    it('should not be triggering the click event on disabled', async() => {
         const mockFn = jest.fn();
 
         const wrapper = mount(UIButton, {
@@ -37,7 +39,6 @@ describe('UIButton', () => {
         const button = wrapper.get('button');
         await button.trigger('click');
         expect(mockFn).not.toHaveBeenCalled();
-
     });
 
     it('should display the label via the slot when provided', () => {

@@ -1,9 +1,9 @@
 import type { App } from '@vue/runtime-core';
-import * as Components from './components/index';
+import components from './components';
 
 export default {
     install: (Vue: App): void => {
-        Object.values(Components).forEach(component =>
+        Object.values(components).forEach((component) =>
             Vue.component(component.name, component)
         );
     }

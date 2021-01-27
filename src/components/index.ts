@@ -1,3 +1,11 @@
-import UIButton from './button/UIButton.vue';
+import { DefineComponent } from 'vue';
 
-export { UIButton };
+const componentModules = import.meta.globEager('./**/UI*.vue');
+const components: Record<string, DefineComponent> = {};
+
+Object.keys(componentModules)
+    .map(modulePath => componentModules[modulePath].default)
+    .flat(1)
+    .forEach((component: DefineComponent) => components[component.name] = component);
+
+export default components;
