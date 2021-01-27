@@ -17,10 +17,27 @@ describe('UIButton', () => {
 
         const button = wrapper.get('button');
 
-        //TODO-KD: Need to add an assertion to check for the click event.
         expect(button.attributes().disabled).toBeUndefined();
         await wrapper.setProps({ disabled: true });
-        expect(button.attributes().disabled).toBe(''); //TODO-KD: Got to be a better way to do this?
+        expect(button.attributes().disabled).not.toBeUndefined();
+    });
+
+    it('should not be triggering the click event on disabled', async () => {
+        const mockFn = jest.fn();
+
+        const wrapper = mount(UIButton, {
+            props: {
+                disabled: true
+            },
+            attrs: {
+                'onClick': mockFn
+            }
+        });
+
+        const button = wrapper.get('button');
+        await button.trigger('click');
+        expect(mockFn).not.toHaveBeenCalled();
+
     });
 
     it('can display the label via the slot', () => {
