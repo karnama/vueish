@@ -1,16 +1,20 @@
 <template>
-    <main class="h-full container mx-auto bg-gray-50 h-full themed light p-10 text-center">
-        <h1>Vueish Demo</h1>
-        <div class="flex justify-evenly items-center">
-            <router-link v-for="route in $router.getRoutes()"
-                         :key="route.path"
-                         :to="route.path"
-                         class="p-3"
-            >
-                {{ route.path }}
-            </router-link>
+    <main class="h-full p-10">
+        <div class="flex">
+            <div class="mr-10">
+                <h1 class="text-2xl mb-5">Vueish UI</h1>
+                <div class="space-y-1 flex-col flex">
+                    <router-link v-for="route in $router.getRoutes()"
+                                 :key="route.path"
+                                 :to="route.path">
+                        {{ route.meta.label }}
+                    </router-link>
+                </div>
+            </div>
+            <div class="flex-1 container mx-auto bg-gray-50 h-full themed light p-10 text-center">
+                <router-view/>
+            </div>
         </div>
-        <router-view />
     </main>
 </template>
 

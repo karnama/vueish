@@ -7,8 +7,11 @@ const demos = import.meta.globEager('./components/**/Demo.vue');
 
 const routes = Object.keys(demos)
     .map(path => ({
-        path: path.slice(1),
-        component: demos[path].default
+        path: '/' + demos[path].default.name,
+        component: demos[path].default,
+        meta: {
+            label: demos[path].default.name
+        }
     }))
     .flat(1) as RouteRecordRaw[];
 

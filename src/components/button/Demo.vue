@@ -1,6 +1,9 @@
 <template>
     <div class="py-10 space-y-10">
         <div class="space-x-2">
+            <h1 class="text-2xl mb-2">
+                Standard
+            </h1>
             <UIButton @click="buttonType = 'default'">
                 Default
             </UIButton>
@@ -61,7 +64,7 @@ import { defineComponent, ref } from 'vue';
 import UIButton from './UIButton.vue';
 
 export default defineComponent({
-    name: 'Demo',
+    name: 'Button',
     components: { UIButton },
     setup() {
         const buttonType = ref('');
