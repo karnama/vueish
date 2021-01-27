@@ -1,6 +1,6 @@
 const brandColor = (
-    level: number
-): (({ opacityVariable, opacityValue }: { opacityVariable: number; opacityValue: number }) => string)  => {
+    level
+) => {
     return function({ opacityVariable, opacityValue }) {
         if (opacityValue) {
             return `rgba(var(--color-brand-${level}), ${opacityValue})`;
@@ -12,15 +12,15 @@ const brandColor = (
     };
 };
 
-const brandColors = (levels: number[]): Record<string, ReturnType<typeof brandColor>> => {
-    const colors: Record<string, ReturnType<typeof brandColor>> = {};
+const brandColors = (levels) => {
+    const colors = {};
 
     levels.forEach(level => colors['brand-' + String(level)] = brandColor(level));
 
     return colors;
 };
 
-export default {
+module.exports = {
     purge: ['./index.html', './src/**/*.{vue,ts,tsx}'],
     theme: {
         extend: {
