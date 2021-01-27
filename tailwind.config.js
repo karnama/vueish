@@ -100,7 +100,10 @@ module.exports = {
     },
     variants: {
         extend: {
-            backgroundColor: ['active']
+            backgroundColor: ['disabled'],
+            opacity: ['disabled'],
+            cursor: ['disabled'],
+            backgroundOpacity: ['disabled']
         }
     }
 };

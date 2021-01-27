@@ -1,7 +1,7 @@
 <template>
     <button type="button"
             :class="classes"
-            class="vue-ui-button rounded px-4 "
+            class="vue-ui-button rounded px-4 disabled:cursor-not-allowed disabled:opacity-50"
             :disabled="disabled">
         <slot>
             {{ label }}
