@@ -22,6 +22,24 @@ describe('UIButton', () => {
         expect(button.attributes().disabled).not.toBeUndefined();
     });
 
+    it('should not be triggering the click event on disabled', async () => {
+        const mockFn = jest.fn();
+
+        const wrapper = mount(UIButton, {
+            props: {
+                disabled: true
+            },
+            attrs: {
+                'onClick': mockFn
+            }
+        });
+
+        const button = wrapper.get('button');
+        await button.trigger('click');
+        expect(mockFn).not.toHaveBeenCalled();
+
+    });
+
     it('can display the label via the slot', () => {
         let msg = 'Click Me';
 

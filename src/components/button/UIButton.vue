@@ -37,7 +37,7 @@ export default defineComponent({
         type: {
             type: String,
             default: 'default',
-            validator: (value: ButtonType) => Object.keys(types).includes(value)
+            validator: (value: ButtonType) => types.includes(value)
         }
     },
 
