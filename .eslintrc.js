@@ -139,6 +139,12 @@ module.exports = {
     },
     overrides: [
         {
+            files: ["Demo.vue"],
+            rules: {
+                'vue/match-component-file-name': 'off'
+            }
+        },
+        {
             files: [
                 '*.test.ts(x)$'
             ],
