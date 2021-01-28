@@ -95,7 +95,7 @@ module.exports = {
         // if unsure and eslint doesn't cover it please refer to https://v3.vuejs.org/style-guide/
         'vue/html-indent': ['warn', 4],
         'vue/component-name-in-template-casing': ['warn', 'PascalCase'],
-        'vue/match-component-file-name': ['error', {
+        'vue/match-component-file-name': ['off', { // until we have storybook working
             extensions: ['jsx', 'vue', 'tsx']
         }],
         'vue/new-line-between-multi-line-property': 'warn',
@@ -135,12 +135,12 @@ module.exports = {
         'vue/html-closing-bracket-newline': ['warn', {
             'multiline': 'never'
         }],
-        'vue/require-default-prop': 'off'
+        'vue/require-default-prop': 'off',
     },
     overrides: [
         {
             files: [
-                '*.test.ts(x)$'
+                '*.test.ts'
             ],
             env: {
                 jest: true,
