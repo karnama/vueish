@@ -66,7 +66,7 @@ module.exports = {
         '@typescript-eslint/ban-ts-comment': 'off',
         '@typescript-eslint/no-unsafe-return': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
-        // '@typescript-eslint/explicit-module-boundary-types': ['error', { 'allowArgumentsExplicitlyTypedAsAny': true }],
+        '@typescript-eslint/explicit-module-boundary-types': ['error', { 'allowArgumentsExplicitlyTypedAsAny': true }],
         '@typescript-eslint/prefer-nullish-coalescing': 'warn',
         '@typescript-eslint/prefer-optional-chain': 'warn',
         '@typescript-eslint/prefer-ts-expect-error': 'warn',
@@ -140,7 +140,7 @@ module.exports = {
     overrides: [
         {
             files: [
-                '*.test.ts(x)$'
+                '*.test.ts'
             ],
             env: {
                 jest: true,
