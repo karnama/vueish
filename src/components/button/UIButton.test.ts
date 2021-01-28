@@ -2,13 +2,13 @@ import { mount } from '@vue/test-utils';
 import UIButton from './UIButton.vue';
 
 describe('UIButton', () => {
-    it('is enabled by default', () => {
+    it('should be enabled by default', () => {
         const wrapper = mount(UIButton);
 
         expect(wrapper.get('button').attributes().disabled).toBeUndefined();
     });
 
-    it('can be disabled', async() => {
+    it('should be disabled when the prop is provided', async() => {
         const wrapper = mount(UIButton, {
             props: {
                 disabled: false

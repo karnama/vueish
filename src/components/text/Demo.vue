@@ -6,23 +6,13 @@
     <div class="py-10 space-y-10">
         <div class="space-y-10">
             <div>
-                <h2 class="text-xl mb-2">
-                    Standard
-                </h2>
-
-                <UIText v-model="value" name="ui-text" autofocus/>
-
+                <UIText v-model="input" name="ui-text" label="Standard" autofocus/>
                 <small class="mt-3">Output: </small>
-                <small>{{ value }}</small>
+                <small>{{ input }}</small>
             </div>
 
-            <div>
-                <h2 class="text-xl mb-2">
-                    Disabled
-                </h2>
-
-                <UIText v-model="value2" name="ui-text" disabled/>
-            </div>
+            <UIText v-model="input2" name="ui-text2" label="Custom placeholder" placeholder="Type here..."/>
+            <UIText v-model="input3" name="ui-text3" label="Disabled" disabled/>
         </div>
     </div>
 </template>
@@ -35,10 +25,11 @@ export default defineComponent({
     name: 'Text',
     components: { UIText },
     setup() {
-        const value = ref('I\'m a text input!');
-        const value2 = ref('Disabled :(');
+        const input = ref('I\'m a text input!');
+        const input2 = ref('');
+        const input3 = 'Can\'t change this';
 
-        return { value, value2 };
+        return { input, input2, input3 };
     }
 });
 </script>
