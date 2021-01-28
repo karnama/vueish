@@ -1,8 +1,7 @@
 <template>
     <button type="button"
             :class="classes"
-            class="vue-ui-button rounded px-4 disabled:cursor-not-allowed disabled:opacity-50"
-            :disabled="disabled">
+            class="vue-ui-button rounded px-4 disabled:cursor-not-allowed disabled:opacity-50">
         <slot>
             {{ label }}
         </slot>
@@ -22,14 +21,6 @@ export default defineComponent({
          * String label to use as the button text.
          */
         label: String,
-
-        /**
-         * Boolean flag to enable/disable the button.
-         */
-        disabled: {
-            type: Boolean,
-            default: false
-        },
 
         /**
          * The type of button (default, primary, etc).

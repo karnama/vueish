@@ -1,9 +1,12 @@
 <template>
+    <h1 class="text-2xl mb-2 text-center">
+        UIButton
+    </h1>
     <div class="py-10 space-y-10">
         <div class="space-x-2">
-            <h1 class="text-2xl mb-2">
+            <h2 class="text-xl mb-2">
                 Standard
-            </h1>
+            </h2>
             <UIButton @click="buttonType = 'default'">
                 Default
             </UIButton>
@@ -31,9 +34,9 @@
         </div>
 
         <div class="space-x-2">
-            <h1 class="text-2xl mb-2">
+            <h2 class="text-xl mb-2">
                 Disabled
-            </h1>
+            </h2>
             <UIButton disabled @click="buttonType = 'default'">
                 Default
             </UIButton>

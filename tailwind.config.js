@@ -1,7 +1,7 @@
 const brandColor = (
     level
 ) => {
-    return function({ opacityVariable, opacityValue }) {
+    return function ({opacityVariable, opacityValue}) {
         if (opacityValue) {
             return `rgba(var(--color-brand-${level}), ${opacityValue})`;
         }
@@ -31,7 +31,11 @@ module.exports = {
     },
     variants: {
         extend: {
-            backgroundColor: ['active']
+            backgroundColor: ['disabled'],
+            opacity: ['disabled'],
+            cursor: ['disabled'],
+            backgroundOpacity: ['disabled'],
+            textColor: ['disabled']
         }
     }
 };

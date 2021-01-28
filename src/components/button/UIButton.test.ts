@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import UIButton from '../button/UIButton.vue';
+import UIButton from './UIButton.vue';
 
 describe('UIButton', () => {
     it('is enabled by default', () => {
