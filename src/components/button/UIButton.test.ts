@@ -1,5 +1,4 @@
 import { mount } from '@vue/test-utils';
-//@ts-ignore - TODO: Investigate "module not found error"
 import UIButton from '../button/UIButton.vue';
 
 describe('UIButton', () => {
@@ -23,7 +22,7 @@ describe('UIButton', () => {
         expect(button.attributes().disabled).not.toBeUndefined();
     });
 
-    it('should not be triggering the click event on disabled', async () => {
+    it('should not trigger the click event when disabled', async() => {
         const mockFn = jest.fn();
 
         const wrapper = mount(UIButton, {
@@ -38,11 +37,10 @@ describe('UIButton', () => {
         const button = wrapper.get('button');
         await button.trigger('click');
         expect(mockFn).not.toHaveBeenCalled();
-
     });
 
     it('should display the label via the slot when provided', () => {
-        let msg = 'Click Me';
+        const msg = 'Click Me';
 
         const wrapper = mount(UIButton, {
             slots: {
@@ -54,7 +52,7 @@ describe('UIButton', () => {
     });
 
     it('should display the label via the prop when provided', () => {
-        let msg = 'Click Me';
+        const msg = 'Click Me';
 
         const wrapper = mount(UIButton, {
             props: {

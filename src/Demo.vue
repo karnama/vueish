@@ -1,45 +1,34 @@
 <template>
-    <main class="h-full container mx-auto bg-gray-50 h-full themed light p-10 text-center">
-        <h1>Vueish Demo</h1>
-        <div class="py-10 space-y-10">
-            <div class="space-x-2">
-                <h1 class="text-2xl mb-2">Standard</h1>
-                <UIButton @click="buttonType = 'default'">Default</UIButton>
-                <UIButton type="primary" @click="buttonType = 'primary'">Primary</UIButton>
-                <UIButton type="info" @click="buttonType = 'info'">Info</UIButton>
-                <UIButton type="success" @click="buttonType = 'success'">Success</UIButton>
-                <UIButton type="warning" @click="buttonType = 'warning'">Warning</UIButton>
-                <UIButton type="danger" @click="buttonType = 'danger'">Danger</UIButton>
-                <UIButton type="brand" @click="buttonType = 'brand'">Brand</UIButton>
-
-                <p v-show="buttonType" class="mt-2">Clicked {{ buttonType }}!</p>
+    <main class="h-full">
+        <div class="flex">
+            <div class="px-12">
+                <h1 class="text-2xl mt-4 mb-6">
+                    Vueish UI
+                </h1>
+                <div class="space-y-1 flex-col flex">
+                    <router-link v-for="route in $router.getRoutes()"
+                                 :key="route.path"
+                                 :to="route.path"
+                    >
+                        {{ route.meta.label }}
+                    </router-link>
+                </div>
             </div>
-
-            <div class="space-x-2">
-                <h1 class="text-2xl mb-2">Disabled</h1>
-                <UIButton @click="buttonType = 'default'" disabled>Default</UIButton>
-                <UIButton type="primary" @click="buttonType = 'primary'" disabled>Primary</UIButton>
-                <UIButton type="info" @click="buttonType = 'info'" disabled>Info</UIButton>
-                <UIButton type="success" @click="buttonType = 'success'" disabled>Success</UIButton>
-                <UIButton type="warning" @click="buttonType = 'warning'" disabled>Warning</UIButton>
-                <UIButton type="danger" @click="buttonType = 'danger'" disabled>Danger</UIButton>
-                <UIButton type="brand" @click="buttonType = 'brand'" disabled>Brand</UIButton>
+            <div class="flex-1 h-screen container mx-auto bg-gray-50 h-full themed light p-10 text-center">
+                <router-view />
             </div>
         </div>
     </main>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import UIButton from './components/button/UIButton.vue';
+import { defineComponent } from 'vue';
 
-export default defineComponent({
-    name: 'App',
-    components: { UIButton },
-    setup() {
-        const buttonType = ref('');
-
-        return { buttonType };
-    }
-});
+export default defineComponent({ name: 'Demo' });
 </script>
+
+<style>
+.router-link-active {
+    @apply text-green-600;
+}
+</style>
