@@ -66,7 +66,7 @@ module.exports = {
         '@typescript-eslint/ban-ts-comment': 'off',
         '@typescript-eslint/no-unsafe-return': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
-        // '@typescript-eslint/explicit-module-boundary-types': ['error', { 'allowArgumentsExplicitlyTypedAsAny': true }],
+        '@typescript-eslint/explicit-module-boundary-types': ['error', { 'allowArgumentsExplicitlyTypedAsAny': true }],
         '@typescript-eslint/prefer-nullish-coalescing': 'warn',
         '@typescript-eslint/prefer-optional-chain': 'warn',
         '@typescript-eslint/prefer-ts-expect-error': 'warn',
@@ -95,7 +95,7 @@ module.exports = {
         // if unsure and eslint doesn't cover it please refer to https://v3.vuejs.org/style-guide/
         'vue/html-indent': ['warn', 4],
         'vue/component-name-in-template-casing': ['warn', 'PascalCase'],
-        'vue/match-component-file-name': ['error', {
+        'vue/match-component-file-name': ['off', { // until we have storybook working
             extensions: ['jsx', 'vue', 'tsx']
         }],
         'vue/new-line-between-multi-line-property': 'warn',
@@ -135,7 +135,7 @@ module.exports = {
         'vue/html-closing-bracket-newline': ['warn', {
             'multiline': 'never'
         }],
-        'vue/require-default-prop': 'off'
+        'vue/require-default-prop': 'off',
     },
     overrides: [
         {
@@ -146,7 +146,7 @@ module.exports = {
         },
         {
             files: [
-                '*.test.ts(x)$'
+                '*.test.ts'
             ],
             env: {
                 jest: true,
