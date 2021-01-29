@@ -69,7 +69,7 @@ export default defineComponent({
         },
 
         /**
-         * String label to use as the button text.
+         * String to use as the input label.
          */
         label: String,
 
@@ -88,7 +88,7 @@ export default defineComponent({
         },
 
         /**
-         * Boolean flag to enable/disable the button.
+         * Boolean flag to enable/disable the input.
          */
         disabled: {
             type: Boolean,
