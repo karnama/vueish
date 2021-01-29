@@ -59,9 +59,9 @@ describe('UIText', () => {
         const input = wrapper.get('input');
         const label = wrapper.get('label');
 
-        expect(input.attributes().id).toStrictEqual(name);
-        expect(input.attributes().name).toStrictEqual(name);
-        expect(label.attributes().for).toStrictEqual(name);
+        expect(input.attributes().id).toBe(name);
+        expect(input.attributes().name).toBe(name);
+        expect(label.attributes().for).toBe(name);
     });
 
     it('should correctly display the label when passed as a prop', () => {
@@ -75,23 +75,7 @@ describe('UIText', () => {
             }
         });
 
-        expect(wrapper.get('label').text()).toStrictEqual(label);
-    });
-
-    it('should correctly display the label when passed as a slot', () => {
-        const label = 'text';
-
-        const wrapper = mount(UIText, {
-            props: {
-                modelValue: '',
-                name: 'text'
-            },
-            slots: {
-                default: label
-            }
-        });
-
-        expect(wrapper.get('label').text()).toStrictEqual(label);
+        expect(wrapper.get('label').text()).toBe(label);
     });
 
     it('should autofocus on the input when the prop is provided', async() => {
@@ -125,7 +109,7 @@ describe('UIText', () => {
 
         const input = wrapper.get('input').element;
 
-        expect(input.value).toStrictEqual(modelValue);
+        expect(input.value).toBe(modelValue);
         await wrapper.get('.clear-icon').trigger('click');
         expect(wrapper.emitted()).toHaveProperty('update:modelValue');
         expect(wrapper.emitted()['update:modelValue'][0]).toStrictEqual(['']);
