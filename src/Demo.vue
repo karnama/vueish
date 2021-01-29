@@ -9,11 +9,13 @@
                     <router-link v-for="route in $router.getRoutes()"
                                  :key="route.path"
                                  :to="route.path">
+
                         {{ route.meta.label }}
                     </router-link>
                 </div>
             </div>
-            <div class="flex-1 h-screen container mx-auto bg-gray-50 h-full themed light p-10 text-center">
+
+            <div class="flex-1 h-screen container mx-auto bg-gray-50 h-full themed light p-10">
                 <router-view />
             </div>
         </div>
