@@ -7,10 +7,12 @@ const demos = import.meta.globEager('./components/**/Demo.vue');
 
 const routes = Object.keys(demos)
     .map(path => ({
-        path: '/' + demos[path].default.name,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        path: '/' + String(demos[path].default.name),
         component: demos[path].default,
         meta: {
-            label: demos[path].default.name
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            label: String(demos[path].default.name)
         }
     }))
     .flat(1) as RouteRecordRaw[];

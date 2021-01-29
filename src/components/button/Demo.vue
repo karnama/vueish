@@ -67,6 +67,7 @@ import { defineComponent, ref } from 'vue';
 import UIButton from './UIButton.vue';
 
 export default defineComponent({
+    // eslint-disable-next-line vue/no-reserved-component-names
     name: 'Button',
     components: { UIButton },
     setup() {

@@ -11,7 +11,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 import { ButtonType, types, typeClasses } from './types';
-import { SetupArg } from '../../types';
+import { SetupArg, SetupReturn } from '../../types';
 
 export default defineComponent({
     name: 'UIButton',
@@ -32,7 +32,7 @@ export default defineComponent({
         }
     },
 
-    setup(props: SetupArg) {
+    setup(props: SetupArg): SetupReturn {
         const classes = computed(() => typeClasses[props.type as ButtonType]);
 
         return { classes };

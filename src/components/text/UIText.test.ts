@@ -1,5 +1,4 @@
 import { mount } from '@vue/test-utils';
-//@ts-ignore - TODO: Investigate "module not found error"
 import UIText from './UIText.vue';
 
 describe('UIText', () => {
@@ -19,7 +18,7 @@ describe('UIText', () => {
         expect(wrapper.emitted()['update:modelValue'][0]).toStrictEqual(['Hello World']);
     });
 
-    it('should be enabled by default', async() => {
+    it('should be enabled by default', () => {
         const wrapper = mount(UIText, {
             props: {
                 modelValue: '',
@@ -78,12 +77,9 @@ describe('UIText', () => {
         expect(wrapper.get('label').text()).toBe(label);
     });
 
-    it('should autofocus on the input when the prop is provided', async() => {
+    it('should autofocus on the input when the prop is provided', () => {
         const elem = document.createElement('div');
-
-        if (document.body) {
-            document.body.appendChild(elem);
-        }
+        document.body.appendChild(elem);
 
         const wrapper = mount(UIText, {
             props: {
