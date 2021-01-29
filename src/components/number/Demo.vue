@@ -12,7 +12,7 @@
             </div>
 
             <UINumber v-model="input2" name="ui-text3" label="Disabled:" disabled/>
-            <UINumber v-model="input3" name="ui-text3" label="Attribute Prefix:" prefix="Total:"/>
+            <UINumber v-model="input3" name="ui-text3" label="Attribute Prefix:" prefix="£"/>
             <UINumber v-model="input3" name="ui-text3" label="Slot Prefix:">
                 <template v-slot:prefix>
                     <svg xmlns="http://www.w3.org/2000/svg"

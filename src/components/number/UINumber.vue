@@ -171,6 +171,6 @@ input:disabled[type=number] {
 }
 
 .prefix, .suffix {
-    line-height: 1.25;
+    line-height: 1.28;
 }
 </style>
