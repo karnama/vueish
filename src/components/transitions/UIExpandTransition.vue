@@ -25,52 +25,61 @@ export default {
         }
     },
 
-    methods: {
-        beforeEnter(element: HTMLElement): void {
-            element.style['will-change'] = 'height, opacity';
+    setup() {
+        const beforeEnter = (element: HTMLElement): void => {
+            element.style.willChange = 'height, opacity';
             requestAnimationFrame(() => {
                 if (!element.style.height) {
                     element.style.height = '0px';
                 }
 
-                element.style.display = null;
+                element.style.display = 'null';
             });
-        },
+        };
 
-        enter(element: HTMLElement): void {
+        const enter = (element: HTMLElement): void => {
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     element.style.height = `${element.scrollHeight}px`;
                 });
             });
-        },
+        };
 
-        afterEnter(element: HTMLElement): void {
-            element.style.height = null;
-            element.style['will-change'] = null;
-        },
+        const afterEnter = (element: HTMLElement): void => {
+            element.style.height = 'null';
+            element.style.willChange = 'null';
+        };
 
-        beforeLeave(element: HTMLElement): void {
-            element.style['will-change'] = 'height, opacity';
+        const beforeLeave = (element: HTMLElement): void => {
+            element.style.willChange = 'height, opacity';
             requestAnimationFrame(() => {
                 if (!element.style.height) {
                     element.style.height = `${element.offsetHeight}px`;
                 }
             });
-        },
+        };
 
-        leave(element: HTMLElement): void {
+        const leave = (element: HTMLElement): void => {
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     element.style.height = '0px';
                 });
             });
-        },
+        };
 
-        afterLeave(element: HTMLElement): void {
-            element.style.height = null;
-            element.style['will-change'] = null;
-        }
+        const afterLeave = (element: HTMLElement): void => {
+            element.style.height = 'null';
+            element.style.willChange = 'null';
+        };
+
+        return {
+            beforeEnter,
+            enter,
+            afterEnter,
+            beforeLeave,
+            leave,
+            afterLeave
+        };
     }
 };
 </script>
