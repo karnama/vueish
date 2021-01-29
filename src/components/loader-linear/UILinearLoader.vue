@@ -4,6 +4,7 @@
         <div class="relative h-full">
             <div class="progress-background w-full absolute h-full bg-brand-300" />
             <div class="absolute h-full"
+                 role="progressbar"
                  :class="determinate ? 'bg-brand-600' : 'indeterminate'"
                  :style="{width}" />
         </div>
