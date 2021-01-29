@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full overflow-hidden"
+    <div class="w-full overflow-hidden ui-linear-loader"
          :style="{ 'height': height + 'px' }">
         <div class="relative h-full">
             <div class="progress-background w-full absolute h-full bg-brand-300" />
@@ -22,8 +22,6 @@ export default defineComponent({
         /**
          * The value indicating where the
          * progress is at currently.
-         *
-         * @type {number}
          */
         progress: {
             type: Number,
@@ -33,8 +31,6 @@ export default defineComponent({
         /**
          * Flag indicating that the loader will run
          * until it's set to false.
-         *
-         * @type {boolean}
          */
         determinate: {
             type: Boolean,
@@ -43,8 +39,6 @@ export default defineComponent({
 
         /**
          * The diameter of the circle in pixels.
-         *
-         * @type {number}
          */
         steps: {
             type: Number,
@@ -55,8 +49,6 @@ export default defineComponent({
 
         /**
          * The height of the component in px.
-         *
-         * @type {number}
          */
         height: {
             type: Number,
