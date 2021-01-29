@@ -47,6 +47,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
+import { SetupReturn } from '../../types';
 
 export default defineComponent({
     name: 'UIText',
@@ -97,7 +98,7 @@ export default defineComponent({
 
     emits: ['update:modelValue'],
 
-    setup(props, { emit }) {
+    setup(props, { emit }): SetupReturn {
         const input = ref<HTMLInputElement>(null);
 
         const focus = () => {
