@@ -8,8 +8,7 @@
                 <div class="space-y-1 flex-col flex">
                     <router-link v-for="route in $router.getRoutes()"
                                  :key="route.path"
-                                 :to="route.path"
-                    >
+                                 :to="route.path">
                         {{ route.meta.label }}
                     </router-link>
                 </div>
