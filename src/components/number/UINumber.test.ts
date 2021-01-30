@@ -108,6 +108,36 @@ describe('UINumber', () => {
         expect(wrapper.get('.prefix').text()).toStrictEqual(prefix);
     });
 
+    it('should correctly display the suffix when passed as a slot', () => {
+        const suffix = 'suffix';
+
+        const wrapper = mount(UINumber, {
+            props: {
+                modelValue: 0,
+                name: 'input'
+            },
+            slots: {
+                suffix
+            }
+        });
+
+        expect(wrapper.get('.suffix').text()).toStrictEqual(suffix);
+    });
+
+    it('should correctly display the suffix when passed as a prop', () => {
+        const suffix = 'suffix';
+
+        const wrapper = mount(UINumber, {
+            props: {
+                modelValue: 0,
+                name: 'input',
+                suffix
+            }
+        });
+
+        expect(wrapper.get('.suffix').text()).toStrictEqual(suffix);
+    });
+
     it('should autofocus on the input when the prop is provided', async() => {
         const elem = document.createElement('div');
 
