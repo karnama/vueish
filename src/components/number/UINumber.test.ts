@@ -63,7 +63,7 @@ describe('UINumber', () => {
         expect(label.attributes().for).toBe(name);
     });
 
-    it('should correctly display the label when passed as a prop', () => {
+    it('should display the label when passed as a prop', () => {
         const label = 'input';
 
         const wrapper = mount(UINumber, {
@@ -77,7 +77,7 @@ describe('UINumber', () => {
         expect(wrapper.get('label').text()).toBe(label);
     });
 
-    it('should correctly display the prefix when passed as a slot', () => {
+    it('should display the prefix when passed as a slot', () => {
         const prefix = 'prefix';
 
         const wrapper = mount(UINumber, {
@@ -93,7 +93,7 @@ describe('UINumber', () => {
         expect(wrapper.get('.prefix').text()).toBe(prefix);
     });
 
-    it('should correctly display the prefix when passed as a prop', () => {
+    it('should display the prefix when passed as a prop', () => {
         const prefix = 'prefix';
 
         const wrapper = mount(UINumber, {
@@ -107,7 +107,7 @@ describe('UINumber', () => {
         expect(wrapper.get('.prefix').text()).toBe(prefix);
     });
 
-    it('should correctly display the suffix when passed as a slot', () => {
+    it('should display the suffix when passed as a slot', () => {
         const suffix = 'suffix';
 
         const wrapper = mount(UINumber, {
@@ -123,7 +123,7 @@ describe('UINumber', () => {
         expect(wrapper.get('.suffix').text()).toBe(suffix);
     });
 
-    it('should correctly display the suffix when passed as a prop', () => {
+    it('should display the suffix when passed as a prop', () => {
         const suffix = 'suffix';
 
         const wrapper = mount(UINumber, {
