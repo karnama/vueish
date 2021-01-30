@@ -46,7 +46,7 @@ describe('UINumber', () => {
         expect(input.attributes().disabled).not.toBeUndefined();
     });
 
-    it('should correctly assign the name prop', () => {
+    it('should bind the name prop to the element', () => {
         const name = 'input';
 
         const wrapper = mount(UINumber, {

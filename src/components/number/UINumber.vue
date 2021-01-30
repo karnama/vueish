@@ -64,7 +64,8 @@ export default defineComponent({
         },
 
         /**
-         * String name used to reference the input.
+         * Name attribute used for both the input
+         * 'name' and 'id', and the label 'for'.
          */
         name: {
             type: String,
