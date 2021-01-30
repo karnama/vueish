@@ -1,5 +1,4 @@
 import { mount } from '@vue/test-utils';
-//@ts-ignore - TODO: Investigate "module not found error"
 import UINumber from './UINumber.vue';
 
 describe('UINumber', () => {
@@ -19,7 +18,7 @@ describe('UINumber', () => {
         expect(wrapper.emitted()['update:modelValue'][0]).toStrictEqual([1234]);
     });
 
-    it('should be enabled by default', async() => {
+    it('should be enabled by default', () => {
         const wrapper = mount(UINumber, {
             props: {
                 modelValue: 0,
@@ -138,12 +137,9 @@ describe('UINumber', () => {
         expect(wrapper.get('.suffix').text()).toBe(suffix);
     });
 
-    it('should autofocus on the input when the prop is provided', async() => {
+    it('should autofocus on the input when the prop is provided', () => {
         const elem = document.createElement('div');
-
-        if (document.body) {
-            document.body.appendChild(elem);
-        }
+        document.body.appendChild(elem);
 
         const wrapper = mount(UINumber, {
             props: {

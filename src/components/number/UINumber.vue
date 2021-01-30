@@ -11,8 +11,12 @@
                         {{ prefix }}
                     </slot>
                 </span>
-                <input class="flex-1 appearance-none bg-transparent transition-border-color w-full leading-tight focus:outline-none rounded-none transition-text-color pb-2 disabled:cursor-not-allowed disabled:text-gray-400"
-                       :id="name"
+                <input :id="name"
+                       v-bind="$attrs"
+                       ref="input"
+                       class="flex-1 appearance-none bg-transparent transition-border-color w-full leading-tight
+                       focus:outline-none rounded-none transition-text-color pb-2 disabled:cursor-not-allowed
+                       disabled:text-gray-400"
                        :name="name"
                        :disabled="disabled"
                        :value="modelValue"
@@ -21,9 +25,7 @@
                        :step="step"
                        type="number"
                        @input="$emit('update:modelValue', Number($event.target.value))"
-                       v-bind="$attrs"
-                       @keypress="onlyNumber"
-                       ref="input"/>
+                       @keydown="onlyNumber">
                 <span v-if="suffix || $slots.suffix" class="suffix ml-1 absolute right-5">
                     <slot name="suffix">
                         {{ suffix }}
@@ -37,11 +39,12 @@
                  viewBox="0 0 20 20"
                  fill="currentColor">
                 <path fill-rule="evenodd"
-                      d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                      clip-rule="evenodd"/>
+                      d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3
+                      0 016 0z"
+                      clip-rule="evenodd" />
             </svg>
 
-            <div class="absolute w-full border-b left-0 bottom-0"></div>
+            <div class="absolute w-full border-b left-0 bottom-0" />
         </div>
     </div>
 </template>
@@ -147,10 +150,9 @@ export default defineComponent({
             }
         });
 
-        const onlyNumber = (event: any) => {
-            let keyCode = (event.keyCode ? event.keyCode : event.which);
-
-            if ((keyCode < 48 || keyCode > 57) && keyCode !== 46) { // 46 is dot
+        // Assert the key was either a digit or period.
+        const onlyNumber = (event: KeyboardEvent) => {
+            if (!/(?=\d|\.)/.test(event.key)) {
                 event.preventDefault();
             }
         };
