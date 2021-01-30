@@ -59,9 +59,9 @@ describe('UINumber', () => {
         const input = wrapper.get('input');
         const label = wrapper.get('label');
 
-        expect(input.attributes().id).toStrictEqual(name);
-        expect(input.attributes().name).toStrictEqual(name);
-        expect(label.attributes().for).toStrictEqual(name);
+        expect(input.attributes().id).toBe(name);
+        expect(input.attributes().name).toBe(name);
+        expect(label.attributes().for).toBe(name);
     });
 
     it('should correctly display the label when passed as a prop', () => {
@@ -75,7 +75,7 @@ describe('UINumber', () => {
             }
         });
 
-        expect(wrapper.get('label').text()).toStrictEqual(label);
+        expect(wrapper.get('label').text()).toBe(label);
     });
 
     it('should correctly display the prefix when passed as a slot', () => {
@@ -91,7 +91,7 @@ describe('UINumber', () => {
             }
         });
 
-        expect(wrapper.get('.prefix').text()).toStrictEqual(prefix);
+        expect(wrapper.get('.prefix').text()).toBe(prefix);
     });
 
     it('should correctly display the prefix when passed as a prop', () => {
@@ -105,7 +105,7 @@ describe('UINumber', () => {
             }
         });
 
-        expect(wrapper.get('.prefix').text()).toStrictEqual(prefix);
+        expect(wrapper.get('.prefix').text()).toBe(prefix);
     });
 
     it('should correctly display the suffix when passed as a slot', () => {
@@ -121,7 +121,7 @@ describe('UINumber', () => {
             }
         });
 
-        expect(wrapper.get('.suffix').text()).toStrictEqual(suffix);
+        expect(wrapper.get('.suffix').text()).toBe(suffix);
     });
 
     it('should correctly display the suffix when passed as a prop', () => {
@@ -135,7 +135,7 @@ describe('UINumber', () => {
             }
         });
 
-        expect(wrapper.get('.suffix').text()).toStrictEqual(suffix);
+        expect(wrapper.get('.suffix').text()).toBe(suffix);
     });
 
     it('should autofocus on the input when the prop is provided', async() => {
@@ -155,5 +155,53 @@ describe('UINumber', () => {
         });
 
         expect(wrapper.get('input').element).toBe(document.activeElement);
+    });
+
+    it('should bind the min prop to the element', () => {
+        const min = 10;
+
+        const wrapper = mount(UINumber, {
+            props: {
+                modelValue: 0,
+                name: 'input',
+                min
+            }
+        });
+
+        const minAttr = Number(wrapper.get('input').attributes().min);
+
+        expect(minAttr).toBe(min);
+    });
+
+    it('should bind the max prop to the element', () => {
+        const max = 10;
+
+        const wrapper = mount(UINumber, {
+            props: {
+                modelValue: 0,
+                name: 'input',
+                max
+            }
+        });
+
+        const maxAttr = Number(wrapper.get('input').attributes().max);
+
+        expect(maxAttr).toBe(max);
+    });
+
+    it('should bind the step prop to the element', () => {
+        const step = 10;
+
+        const wrapper = mount(UINumber, {
+            props: {
+                modelValue: 0,
+                name: 'input',
+                step
+            }
+        });
+
+        const stepAttr = Number(wrapper.get('input').attributes().step);
+
+        expect(stepAttr).toBe(step);
     });
 });
