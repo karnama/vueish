@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, watch } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 
 export default defineComponent({
     name: 'UINumber',
@@ -130,8 +130,8 @@ export default defineComponent({
 
     emits: ['update:modelValue'],
 
-    setup(props, { emit }) {
-        const input = ref('');
+    setup(props) {
+        const input = ref<HTMLInputElement>(null);
 
         /**
          * Focus on the input.
