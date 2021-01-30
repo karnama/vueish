@@ -52,6 +52,8 @@ import { defineComponent, onMounted, ref, watch } from 'vue';
 export default defineComponent({
     name: 'UINumber',
 
+    inheritAttrs: false,
+
     props: {
         /**
          * Bound value.
