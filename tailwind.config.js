@@ -23,6 +23,10 @@ const brandColors = (levels) => {
 module.exports = {
     purge: ['./index.html', './src/**/*.{vue,ts,tsx}'],
     theme: {
+        borderColor: theme => ({
+            ...theme('colors'),
+            DEFAULT: theme('colors.gray.400', 'currentColor'),
+        }),
         extend: {
             colors: {
                 ...brandColors([50, 100, 200, 300, 400, 500, 600, 700, 800, 900])
