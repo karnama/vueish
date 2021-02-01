@@ -1,5 +1,8 @@
 <template>
-    <UIPanel non-collapsible closed :loading="loading" class="group bg-white">
+    <UIPanel non-collapsible
+             closed
+             :loading="loading"
+             class="group bg-white">
         <template #header>
             Non-Collapsible Panel
         </template>

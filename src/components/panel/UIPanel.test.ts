@@ -48,7 +48,7 @@ describe('UIPanel', () => {
         expect(wrapper.html()).toContain('footer content');
     });
 
-    it('should display the default slot content', async () => {
+    it('should display the default slot content', () => {
         const wrapper = mount(UIPanel, {
             props: {},
             slots: {
