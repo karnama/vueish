@@ -24,7 +24,7 @@
 
         <UIExpandTransition :appear="appear">
             <div v-show="mutableOpen">
-                <main class="w-full px-12 py-6 text-base text-gray-700">
+                <main class="w-full px-12 py-6 text-gray-700">
                     <slot />
                 </main>
 
@@ -40,8 +40,8 @@
 import UIFadeTransition from '../transitions/UIFadeTransition.vue';
 import UIExpandTransition from '../transitions/UIExpandTransition.vue';
 import UILinearLoader from '../loader-linear/UILinearLoader.vue';
-import LocalCache from '../../helpers/LocalCache';
-import { defineComponent, ref, computed, onMounted, onUpdated } from 'vue';
+import LocalCache from '../../helpers/cache/LocalCache';
+import { defineComponent, ref, computed, watch, onMounted, onUpdated } from 'vue';
 import type { SetupContext } from 'vue';
 import { SetupArg, SetupReturn } from '../../types';
 
@@ -103,7 +103,8 @@ export default defineComponent({
         const headerShown = ref(false);
         const footerShown = ref(false);
         const collapsible = computed(() => ctx.slots.header ? !props.nonCollapsible : false);
-        const mutableOpen = ref(!ctx.slots.header || !collapsible.value ? true : !!props.closed);
+        const mutableOpen = ref(!ctx.slots.header || !collapsible.value ? true : !props.closed);
+        watch(() => props.closed, () => mutableOpen.value = !props.closed);
 
         if (props.id) {
             cache = new LocalCache('panel_' + String(props.id));

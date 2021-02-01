@@ -1,71 +1,110 @@
 import { mount } from '@vue/test-utils';
 import UIPanel from './UIPanel.vue';
+import { nextTick } from 'vue';
 
 describe('UIPanel', () => {
     it('should render', () => {
         const wrapper = mount(UIPanel, {
-            props: {},
-            shallow: true
+            props: {}
         });
 
         expect(wrapper).toBeDefined();
         expect(wrapper.exists()).toBe(true);
     });
 
-    it('should display the actions slot when action content when given', () => {
+    it('should display the actions slot when action content when given', async () => {
         const wrapper = mount(UIPanel, {
             props: {},
             slots: {
                 actions: 'action content'
             }
         });
+        await nextTick();
 
         expect(wrapper.html()).toContain('action content');
     });
 
-    it('should display the header slot content', () => {
+    it('should display the header slot content when slot content given', async () => {
         const wrapper = mount(UIPanel, {
             props: {},
-            shallow: true
+            slots: {
+                header: 'header content'
+            }
         });
-        // wrapper.see(options.slots.header);
+        await nextTick();
+
+        expect(wrapper.html()).toContain('header content');
     });
 
-    it('should display the footer slot content', () => {
+    it('should display the footer slot when footer content is given', async () => {
         const wrapper = mount(UIPanel, {
             props: {},
-            shallow: true
+            slots: {
+                footer: 'footer content'
+            }
         });
-        // wrapper.see(options.slots.footer);
+        await nextTick();
+
+        expect(wrapper.html()).toContain('footer content');
     });
 
-    it('should display the default slot content', () => {
+    it('should display the default slot content', async () => {
         const wrapper = mount(UIPanel, {
             props: {},
-            shallow: true
+            slots: {
+                default: 'default content'
+            }
         });
-        // wrapper.see(options.slots.default);
+
+        expect(wrapper.html()).toContain('default content');
     });
 
-    it.skip('can be closed/opened by a prop', () => {
+    it('should close/open by a prop', async () => {
         const wrapper = mount(UIPanel, {
-            props: {},
-            shallow: true
+            slots: {
+                default: '<div id="default"/>'
+            }
         });
+
+        expect(wrapper.find('#default').isVisible()).toBe(true);
+        await wrapper.setProps({
+            closed: true
+        });
+        expect(wrapper.find('#default').isVisible()).toBe(false);
     });
 
-    it('can be collapsed by clicking the header', () => {
+    it('should close and open by clicking on the header', async () => {
         const wrapper = mount(UIPanel, {
-            props: {},
-            shallow: true
+            slots: {
+                header: '<div id="header" />',
+                default: '<div id="default" />'
+            }
         });
+        await nextTick();
+
+        expect(wrapper.find('#default').isVisible()).toBe(true);
+        await wrapper.find('#header').trigger('click');
+        expect(wrapper.find('#default').isVisible()).toBe(false);
+        await wrapper.find('#header').trigger('click');
+        expect(wrapper.find('#default').isVisible()).toBe(true);
+
     });
 
-    it('collapsible behavior can be disabled', () => {
+    it('should disable the collapsible behavior when prop given', async () => {
         const wrapper = mount(UIPanel, {
-            props: {},
-            shallow: true
+            slots: {
+                header: '<div id="header" />',
+                default: '<div id="default" />'
+            },
+            props: {
+                nonCollapsible: true
+            }
         });
+        await nextTick();
+
+        expect(wrapper.find('#default').isVisible()).toBe(true);
+        await wrapper.find('#header').trigger('click');
+        expect(wrapper.find('#default').isVisible()).toBe(true);
 
     });
 });

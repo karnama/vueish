@@ -45,7 +45,10 @@
         </template>
     </UIPanel>
 
-    <UIPanel class="mt-10 bg-white" closed :non-collapsible="false" :loading="loading">
+    <UIPanel class="mt-10 bg-white"
+             closed
+             :non-collapsible="false"
+             :loading="loading">
         <p>Without header -> cannot be collapsed regardless of props</p>
         <p>Without footer</p>
     </UIPanel>
@@ -58,19 +61,19 @@
 
 <script lang="ts">
 import UIPanel from './UIPanel.vue';
-import {defineComponent, ref} from 'vue';
+import { defineComponent, ref } from 'vue';
 import UIButton from '../button/UIButton.vue';
 
 export default defineComponent({
     name: 'Panel',
 
-    components: {UIButton, UIPanel},
+    components: { UIButton, UIPanel },
 
     setup() {
         const loading = ref(false);
         const collapsible = ref(true);
 
-        return {loading, collapsible};
+        return { loading, collapsible };
     }
 });
 </script>
