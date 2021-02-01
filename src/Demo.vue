@@ -14,8 +14,10 @@
                 </div>
             </div>
 
-            <div class="flex-1 h-screen container mx-auto bg-gray-50 h-full themed light p-10">
-                <router-view />
+            <div class="flex-auto h-screen mx-auto bg-gray-100 themed light p-10">
+                <div class="container">
+                    <router-view />
+                </div>
             </div>
         </div>
     </main>
