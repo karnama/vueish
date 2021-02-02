@@ -60,7 +60,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineComponent } from 'vue';
 import { SetupReturn } from '../../types';
 import { autofocus, label, prefix, suffix, useAutofocus, useClearModelValue } from '../../composables/input/input';
 import { onlyNumber } from './UIText';
