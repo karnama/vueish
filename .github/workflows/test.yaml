@@ -2,6 +2,11 @@ name: Test
 
 on:
     pull_request:
+        paths:
+            - '**/*.ts'
+            - '**/*.vue'
+            - 'tsconfig*.json'
+            - 'jest.config.ts'
         branches:
             - main
 
