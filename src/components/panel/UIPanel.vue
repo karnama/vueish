@@ -58,7 +58,7 @@ export default defineComponent({
 
     props: {
         /**
-         * Boolean flag to indicate the panel is open.
+         * Boolean flag to indicate the panel should start closed.
          */
         closed: {
             type: Boolean,
