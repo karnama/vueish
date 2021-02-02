@@ -15,7 +15,7 @@
     },
     "scripts": {
         "dev": "vite",
-        "build": "vuedx-typecheck . && vite build",
+        "build": "vuedx-typecheck src --no-pretty && vite build",
         "test": "jest",
         "lint": "eslint . --fix --ext .ts,.vue,.tsx"
     },
