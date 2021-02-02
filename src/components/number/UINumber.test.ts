@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import UINumber from '@components/button/UINumber.vue';
+import UINumber from './UINumber.vue';
 
 describe('UINumber', () => {
     it('should handle model-binding correctly', async() => {
