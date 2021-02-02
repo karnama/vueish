@@ -40,20 +40,6 @@ export function useClearModelValue(emit: (a: string, b: any) => void): () => voi
 }
 
 /**
- * Bound value.
- *
- * TODO: When exported from setup the usage in the template cannot find the prop.
- */
-export function useModelProp(type: NumberConstructor | StringConstructor | BooleanConstructor): any {
-    return {
-        modelValue: {
-            type,
-            required: true
-        }
-    };
-}
-
-/**
  * Configure the input to use autofocus.
  *
  * @param {boolean} autofocus

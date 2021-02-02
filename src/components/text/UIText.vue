@@ -17,7 +17,6 @@
                        class="flex-1 appearance-none bg-transparent transition-border-color leading-tight
                        focus:outline-none rounded-none transition-text-color pb-2 disabled:cursor-not-allowed
                        disabled:text-gray-400"
-                       :name="$attrs.name"
                        :value="modelValue"
                        @input="$emit('update:modelValue', $event.target.value)"
                        @keydown="handleKeydown">
@@ -41,7 +40,7 @@
                       clip-rule="evenodd" />
             </svg>
 
-            <svg v-else-if="modelValue && $attrs.type !== 'number'"
+            <svg v-else-if="modelValue && !isNumber"
                  class="clear-icon h-5 w-5 absolute cursor-pointer right-0 top-1 opacity-0
                  group-hover:opacity-100 transition-opacity text-gray-500"
                  xmlns="http://www.w3.org/2000/svg"
@@ -61,17 +60,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import { SetupReturn } from '../../types';
-import {
-    autofocus,
-    label,
-    useClearModelValue,
-    useAutofocus,
-    prefix,
-    suffix,
-    useModelProp
-} from '../../composables/input/input';
+import { autofocus, label, prefix, suffix, useAutofocus, useClearModelValue } from '../../composables/input/input';
 import { onlyNumber } from './UIText';
 
 export default defineComponent({
@@ -80,7 +71,11 @@ export default defineComponent({
     inheritAttrs: false,
 
     props: {
-        ...useModelProp(),
+        modelValue: {
+            type: [String, Number],
+            required: true
+        },
+
         prefix,
         suffix,
         label,
@@ -92,7 +87,7 @@ export default defineComponent({
     setup(props, { emit, attrs }): SetupReturn {
         const input = useAutofocus(props.autofocus);
         const clearInput = useClearModelValue(emit);
-        const isNumber = ref(attrs.type === 'number');
+        const isNumber = computed(() => attrs.type === 'number');
         const handleKeydown = (event: KeyboardEvent) => isNumber.value && onlyNumber(event);
 
         return { input, clearInput, handleKeydown, isNumber };
