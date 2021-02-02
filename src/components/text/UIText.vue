@@ -18,7 +18,7 @@
                        focus:outline-none rounded-none transition-text-color pb-2 disabled:cursor-not-allowed
                        disabled:text-gray-400"
                        :value="modelValue"
-                       @input="$emit('update:modelValue', $event.target.value)"
+                       @input="$emit('update:modelValue', $event.target.value, 5433)"
                        @keydown="handleKeydown">
                 <span v-if="suffix ?? $slots.suffix"
                       class="suffix ml-1 absolute right-0"
@@ -62,7 +62,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
 import { SetupReturn } from '../../types';
-import { autofocus, label, prefix, suffix, useAutofocus, useClearModelValue } from '../../composables/input/input';
+import { autofocus, label, prefix, suffix, autofocusElement, useClearModelValue } from '../../composables/input/input';
 import { onlyNumber } from './UIText';
 
 export default defineComponent({
@@ -85,13 +85,18 @@ export default defineComponent({
     emits: ['update:modelValue'],
 
     setup(props, { emit, attrs }): SetupReturn {
-        const input = ref<HTMLInputElement | null>(null);
+        const input = ref<HTMLInputElement>();
         const clearInput = useClearModelValue(emit);
         const isNumber = computed(() => attrs.type === 'number');
         const handleKeydown = (event: KeyboardEvent) => isNumber.value && onlyNumber(event);
-        useAutofocus(props.autofocus, input);
+        autofocusElement(props.autofocus, input);
 
-        return { input, clearInput, handleKeydown, isNumber };
+        return {
+            input,
+            clearInput,
+            handleKeydown,
+            isNumber
+        };
     }
 });
 </script>

@@ -34,9 +34,13 @@ export const suffix = {
  * Emit an event to clear the input value.
  *
  * @param emit
+ * @param clearVal
  */
-export function useClearModelValue(emit: (a: string, b: any) => void): () => void {
-    return () => emit('update:modelValue', '');
+export function useClearModelValue(
+    emit: ((a: 'update:modelValue', ...args: any[]) => void),
+    clearVal: any = ''
+): () => void {
+    return () => emit('update:modelValue', clearVal);
 }
 
 /**
@@ -45,14 +49,14 @@ export function useClearModelValue(emit: (a: string, b: any) => void): () => voi
  * @param {boolean} autofocus
  * @param {Ref?} input
  */
-export function useAutofocus(autofocus: boolean, input: Ref): Ref {
-    if (autofocus) {
-        onMounted(() => {
-            if (input.value) {
-                input.value.focus();
-            }
-        });
+export function autofocusElement(autofocus: boolean, input: Ref<HTMLInputElement | undefined>): void {
+    if (input) {
+        if (autofocus) {
+            onMounted(() => {
+                if (input.value) {
+                    input.value.focus();
+                }
+            });
+        }
     }
-
-    return input;
 }
