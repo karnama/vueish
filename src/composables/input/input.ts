@@ -45,16 +45,10 @@ export function useClearModelValue(emit: (a: string, b: any) => void): () => voi
  * @param {boolean} autofocus
  * @param {Ref?} input
  */
-export function useAutofocus(autofocus: boolean, input?: Ref): Ref {
-    if (!input) {
-        input = ref<HTMLInputElement | null>(null);
-    }
-
+export function useAutofocus(autofocus: boolean, input: Ref): Ref {
     if (autofocus) {
         onMounted(() => {
-            // @ts-expect-error
             if (input.value) {
-                // @ts-expect-error
                 input.value.focus();
             }
         });

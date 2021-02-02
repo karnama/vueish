@@ -60,7 +60,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import { SetupReturn } from '../../types';
 import { autofocus, label, prefix, suffix, useAutofocus, useClearModelValue } from '../../composables/input/input';
 import { onlyNumber } from './UIText';
@@ -85,10 +85,11 @@ export default defineComponent({
     emits: ['update:modelValue'],
 
     setup(props, { emit, attrs }): SetupReturn {
-        const input = useAutofocus(props.autofocus);
+        const input = ref<HTMLInputElement | null>(null);
         const clearInput = useClearModelValue(emit);
         const isNumber = computed(() => attrs.type === 'number');
         const handleKeydown = (event: KeyboardEvent) => isNumber.value && onlyNumber(event);
+        useAutofocus(props.autofocus, input);
 
         return { input, clearInput, handleKeydown, isNumber };
     }
