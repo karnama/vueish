@@ -87,13 +87,13 @@ export default defineComponent({
     components: { UIText },
     setup() {
         const text = ref('I\'m a text input!');
-        const disabled = 'Can\'t touch this!';
-        const number = 123;
-        const password = 'password123';
-        const prefixProp = 'Because';
-        const prefixSlot = 'Billions';
-        const suffixProp = '100';
-        const suffixSlot = 'Feather-weight';
+        const disabled = ref('Can\'t touch this!');
+        const number = ref(123);
+        const password = ref('password123');
+        const prefixProp = ref('Because');
+        const prefixSlot = ref('Billions');
+        const suffixProp = ref('100');
+        const suffixSlot = ref('Feather-weight');
 
         return {
             text,
