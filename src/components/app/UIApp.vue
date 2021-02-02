@@ -16,7 +16,7 @@ export default defineComponent({
     },
 
     render() {
-        return this.$slots.default();
+        return this.$slots?.default instanceof Function ? this.$slots.default() : '';
     }
 });
 </script>

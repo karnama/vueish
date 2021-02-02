@@ -9,14 +9,12 @@ describe('UIApp', () => {
     });
 
     it('should render the child components', () => {
-        mount(UIApp, {
+        const wrapper = mount(UIApp, {
             slots: {
-                default: {
-                    template: '<div id="child" />'
-                }
+                default: 'content'
             }
         });
 
-        expect(document.getElementById('child')).not.toBeUndefined();
+        expect(wrapper.html()).toContain('content');
     });
 });
