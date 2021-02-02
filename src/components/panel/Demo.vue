@@ -1,6 +1,7 @@
 <template>
     <UIPanel non-collapsible
              closed
+             appear
              :loading="loading"
              class="group bg-white">
         <template #header>
@@ -24,6 +25,7 @@
 
     <UIPanel id="collapsible-panel"
              closed
+             appear
              class="mt-10 bg-white"
              :loading="loading">
         <template #header>

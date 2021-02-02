@@ -1,12 +1,12 @@
 <template>
     <section :id="id"
              class="ui-panel rounded shadow-md bg-default relative transition-all"
-             :class="{ 'hover:shadow-lg': !mutableOpen }">
+             :class="{ 'hover:shadow-lg': !open }">
         <UIFadeTransition>
             <UILinearLoader v-if="loading" class="absolute rounded-t" />
         </UIFadeTransition>
 
-        <header v-if="headerShown"
+        <header v-if="$slots.header || $slots.actions"
                 class="w-full flex items-center px-12 relative transition-all">
             <h1 class="select-none flex-grow py-8"
                 :class="{
@@ -16,19 +16,18 @@
                 <slot name="header" />
             </h1>
 
-
-            <div v-if="mutableOpen" class="my-2">
+            <div v-if="open" class="my-2">
                 <slot name="actions" />
             </div>
         </header>
 
         <UIExpandTransition :appear="appear">
-            <div v-show="mutableOpen">
+            <div v-show="open">
                 <main class="w-full px-12 py-6 text-gray-700">
                     <slot />
                 </main>
 
-                <footer v-if="footerShown" class="py-8 px-12 flex items-center">
+                <footer v-if="$slots.footer" class="py-8 px-12 flex items-center">
                     <slot name="footer" />
                 </footer>
             </div>
@@ -41,7 +40,7 @@ import UIFadeTransition from '../transitions/UIFadeTransition.vue';
 import UIExpandTransition from '../transitions/UIExpandTransition.vue';
 import UILinearLoader from '../loader-linear/UILinearLoader.vue';
 import LocalCache from '../../helpers/cache/LocalCache';
-import { defineComponent, ref, computed, watch, onMounted, onUpdated } from 'vue';
+import { defineComponent, ref, computed, watch } from 'vue';
 import type { SetupContext } from 'vue';
 import { SetupArg, SetupReturn } from '../../types';
 
@@ -100,17 +99,15 @@ export default defineComponent({
     },
 
     setup(props: SetupArg, ctx: SetupContext): SetupReturn {
-        const headerShown = ref(false);
-        const footerShown = ref(false);
         const collapsible = computed(() => ctx.slots.header ? !props.nonCollapsible : false);
-        const mutableOpen = ref(!ctx.slots.header || !collapsible.value ? true : !props.closed);
-        watch(() => props.closed, () => mutableOpen.value = !props.closed);
+        const open = ref(!ctx.slots.header || !collapsible.value ? true : !props.closed);
+        watch(() => props.closed, () => open.value = !props.closed);
 
         if (props.id) {
             cache = new LocalCache('panel_' + String(props.id));
 
             if (collapsible.value) {
-                mutableOpen.value = cache.get<boolean>('isOpen', mutableOpen.value )!;
+                open.value = cache.get<boolean>('isOpen', open.value )!;
             }
         }
 
@@ -122,29 +119,15 @@ export default defineComponent({
                 return;
             }
 
-            mutableOpen.value = !mutableOpen.value;
+            open.value = !open.value;
 
             if (cache) {
-                cache.set('isOpen', mutableOpen.value);
+                cache.set('isOpen', open.value);
             }
         };
 
-        /**
-         * Check for slot changes. Doing this allows us to
-         * programmatically add and remove the header/footer slots.
-         */
-        const checkSlots = (): void => {
-            headerShown.value = !!ctx.slots.header || !!ctx.slots.actions;
-            footerShown.value = !!ctx.slots.footer;
-        };
-
-        onMounted(checkSlots);
-        onUpdated(checkSlots);
-
         return {
-            headerShown,
-            footerShown,
-            mutableOpen,
+            open,
             toggle,
             collapsible
         };
