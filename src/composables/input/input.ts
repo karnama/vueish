@@ -59,13 +59,11 @@ export function useClearModelValue(
  * @param {Ref?} input
  */
 export function autofocusElement(autofocus: boolean, input: Ref<HTMLInputElement | undefined>): void {
-    if (input) {
-        if (autofocus) {
-            onMounted(() => {
-                if (input.value) {
-                    input.value.focus();
-                }
-            });
-        }
+    if (input && autofocus) {
+        onMounted(() => {
+            if (input.value) {
+                input.value.focus();
+            }
+        });
     }
 }
