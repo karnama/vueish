@@ -110,12 +110,10 @@ describe('UIText', () => {
     });
 
     it('should not show the clear icon if no-clear is provided', () => {
-        const modelValue = 'Hello World';
-
         const wrapper = mount(UIText, {
             props: {
                 name: 'input',
-                modelValue,
+                modelValue: 'Hello World',
                 noClear: true
             }
         });
