@@ -25,11 +25,14 @@ module.exports = {
     theme: {
         borderColor: theme => ({
             ...theme('colors'),
-            DEFAULT: theme('colors.gray.400', 'currentColor'),
+            DEFAULT: theme('colors.gray.400', 'currentColor')
         }),
         extend: {
             colors: {
                 ...brandColors([50, 100, 200, 300, 400, 500, 600, 700, 800, 900])
+            },
+            transitionProperty: {
+                'spacing': 'margin, padding'
             }
         }
     },
@@ -39,7 +42,8 @@ module.exports = {
             opacity: ['disabled'],
             cursor: ['disabled'],
             backgroundOpacity: ['disabled'],
-            textColor: ['disabled']
+            textColor: ['disabled'],
+            margin: ['group-hover']
         }
     }
 };
