@@ -68,7 +68,7 @@ import {
     label,
     prefix,
     suffix,
-    useAutofocus,
+    autofocusElement,
     useClearModelValue,
     noClear
 } from '../../composables/input/input';
@@ -95,13 +95,18 @@ export default defineComponent({
     emits: ['update:modelValue'],
 
     setup(props, { emit, attrs }): SetupReturn {
-        const input = ref<HTMLInputElement | null>(null);
+        const input = ref<HTMLInputElement>();
         const clearInput = useClearModelValue(emit);
         const isNumber = computed(() => attrs.type === 'number');
         const handleKeydown = (event: KeyboardEvent) => isNumber.value && onlyNumber(event);
-        useAutofocus(props.autofocus, input);
+        autofocusElement(props.autofocus, input);
 
-        return { input, clearInput, handleKeydown, isNumber };
+        return {
+            input,
+            clearInput,
+            handleKeydown,
+            isNumber
+        };
     }
 });
 </script>

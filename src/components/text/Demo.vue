@@ -9,7 +9,6 @@
                 <UIText v-model="text"
                         name="ui-text"
                         label="Standard"
-                        autofocus
                         no-clear />
                 <small class="mt-3">Output: </small>
                 <small>{{ text }}</small>
@@ -18,6 +17,7 @@
             <UIText v-model="number"
                     name="ui-text4"
                     type="number"
+                    autofocus
                     label="Number" />
 
             <UIText v-model="password"
