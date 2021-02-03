@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
-import { SetupArg } from '../../types';
+import { SetupArg } from '@/types';
 
 export default defineComponent({
     name: 'UILinearLoader',

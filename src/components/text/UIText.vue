@@ -62,7 +62,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import { SetupReturn } from '../../types';
+import { SetupReturn } from '@/types';
 import {
     autofocus,
     label,
@@ -71,7 +71,7 @@ import {
     autofocusElement,
     useClearModelValue,
     noClear
-} from '../../composables/input/input';
+} from '@composables/input/input';
 import { onlyNumber } from './UIText';
 
 export default defineComponent({
