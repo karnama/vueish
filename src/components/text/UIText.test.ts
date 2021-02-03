@@ -46,7 +46,7 @@ describe('UIText', () => {
     });
 
     it('should correctly assign the name prop', () => {
-        const name = 'name';
+        const name = 'input';
 
         const wrapper = mount(UIText, {
             props: {
