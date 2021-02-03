@@ -31,6 +31,15 @@ export const suffix = {
 };
 
 /**
+ * Prevents the clear model value option from
+ * appearing.
+ */
+export const noClear = {
+    type: Boolean,
+    default: false
+};
+
+/**
  * Emit an event to clear the input value.
  *
  * @param emit

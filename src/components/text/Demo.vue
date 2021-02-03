@@ -9,7 +9,8 @@
                 <UIText v-model="text"
                         name="ui-text"
                         label="Standard"
-                        autofocus />
+                        autofocus
+                        no-clear />
                 <small class="mt-3">Output: </small>
                 <small>{{ text }}</small>
             </div>
