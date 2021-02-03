@@ -1,4 +1,4 @@
-import { onMounted, ref, Ref } from 'vue';
+import { onMounted, Ref } from 'vue';
 
 /**
  * The input label.

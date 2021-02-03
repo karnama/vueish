@@ -109,7 +109,7 @@ describe('UIText', () => {
         expect(wrapper.get('input').element).toBe(document.activeElement);
     });
 
-    it('should not show the clear icon if no-clear is provided', async() => {
+    it('should not show the clear icon if no-clear is provided', () => {
         const modelValue = 'Hello World';
 
         const wrapper = mount(UIText, {
@@ -123,7 +123,7 @@ describe('UIText', () => {
         expect(wrapper.find('.clear-icon').exists()).toBe(false);
     });
 
-    it('should not show the clear icon if there is no value', async() => {
+    it('should not show the clear icon if there is no value', () => {
         const wrapper = mount(UIText, {
             props: {
                 name: 'input',
