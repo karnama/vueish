@@ -1,5 +1,5 @@
 <template>
-    <UIPanel non-collapsible
+    <UIPanel no-collapse
              closed
              appear
              :loading="loading"
@@ -52,7 +52,7 @@
 
     <UIPanel class="mt-10 bg-white"
              closed
-             :non-collapsible="false"
+             :no-collapse="false"
              :loading="loading">
         <p>Without header -> cannot be collapsed regardless of props</p>
         <p>Without footer</p>

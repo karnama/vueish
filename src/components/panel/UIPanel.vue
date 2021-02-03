@@ -67,7 +67,7 @@ export default defineComponent({
         /**
          * Boolean flag to indicate if the panel is collapsible.
          */
-        nonCollapsible: {
+        noCollapse: {
             type: Boolean,
             default: false
         },
@@ -99,7 +99,7 @@ export default defineComponent({
     },
 
     setup(props: SetupArg, ctx: SetupContext): SetupReturn {
-        const collapsible = computed(() => ctx.slots.header ? !props.nonCollapsible : false);
+        const collapsible = computed(() => ctx.slots.header ? !props.noCollapse : false);
         const open = ref(!ctx.slots.header || !collapsible.value ? true : !props.closed);
         watch(() => props.closed, () => open.value = !props.closed);
 

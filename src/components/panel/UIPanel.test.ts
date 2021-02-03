@@ -97,7 +97,7 @@ describe('UIPanel', () => {
                 default: '<div id="default" />'
             },
             props: {
-                nonCollapsible: true
+                noCollapse: true
             }
         });
         await nextTick();
