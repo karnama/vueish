@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { SetupReturn } from '../../types';
+import { SetupReturn } from '@/types';
 
 export default {
     name: 'UIExpandTransition',
@@ -90,10 +90,12 @@ export default {
 * {
     backface-visibility: hidden;
 }
+
 .expand-enter-active {
     overflow: hidden;
     transition: height 200ms ease, opacity 200ms ease 100ms;
 }
+
 .expand-leave-active {
     overflow: hidden;
     transition: height 200ms ease 100ms, opacity 200ms ease;

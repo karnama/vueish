@@ -9,9 +9,18 @@
         "sourceMap": true,
         "baseUrl": ".",
         "paths": {
-            "@/*": ["src/*"],
-            "@components/*": ["src/components/*"],
-            "@helpers/*": ["src/helpers/*"]
+            "@/*": [
+                "src/*"
+            ],
+            "@components/*": [
+                "src/components/*"
+            ],
+            "@helpers/*": [
+                "src/helpers/*"
+            ],
+            "@composables/*": [
+                "src/composables/*"
+            ]
         },
         "lib": [
             "esnext",

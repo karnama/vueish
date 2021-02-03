@@ -6,7 +6,8 @@ export default defineConfig({
     alias: {
         '@': path.resolve(__dirname, '/src'),
         '@components': path.resolve(__dirname, 'src/components'),
-        '@helpers': path.resolve(__dirname, 'src/helpers')
+        '@helpers': path.resolve(__dirname, 'src/helpers'),
+        '@composables': path.resolve(__dirname, 'src/composables')
     },
     build: {
         lib: {
