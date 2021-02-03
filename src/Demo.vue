@@ -14,19 +14,23 @@
                 </div>
             </div>
 
-            <div class="flex-auto h-screen mx-auto bg-gray-100 themed light p-10">
-                <div class="container">
+            <UIApp>
+                <div class="flex-1 h-screen container mx-auto bg-gray-50 h-full themed light p-10">
                     <router-view />
                 </div>
-            </div>
+            </UIApp>
         </div>
     </main>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import UIApp from '@components/app/UIApp.vue';
 
-export default defineComponent({ name: 'Demo' });
+export default defineComponent({
+    name: 'Demo',
+    components: { UIApp }
+});
 </script>
 
 <style>
