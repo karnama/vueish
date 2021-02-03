@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import UINumber from './UINumber.vue';
 
 describe('UINumber', () => {
-    it('should handle model-binding correctly', async() => {
+    it('should handle model-binding correctly', async () => {
         const wrapper = mount({
             template: '<div><UINumber v-model="input" name="input"/></div>',
             components: { UINumber },
@@ -29,7 +29,7 @@ describe('UINumber', () => {
         expect(wrapper.get('input').attributes().disabled).toBeUndefined();
     });
 
-    it('should be disabled when the prop is provided so', async() => {
+    it('should be disabled when the prop is provided so', async () => {
         const wrapper = mount(UINumber, {
             props: {
                 modelValue: 0,
