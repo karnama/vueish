@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import UIText from './UIText.vue';
 
 describe('UIText', () => {
-    it('should handle model-binding correctly', async() => {
+    it('should handle model-binding correctly', async () => {
         const wrapper = mount({
             template: '<div><UIText v-model="input" name="input"/></div>',
             components: { UIText },
@@ -29,7 +29,7 @@ describe('UIText', () => {
         expect(wrapper.get('input').attributes().disabled).toBeUndefined();
     });
 
-    it('should be disabled when the prop is provided so', async() => {
+    it('should be disabled when the prop is provided so', async () => {
         const wrapper = mount(UIText, {
             props: {
                 modelValue: '',
@@ -132,7 +132,7 @@ describe('UIText', () => {
         expect(wrapper.find('.clear-icon').exists()).toBe(false);
     });
 
-    it('should clear the value when the clear icon is clicked', async() => {
+    it('should clear the value when the clear icon is clicked', async () => {
         const modelValue = 'Hello World';
 
         const wrapper = mount(UIText, {

@@ -8,7 +8,7 @@ describe('UIButton', () => {
         expect(wrapper.get('button').attributes().disabled).toBeUndefined();
     });
 
-    it('should be disabled when the prop is provided', async() => {
+    it('should be disabled when the prop is provided', async () => {
         const wrapper = mount(UIButton, {
             props: {
                 disabled: false
@@ -22,7 +22,7 @@ describe('UIButton', () => {
         expect(button.attributes().disabled).not.toBeUndefined();
     });
 
-    it('should not trigger the click event when disabled', async() => {
+    it('should not trigger the click event when disabled', async () => {
         const mockFn = jest.fn();
 
         const wrapper = mount(UIButton, {
