@@ -125,8 +125,7 @@ describe('UIText', () => {
         const wrapper = mount(UIText, {
             props: {
                 name: 'input',
-                modelValue: '',
-                noClear: true
+                modelValue: ''
             }
         });
 
