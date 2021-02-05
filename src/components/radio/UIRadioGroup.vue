@@ -1,13 +1,13 @@
 <template>
     <div class="ui-radio-group">
-        <span class="text-sm text-gray-500">
+        <span class="label text-sm text-gray-500">
             <slot name="label">
                 {{ label }}
             </slot>
         </span>
 
         <div ref="slot"
-             class="flex pt-2"
+             class="slot flex pt-2"
              :class="horizontal ? 'space-x-6': 'flex-col space-y-4'">
             <slot />
         </div>
@@ -23,8 +23,7 @@ export default defineComponent({
 
     props: {
         modelValue: {
-            type: [String, Boolean, Number, Object, Array],
-            required: true
+            type: [String, Boolean, Number, Object, Array]
         },
 
         label,
@@ -59,13 +58,13 @@ export default defineComponent({
                 input.disabled = props.disabled;
             });
 
+            // Only need to set one to the group required status
             inputs[0].required = props.required;
 
             // Update the inputs on external change
-            watch(
-                () => props.modelValue,
-                value => inputs.forEach((input: HTMLInputElement) => input.checked = value === input.value)
-            );
+            watch(() => props.modelValue, value => inputs.forEach(input => input.checked = value === input.value));
+            watch(() => props.disabled, value => inputs.forEach(input => input.disabled = value));
+            watch(() => props.required, value => inputs[0].required = value);
         });
 
         return { slot };

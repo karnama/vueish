@@ -1,18 +1,15 @@
 <template>
-    <div class="ui-radio" :class="$attrs.class">
-        <label class="cursor-pointer relative flex items-center">
-            <input v-bind="$attrs"
-                   ref="input"
-                   type="radio"
-                   :value="value"
-                   class="hidden"
-                   @input="$emit('update:modelValue', $event.target.value)">
-            <span class="label relative float-left mr-2 h-5 w-5 border-2 rounded-full" />
-            <slot>
-                {{ label }}
-            </slot>
-        </label>
-    </div>
+    <label class="ui-radio cursor-pointer relative flex items-center">
+        <input v-bind="$attrs"
+               ref="input"
+               type="radio"
+               :value="value"
+               class="hidden">
+        <span class="label relative float-left mr-2 h-5 w-5 border-2 rounded-full" />
+        <slot>
+            {{ label }}
+        </slot>
+    </label>
 </template>
 
 <script lang="ts">
@@ -26,10 +23,11 @@ export default defineComponent({
 
     props: {
         label,
-        value: [String, Boolean, Array, Object, Number]
-    },
-
-    emits: ['update:modelValue']
+        value: {
+            type: [String, Boolean, Array, Object, Number],
+            required: true
+        }
+    }
 });
 </script>
 
@@ -51,7 +49,7 @@ export default defineComponent({
     }
 
 
-    label:hover input:enabled + .label:after {
+    &:hover input:enabled + .label:after {
         transform: scale(3.6);
     }
 
