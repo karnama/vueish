@@ -49,18 +49,13 @@ export default defineComponent({
             // Validate they exist
             if (!inputs || inputs.length < 2) {
                 throw Error('UIRadioGroup requires at least 2 UIRadio components present');
-```
             }
-
-            // Whether any are active
-            let active = false;
 
             // Set the attributes on each one
             inputs.forEach(input => {
                 input.onclick = updateValue;
                 input.name = attrs.name as string;
                 input.checked = props.modelValue === input.value;
-                active = input.checked || active;
                 input.disabled = props.disabled;
             });
 
