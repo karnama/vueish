@@ -36,8 +36,7 @@ export default defineComponent({
         const slot = ref<HTMLElement>();
 
         const updateValue = (event: MouseEvent) => {
-            const target = event.target as HTMLInputElement;
-            emit('update:modelValue', target.value);
+            emit('update:modelValue', (event.target as HTMLInputElement).value);
         };
 
         onMounted(() => {
