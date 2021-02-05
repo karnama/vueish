@@ -4,9 +4,7 @@ import { nextTick } from 'vue';
 
 describe('UIPanel', () => {
     it('should render', () => {
-        const wrapper = mount(UIPanel, {
-            props: {}
-        });
+        const wrapper = mount(UIPanel);
 
         expect(wrapper).toBeDefined();
         expect(wrapper.exists()).toBe(true);

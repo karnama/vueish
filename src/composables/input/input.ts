@@ -8,6 +8,22 @@ export const label = {
 };
 
 /**
+ * The input's disabled state.
+ */
+export const disabled = {
+    type: Boolean,
+    default: false
+};
+
+/**
+ * The input name.
+ */
+export const name = {
+    type: String,
+    required: true
+};
+
+/**
  * Replaces the standard HTML autofocus,
  * which only works on page load.
  */

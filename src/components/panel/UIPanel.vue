@@ -46,6 +46,7 @@ import { SetupArg, SetupReturn } from '../../types';
 
 let cache: LocalCache;
 
+//todo - update icon
 export default defineComponent({
     name: 'UIPanel',
 
