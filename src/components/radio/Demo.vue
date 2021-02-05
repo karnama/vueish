@@ -44,8 +44,9 @@
                          label="Male" />
                 <UIRadio value="female"
                          label="Female" />
-                <UIRadio value="other"
-                         label="Other" />
+                <UIRadio value="other">
+                    Other
+                </UIRadio>
             </UIRadioGroup>
         </div>
     </div>

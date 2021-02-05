@@ -8,7 +8,9 @@
                    class="hidden"
                    @input="$emit('update:modelValue', $event.target.value)">
             <span class="label relative float-left mr-2 h-5 w-5 border-2 rounded-full" />
-            {{ label }}
+            <slot>
+                {{ label }}
+            </slot>
         </label>
     </div>
 </template>
