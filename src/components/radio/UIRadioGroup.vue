@@ -48,7 +48,8 @@ export default defineComponent({
 
             // Validate they exist
             if (!inputs || inputs.length < 2) {
-                throw Error('UIRadioGroup requires at least 2 UIRadios present');
+                throw Error('UIRadioGroup requires at least 2 UIRadio components present');
+```
             }
 
             // Whether any are active
