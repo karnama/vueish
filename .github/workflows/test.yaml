@@ -1,0 +1,25 @@
+name: Test
+
+on:
+    pull_request:
+        paths:
+            - '**/*.ts'
+            - '**/*.vue'
+            - 'tsconfig*.json'
+            - 'jest.config.ts'
+            - 'package-lock.json'
+        branches:
+            - main
+
+jobs:
+    unit:
+        name: Unit
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v2
+              with:
+                  node-version: 15
+            - run: npm ci
+            - name: Tests
+              run: npm run test

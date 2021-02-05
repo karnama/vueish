@@ -3,9 +3,25 @@
         "target": "esnext",
         "module": "esnext",
         "moduleResolution": "node",
+        "resolveJsonModule": true,
         "strict": true,
         "jsx": "preserve",
         "sourceMap": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ],
+            "@components/*": [
+                "src/components/*"
+            ],
+            "@helpers/*": [
+                "src/helpers/*"
+            ],
+            "@composables/*": [
+                "src/composables/*"
+            ]
+        },
         "lib": [
             "esnext",
             "dom"

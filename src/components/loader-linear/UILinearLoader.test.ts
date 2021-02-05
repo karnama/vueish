@@ -19,7 +19,7 @@ describe('UILinearLoader', () => {
         expect(getComputedStyle(wrapper.element).height).toBe('5px');
     });
 
-    it('should calculate the correct width', async() => {
+    it('should calculate the correct width', async () => {
         await wrapper.setProps({ determinate: true });
         expect(wrapper.vm.width).toBe('10%');
     });
