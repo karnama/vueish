@@ -19,9 +19,11 @@
 
                 <!--Modal Close Icon-->
                 <template #actions>
-                    <i class="fa fa-times cursor-pointer text-muted
+                    <slot name="actions">
+                        <i class="fa fa-times cursor-pointer text-muted
                     hover:text-default transition-text-color show-on-hover"
-                       @click="close('cancel')">close</i>
+                           @click="close('cancel')">close</i>
+                    </slot>
                 </template>
 
                 <!--Modal Body-->
@@ -31,12 +33,14 @@
 
                 <!--Modal Footer-->
                 <template #footer>
-                    <UIButton class="ml-auto mr-2" @click="close('cancel')">
-                        {{ closeButtonLabel }}
-                    </UIButton>
-                    <UIButton type="primary" @click="close('accept')">
-                        {{ acceptButtonLabel }}
-                    </UIButton>
+                    <slot name="footer">
+                        <UIButton class="ml-auto mr-2" @click="close('cancel')">
+                            {{ closeButtonLabel }}
+                        </UIButton>
+                        <UIButton type="primary" @click="close('accept')">
+                            {{ acceptButtonLabel }}
+                        </UIButton>
+                    </slot>
                 </template>
             </UIPanel>
         </div>
@@ -47,7 +51,7 @@
 import { defineComponent, ref } from 'vue';
 import UIButton from '@components/button/UIButton.vue';
 import UIPanel from '@components/panel/UIPanel.vue';
-import {SetupArg, SetupReturn} from '@/types';
+import { SetupArg, SetupReturn } from '@/types';
 
 export default defineComponent({
     name: 'UIModal',
@@ -117,19 +121,36 @@ export default defineComponent({
         const isOpen = ref(false);
         const isVisible = ref(false);
 
-        const open = () => {
+        // const open = () => {
+        //     isOpen.value = true;
+        //     setTimeout(() => isVisible.value = true, 100);
+        // };
+        // const close = (event: 'accept' | 'cancel' = 'cancel'): void => {
+        //     isVisible.value = false;
+        //     setTimeout(() => isOpen.value = false, 100);
+        //     emit(event);
+        //
+        //     if (typeof props[event] === 'function') {
+        //         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        //         props[event]();
+        //     }
+        // };
+
+        const open = async (): Promise<void> => {
             isOpen.value = true;
-            setTimeout(() => isVisible.value = true, 100);
+            return new Promise(resolve => setTimeout(() => { isVisible.value = true; resolve(); }, 100));
         };
-        const close = (event: 'cancel' | 'accept'): void => {
+
+        const close = async (event: 'accept' | 'cancel' = 'cancel'): Promise<void> => {
             isVisible.value = false;
-            setTimeout(() => isOpen.value = false, 100);
             emit(event);
 
-            if (props[event] instanceof Function) {
+            if (typeof props[event] === 'function') {
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-call
                 props[event]();
             }
+
+            return new Promise(resolve => setTimeout(() => { isOpen.value = false; resolve(); }, 100));
         };
 
         return {
