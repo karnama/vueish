@@ -5,21 +5,22 @@
 
     <div class="mt-4 space-y-2">
         <h3>Checkboxes with array</h3>
-        <UICheckbox v-model="values" name="names" value="john">
+        <UICheckbox v-model="values" name="name1" value="john">
             John
         </UICheckbox>
-        <UICheckbox v-model="values" name="names" value="bruce">
+        <UICheckbox v-model="values" name="name2" value="bruce">
             Bruce
         </UICheckbox>
-        <p v-for="name in values" :key="name">
-            {{ name }}
+        <p>
+            modelValue:
+            {{ names }}
         </p>
     </div>
 </template>
 
 <script lang="ts">
 import UICheckbox from './UICheckbox.vue';
-import { defineComponent, ref } from 'vue';
+import {computed, defineComponent, ref} from 'vue';
 
 export default defineComponent({
     name: 'Checkbox',
@@ -27,7 +28,12 @@ export default defineComponent({
     setup() {
         const isChecked = ref(true);
         const values = ref<string[]>([]);
-        return { isChecked, values };
+        const names = computed(() => values.value.length ? '["' + values.value.join('", "') + '"]' : '[]');
+        return {
+            isChecked,
+            values,
+            names
+        };
     }
 });
 </script>

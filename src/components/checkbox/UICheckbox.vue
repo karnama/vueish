@@ -94,15 +94,7 @@ export default defineComponent({
 
             if (Array.isArray(modelValue)) {
                 if (isChecked.value) {
-                    let notFound = true;
-                    modelValue = modelValue.filter(value => {
-                        if (notFound) {
-                            return notFound = isEqual(value, props.value);
-                        }
-
-                        return false;
-                    });
-                    console.log(modelValue);
+                    modelValue = modelValue.filter(value =>  !isEqual(value, props.value));
                 } else {
                     modelValue.push(props.value);
                 }
