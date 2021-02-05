@@ -33,6 +33,7 @@ export default defineComponent({
     },
 
     setup() {
+        // eslint-disable-next-line no-console
         const callback = () => console.log('called');
 
         return { callback };
