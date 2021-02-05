@@ -29,6 +29,7 @@
                     </slot>
                 </span>
 
+                <!--Lock icon-->
                 <svg v-if="$attrs.disabled === true || $attrs.disabled === ''"
                      class="h-5 w-5 text-gray-400 right-0 top-1"
                      xmlns="http://www.w3.org/2000/svg"
@@ -40,6 +41,7 @@
                           clip-rule="evenodd" />
                 </svg>
 
+                <!--X icon-->
                 <svg v-else-if="!noClear && modelValue"
                      class="clear-icon h-5 w-5 cursor-pointer right-0 top-1 group-hover:opacity-100 transition-opacity
                             text-gray-500 relative -mr-5 group-hover:mr-0 -mt-1 transition-spacing"
