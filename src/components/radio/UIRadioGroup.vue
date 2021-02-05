@@ -8,7 +8,7 @@
 
         <div ref="slot"
              class="flex pt-2"
-             :class="$attrs.horizontal === undefined ? 'flex-col space-y-4': 'space-x-6'">
+             :class="horizontal ? 'space-x-6': 'flex-col space-y-4'">
             <slot />
         </div>
     </div>
@@ -27,7 +27,10 @@ export default defineComponent({
             required: true
         },
 
-        label
+        label,
+        disabled: Boolean,
+        horizontal: Boolean,
+        required: Boolean
     },
 
     emits: ['update:modelValue'],
@@ -36,8 +39,7 @@ export default defineComponent({
         const slot = ref<HTMLElement>();
 
         const updateValue = (event: MouseEvent) => {
-            const target = event.target as HTMLInputElement;
-            emit('update:modelValue', target.value);
+            emit('update:modelValue', (event.target as HTMLInputElement).value);
         };
 
         onMounted(() => {
@@ -53,18 +55,15 @@ export default defineComponent({
             let active = false;
 
             // Set the attributes on each one
-            inputs.forEach((input: HTMLInputElement) => {
+            inputs.forEach(input => {
                 input.onclick = updateValue;
                 input.name = attrs.name as string;
                 input.checked = props.modelValue === input.value;
                 active = input.checked || active;
-                input.disabled = attrs.disabled !== undefined;
+                input.disabled = props.disabled;
             });
 
-            // If none were active, but the input is required, activate the first option
-            if (attrs.required !== undefined && !active) {
-                inputs[0].click();
-            }
+            inputs[0].required = props.required;
 
             // Update the inputs on external change
             watch(
