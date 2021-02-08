@@ -40,6 +40,13 @@ export const noClear = {
 };
 
 /**
+ * Disables the input.
+ */
+export const disabled = {
+    type: Boolean
+};
+
+/**
  * Emit an event to clear the input value.
  *
  * @param emit

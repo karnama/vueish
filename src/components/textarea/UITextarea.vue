@@ -9,14 +9,15 @@
                 <textarea :id="$attrs.id ?? $attrs.name"
                           v-bind="$attrs"
                           ref="input"
+                          :disabled="disabled"
                           class="flex-1 appearance-none bg-transparent transition-border-color leading-tight
                                  focus:outline-none rounded-none transition-text-color disabled:cursor-not-allowed
                                  disabled:text-gray-400"
                           :value="modelValue"
-                          :style="$attrs.disabled || fixed ? 'resize: none' : ''"
+                          :style="disabled || fixed ? 'resize: none' : ''"
                           @input="$emit('update:modelValue', $event.target.value)" />
 
-                <svg v-if="$attrs.disabled"
+                <svg v-if="disabled"
                      class="h-5 w-5 text-gray-400 right-0 top-1 absolute"
                      xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 20 20"
@@ -55,7 +56,8 @@ import {
     label,
     autofocusElement,
     useClearModelValue,
-    noClear
+    noClear,
+    disabled
 } from '@composables/input/input';
 
 export default defineComponent({
@@ -65,14 +67,15 @@ export default defineComponent({
 
     props: {
         modelValue: {
-            type: [String, Number],
+            type: String,
             required: true
         },
 
         fixed: Boolean,
         label,
         autofocus,
-        noClear
+        noClear,
+        disabled
     },
 
     emits: ['update:modelValue'],

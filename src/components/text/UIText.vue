@@ -18,6 +18,7 @@
                        focus:outline-none rounded-none transition-text-color pb-2 disabled:cursor-not-allowed
                        disabled:text-gray-400"
                        :value="modelValue"
+                       :disabled="disabled"
                        @input="$emit('update:modelValue', $event.target.value)"
                        @keydown="handleKeydown">
 
@@ -29,7 +30,7 @@
                     </slot>
                 </span>
 
-                <svg v-if="$attrs.disabled === true || $attrs.disabled === ''"
+                <svg v-if="disabled"
                      class="h-5 w-5 text-gray-400 right-0 top-1"
                      xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 20 20"
@@ -70,7 +71,8 @@ import {
     suffix,
     autofocusElement,
     useClearModelValue,
-    noClear
+    noClear,
+    disabled
 } from '@composables/input/input';
 import { onlyNumber } from './UIText';
 
@@ -89,7 +91,8 @@ export default defineComponent({
         suffix,
         label,
         autofocus,
-        noClear
+        noClear,
+        disabled
     },
 
     emits: ['update:modelValue'],
