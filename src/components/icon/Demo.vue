@@ -1,8 +1,5 @@
 <template>
-    <UIIcon plus-circle />
-    <UIIcon x-circle />
-    <UIIcon database />
-    <UIIcon credit-card />
+    <UIIcon />
 </template>
 
 <script lang="ts">
