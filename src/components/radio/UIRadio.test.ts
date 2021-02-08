@@ -1,6 +1,6 @@
 import { DOMWrapper, mount } from '@vue/test-utils';
-import UIRadio from '@components/radio/UIRadio.vue';
-import UIRadioGroup from '@components/radio/UIRadioGroup.vue';
+import UIRadio from './UIRadio.vue';
+import UIRadioGroup from './UIRadioGroup.vue';
 
 describe('UIRadio', () => {
     it('should bind attributes to the input', () => {
