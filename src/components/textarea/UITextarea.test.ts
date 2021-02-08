@@ -132,6 +132,20 @@ describe('UITextarea', () => {
         expect(wrapper.find('.clear-icon').exists()).toBe(false);
     });
 
+    it('should not show the clear icon if it is disabled', () => {
+        const wrapper = mount(UITextarea, {
+            props: {
+                name: 'input',
+                modelValue: 'Hello World'
+            },
+            attrs: {
+                disabled: true
+            }
+        });
+
+        expect(wrapper.find('.clear-icon').exists()).toBe(false);
+    });
+
     it('should clear the value when the clear icon is clicked', async () => {
         const modelValue = 'Hello World';
 
