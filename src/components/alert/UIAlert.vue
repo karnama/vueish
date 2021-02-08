@@ -51,6 +51,7 @@ export default defineComponent({
     props: {
         modelValue: {
             type: Boolean,
+            // eslint-disable-next-line vue/no-boolean-default
             default: true
         },
 
@@ -63,16 +64,6 @@ export default defineComponent({
          * Should we show the close button.
          */
         sticky: Boolean,
-
-        /**
-         * The transition to be used for the alerts.
-         */
-        transition: {
-            type: String,
-            validator: function(value) {
-                return ['fade'].includes(value);
-            }
-        },
 
         /**
          * The alert title.
@@ -104,9 +95,9 @@ export default defineComponent({
 
     emits: ['update:modelValue'],
 
-    setup(props: SetupArg, { emit }) {
-        const icon = computed(() => types[props.type as string].icon);
-        const color = computed(() => types[props.type as string].color);
+    setup(props: SetupArg<{ type: string }>, { emit }) {
+        const icon = computed(() => types[props.type].icon);
+        const color = computed(() => types[props.type].color);
         const visible = ref(true);
 
         watch(() => props.modelValue, value => visible.value = value);
