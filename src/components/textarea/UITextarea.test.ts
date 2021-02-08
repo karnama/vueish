@@ -26,7 +26,7 @@ describe('UITextarea', () => {
             }
         });
 
-        expect(wrapper.get('input').attributes().disabled).toBeUndefined();
+        expect(wrapper.get('textarea').attributes().disabled).toBeUndefined();
     });
 
     it('should be disabled when the prop is provided', async () => {
@@ -38,7 +38,7 @@ describe('UITextarea', () => {
             }
         });
 
-        const input = wrapper.get('input');
+        const input = wrapper.get('textarea');
 
         expect(input.attributes().disabled).toBeUndefined();
         await wrapper.setProps({ disabled: true });
@@ -71,7 +71,7 @@ describe('UITextarea', () => {
             }
         });
 
-        const input = wrapper.get('input');
+        const input = wrapper.get('textarea');
         const label = wrapper.get('label');
 
         expect(input.attributes().id).toBe(name);
@@ -106,7 +106,7 @@ describe('UITextarea', () => {
             attachTo: elem
         });
 
-        expect(wrapper.get('input').element).toBe(document.activeElement);
+        expect(wrapper.get('textarea').element).toBe(document.activeElement);
     });
 
     it('should not show the clear icon if no-clear is provided', () => {
@@ -142,7 +142,7 @@ describe('UITextarea', () => {
             }
         });
 
-        const input = wrapper.get('input').element;
+        const input = wrapper.get('textarea').element;
 
         expect(input.value).toBe(modelValue);
         await wrapper.get('.clear-icon').trigger('click');
