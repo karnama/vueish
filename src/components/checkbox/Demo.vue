@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import UICheckbox from './UICheckbox.vue';
-import {computed, defineComponent, ref} from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 
 export default defineComponent({
     name: 'Checkbox',

@@ -36,8 +36,7 @@
         </span>
 
         <span class="select-none ml-3 cursor-pointer"
-              :class="{ 'cursor-not-allowed': disabled }"
-              @click="toggleValue">
+              :class="{ 'cursor-not-allowed': disabled }">
             <slot>
                 {{ label }}
             </slot>
@@ -49,7 +48,7 @@
 import { computed, defineComponent } from 'vue';
 import { label, disabled, name } from '@composables/input/input';
 import { SetupArg, SetupReturn } from '@/types';
-import {isBoolean, isEqual} from 'lodash-es';
+import { isEqual } from 'lodash-es';
 
 // todo - update icons
 export default defineComponent({
