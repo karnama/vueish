@@ -40,6 +40,14 @@ export const noClear = {
 };
 
 /**
+ * Generic one-way value binding.
+ */
+export const value = {
+    type: [String, Boolean, Array, Object, Number],
+    required: true
+};
+
+/**
  * Emit an event to clear the input value.
  *
  * @param emit
