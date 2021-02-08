@@ -12,7 +12,7 @@ describe('UITextarea', () => {
             }
         });
 
-        await wrapper.find('input').setValue('Hello World');
+        await wrapper.get('textarea').setValue('Hello World');
 
         expect(wrapper.emitted()).toHaveProperty('update:modelValue');
         expect(wrapper.emitted()['update:modelValue'][0]).toStrictEqual(['Hello World']);
