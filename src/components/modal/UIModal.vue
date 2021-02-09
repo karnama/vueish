@@ -117,24 +117,9 @@ export default defineComponent({
 
     emits: ['cancel', 'accept'],
 
-    setup(props: SetupArg, { emit }): SetupReturn {
+    setup(props, { emit }): SetupReturn {
         const isOpen = ref(false);
         const isVisible = ref(false);
-
-        // const open = () => {
-        //     isOpen.value = true;
-        //     setTimeout(() => isVisible.value = true, 100);
-        // };
-        // const close = (event: 'accept' | 'cancel' = 'cancel'): void => {
-        //     isVisible.value = false;
-        //     setTimeout(() => isOpen.value = false, 100);
-        //     emit(event);
-        //
-        //     if (typeof props[event] === 'function') {
-        //         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-        //         props[event]();
-        //     }
-        // };
 
         const open = async (): Promise<void> => {
             isOpen.value = true;
