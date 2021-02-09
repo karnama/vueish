@@ -1,6 +1,6 @@
 <template>
     <transition name="progress-spinner" appear>
-        <div class="progress-spinner text-brand-400"
+        <div class="ui-spinner-loader text-brand-400"
              :class="{ 'indeterminate': !determinate }"
              role="progressbar"
              v-bind="$attrs">
@@ -122,7 +122,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.progress-spinner {
+.ui-spinner-loader {
     position: relative;
     width: max-content;
 
