@@ -23,7 +23,7 @@ describe('UIModal', () => {
         wrapper.unmount();
     });
 
-    it('should emit closed on click outside or cancel click', async () => {
+    it('should emit the "closed" event when the overlay is clicked', async () => {
         const wrapper = mount(UIModal);
 
         // @ts-expect-error
