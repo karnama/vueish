@@ -35,7 +35,7 @@ describe('UIModal', () => {
         wrapper.unmount();
     });
 
-    it('should emit accepted on accept click', async () => {
+    it('should emit the "accepted" event when the accept button is clicked', async () => {
         const wrapper = mount(UIModal, {
             props: {
                 acceptButtonLabel: 'acceptBtn'
