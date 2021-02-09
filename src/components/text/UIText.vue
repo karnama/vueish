@@ -30,6 +30,7 @@
                     </slot>
                 </span>
 
+                <!--Lock icon-->
                 <svg v-if="disabled"
                      class="h-5 w-5 text-gray-400 right-0 top-1"
                      xmlns="http://www.w3.org/2000/svg"
@@ -41,13 +42,14 @@
                           clip-rule="evenodd" />
                 </svg>
 
+                <!--X icon-->
                 <svg v-else-if="!noClear && modelValue"
                      class="clear-icon h-5 w-5 cursor-pointer right-0 top-1 group-hover:opacity-100 transition-opacity
                             text-gray-500 relative -mr-5 group-hover:mr-0 -mt-1 transition-spacing"
                      xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 20 20"
                      fill="currentColor"
-                     @click="clearInput">
+                     @click="updateModelValue($emit, '')">
                     <path fill-rule="evenodd"
                           d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293
                              4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0
@@ -70,7 +72,7 @@ import {
     prefix,
     suffix,
     autofocusElement,
-    useClearModelValue,
+    updateModelValue,
     noClear,
     disabled
 } from '@composables/input/input';
@@ -97,18 +99,17 @@ export default defineComponent({
 
     emits: ['update:modelValue'],
 
-    setup(props, { emit, attrs }): SetupReturn {
+    setup(props, { attrs }): SetupReturn {
         const input = ref<HTMLInputElement>();
-        const clearInput = useClearModelValue(emit);
         const isNumber = computed(() => attrs.type === 'number');
         const handleKeydown = (event: KeyboardEvent) => isNumber.value && onlyNumber(event);
         autofocusElement(props.autofocus, input);
 
         return {
             input,
-            clearInput,
             handleKeydown,
-            isNumber
+            isNumber,
+            updateModelValue
         };
     }
 });

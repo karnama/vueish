@@ -6,7 +6,6 @@ describe('UIText', () => {
         const wrapper = mount({
             template: '<div><UIText v-model="input" name="input"/></div>',
             components: { UIText },
-            props: {},
             data() {
                 return { input: '' };
             }
@@ -45,7 +44,7 @@ describe('UIText', () => {
         expect(input.attributes().disabled).not.toBeUndefined();
     });
 
-    it('should correctly assign the name prop', () => {
+    it('should assign the name prop', () => {
         const name = 'input';
 
         const wrapper = mount(UIText, {
@@ -63,7 +62,7 @@ describe('UIText', () => {
         expect(label.attributes().for).toBe(name);
     });
 
-    it('should correctly assign the type prop', () => {
+    it('should assign the type prop', () => {
         const type = 'number';
 
         const wrapper = mount(UIText, {
@@ -79,7 +78,7 @@ describe('UIText', () => {
         expect(input.attributes().type).toBe(type);
     });
 
-    it('should correctly display the label when passed as a prop', () => {
+    it('should display the label when passed as a prop', () => {
         const label = 'text';
 
         const wrapper = mount(UIText, {
