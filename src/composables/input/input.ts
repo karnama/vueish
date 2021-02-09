@@ -1,4 +1,5 @@
 import { onMounted, Ref } from 'vue';
+import { Emit } from '@/types';
 
 /**
  * The input label.
@@ -56,16 +57,21 @@ export const noClear = {
 };
 
 /**
- * Emit an event to clear the input value.
+ * Generic one-way value binding.
+ */
+export const value = {
+    type: [String, Boolean, Array, Object, Number],
+    required: true
+};
+
+/**
+ * Emit an event to set the input value.
  *
  * @param emit
- * @param clearVal
+ * @param args
  */
-export function useClearModelValue(
-    emit: ((a: 'update:modelValue', ...args: any[]) => void),
-    clearVal: any = ''
-): () => void {
-    return () => emit('update:modelValue', clearVal);
+export function updateModelValue(emit: Emit, ...args: any): void {
+    emit('update:modelValue', ...args);
 }
 
 /**
