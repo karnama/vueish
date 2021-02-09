@@ -9,7 +9,7 @@ describe('UIModal', () => {
         wrapper.unmount();
     });
 
-    it('should display the actions slot content',  async () => {
+    it('should display the actions slot content', async () => {
         const wrapper = mount(UIModal, {
             slots: {
                 actions: '<div id="test-actions" />'
