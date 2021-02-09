@@ -11,6 +11,14 @@
             fugiat fugit harum inventore maxime modi nesciunt odio omnis praesentium quam quasi sint soluta tenetur
             ullam voluptas voluptatum.
         </div>
+        <template v-slot:footer="slotProps">
+            <UIButton class="ui-modal-close ml-auto mr-2" @click="slotProps.close">
+                Close
+            </UIButton>
+            <UIButton type="primary" class="ui-modal-accept" @click="slotProps.close('accept')">
+                OK
+            </UIButton>
+        </template>
     </UIModal>
     <UIButton @click="$refs.modal.open()">
         Open Modal

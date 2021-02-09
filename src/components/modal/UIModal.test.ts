@@ -73,34 +73,6 @@ describe('UIModal', () => {
         wrapper.unmount();
     });
 
-    it('should execute callbacks if given', async () => {
-        const func = jest.fn();
-        const wrapper = mount(UIModal, {
-            props: {
-                acceptButtonLabel: 'acceptBtn',
-                accept: func
-            }
-        });
-
-        // @ts-expect-error
-        await wrapper.vm.open();
-        let button: HTMLButtonElement | undefined;
-        document.querySelectorAll('button').forEach(btn => {
-            if (btn.innerHTML === 'acceptBtn') {
-                button = btn;
-            }
-        });
-
-        if (button) {
-            button.click();
-        } else {
-            throw new Error('Button not found in DOM');
-        }
-
-        expect(func).toHaveBeenCalled();
-        wrapper.unmount();
-    });
-
     it('should display the labels defined by the prop', async () => {
         const wrapper = mount(UIModal, {
             props: {
@@ -188,6 +160,42 @@ describe('UIModal', () => {
         // @ts-expect-error
         await wrapper.vm.close();
         expect(document.getElementById('default-content')).toBeNull();
+        wrapper.unmount();
+    });
+
+    it('should not close the modal when closeCallback given', async () => {
+        const wrapper = mount(UIModal, {
+            slots: {
+                default: '<div id="default-content" />'
+            },
+            props: {
+                closeCallback: () => {}
+            }
+        });
+
+        // @ts-expect-error
+        await wrapper.vm.open();
+        expect(document.querySelector('#default-content')).not.toBeNull();
+        document.querySelector<HTMLButtonElement>('.ui-modal-close')?.click();
+        expect(document.querySelector('#default-content')).not.toBeNull();
+        wrapper.unmount();
+    });
+
+    it('should pass the closing logic to the closeCallback', async () => {
+        const mockFn = jest.fn(() => {});
+        const wrapper = mount(UIModal, {
+            slots: {
+                default: '<div id="default-content" />'
+            },
+            props: {
+                closeCallback: mockFn
+            }
+        });
+
+        // @ts-expect-error
+        await wrapper.vm.open();
+        document.querySelector<HTMLButtonElement>('.ui-modal-close')?.click();
+        expect(mockFn).toHaveBeenCalled();
         wrapper.unmount();
     });
 });

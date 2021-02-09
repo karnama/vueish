@@ -34,7 +34,7 @@
 
                 <!--Modal Footer-->
                 <template #footer>
-                    <slot name="footer">
+                    <slot name="footer" :close="close">
                         <UIButton class="ui-modal-close ml-auto mr-2" @click="close('cancel')">
                             {{ closeButtonLabel }}
                         </UIButton>
@@ -52,7 +52,8 @@
 import { defineComponent, ref } from 'vue';
 import UIButton from '@components/button/UIButton.vue';
 import UIPanel from '@components/panel/UIPanel.vue';
-import { SetupArg, SetupReturn } from '@/types';
+import type { SetupReturn } from '@/types';
+import type { PropType } from 'vue';
 
 export default defineComponent({
     name: 'UIModal',
@@ -84,17 +85,10 @@ export default defineComponent({
         },
 
         /**
-         * Callback to execute on modal accept.
-         */
-        accept: {
-            type: Function
-        },
-
-        /**
          * Callback to execute on modal cancel.
          */
-        cancel: {
-            type: Function
+        closeCallback: {
+            type: Function as PropType<(callback: () => Promise<void>) => Promise<void>>
         },
 
         /**
@@ -118,25 +112,36 @@ export default defineComponent({
 
     emits: ['cancel', 'accept'],
 
-    setup(props, { emit }): SetupReturn {
+    setup(props, ctx): SetupReturn {
         const isOpen = ref(false);
         const isVisible = ref(false);
 
         const open = async (): Promise<void> => {
             isOpen.value = true;
-            return new Promise(resolve => setTimeout(() => { isVisible.value = true; resolve(); }, 100));
+            return new Promise(resolve => setTimeout(() => {
+                isVisible.value = true;
+                resolve();
+            }, 100));
         };
 
         const close = async (event: 'accept' | 'cancel' = 'cancel'): Promise<void> => {
-            isVisible.value = false;
-            emit(event);
+            // filter out events if user doesn't define the argument
+            event = ['accept', 'cancel'].includes(event) ? event : 'cancel';
 
-            if (typeof props[event] === 'function') {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-                props[event]();
+            const closeModal = async (): Promise<void> => {
+                isVisible.value = false;
+                ctx.emit(event);
+                return new Promise(resolve => setTimeout(() => {
+                    isOpen.value = false;
+                    resolve();
+                }, 100));
+            };
+
+            if (typeof props.closeCallback === 'function') {
+                return props.closeCallback(closeModal);
             }
 
-            return new Promise(resolve => setTimeout(() => { isOpen.value = false; resolve(); }, 100));
+            return closeModal();
         };
 
         return {
