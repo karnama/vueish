@@ -16,6 +16,8 @@
             {{ names }}
         </p>
     </div>
+
+    <UICheckbox v-model="isChecked" indeterminate />
 </template>
 
 <script lang="ts">

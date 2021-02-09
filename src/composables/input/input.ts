@@ -1,5 +1,5 @@
-import { onMounted, Ref } from 'vue';
-import { Emit } from '@/types';
+import { onMounted } from 'vue';
+import type { Ref, SetupContext } from 'vue';
 
 /**
  * The input label.
@@ -70,7 +70,7 @@ export const value = {
  * @param emit
  * @param args
  */
-export function updateModelValue(emit: Emit, ...args: any): void {
+export function updateModelValue(emit: SetupContext['emit'], ...args: any): void {
     emit('update:modelValue', ...args);
 }
 
