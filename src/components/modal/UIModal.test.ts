@@ -23,7 +23,7 @@ describe('UIModal', () => {
         wrapper.unmount();
     });
 
-    it('should emit the "closed" event when the overlay is clicked', async () => {
+    it('should emit closed on click outside', async () => {
         const wrapper = mount(UIModal);
 
         // @ts-expect-error
@@ -35,7 +35,19 @@ describe('UIModal', () => {
         wrapper.unmount();
     });
 
-    it('should emit the "accepted" event when the accept button is clicked', async () => {
+    it('should emit closed on cancel click', async () => {
+        const wrapper = mount(UIModal);
+
+        // @ts-expect-error
+        await wrapper.vm.open();
+        // @ts-expect-error
+        await document.querySelector('.ui-modal-close')?.click();
+
+        expect(wrapper.emitted()['cancel']).toHaveLength(1);
+        wrapper.unmount();
+    });
+
+    it('should emit accepted on accept click', async () => {
         const wrapper = mount(UIModal, {
             props: {
                 acceptButtonLabel: 'acceptBtn'

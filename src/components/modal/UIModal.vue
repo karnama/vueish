@@ -7,7 +7,8 @@
             <div class="overlay absolute h-screen w-screen" @click="close('cancel')" />
 
             <!--Main modal dialog-->
-            <UIPanel class="modal overflow-y-scroll relative bg-default m-auto shadow-xl rounded bg-white"
+            <UIPanel class="modal top-0 w-full overflow-y-scroll
+                            relative bg-default m-auto shadow-xl rounded bg-white opacity-0 translate-y-0"
                      v-bind="$attrs"
                      no-collapse>
                 <!--Modal Header-->
@@ -34,10 +35,10 @@
                 <!--Modal Footer-->
                 <template #footer>
                     <slot name="footer">
-                        <UIButton class="ml-auto mr-2" @click="close('cancel')">
+                        <UIButton class="ui-modal-close ml-auto mr-2" @click="close('cancel')">
                             {{ closeButtonLabel }}
                         </UIButton>
-                        <UIButton type="primary" @click="close('accept')">
+                        <UIButton type="primary" class="ui-modal-accept" @click="close('accept')">
                             {{ acceptButtonLabel }}
                         </UIButton>
                     </slot>
@@ -162,11 +163,7 @@ export default defineComponent({
 .modal {
     max-width: 700px;
     max-height: 80%;
-    width: 100%;
-    top: 0;
-    transform: translateY(0);
     transition: transform 300ms ease-out, opacity 100ms linear;
-    opacity: 0;
 }
 
 .wrapper.visible {

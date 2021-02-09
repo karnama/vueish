@@ -1,8 +1,6 @@
 <template>
     <UIModal ref="modal"
-             header="header"
-             @cancel="callback"
-             @accept="callback">
+             header="header">
         <div>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi blanditiis cumque, deserunt enim illo iste
             obcaecati pariatur quam. Aut blanditiis delectus dolores eius hic nesciunt perspiciatis possimus reiciendis
@@ -30,13 +28,6 @@ export default defineComponent({
     components: {
         UIModal,
         UIButton
-    },
-
-    setup() {
-        // eslint-disable-next-line no-console
-        const callback = () => console.log('called');
-
-        return { callback };
     }
 });
 </script>
