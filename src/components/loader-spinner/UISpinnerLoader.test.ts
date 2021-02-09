@@ -56,10 +56,11 @@ describe('UISpinner', () => {
         };
 
         const wrapper = mount(UISpinnerLoader, { props });
+        const circle = wrapper.find('circle');
 
-        expect(wrapper.find('circle').attributes()['style']).toContain(getStrokeOffsetStyle(props.progress));
+        expect(circle.attributes()['style']).toContain(getStrokeOffsetStyle(props.progress));
         await wrapper.setProps({ progress: 99 });
-        expect(wrapper.find('circle').attributes()['style']).toContain(getStrokeOffsetStyle(99));
+        expect(circle.attributes()['style']).toContain(getStrokeOffsetStyle(99));
     });
 
     it('should dynamically update the diameter', async () => {
