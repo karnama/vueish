@@ -2,7 +2,7 @@ import UIModal from './UIModal.vue';
 import { mount } from '@vue/test-utils';
 
 describe('UIModal', () => {
-    it('should renders', () => {
+    it('should render', () => {
         const wrapper = mount(UIModal);
         expect(wrapper).toBeDefined();
         expect(wrapper.exists()).toBe(true);
