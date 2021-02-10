@@ -1,35 +1,36 @@
 import { mount } from '@vue/test-utils';
-import UIText from './UIText.vue';
+import UITextarea from './UITextarea.vue';
 
-describe('UIText', () => {
+describe('UITextarea', () => {
     it('should handle model-binding correctly', async () => {
         const wrapper = mount({
-            template: '<div><UIText v-model="input" name="input"/></div>',
-            components: { UIText },
+            template: '<div><UITextarea v-model="input" name="input"/></div>',
+            components: { UITextarea },
+            props: {},
             data() {
                 return { input: '' };
             }
         });
 
-        await wrapper.find('input').setValue('Hello World');
+        await wrapper.get('textarea').setValue('Hello World');
 
         expect(wrapper.emitted()).toHaveProperty('update:modelValue');
         expect(wrapper.emitted()['update:modelValue'][0]).toStrictEqual(['Hello World']);
     });
 
     it('should be enabled by default', () => {
-        const wrapper = mount(UIText, {
+        const wrapper = mount(UITextarea, {
             props: {
                 modelValue: '',
                 name: 'input'
             }
         });
 
-        expect(wrapper.get('input').attributes().disabled).toBeUndefined();
+        expect(wrapper.get('textarea').attributes().disabled).toBeUndefined();
     });
 
-    it('should be disabled when the prop is provided so', async () => {
-        const wrapper = mount(UIText, {
+    it('should be disabled when the prop is provided', async () => {
+        const wrapper = mount(UITextarea, {
             props: {
                 modelValue: '',
                 name: 'input',
@@ -37,24 +38,40 @@ describe('UIText', () => {
             }
         });
 
-        const input = wrapper.get('input');
+        const input = wrapper.get('textarea');
 
         expect(input.attributes().disabled).toBeUndefined();
         await wrapper.setProps({ disabled: true });
         expect(input.attributes().disabled).not.toBeUndefined();
     });
 
-    it('should assign the name prop', () => {
+    it('should prevent resize when the fixed prop is given', async () => {
+        const wrapper = mount(UITextarea, {
+            props: {
+                modelValue: '',
+                name: 'input',
+                fixed: false
+            }
+        });
+
+        const input = wrapper.get('textarea');
+
+        expect(input.element.style.resize).toBe('');
+        await wrapper.setProps({ fixed: true });
+        expect(input.element.style.resize).toBe('none');
+    });
+
+    it('should correctly assign the name prop', () => {
         const name = 'input';
 
-        const wrapper = mount(UIText, {
+        const wrapper = mount(UITextarea, {
             props: {
                 modelValue: '',
                 name
             }
         });
 
-        const input = wrapper.get('input');
+        const input = wrapper.get('textarea');
         const label = wrapper.get('label');
 
         expect(input.attributes().id).toBe(name);
@@ -62,26 +79,10 @@ describe('UIText', () => {
         expect(label.attributes().for).toBe(name);
     });
 
-    it('should assign the type prop', () => {
-        const type = 'number';
-
-        const wrapper = mount(UIText, {
-            props: {
-                modelValue: '',
-                name: 'input',
-                type
-            }
-        });
-
-        const input = wrapper.get('input');
-
-        expect(input.attributes().type).toBe(type);
-    });
-
-    it('should display the label when passed as a prop', () => {
+    it('should correctly display the label when passed as a prop', () => {
         const label = 'text';
 
-        const wrapper = mount(UIText, {
+        const wrapper = mount(UITextarea, {
             props: {
                 modelValue: '',
                 name: 'input',
@@ -96,7 +97,7 @@ describe('UIText', () => {
         const elem = document.createElement('div');
         document.body.appendChild(elem);
 
-        const wrapper = mount(UIText, {
+        const wrapper = mount(UITextarea, {
             props: {
                 modelValue: '',
                 name: 'input',
@@ -105,11 +106,11 @@ describe('UIText', () => {
             attachTo: elem
         });
 
-        expect(wrapper.get('input').element).toBe(document.activeElement);
+        expect(wrapper.get('textarea').element).toBe(document.activeElement);
     });
 
     it('should not show the clear icon if no-clear is provided', () => {
-        const wrapper = mount(UIText, {
+        const wrapper = mount(UITextarea, {
             props: {
                 name: 'input',
                 modelValue: 'Hello World',
@@ -121,7 +122,7 @@ describe('UIText', () => {
     });
 
     it('should not show the clear icon if there is no value', () => {
-        const wrapper = mount(UIText, {
+        const wrapper = mount(UITextarea, {
             props: {
                 name: 'input',
                 modelValue: ''
@@ -132,7 +133,7 @@ describe('UIText', () => {
     });
 
     it('should not show the clear icon if it is disabled', () => {
-        const wrapper = mount(UIText, {
+        const wrapper = mount(UITextarea, {
             props: {
                 name: 'input',
                 modelValue: 'Hello World'
@@ -148,78 +149,18 @@ describe('UIText', () => {
     it('should clear the value when the clear icon is clicked', async () => {
         const modelValue = 'Hello World';
 
-        const wrapper = mount(UIText, {
+        const wrapper = mount(UITextarea, {
             props: {
                 name: 'input',
                 modelValue
             }
         });
 
-        const input = wrapper.get('input').element;
+        const input = wrapper.get('textarea').element;
 
         expect(input.value).toBe(modelValue);
         await wrapper.get('.clear-icon').trigger('click');
         expect(wrapper.emitted()).toHaveProperty('update:modelValue');
         expect(wrapper.emitted()['update:modelValue'][0]).toStrictEqual(['']);
-    });
-
-    it('should display the prefix when passed as a slot', () => {
-        const prefix = 'prefix';
-
-        const wrapper = mount(UIText, {
-            props: {
-                modelValue: '',
-                name: 'input'
-            },
-            slots: {
-                prefix
-            }
-        });
-
-        expect(wrapper.get('.prefix').text()).toBe(prefix);
-    });
-
-    it('should display the prefix when passed as a prop', () => {
-        const prefix = 'prefix';
-
-        const wrapper = mount(UIText, {
-            props: {
-                modelValue: '',
-                name: 'input',
-                prefix
-            }
-        });
-
-        expect(wrapper.get('.prefix').text()).toBe(prefix);
-    });
-
-    it('should display the suffix when passed as a slot', () => {
-        const suffix = 'suffix';
-
-        const wrapper = mount(UIText, {
-            props: {
-                modelValue: '',
-                name: 'input'
-            },
-            slots: {
-                suffix
-            }
-        });
-
-        expect(wrapper.get('.suffix').text()).toBe(suffix);
-    });
-
-    it('should display the suffix when passed as a prop', () => {
-        const suffix = 'suffix';
-
-        const wrapper = mount(UIText, {
-            props: {
-                modelValue: '',
-                name: 'input',
-                suffix
-            }
-        });
-
-        expect(wrapper.get('.suffix').text()).toBe(suffix);
     });
 });

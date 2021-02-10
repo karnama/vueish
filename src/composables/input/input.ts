@@ -41,6 +41,13 @@ export const noClear = {
 };
 
 /**
+ * Disables the input.
+ */
+export const disabled = {
+    type: Boolean
+};
+
+/**
  * Generic one-way value binding.
  */
 export const value = {

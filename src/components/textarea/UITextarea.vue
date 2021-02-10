@@ -4,35 +4,21 @@
             {{ label }}
         </label>
 
-        <div class="relative group">
-            <div class="flex overflow-hidden">
-                <span v-if="prefix ?? $slots.prefix" class="prefix mr-1">
-                    <slot name="prefix">
-                        {{ prefix }}
-                    </slot>
-                </span>
-                <input :id="$attrs.id ?? $attrs.name"
-                       v-bind="$attrs"
-                       ref="input"
-                       class="flex-1 appearance-none bg-transparent transition-border-color leading-tight
-                       focus:outline-none rounded-none transition-text-color pb-2 disabled:cursor-not-allowed
-                       disabled:text-gray-400"
-                       :value="modelValue"
-                       :disabled="disabled"
-                       @input="$emit('update:modelValue', $event.target.value)"
-                       @keydown="handleKeydown">
+        <div class="group relative container">
+            <div class="flex overflow-hidden relative">
+                <textarea :id="$attrs.id ?? $attrs.name"
+                          v-bind="$attrs"
+                          ref="input"
+                          :disabled="disabled"
+                          class="flex-1 appearance-none bg-transparent transition-border-color leading-tight
+                                 focus:outline-none rounded-none transition-text-color disabled:cursor-not-allowed
+                                 disabled:text-gray-400"
+                          :value="modelValue"
+                          :style="disabled || fixed ? 'resize: none' : ''"
+                          @input="$emit('update:modelValue', $event.target.value)" />
 
-                <span v-if="suffix ?? $slots.suffix"
-                      class="suffix mr-1 right-0"
-                      :class="{'right-5': isNumber}">
-                    <slot name="suffix">
-                        {{ suffix }}
-                    </slot>
-                </span>
-
-                <!--Lock icon-->
                 <svg v-if="disabled"
-                     class="h-5 w-5 text-gray-400 right-0 top-1"
+                     class="h-5 w-5 text-gray-400 right-0 top-1 absolute"
                      xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 20 20"
                      fill="currentColor">
@@ -42,10 +28,9 @@
                           clip-rule="evenodd" />
                 </svg>
 
-                <!--X icon-->
                 <svg v-else-if="!noClear && modelValue"
                      class="clear-icon h-5 w-5 cursor-pointer right-0 top-1 group-hover:opacity-100 transition-opacity
-                            text-gray-500 relative -mr-5 group-hover:mr-0 -mt-1 transition-spacing"
+                            text-gray-500 absolute -mr-5 group-hover:mr-2 -mt-1 transition-spacing"
                      xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 20 20"
                      fill="currentColor"
@@ -69,14 +54,11 @@ import { SetupReturn } from '@/types';
 import {
     autofocus,
     label,
-    prefix,
-    suffix,
     autofocusElement,
     updateModelValue,
     noClear,
     disabled
 } from '@composables/input/input';
-import { onlyNumber } from './UIText';
 
 export default defineComponent({
     name: 'UIText',
@@ -85,12 +67,11 @@ export default defineComponent({
 
     props: {
         modelValue: {
-            type: [String, Number],
+            type: String,
             required: true
         },
 
-        prefix,
-        suffix,
+        fixed: Boolean,
         label,
         autofocus,
         noClear,
@@ -102,33 +83,13 @@ export default defineComponent({
     setup(props, { attrs }): SetupReturn {
         const input = ref<HTMLInputElement>();
         const isNumber = computed(() => attrs.type === 'number');
-        const handleKeydown = (event: KeyboardEvent) => isNumber.value && onlyNumber(event);
         autofocusElement(props.autofocus, input);
 
         return {
             input,
-            handleKeydown,
-            isNumber,
-            updateModelValue
+            updateModelValue,
+            isNumber
         };
     }
 });
 </script>
-
-<style scoped>
-/*https://stackoverflow.com/a/4298216*/
-input:disabled::-webkit-outer-spin-button,
-input:disabled::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
-    -webkit-appearance: none;
-    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
-}
-
-input:disabled[type=number] {
-    -moz-appearance: textfield; /* Firefox */
-}
-
-.prefix, .suffix {
-    line-height: 1.28;
-}
-</style>
