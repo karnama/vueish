@@ -36,8 +36,8 @@ export default defineComponent({
 
     setup() {
         const text = ref('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi assumenda at ' +
-            'atque consequatur consequuntur culpa deleniti, doloribusdaaseeeff eligendi excepturi expedita fugit id incidunt ' +
-            'laborum neque nulla quos reprehenderit sit tempora.');
+            'atque consequatur consequuntur culpa deleniti, doloribusdaaseeeff eligendi excepturi expedita fugit id ' +
+            'incidunt laborum neque nulla quos reprehenderit sit tempora.');
         const disabled = ref('Canny touch this!');
 
         return {

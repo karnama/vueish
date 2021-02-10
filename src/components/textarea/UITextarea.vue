@@ -34,7 +34,7 @@
                      xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 20 20"
                      fill="currentColor"
-                     @click="clearInput">
+                     @click="updateModelValue($emit, '')">
                     <path fill-rule="evenodd"
                           d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293
                              4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0
@@ -55,7 +55,7 @@ import {
     autofocus,
     label,
     autofocusElement,
-    useClearModelValue,
+    updateModelValue,
     noClear,
     disabled
 } from '@composables/input/input';
@@ -80,15 +80,14 @@ export default defineComponent({
 
     emits: ['update:modelValue'],
 
-    setup(props, { emit, attrs }): SetupReturn {
+    setup(props, { attrs }): SetupReturn {
         const input = ref<HTMLInputElement>();
-        const clearInput = useClearModelValue(emit);
         const isNumber = computed(() => attrs.type === 'number');
         autofocusElement(props.autofocus, input);
 
         return {
             input,
-            clearInput,
+            updateModelValue,
             isNumber
         };
     }
