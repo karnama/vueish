@@ -1,3 +1,6 @@
+import defaultSettings from '@/defaultSettings';
+import { GlobalMountOptions } from '@vue/test-utils/dist/types';
+
 let consoleWarnMock: jest.SpyInstance;
 
 export function disableConsoleWarn(): void {
@@ -10,3 +13,12 @@ export function enableConsoleWarn(): void {
         consoleWarnMock.mockRestore();
     }
 }
+
+export const global: GlobalMountOptions = {
+    config: {
+        globalProperties: {
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            Vueish: defaultSettings
+        }
+    }
+};

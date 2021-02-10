@@ -4,3 +4,5 @@ dist
 dist-ssr
 *.local
 .idea
+vite.config.js.map
+vite.config.js
