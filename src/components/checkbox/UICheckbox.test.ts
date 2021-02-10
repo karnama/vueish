@@ -22,7 +22,7 @@ describe('UICheckbox', () => {
             }
         });
 
-        await wrapper.trigger('click');
+        await wrapper.find('#inputName').trigger('click');
 
         expect(wrapper.emitted()['update:modelValue'][0]).toHaveLength(1);
         // @ts-expect-error
@@ -50,9 +50,9 @@ describe('UICheckbox', () => {
             }
         });
 
-        await wrapper.trigger('click');
+        await wrapper.find('#inputName').trigger('click');
         expect(wrapper.find('input').element.checked).toBe(true);
-        await wrapper.trigger('click');
+        await wrapper.find('#inputName').trigger('click');
         expect(wrapper.find('input').element.checked).toBe(false);
     });
 
