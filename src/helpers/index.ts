@@ -1,6 +1,10 @@
 import { getCurrentInstance } from 'vue';
-import { DeepPartial, Settings } from '@/main';
+import type { Icon, Settings } from '@/types';
 
-export function getLibrarySettings(): DeepPartial<Settings> {
-    return getCurrentInstance()!.appContext.config.globalProperties.Vueish;
+export function getLibrarySettings(): Settings {
+    return getCurrentInstance()?.appContext.config.globalProperties.Vueish;
+}
+
+export function getIcon(icon: Icon): string {
+    return getLibrarySettings().icons[icon];
 }
