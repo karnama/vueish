@@ -1,6 +1,5 @@
 import { mount } from '@vue/test-utils';
 import UIText from './UIText.vue';
-import { global } from '@helpers/test';
 
 describe('UIText', () => {
     it('should handle model-binding correctly', async () => {
@@ -10,7 +9,7 @@ describe('UIText', () => {
             data() {
                 return { input: '' };
             }
-        }, { global });
+        });
 
         await wrapper.find('input').setValue('Hello World');
 
@@ -23,8 +22,7 @@ describe('UIText', () => {
             props: {
                 modelValue: '',
                 name: 'input'
-            },
-            global
+            }
         });
 
         expect(wrapper.get('input').attributes().disabled).toBeUndefined();
@@ -36,8 +34,7 @@ describe('UIText', () => {
                 modelValue: '',
                 name: 'input',
                 disabled: false
-            },
-            global
+            }
         });
 
         const input = wrapper.get('input');
@@ -54,8 +51,7 @@ describe('UIText', () => {
             props: {
                 modelValue: '',
                 name
-            },
-            global
+            }
         });
 
         const input = wrapper.get('input');
@@ -74,8 +70,7 @@ describe('UIText', () => {
                 modelValue: '',
                 name: 'input',
                 type
-            },
-            global
+            }
         });
 
         const input = wrapper.get('input');
@@ -91,8 +86,7 @@ describe('UIText', () => {
                 modelValue: '',
                 name: 'input',
                 label
-            },
-            global
+            }
         });
 
         expect(wrapper.get('label').text()).toBe(label);
@@ -108,8 +102,7 @@ describe('UIText', () => {
                 name: 'input',
                 autofocus: true
             },
-            attachTo: elem,
-            global
+            attachTo: elem
         });
 
         expect(wrapper.get('input').element).toBe(document.activeElement);
@@ -121,8 +114,7 @@ describe('UIText', () => {
                 name: 'input',
                 modelValue: 'Hello World',
                 noClear: true
-            },
-            global
+            }
         });
 
         expect(wrapper.find('.clear-icon').exists()).toBe(false);
@@ -133,8 +125,7 @@ describe('UIText', () => {
             props: {
                 name: 'input',
                 modelValue: ''
-            },
-            global
+            }
         });
 
         expect(wrapper.find('.clear-icon').exists()).toBe(false);
@@ -148,8 +139,7 @@ describe('UIText', () => {
             },
             attrs: {
                 disabled: true
-            },
-            global
+            }
         });
 
         expect(wrapper.find('.clear-icon').exists()).toBe(false);
@@ -162,8 +152,7 @@ describe('UIText', () => {
             props: {
                 name: 'input',
                 modelValue
-            },
-            global
+            }
         });
 
         const input = wrapper.get('input').element;
@@ -184,8 +173,7 @@ describe('UIText', () => {
             },
             slots: {
                 prefix
-            },
-            global
+            }
         });
 
         expect(wrapper.get('.prefix').text()).toBe(prefix);
@@ -199,8 +187,7 @@ describe('UIText', () => {
                 modelValue: '',
                 name: 'input',
                 prefix
-            },
-            global
+            }
         });
 
         expect(wrapper.get('.prefix').text()).toBe(prefix);
@@ -216,8 +203,7 @@ describe('UIText', () => {
             },
             slots: {
                 suffix
-            },
-            global
+            }
         });
 
         expect(wrapper.get('.suffix').text()).toBe(suffix);
@@ -231,8 +217,7 @@ describe('UIText', () => {
                 modelValue: '',
                 name: 'input',
                 suffix
-            },
-            global
+            }
         });
 
         expect(wrapper.get('.suffix').text()).toBe(suffix);

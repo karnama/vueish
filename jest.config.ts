@@ -8,6 +8,7 @@ export default {
     rootDir: './',
     moduleNameMapper: pathsToModuleNameMapper(compilerOptions?.paths ?? {}, { prefix: '<rootDir>/' }),
     moduleFileExtensions: ['vue', 'js', 'json', 'jsx', 'ts', 'tsx', 'node'],
+    setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
     preset: 'ts-jest',
     testEnvironment: 'jsdom',
     transform: {
