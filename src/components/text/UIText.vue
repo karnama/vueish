@@ -18,6 +18,7 @@
                        focus:outline-none rounded-none transition-text-color pb-2 disabled:cursor-not-allowed
                        disabled:text-gray-400"
                        :value="modelValue"
+                       :disabled="disabled"
                        @input="$emit('update:modelValue', $event.target.value)"
                        @keydown="handleKeydown">
 
@@ -30,7 +31,7 @@
                 </span>
 
                 <!--Lock icon-->
-                <span v-if="$attrs.disabled === true || $attrs.disabled === ''"
+                <span v-if="disabled"
                       class="h-5 w-5 text-gray-400"
                       v-html="lockIcon" />
 
@@ -57,7 +58,8 @@ import {
     suffix,
     autofocusElement,
     updateModelValue,
-    noClear
+    noClear,
+    disabled
 } from '@composables/input/input';
 import { onlyNumber } from './UIText';
 import { getIcon } from '@/helpers';
@@ -77,7 +79,8 @@ export default defineComponent({
         suffix,
         label,
         autofocus,
-        noClear
+        noClear,
+        disabled
     },
 
     emits: ['update:modelValue'],
