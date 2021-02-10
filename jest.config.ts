@@ -6,7 +6,10 @@ export default {
     coverageDirectory: 'coverage',
     coverageProvider: 'v8',
     rootDir: './',
-    moduleNameMapper: pathsToModuleNameMapper(compilerOptions?.paths ?? {}, { prefix: '<rootDir>/' }),
+    moduleNameMapper: {
+        ...pathsToModuleNameMapper(compilerOptions?.paths ?? {}, { prefix: '<rootDir>/' }),
+        '^lodash-es$': 'lodash'
+    },
     moduleFileExtensions: ['vue', 'js', 'json', 'jsx', 'ts', 'tsx', 'node'],
     setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
     preset: 'ts-jest',

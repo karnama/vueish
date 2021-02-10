@@ -1,11 +1,27 @@
-import { onMounted, Ref } from 'vue';
-import { Emit } from '@/types';
+import { onMounted } from 'vue';
+import type { Ref, SetupContext } from 'vue';
 
 /**
  * The input label.
  */
 export const label = {
     type: String
+};
+
+/**
+ * The input's disabled state.
+ */
+export const disabled = {
+    type: Boolean,
+    default: false
+};
+
+/**
+ * The input name.
+ */
+export const name = {
+    type: String,
+    required: true
 };
 
 /**
@@ -41,13 +57,6 @@ export const noClear = {
 };
 
 /**
- * Disables the input.
- */
-export const disabled = {
-    type: Boolean
-};
-
-/**
  * Generic one-way value binding.
  */
 export const value = {
@@ -61,7 +70,7 @@ export const value = {
  * @param emit
  * @param args
  */
-export function updateModelValue(emit: Emit, ...args: any): void {
+export function updateModelValue(emit: SetupContext['emit'], ...args: any): void {
     emit('update:modelValue', ...args);
 }
 
