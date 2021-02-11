@@ -31,7 +31,6 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 import { label, disabled, name, value } from '@composables/input';
-import { SetupArg } from '@/types';
 import { isEqual } from 'lodash-es';
 import { getIcon } from '@/helpers';
 
@@ -59,7 +58,7 @@ export default defineComponent({
 
     emits: ['update:modelValue'],
 
-    setup(props: SetupArg<{ modelValue: any[] | boolean }>, { emit }) {
+    setup(props, ctx) {
         if (Array.isArray(props.modelValue) && !props.value) {
             throw new Error('\'value\' is required if the v-model  value is an array.');
         }
@@ -88,7 +87,7 @@ export default defineComponent({
                 modelValue = !modelValue;
             }
 
-            emit('update:modelValue', modelValue);
+            ctx.emit('update:modelValue', modelValue);
         };
 
         return {

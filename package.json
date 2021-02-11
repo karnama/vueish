@@ -15,7 +15,7 @@
     },
     "scripts": {
         "dev": "vite",
-        "build": "vuedx-typecheck src --no-pretty && vite build",
+        "build": "vuedx-typecheck && vite build",
         "test": "jest",
         "lint": "eslint . --fix --ext .ts,.vue,.tsx"
     },
@@ -32,7 +32,7 @@
         "@vue/compiler-sfc": "^3.0.5",
         "@vue/eslint-config-typescript": "^7.0.0",
         "@vue/test-utils": "^2.0.0-beta.14",
-        "@vuedx/typecheck": "^0.4.1",
+        "@vuedx/typecheck": "^0.6.3",
         "@vuedx/typescript-plugin-vue": "^0.6.3",
         "autoprefixer": "^10.2.3",
         "babel-jest": "^26.6.3",
