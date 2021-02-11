@@ -25,7 +25,7 @@ export default {
         }
     },
 
-    setup() {
+    setup(): void {
         const beforeEnter = (element: HTMLElement): void => {
             element.style.willChange = 'height, opacity';
             requestAnimationFrame(() => {

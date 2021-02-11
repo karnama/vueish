@@ -2,8 +2,7 @@ import { createApp } from 'vue';
 import Demo from './Demo.vue';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import './assets/styles/main.css';
-import { default as Vueish } from './main';
-import defaultSettings from "@/defaultSettings";
+import defaultSettings from '@/defaultSettings';
 
 const demos = import.meta.globEager('./components/**/Demo.vue') as { [path: string]: { default: Record<string, any>} };
 

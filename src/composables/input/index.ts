@@ -1,5 +1,5 @@
 import { computed, ref, onMounted, getCurrentInstance } from 'vue';
-import type { Ref, SetupContext } from 'vue';
+import type { Ref } from 'vue';
 
 /**
  * The input label.

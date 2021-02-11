@@ -41,11 +41,9 @@ import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
 import UILinearLoader from '@components/loader-linear/UILinearLoader.vue';
 import LocalCache from '@/helpers/cache/LocalCache';
 import { defineComponent, ref, computed, watch } from 'vue';
-import type { SetupContext } from 'vue';
 
 let cache: LocalCache;
 
-//todo - update icon
 export default defineComponent({
     name: 'UIPanel',
 
