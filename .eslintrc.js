@@ -139,6 +139,7 @@ module.exports = {
         'vue/html-closing-bracket-newline': ['warn', {
             'multiline': 'never'
         }],
+        'vue/no-v-html': 'off',
         'vue/require-default-prop': 'off',
     },
     overrides: [
