@@ -69,13 +69,13 @@ export const value = {
  * @param {} props
  * @param name
  */
-export function useVModel<T>(props: Record<string, T>, name = 'modelValue'): Ref<T> {
+export function useVModel<T>(props: Record<string, any>, name = 'modelValue'): Ref<T> {
     const instance = getCurrentInstance();
     if (!instance) {
         return ref() as Ref<T>;
     }
 
-    return computed({
+    return computed<T>({
         get() {
             return props[name];
         },

@@ -52,7 +52,6 @@
 import { defineComponent, ref } from 'vue';
 import UIButton from '@components/button/UIButton.vue';
 import UIPanel from '@components/panel/UIPanel.vue';
-import type { SetupReturn } from '@/types';
 import type { PropType } from 'vue';
 
 export default defineComponent({
@@ -112,7 +111,7 @@ export default defineComponent({
 
     emits: ['cancel', 'accept'],
 
-    setup(props, ctx): SetupReturn {
+    setup(props, ctx) {
         const isOpen = ref(false);
         const isVisible = ref(false);
 

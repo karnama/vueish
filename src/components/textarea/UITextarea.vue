@@ -36,7 +36,6 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { SetupReturn } from '@/types';
 import {
     autofocus,
     label,
@@ -68,7 +67,7 @@ export default defineComponent({
 
     emits: ['update:modelValue'],
 
-    setup(props): SetupReturn {
+    setup(props) {
         const input = ref<HTMLInputElement>();
         const value = useVModel<string>(props);
         const lockIcon = getIcon('lock');

@@ -25,7 +25,6 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, watch, onMounted } from 'vue';
-import { SetupArg, SetupReturn } from '@/types';
 
 export default defineComponent({
     name: 'SpinnerLoader',
@@ -68,7 +67,7 @@ export default defineComponent({
         }
     },
 
-    setup(props: SetupArg<{ diameter: number; stroke: number }>): SetupReturn {
+    setup(props) {
         const radius = computed(() => (props.diameter - props.stroke) / 2);
         const circumference = computed(() => Math.PI * 2 * radius.value);
         const strokeDashOffset = computed(() => {

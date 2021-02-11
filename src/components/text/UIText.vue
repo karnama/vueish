@@ -48,12 +48,12 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, SetupContext } from 'vue';
-import { SetupReturn } from '@/types';
 import {
     autofocus,
     label,
     prefix,
     suffix,
+    name,
     autofocusElement,
     noClear,
     disabled, useVModel
@@ -83,7 +83,7 @@ export default defineComponent({
 
     emits: ['update:modelValue'],
 
-    setup(props, ctx: SetupContext): SetupReturn {
+    setup(props, ctx: SetupContext) {
         const input = ref<HTMLInputElement>();
         const isNumber = computed(() => ctx.attrs.type === 'number');
         const lockIcon = getIcon('lock');
