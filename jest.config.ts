@@ -11,6 +11,7 @@ export default {
         '^lodash-es$': 'lodash'
     },
     moduleFileExtensions: ['vue', 'js', 'json', 'jsx', 'ts', 'tsx', 'node'],
+    setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
     preset: 'ts-jest',
     testEnvironment: 'jsdom',
     transform: {
