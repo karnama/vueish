@@ -1,20 +1,22 @@
 <template>
-    <label class="ui-radio cursor-pointer relative flex items-center">
+    <div class="flex items-center ui-radio">
         <input v-bind="$attrs"
-               ref="input"
                type="radio"
                :value="value"
+               :disabled="disabled"
                class="hidden">
-        <span class="label relative float-left mr-2 h-5 w-5 border-2 rounded-full" />
-        <slot>
-            {{ label }}
-        </slot>
-    </label>
+        <label class="relative flex items-center">
+            <span class="ui-radio-btn relative float-left mr-2 h-5 w-5 border-2 rounded-full" />
+            <slot>
+                {{ label }}
+            </slot>
+        </label>
+    </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { label, value } from '@composables/input/input';
+import { label, value, disabled } from '@composables/input';
 
 export default defineComponent({
     name: 'UIRadio',
@@ -23,45 +25,51 @@ export default defineComponent({
 
     props: {
         label,
-        value
+        value,
+        disabled
     }
 });
 </script>
 
 <style lang="scss" scoped>
-.ui-radio {
-    .label:after {
-        content: '';
-        position: absolute;
-        top: 3px;
-        left: 3px;
-        width: 10px;
-        height: 10px;
-        border-radius: 100%;
-        background: theme('colors.blue.500');
-        transform: scale(0);
-        transition: all .2s ease;
-        opacity: .08;
-        pointer-events: none;
-    }
+.ui-radio-btn:after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background: theme('colors.blue.500');
+    transform: scale(0);
+    transition: all .2s ease;
+    opacity: .08;
+    pointer-events: none;
+}
 
+input:disabled + label > .ui-radio-btn:after {
+    background: theme('colors.gray.500');
+}
 
-    &:hover input:enabled + .label:after {
-        transform: scale(3.6);
-    }
+input:checked + label > .ui-radio-btn:after {
+    transform: scale(1) !important;
+    transition: all .2s cubic-bezier(.35, .9, .4, .9);
+    opacity: 1;
+}
 
-    input:disabled + .label:after {
-        background: theme('colors.gray.500');
-    }
+input:checked:enabled + label > .ui-radio-btn {
+    border-color: theme('colors.blue.500');
+}
 
-    input:checked + .label:after {
-        transform: scale(1) !important;
-        transition: all .2s cubic-bezier(.35, .9, .4, .9);
-        opacity: 1;
-    }
+input:enabled + label:hover > .ui-radio-btn:after {
+    transform: scale(3.6);
+}
 
-    input:checked:enabled + .label {
-        border-color: theme('colors.blue.500');
-    }
+input:enabled + label {
+    cursor: pointer;
+}
+
+input:disabled + label {
+    cursor: not-allowed;
 }
 </style>

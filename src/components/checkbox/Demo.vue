@@ -17,7 +17,10 @@
         </p>
     </div>
 
-    <UICheckbox v-model="isChecked" indeterminate />
+    <UICheckbox v-model="isChecked"
+                name="indeterminate-cbx"
+                indeterminate
+                label="Indeterminate state" />
 </template>
 
 <script lang="ts">

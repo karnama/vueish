@@ -15,8 +15,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, watch } from 'vue';
-import { label, updateModelValue } from '@composables/input/input';
+import { defineComponent, ref, onMounted, onBeforeUpdate, watch } from 'vue';
+import { label, disabled, name } from '@composables/input';
 
 export default defineComponent({
     name: 'UIRadioGroup',
@@ -27,41 +27,55 @@ export default defineComponent({
         },
 
         label,
-        disabled: Boolean,
+        disabled,
+        name,
         horizontal: Boolean,
         required: Boolean
     },
 
     emits: ['update:modelValue'],
 
-    setup(props, { emit, attrs }) {
-        const slot = ref<HTMLElement>();
+    setup(props, ctx) {
+        const slot = ref<HTMLDivElement>();
+        const watchStopHandlers: ReturnType<typeof watch>[] = [];
+        const updateInputs = () => {
+            watchStopHandlers.forEach(stop => stop());
 
-        onMounted(() => {
             // Search for radio inputs in the slot
             const inputs = slot.value?.querySelectorAll('input[type="radio"]') as NodeListOf<HTMLInputElement>;
 
             // Validate they exist
             if (!inputs || inputs.length < 2) {
-                throw Error('UIRadioGroup requires at least 2 UIRadio components present');
+                throw Error('UIRadioGroup requires at least 2 UIRadio components present.');
             }
 
-            // Set the attributes on each one
+            const setChecked = (input: HTMLInputElement) => input.checked = props.modelValue === input.value;
+            const setName = (input: HTMLInputElement) => {
+                input.name = props.name!;
+                (input.nextSibling as HTMLLabelElement).htmlFor = props.name!;
+            };
+            const setDisabled = (input: HTMLInputElement) => input.disabled = input.hasAttribute('disabled')
+                ? input.disabled
+                : props.disabled;
+
+            watchStopHandlers.push(
+                // Update the inputs on props change
+                watch(() => props.name, () => inputs.forEach(setName), { immediate: true }),
+                watch(() => props.modelValue, () => inputs.forEach(setChecked), { immediate: true }),
+                watch(() => props.disabled, () => inputs.forEach(setDisabled), { immediate: true }),
+                watch(() => props.required, value => inputs[0].required = value, { immediate: true })
+            );
+
+            // Set the click event listener
             inputs.forEach(input => {
-                input.onclick = (event: MouseEvent) => updateModelValue(emit, (event.target as HTMLInputElement).value);
-                input.name = attrs.name as string;
-                input.checked = props.modelValue === input.value;
-                input.disabled = props.disabled;
+                input.onclick = (event: MouseEvent & { target: { value: any }}) => {
+                    ctx.emit('update:modelValue', event.target.value);
+                };
             });
+        };
 
-            // Only need to set one to the group required status
-            inputs[0].required = props.required;
-
-            // Update the inputs on external change
-            watch(() => props.modelValue, value => inputs.forEach(input => input.checked = value === input.value));
-            watch(() => props.disabled, value => inputs.forEach(input => input.disabled = value));
-            watch(() => props.required, value => inputs[0].required = value);
-        });
+        onMounted(updateInputs);
+        onBeforeUpdate(updateInputs);
 
         return { slot };
     }
