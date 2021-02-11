@@ -10,6 +10,7 @@
                           v-bind="$attrs"
                           ref="input"
                           v-model="value"
+                          :name="name"
                           :disabled="disabled"
                           class="flex-1 appearance-none bg-transparent transition-border-color leading-tight
                                  focus:outline-none rounded-none transition-text-color disabled:cursor-not-allowed

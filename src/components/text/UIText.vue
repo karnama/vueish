@@ -15,6 +15,7 @@
                        v-bind="$attrs"
                        ref="input"
                        v-model="value"
+                       :name="name"
                        class="flex-1 appearance-none bg-transparent transition-border-color leading-tight
                        focus:outline-none rounded-none transition-text-color pb-2 disabled:cursor-not-allowed
                        disabled:text-gray-400"
