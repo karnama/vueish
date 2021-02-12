@@ -31,9 +31,9 @@
             "jest"
         ],
         "plugins": [
-            {
-                "name": "@vuedx/typescript-plugin-vue"
-            }
+//            {
+//                "name": "@vuedx/typescript-plugin-vue"
+//            }
         ],
         "esModuleInterop": true
     },
