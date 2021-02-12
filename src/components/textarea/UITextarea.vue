@@ -42,7 +42,8 @@ import {
     autofocusElement,
     noClear,
     name,
-    disabled, useVModel
+    disabled,
+    useVModel
 } from '@composables/input';
 import { getIcon } from '@/helpers';
 
