@@ -45,7 +45,7 @@ export default defineComponent({
 
     setup() {
         const value = ref();
-        const value2 = ref('male');
+        const value2 = ref('female');
 
         return { value, value2 };
     }
