@@ -13,8 +13,6 @@
 </template>
 
 <script lang="ts">
-import { SetupReturn } from '@/types';
-
 export default {
     name: 'UIExpandTransition',
     props: {
@@ -27,7 +25,7 @@ export default {
         }
     },
 
-    setup(): SetupReturn {
+    setup(): void {
         const beforeEnter = (element: HTMLElement): void => {
             element.style.willChange = 'height, opacity';
             requestAnimationFrame(() => {

@@ -13,7 +13,6 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
-import { SetupArg } from '@/types';
 
 export default defineComponent({
     name: 'UILinearLoader',
@@ -59,7 +58,7 @@ export default defineComponent({
         }
     },
 
-    setup(props: SetupArg) {
+    setup(props) {
         if (props.determinate) {
             if (!props.steps) {
                 throw new TypeError(

@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import Demo from './Demo.vue';
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import './assets/styles/main.css';
-import { default as Vueish } from './main';
+import defaultSettings from '@/defaultSettings';
 
 const demos = import.meta.globEager('./components/**/Demo.vue') as { [path: string]: { default: Record<string, any>} };
 
@@ -18,7 +18,9 @@ const routes = Object.keys(demos)
 
 const router = createRouter({ history: createWebHistory(), routes });
 
-createApp(Demo)
-    .use(router)
-    .use(Vueish)
-    .mount('#app');
+const app = createApp(Demo)
+    .use(router);
+
+app.config.globalProperties.Vueish = defaultSettings;
+
+app.mount('#app');

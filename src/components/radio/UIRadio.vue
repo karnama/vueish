@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { label, value } from '@composables/input/input';
+import { label, value } from '@composables/input';
 
 export default defineComponent({
     name: 'UIRadio',

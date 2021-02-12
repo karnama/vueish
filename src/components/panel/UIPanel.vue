@@ -41,12 +41,9 @@ import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
 import UILinearLoader from '@components/loader-linear/UILinearLoader.vue';
 import LocalCache from '@/helpers/cache/LocalCache';
 import { defineComponent, ref, computed, watch } from 'vue';
-import type { SetupContext } from 'vue';
-import { SetupArg, SetupReturn } from '@/types';
 
 let cache: LocalCache;
 
-//todo - update icon
 export default defineComponent({
     name: 'UIPanel',
 
@@ -99,7 +96,7 @@ export default defineComponent({
         }
     },
 
-    setup(props: SetupArg, ctx: SetupContext): SetupReturn {
+    setup(props, ctx) {
         const collapsible = computed(() => ctx.slots.header ? !props.noCollapse : false);
         const open = ref(!ctx.slots.header || !collapsible.value ? true : !props.closed);
         watch(() => props.closed, () => open.value = !props.closed);

@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, watch } from 'vue';
-import { label, updateModelValue } from '@composables/input/input';
+import { label } from '@composables/input';
 
 export default defineComponent({
     name: 'UIRadioGroup',
@@ -48,7 +48,8 @@ export default defineComponent({
 
             // Set the attributes on each one
             inputs.forEach(input => {
-                input.onclick = (event: MouseEvent) => updateModelValue(emit, (event.target as HTMLInputElement).value);
+                input.onclick = (event: MouseEvent) =>
+                    emit('update:modelValue', (event.target as HTMLInputElement).value);
                 input.name = attrs.name as string;
                 input.checked = props.modelValue === input.value;
                 input.disabled = props.disabled;

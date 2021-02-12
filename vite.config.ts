@@ -3,11 +3,13 @@ import vue from '@vitejs/plugin-vue';
 import path from 'path';
 
 export default defineConfig({
-    alias: {
-        '@': path.resolve(__dirname, '/src'),
-        '@components': path.resolve(__dirname, 'src/components'),
-        '@helpers': path.resolve(__dirname, 'src/helpers'),
-        '@composables': path.resolve(__dirname, 'src/composables')
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, '/src'),
+            '@components': path.resolve(__dirname, 'src/components'),
+            '@helpers': path.resolve(__dirname, 'src/helpers'),
+            '@composables': path.resolve(__dirname, 'src/composables')
+        }
     },
     build: {
         lib: {
