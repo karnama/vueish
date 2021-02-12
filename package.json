@@ -15,7 +15,7 @@
     },
     "scripts": {
         "dev": "vite",
-        "build": "vuedx-typecheck src --no-pretty && vite build",
+        "build": "vite build",
         "test": "jest",
         "lint": "eslint . --fix --ext .ts,.vue,.tsx"
     },
@@ -25,13 +25,14 @@
     "devDependencies": {
         "@babel/core": "^7.12.10",
         "@types/jest": "^26.0.20",
+        "@types/lodash-es": "^4.17.4",
         "@typescript-eslint/eslint-plugin": "^4.14.1",
         "@typescript-eslint/parser": "^4.14.1",
         "@vitejs/plugin-vue": "^1.0.4",
         "@vue/compiler-sfc": "^3.0.5",
         "@vue/eslint-config-typescript": "^7.0.0",
         "@vue/test-utils": "^2.0.0-beta.14",
-        "@vuedx/typecheck": "^0.4.1",
+        "@vuedx/typecheck": "^0.6.3",
         "@vuedx/typescript-plugin-vue": "^0.6.3",
         "autoprefixer": "^10.2.3",
         "babel-jest": "^26.6.3",
@@ -41,6 +42,7 @@
         "eslint-plugin-jest": "^24.1.3",
         "eslint-plugin-vue": "^7.3.0",
         "jest": "^26.6.3",
+        "lodash-es": "^4.17.20",
         "postcss": "^8.2.4",
         "sass": "^1.32.5",
         "tailwindcss": "^2.0.2",

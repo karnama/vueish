@@ -1,5 +1,6 @@
 import UILinearLoader from './UILinearLoader.vue';
 import { mount } from '@vue/test-utils';
+import { disableConsoleWarn, enableConsoleWarn } from '@helpers/test';
 
 const wrapper = mount(UILinearLoader, {
     props: {
@@ -25,7 +26,7 @@ describe('UILinearLoader', () => {
     });
 
     it('should throw and error on logical errors in the passed props', () => {
-        const consoleErrorMock = jest.spyOn(console, 'warn').mockImplementation(() => {});
+        disableConsoleWarn();
 
         let failingFunc = () => {
             mount(UILinearLoader, {
@@ -49,6 +50,6 @@ describe('UILinearLoader', () => {
         };
         expect(failingFunc).toThrow(new TypeError('UILinearLoader  - The progress cannot be higher that the steps'));
 
-        consoleErrorMock.mockRestore();
+        enableConsoleWarn();
     });
 });

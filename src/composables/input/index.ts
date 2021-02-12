@@ -1,11 +1,27 @@
-import { onMounted, Ref } from 'vue';
-import { Emit } from '@/types';
+import { computed, ref, onMounted, getCurrentInstance } from 'vue';
+import type { Ref } from 'vue';
 
 /**
  * The input label.
  */
 export const label = {
     type: String
+};
+
+/**
+ * The input's disabled state.
+ */
+export const disabled = {
+    type: Boolean,
+    default: false
+};
+
+/**
+ * The input name.
+ */
+export const name = {
+    type: String,
+    required: true
 };
 
 /**
@@ -49,13 +65,24 @@ export const value = {
 };
 
 /**
- * Emit an event to set the input value.
  *
- * @param emit
- * @param args
+ * @param {} props
+ * @param name
  */
-export function updateModelValue(emit: Emit, ...args: any): void {
-    emit('update:modelValue', ...args);
+export function useVModel<T>(props: Record<string, any>, name = 'modelValue'): Ref<T> {
+    const instance = getCurrentInstance();
+    if (!instance) {
+        return ref() as Ref<T>;
+    }
+
+    return computed<T>({
+        get() {
+            return props[name];
+        },
+        set(value: T) {
+            instance.emit(`update:${name}`, value);
+        }
+    });
 }
 
 /**

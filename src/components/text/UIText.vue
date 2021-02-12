@@ -1,6 +1,6 @@
 <template>
     <div class="ui-text">
-        <label :for="$attrs.id ?? $attrs.name" class="text-sm text-gray-500">
+        <label :for="$attrs.id ?? name" class="text-sm text-gray-500">
             {{ label }}
         </label>
 
@@ -11,14 +11,15 @@
                         {{ prefix }}
                     </slot>
                 </span>
-                <input :id="$attrs.id ?? $attrs.name"
+                <input :id="$attrs.id ?? name"
                        v-bind="$attrs"
                        ref="input"
+                       v-model="value"
+                       :name="name"
                        class="flex-1 appearance-none bg-transparent transition-border-color leading-tight
                        focus:outline-none rounded-none transition-text-color pb-2 disabled:cursor-not-allowed
                        disabled:text-gray-400"
-                       :value="modelValue"
-                       @input="$emit('update:modelValue', $event.target.value)"
+                       :disabled="disabled"
                        @keydown="handleKeydown">
 
                 <span v-if="suffix ?? $slots.suffix"
@@ -29,32 +30,15 @@
                     </slot>
                 </span>
 
-                <!--Lock icon-->
-                <svg v-if="$attrs.disabled === true || $attrs.disabled === ''"
-                     class="h-5 w-5 text-gray-400 right-0 top-1"
-                     xmlns="http://www.w3.org/2000/svg"
-                     viewBox="0 0 20 20"
-                     fill="currentColor">
-                    <path fill-rule="evenodd"
-                          d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2
-                             2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                          clip-rule="evenodd" />
-                </svg>
+                <span v-if="disabled"
+                      class="h-5 w-5 text-gray-400"
+                      v-html="lockIcon" />
 
-                <!--X icon-->
-                <svg v-else-if="!noClear && modelValue"
-                     class="clear-icon h-5 w-5 cursor-pointer right-0 top-1 group-hover:opacity-100 transition-opacity
+                <span v-else-if="!noClear && modelValue"
+                      class="clear-icon h-5 w-5 cursor-pointer right-0 top-1 group-hover:opacity-100 transition-opacity
                             text-gray-500 relative -mr-5 group-hover:mr-0 -mt-1 transition-spacing"
-                     xmlns="http://www.w3.org/2000/svg"
-                     viewBox="0 0 20 20"
-                     fill="currentColor"
-                     @click="updateModelValue($emit, '')">
-                    <path fill-rule="evenodd"
-                          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293
-                             4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0
-                             01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                          clip-rule="evenodd" />
-                </svg>
+                      @click="value = ''"
+                      v-html="clearIcon" />
             </div>
 
             <div class="absolute w-full border-b left-0 bottom-0" />
@@ -63,18 +47,20 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
-import { SetupReturn } from '@/types';
+import { computed, defineComponent, ref, SetupContext } from 'vue';
 import {
     autofocus,
     label,
     prefix,
     suffix,
+    name,
     autofocusElement,
-    updateModelValue,
-    noClear
-} from '@composables/input/input';
+    noClear,
+    disabled,
+    useVModel
+} from '@composables/input';
 import { onlyNumber } from './UIText';
+import { getIcon } from '@/helpers';
 
 export default defineComponent({
     name: 'UIText',
@@ -91,22 +77,29 @@ export default defineComponent({
         suffix,
         label,
         autofocus,
-        noClear
+        noClear,
+        name,
+        disabled
     },
 
     emits: ['update:modelValue'],
 
-    setup(props, { attrs }): SetupReturn {
+    setup(props, ctx) {
         const input = ref<HTMLInputElement>();
-        const isNumber = computed(() => attrs.type === 'number');
+        const isNumber = computed(() => ctx.attrs.type === 'number');
+        const lockIcon = getIcon('lock');
+        const clearIcon = getIcon('clear');
+        const value = useVModel<string | number>(props);
         const handleKeydown = (event: KeyboardEvent) => isNumber.value && onlyNumber(event);
         autofocusElement(props.autofocus, input);
 
         return {
+            value,
             input,
             handleKeydown,
             isNumber,
-            updateModelValue
+            lockIcon,
+            clearIcon
         };
     }
 });

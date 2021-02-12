@@ -3,6 +3,18 @@
         UIRadio
     </h1>
 
+    <UIRadioGroup v-model="value"
+                  name="gender"
+                  required
+                  label="Vertical/Required">
+        <UIRadio value="male"
+                 label="Male" />
+        <UIRadio value="female"
+                 label="Female" />
+        <UIRadio value="other"
+                 label="Other" />
+    </UIRadioGroup>
+
     <div class="flex items-center">
         <UIRadioGroup v-model="value"
                       name="gender"
@@ -41,7 +53,8 @@
                     Horizontal/Disabled
                 </template>
                 <UIRadio value="male"
-                         label="Male" />
+                         label="Male"
+                         :disabled="false" />
                 <UIRadio value="female"
                          label="Female" />
                 <UIRadio value="other">
@@ -64,7 +77,7 @@ export default defineComponent({
 
     setup() {
         const value = ref(null);
-        const value2 = ref('female');
+        const value2 = ref('male');
 
         return { value, value2 };
     }

@@ -36,13 +36,11 @@
 </template>
 
 <script lang="ts">
-import UIFadeTransition from '../transitions/UIFadeTransition.vue';
-import UIExpandTransition from '../transitions/UIExpandTransition.vue';
-import UILinearLoader from '../loader-linear/UILinearLoader.vue';
-import LocalCache from '../../helpers/cache/LocalCache';
+import UIFadeTransition from '@components/transitions/UIFadeTransition.vue';
+import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
+import UILinearLoader from '@components/loader-linear/UILinearLoader.vue';
+import LocalCache from '@/helpers/cache/LocalCache';
 import { defineComponent, ref, computed, watch } from 'vue';
-import type { SetupContext } from 'vue';
-import { SetupArg, SetupReturn } from '../../types';
 
 let cache: LocalCache;
 
@@ -98,7 +96,7 @@ export default defineComponent({
         }
     },
 
-    setup(props: SetupArg, ctx: SetupContext): SetupReturn {
+    setup(props, ctx) {
         const collapsible = computed(() => ctx.slots.header ? !props.noCollapse : false);
         const open = ref(!ctx.slots.header || !collapsible.value ? true : !props.closed);
         watch(() => props.closed, () => open.value = !props.closed);

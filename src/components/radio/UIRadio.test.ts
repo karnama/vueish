@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils';
 import type { DOMWrapper } from '@vue/test-utils';
 import UIRadio from './UIRadio.vue';
 import UIRadioGroup from './UIRadioGroup.vue';
+import { disableConsoleWarn, enableConsoleWarn } from '@helpers/test';
 
 describe('UIRadio', () => {
     it('should bind attributes to the input', () => {
@@ -197,6 +198,8 @@ describe('UIRadioGroup', () => {
     });
 
     it('should throw an error if there are missing UIRadio components', () => {
+        disableConsoleWarn();
         expect(() => mount(UIRadioGroup)).toThrow('UIRadioGroup requires at least 2 UIRadio components present');
+        enableConsoleWarn();
     });
 });
