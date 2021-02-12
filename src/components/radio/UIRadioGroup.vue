@@ -52,17 +52,21 @@ export default defineComponent({
             }
 
             const setChecked = (input: HTMLInputElement) => input.checked = props.modelValue === input.value;
-            const setName = (input: HTMLInputElement, index: number) => {
-                const id = input.hasAttribute('id') ? input.id : `${props.name!}-${index}`;
+            const setName = (input: HTMLInputElement) => {
                 input.name = props.name!;
-                (input.nextSibling as HTMLLabelElement).htmlFor = input.id = id;
             };
             const setDisabled = (input: HTMLInputElement) => {
-                input.disabled = input.hasAttribute('disabled')
-                    ? input.disabled
-                    : props.disabled;
+                const disabled = input.hasAttribute('disabled') ? input.disabled : props.disabled;
+                const label = input.closest('label')!;
+                input.disabled = disabled;
 
-                input.nextSibling.firstChild.tabIndex = input.disabled ? -1 : 0;
+                if (disabled) {
+                    label.classList.add('disabled');
+                } else {
+                    label.classList.remove('disabled');
+                }
+
+                label.tabIndex = input.disabled ? -1 : 0;
             };
 
             watchStopHandlers.push(
@@ -76,7 +80,7 @@ export default defineComponent({
             // Set event listeners
             inputs.forEach(input => {
                 input.onclick = () => ctx.emit('update:modelValue', input.value);
-                input.nextSibling.onkeydown = (e: KeyboardEvent) =>
+                input.closest('label')!.onkeydown = (e: KeyboardEvent) =>
                     e.key !== ' ' || ctx.emit('update:modelValue', input.value);
             });
         };
