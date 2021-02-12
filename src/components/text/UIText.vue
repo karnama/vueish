@@ -56,7 +56,8 @@ import {
     name,
     autofocusElement,
     noClear,
-    disabled, useVModel
+    disabled,
+    useVModel
 } from '@composables/input';
 import { onlyNumber } from './UIText';
 import { getIcon } from '@/helpers';
@@ -83,7 +84,7 @@ export default defineComponent({
 
     emits: ['update:modelValue'],
 
-    setup(props, ctx: SetupContext) {
+    setup(props, ctx) {
         const input = ref<HTMLInputElement>();
         const isNumber = computed(() => ctx.attrs.type === 'number');
         const lockIcon = getIcon('lock');
