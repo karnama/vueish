@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, SetupContext } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import {
     autofocus,
     label,
