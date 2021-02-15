@@ -62,11 +62,11 @@ export default defineComponent({
 
                 if (disabled) {
                     label.classList.add('disabled');
+                    label.tabIndex = -1;
                 } else {
                     label.classList.remove('disabled');
+                    label.tabIndex = 0;
                 }
-
-                label.tabIndex = input.disabled ? -1 : 0;
             };
 
             watchStopHandlers.push(
