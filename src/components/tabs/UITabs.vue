@@ -14,35 +14,28 @@
     <template v-if="false">
         <slot />
     </template>
-    <!--    <UIExpandTransition>-->
     <template v-if="tabVisible">
         <component :is="tab" />
     </template>
-
-<!--    </UIExpandTransition>-->
 </template>
 
 <script lang="ts">
-import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
-import {computed, defineComponent, nextTick, ref, watch} from 'vue';
+import { computed, defineComponent, nextTick, ref, watch } from 'vue';
 import type { VNode } from 'vue';
 
 export default defineComponent({
     name: 'UITabs',
 
-    components: { UIExpandTransition },
-
     setup(props, ctx) {
-        const defaultSlot = ctx.slots.default();
+        const defaultSlot = ctx.slots?.default instanceof Function ? ctx.slots.default() : [];
 
-        if (!defaultSlot.length) {
+        if (defaultSlot.length < 2) {
             throw new Error('UITabs expect at least 1 UITab in the default slot.');
         }
 
         const activeTab = ref(0);
-        const titles = computed(() => {
+        const titles = computed<string[]>(() => {
             return defaultSlot.map((tab: VNode) => {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-call
                 return tab.props?.title ?? tab.children.title;
             });
         });

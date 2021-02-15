@@ -1,7 +1,7 @@
 <template>
-    <template v-if="false">
-        <slot name="title" />
-    </template>
+    <slot name="title">
+        {{ title }}
+    </slot>
     <slot />
 </template>
 
