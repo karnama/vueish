@@ -3,6 +3,9 @@
          :class="{ 'cursor-not-allowed': disabled }"
          tabindex="0"
          class="text-default relative group outline-none"
+         role="list"
+         :aria-disabled="disabled"
+         :aria-valuetext="selectionDisplay.join(', ')"
          v-bind="$attrs">
         <!--Clickable area showing the current value and opens the list-->
         <div class="current-selection cursor-pointer select-none border-b flex justify-between"
@@ -59,8 +62,10 @@
                 <ul>
                     <li v-for="(option, index) in filteredOptions"
                         :key="option[labelKey] + '-' + index"
-                        class="border-t cursor-pointer bg-default hover:bg-gray-100 relative justify-center"
+                        class="option border-t cursor-pointer bg-default hover:bg-gray-100 relative justify-center"
                         :class="{'selected-option bg-gray-200': isSelected(option)}"
+                        role="option"
+                        :aria-selected="isSelected(option)"
                         @click.stop="select(option)">
                         <div class="flex justify-between">
                             <div class="p-2">
@@ -84,7 +89,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, onUnmounted, watch } from 'vue';
+import { computed, defineComponent, onMounted, ref, onUnmounted, watch, nextTick } from 'vue';
 import { isEqual as _isEqual } from 'lodash-es';
 import type { PropType } from 'vue';
 import { placeholder, autofocus, noClear, disabled, useVModel } from '@composables/input';
@@ -205,8 +210,6 @@ export default defineComponent({
         });
         const style = ref<Partial<CSSStyleDeclaration>>({});
 
-        watch(() => selected.value, val => console.log(val));
-
         const closeList = () => {
             open.value = false;
             search.value = '';
@@ -253,11 +256,11 @@ export default defineComponent({
                 return;
             }
 
-            if (!selected.value) {
-                selected.value = [];
-            }
+            console.log(props.modelValue, selected.value);
+            const options: Option[] = (selected.value as Option[]) ?? [];
+            options.push(option);
 
-            (selected.value as Option[]).push(option);
+            selected.value = options;
         };
         const setPosition = () => {
             const rectangle = selectComp.value?.getBoundingClientRect();

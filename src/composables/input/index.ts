@@ -73,6 +73,8 @@ export const value = {
 
 /**
  * Make the prop 2-way reactive.
+ * You may only replace this value.
+ * Interact with it like `.push()` will cause unexpected errors.
  *
  * @param {object} props
  * @param {string} name - the string to append to the emitted event eg.: 'option' will be used for v-model:option=""

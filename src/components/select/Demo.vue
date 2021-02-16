@@ -38,7 +38,7 @@ export default defineComponent({
     components: { UISelect },
     setup() {
         const selected = ref(null);
-        const multiSelected = ref([]);
+        const multiSelected = ref(null);
 
         return {
             selected,
