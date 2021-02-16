@@ -21,7 +21,7 @@ const options = [
 ] as const;
 
 const getList = (): DOMWrapper<HTMLDivElement> | null => {
-    const element: HTMLDivElement | null = document.querySelector('.list');
+    const element: HTMLDivElement | null = document.querySelector(selectors.list);
 
     return element ? new DOMWrapper(element) : null;
 };
@@ -82,13 +82,13 @@ describe('UISelect', () => {
         const htmlOptions = getList()?.findAll(selectors.options);
 
         await htmlOptions![0].trigger('click');
-        expect(wrapper.emitted()['update:modelValue'][0]).toStrictEqual([options[0]]);
+        expect(wrapper.emitted('update:modelValue')[0]).toStrictEqual([options[0]]);
 
         await wrapper.setProps({ multi: true, modelValue: null });
         await htmlOptions![0].trigger('click');
         await htmlOptions![1].trigger('click');
 
-        expect(wrapper.emitted('update:modelValue')[2]).toStrictEqual([options[0], options[1]]);
+        expect(wrapper.emitted('update:modelValue')[2]).toStrictEqual([[options[0], options[1]]]);
 
         wrapper.unmount();
     });

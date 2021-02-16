@@ -89,8 +89,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, onUnmounted, watch, nextTick } from 'vue';
-import { isEqual as _isEqual } from 'lodash-es';
+import { computed, defineComponent, onMounted, ref, onUnmounted, nextTick, unref, isRef } from 'vue';
+import { cloneDeep, isEqual as _isEqual } from 'lodash-es';
 import type { PropType } from 'vue';
 import { placeholder, autofocus, noClear, disabled, useVModel } from '@composables/input';
 import { getIcon, wrap } from '@/helpers';
@@ -246,21 +246,23 @@ export default defineComponent({
 
             return values.findIndex(selectedOption => isEqual(selectedOption, option)) !== -1;
         };
-        const select = (option: Option) => {
-            if (isSelected(option)) {
-                return;
-            }
-
+        const select = async (option: Option) => {
             if (!props.multi) {
                 selected.value = option;
                 return;
             }
 
-            console.log(props.modelValue, selected.value);
+            if (isSelected(option)) {
+                return;
+            }
+
             const options: Option[] = (selected.value as Option[]) ?? [];
             options.push(option);
 
-            selected.value = options;
+            selected.value = cloneDeep(options);
+            console.log(selected.value, options);
+            await nextTick();
+            console.log(selected.value, options);
         };
         const setPosition = () => {
             const rectangle = selectComp.value?.getBoundingClientRect();
