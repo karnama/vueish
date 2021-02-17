@@ -1,29 +1,41 @@
 <template>
-    <div class="range-slider relative flex align-middle flex-no-wrap justify-between items-center mt-4 transition-all">
-        <span class="rounded-full range-value">
-            {{ model }}
+    <label class="mt-4">
+        <slot name="label">
+            {{ label }}
+        </slot>
+        <span class="relative block">
+            <svg class="range-thumb-indicator opacity-100 transition-opacity range-value fill-current text-brand-400"
+                 :class="{ 'opacity-100': showLabel }"
+                 viewBox="0 0 80 90"
+                 :data-value="model"
+                 :style="leftOffset">
+                <path d="M40 99.5 C-22.5 47.5 0 0 40 0.5 C80 0 102.5 47.5 40 99.5z" />
+            </svg>
+            <span class="range-value opacity-100 transition-opacity"
+                  :class="{ 'opacity-100': showLabel }"
+                  :style="leftOffset"
+                  :data-value="model" />
+            <input :id="$attrs.id ?? name"
+                   v-model="model"
+                   type="range"
+                   class="range-slider-range bg-darker outline-none text-white transition-all border-0 w-full"
+                   :style="bgColor"
+                   :step="step"
+                   v-bind="$attrs"
+                   :name="name"
+                   :disabled="disabled"
+                   :min="min"
+                   :max="max"
+                   @mousedown="showLabel = true"
+                   @mouseup="closeLabel">
         </span>
-        <input :id="name"
-               v-model="model"
-               type="range"
-               class="range-slider-range bg-darker outline-none text-white
-                      hover:text-primary-light transition-all border-0 flex-grow"
-               :style="bgColor"
-               step="1"
-               v-bind="$attrs"
-               :name="name"
-               :disabled="disabled"
-               :min="min"
-               :max="max"
-               @mousedown="showLabel = true"
-               @mouseup="closeLabel">
-    </div>
+    </label>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
 import { useVModel } from '@composables/input';
-import { disabled, name } from '@composables/input';
+import { disabled, name, label } from '@composables/input';
 
 export default defineComponent({
     name: 'UIRangeSlider',
@@ -31,26 +43,36 @@ export default defineComponent({
     inheritAttrs: false,
 
     props: {
+        modelValue: {
+            type: [Number, String],
+            required: true
+        },
+
         /**
          * Minimum value.
-         *
-         * @type {Number|Object}
          */
         min: {
-            type: Number,
+            type: [Number, String],
             default: 0
         },
 
         /**
          * Maximum value.
-         *
-         * @type {Number|Object}
          */
         max: {
-            type: Number,
+            type: [Number, String],
             default: 100
         },
 
+        /**
+         * The increment value of the range.
+         */
+        step: {
+            type: [Number, String],
+            default: 1
+        },
+
+        label,
         disabled,
         name
     },
@@ -60,21 +82,32 @@ export default defineComponent({
     setup(props) {
         const showLabel = ref(false);
         const model = useVModel<number>(props);
-
-        const bgColor = computed<Partial<CSSStyleSheet>>(() => {
+        const bgColor = computed<Partial<CSSStyleDeclaration>>(() => {
             return {
                 backgroundImage:
                     `-webkit-gradient(linear, left top, right top,
-                        color-stop(${model.value / 100}, ${props.disabled ? 'rgba(0,0,0,0)' : 'var(--color-primary)'})
-                        color-stop(${model.value / 100}, rgba(0,0,0,0)))`
+                    color-stop(${Number(model.value) / 100}, ${props.disabled ? 'rgba(0,0,0,0)' : 'red'}),
+                    color-stop(${Number(model.value) / 100}, rgba(0,0,0,0)))`
             };
         });
+        function percentage(partialValue, totalValue) {
+            return 100 * partialValue / totalValue;
+        }
+        const leftOffset = computed<Partial<CSSStyleDeclaration>>(() => {
+            const range = Math.abs(props.min - Math.abs(props.max));
+            const maxSteps = Math.abs(range / props.step);
+            // console.log(maxSteps);
+            const currentValue = percentage(model.value, range);
+            return { left: `calc(${currentValue}% + ${props.min * -1}%)` };
+        });
 
-        const closeLabel = () => setTimeout(() => showLabel.value = false, 2000);
+        const closeLabel = () => setTimeout(() => showLabel.value = false, 750);
 
         return {
+            model,
             showLabel,
             bgColor,
+            leftOffset,
             closeLabel
         };
     }
@@ -83,16 +116,28 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 $shadow: 0px 0px 2px #00000061;
-
 $range-handle-size: 25px;
 
+$indicatorWidth: 35px;
+$indicatorHeight: 50px;
+.range-thumb-indicator {
+    height: $indicatorHeight;
+    width: $indicatorWidth;
+    margin-left: -($indicatorWidth / 7);
+}
 .range-value {
-    width: $range-handle-size;
+    text-align: center;
+    height: $indicatorHeight;
+    width: $indicatorWidth;
+    margin-left: -($indicatorWidth / 7);
+    position: absolute;
+    top: -45px;
     &:after {
-        background: red;
-        width: $range-handle-size;
-        height: $range-handle-size;
-        transform: rotate(45deg);
+        display: block;
+        font-size: 0.8rem;
+        word-break: break-all;
+        content: attr(data-value);
+        padding-top: .5rem;
     }
 }
 
