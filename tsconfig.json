@@ -6,6 +6,7 @@
         "resolveJsonModule": true,
         "strict": true,
         "jsx": "preserve",
+        "noEmit": true,
         "sourceMap": true,
         "baseUrl": ".",
         "paths": {
