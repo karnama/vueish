@@ -15,9 +15,7 @@
 <script lang="ts">
 import { defineComponent, computed, ref } from 'vue';
 import type { PropType } from 'vue';
-
-export const horizontal = ['left', 'middle', 'right'] as const;
-export const vertical = ['top', 'middle', 'bottom'] as const;
+import { horizontal, vertical } from '@/types';
 
 export default defineComponent({
     name: 'UIBadge',

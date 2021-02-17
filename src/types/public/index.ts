@@ -4,4 +4,4 @@ export type Settings = {
     icons: Record<Icon, string>;
 };
 
-
+export * from './components';

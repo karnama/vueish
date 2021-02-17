@@ -17,7 +17,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import UIButton from '@components/button/UIButton.vue';
-import UIBadge, { horizontal, vertical } from '@components/badge/UIBadge.vue';
+import UIBadge from '@components/badge/UIBadge.vue';
+import { horizontal, vertical } from '@/types';
 
 export default defineComponent({
     name: 'Badge',
