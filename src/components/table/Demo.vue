@@ -1,4 +1,14 @@
 <template>
+    <UIPanel closed class="bg-white mb-4">
+        <template #header>
+            Table with slots
+        </template>
+        <UITable :headers="headers" :rows="rows" hover-highlight>
+            <template #name="slotProps">
+                slotted change of {{ slotProps.row.name }}
+            </template>
+        </UITable>
+    </UIPanel>
     <UITable :headers="headers" :rows="rows" hover-highlight />
 </template>
 
@@ -6,11 +16,12 @@
 import { defineComponent, ref } from 'vue';
 import UITable from '@components/table/UITable.vue';
 import { Column, Row } from '@components/table/UITableTypes';
+import UIPanel from '@components/panel/UIPanel.vue';
 
 export default defineComponent({
     // eslint-disable-next-line vue/no-reserved-component-names
     name: 'Table',
-    components: { UITable },
+    components: { UIPanel, UITable },
     setup() {
         const headers = ref<Column[]>([
             { header: 'Dessert (100g serving)', rowProperty: 'name' },

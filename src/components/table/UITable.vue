@@ -1,11 +1,11 @@
 <template>
-    <table class="flex sm:table flex-nowrap border-collapse overflow-y-scroll
-                  shadow-md bg-white w-full table-auto text-gray-700 border-b">
+    <table class="flex sm:table flex-nowrap border-collapse border border-gray-200 overflow-y-scroll
+                  shadow-md bg-white w-full table-auto text-gray-700 rounded">
         <thead>
-            <tr class="hidden sm:table-row">
+            <tr class="hidden sm:table-row bg-gray-100">
                 <th v-for="column in normalisedHeaders"
                     :key="column.rowProperty"
-                    class="py-6 text-left px-4">
+                    class="py-6 text-left px-4 uppercase font-light text-gray-500 text-sm">
                     <slot name="header" :header="column">
                         {{ column.header }}
                     </slot>
@@ -14,14 +14,22 @@
         </thead>
 
         <tbody class="space-y-5 sm:space-y-0 w-full">
-            <template v-for="row in rows" :key="row.name">
-                <slot name="row"
-                      :row="row"
-                      :headers="normalisedHeaders"
-                      :hover-highlight="hoverHighlight">
-                    <UITableRow :row="row" :headers="normalisedHeaders" :hover-highlight="hoverHighlight" />
-                </slot>
-            </template>
+            <tr v-for="row in rows"
+                :key="row.name"
+                class="flex flex-col flex-no-wrap sm:table-row border-t border-gray-200">
+                <td v-for="name in rowProperties"
+                    :key="name"
+                    class="flex flex-row flex-nowrap items-center p-0 sm:table-cell">
+                    <span role="rowheader" class="block sm:hidden content font-bold p-4 flex-none">
+                        {{ getHeader(name) }}
+                    </span>
+                    <span class="block p-4">
+                        <slot :name="name" :row="row">
+                            {{ row[name] }}
+                        </slot>
+                    </span>
+                </td>
+            </tr>
         </tbody>
     </table>
 </template>
@@ -30,7 +38,6 @@
 import { computed, defineComponent, PropType } from 'vue';
 import { Column, Row } from '@components/table/UITableTypes';
 import { snakeCase } from 'lodash-es';
-import UITableRow from './UITableRow.vue';
 
 // todo - features planned/would be nice to have
 // - column/row highlight on hover of headers - https://css-tricks.com/simple-css-row-column-highlighting/
@@ -44,7 +51,7 @@ import UITableRow from './UITableRow.vue';
 
 export default defineComponent({
     name: 'UITable',
-    components: { UITableRow },
+
     props: {
         /**
          * The rows of the table.
@@ -67,7 +74,7 @@ export default defineComponent({
          */
         hoverHighlight: {
             type: Boolean,
-            default:false
+            default: false
         }
     },
 
@@ -90,12 +97,23 @@ export default defineComponent({
                 } as Required<Column>;
             });
         });
-        const rowProperties = computed<string[]>(() =>  normalisedHeaders.value.map(header => header.rowProperty));
+        const rowProperties = computed<string[]>(() => normalisedHeaders.value.map(header => header.rowProperty));
+        const getHeader = (rowProperty: string): string => {
+            return normalisedHeaders.value.find(header => header.rowProperty === rowProperty).header;
+        };
 
         return {
             normalisedHeaders,
-            rowProperties
+            rowProperties,
+            getHeader
         };
     }
 });
 </script>
+
+<style scoped lang="scss">
+.content {
+    min-height: 40px;
+    width: 140px;
+}
+</style>
