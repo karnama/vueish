@@ -3,11 +3,8 @@
              closed
              appear
              :loading="loading"
+             header="Non-Collapsible Panel"
              class="group bg-white">
-        <template #header>
-            Non-Collapsible Panel
-        </template>
-
         <template #actions>
             <UIButton type="brand" class="opacity-0 group-hover:opacity-100 transition-all">
                 Edit
