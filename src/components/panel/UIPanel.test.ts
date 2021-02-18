@@ -1,6 +1,5 @@
 import { mount } from '@vue/test-utils';
 import UIPanel from './UIPanel.vue';
-import { nextTick } from 'vue';
 
 describe('UIPanel', () => {
     it('should render', () => {
@@ -10,38 +9,43 @@ describe('UIPanel', () => {
         expect(wrapper.exists()).toBe(true);
     });
 
-    it('should display the actions slot when action content when given', async () => {
+    it('should display the actions slot when action content when given', () => {
         const wrapper = mount(UIPanel, {
-            props: {},
             slots: {
                 actions: 'action content'
             }
         });
-        await nextTick();
 
         expect(wrapper.html()).toContain('action content');
     });
 
-    it('should display the header slot content when slot content given', async () => {
+    it('should display the header slot content when slot content given', () => {
         const wrapper = mount(UIPanel, {
             props: {},
             slots: {
                 header: 'header content'
             }
         });
-        await nextTick();
 
         expect(wrapper.html()).toContain('header content');
     });
 
-    it('should display the footer slot when footer content is given', async () => {
+    it('should display the header when given as prop', () => {
         const wrapper = mount(UIPanel, {
-            props: {},
+            props: {
+                header: 'header content'
+            }
+        });
+
+        expect(wrapper.html()).toContain('header content');
+    });
+
+    it('should display the footer slot when footer content is given', () => {
+        const wrapper = mount(UIPanel, {
             slots: {
                 footer: 'footer content'
             }
         });
-        await nextTick();
 
         expect(wrapper.html()).toContain('footer content');
     });
@@ -97,7 +101,6 @@ describe('UIPanel', () => {
                 noCollapse: true
             }
         });
-        await nextTick();
 
         expect(wrapper.find('#default').isVisible()).toBe(true);
         await wrapper.find('#header').trigger('click');
