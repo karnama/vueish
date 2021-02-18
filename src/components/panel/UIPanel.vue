@@ -22,15 +22,17 @@
         </header>
 
         <UIExpandTransition :appear="appear">
-            <div v-show="open">
-                <main class="w-full px-12 py-6 text-gray-700">
-                    <slot />
-                </main>
+            <keep-alive>
+                <div v-cloak v-if="open">
+                    <main class="w-full px-12 py-6 text-gray-700">
+                        <slot />
+                    </main>
 
-                <footer v-if="$slots.footer" class="py-8 px-12 flex items-center">
-                    <slot name="footer" />
-                </footer>
-            </div>
+                    <footer v-if="$slots.footer" class="py-8 px-12 flex items-center">
+                        <slot name="footer" />
+                    </footer>
+                </div>
+            </keep-alive>
         </UIExpandTransition>
     </section>
 </template>

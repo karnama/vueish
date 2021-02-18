@@ -68,7 +68,7 @@ describe('UIPanel', () => {
         await wrapper.setProps({
             closed: true
         });
-        expect(wrapper.find('#default').isVisible()).toBe(false);
+        expect(wrapper.find('#default').exists()).toBe(false);
     });
 
     it('should close and open by clicking on the header', async () => {
@@ -78,11 +78,10 @@ describe('UIPanel', () => {
                 default: '<div id="default" />'
             }
         });
-        await nextTick();
 
         expect(wrapper.find('#default').isVisible()).toBe(true);
         await wrapper.find('#header').trigger('click');
-        expect(wrapper.find('#default').isVisible()).toBe(false);
+        expect(wrapper.find('#default').exists()).toBe(false);
         await wrapper.find('#header').trigger('click');
         expect(wrapper.find('#default').isVisible()).toBe(true);
 
