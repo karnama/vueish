@@ -1,5 +1,5 @@
 <template>
-    <div ref="defaultSlot" class="relative">
+    <div ref="defaultSlot" class="ui-badge relative">
         <slot />
         <span :style="position"
               class="rounded bg-brand-400 text-white px-2"

@@ -12,7 +12,7 @@ describe('UIBadge', () => {
         expect(wrapper.text()).toBe('my-content');
     });
 
-    it('should display the givel named slot', () => {
+    it('should display the given named slot', () => {
         const wrapper = mount(UIBadge, {
             slots: {
                 content: 'my-content'
