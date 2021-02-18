@@ -2,6 +2,7 @@ name: Auto Merge Dependency Updates
 
 on:
   pull_request:
+    types: [ready_for_review, opened, synchronize, reopened]
     paths:
       - 'package-lock.json'
   pull_request_review:
