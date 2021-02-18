@@ -10,6 +10,7 @@ on:
 
 jobs:
   run:
+    if: !github.event.pull_request.draft
     runs-on: ubuntu-latest
     steps:
       - uses: tjenkinson/gh-action-auto-merge-dependency-updates@v1
