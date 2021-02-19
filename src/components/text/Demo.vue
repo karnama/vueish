@@ -1,10 +1,9 @@
 <template>
-    <h1 class="text-2xl mb-2 text-center">
+    <h1 class="text-2xl mb-12 text-center">
         UIText
     </h1>
 
-    <div class="py-10 space-y-10">
-        <div class="space-y-10">
+    <div class="space-y-10">
             <div>
                 <UIText v-model="text"
                         name="ui-text"
@@ -75,7 +74,6 @@
                 </template>
             </UIText>
         </div>
-    </div>
 </template>
 
 <script lang="ts">

@@ -1,6 +1,10 @@
 <template>
-    <UIToggle name="toggle" label="toggle" />
-    <UIToggle name="disabled-toggle" disabled />
+    <UIToggle name="toggle" label="Toggle" class="mb-4" />
+    <UIToggle name="disabled-toggle" disabled :class="{ 'mt-8': true }">
+        <template #label>
+            Disabled Toggle
+        </template>
+    </UIToggle>
 </template>
 
 <script lang="ts">
