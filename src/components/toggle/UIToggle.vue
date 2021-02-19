@@ -26,6 +26,8 @@ export default defineComponent({
 
     inheritAttrs: false,
 
+    emits: ['update:modelValue'],
+
     props: {
         modelValue: {
             type: Boolean
