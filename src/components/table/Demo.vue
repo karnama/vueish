@@ -9,7 +9,7 @@
             </template>
         </UITable>
     </UIPanel>
-    <UITable :headers="headers" :rows="rows" hover-highlight />
+    <UITable :headers="headers" :rows="rows" search />
 </template>
 
 <script lang="ts">

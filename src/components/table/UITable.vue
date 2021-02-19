@@ -1,8 +1,16 @@
 <template>
-    <table class="flex sm:table flex-nowrap border-collapse border border-gray-200 overflow-x-scroll
+    <table class="flex sm:table flex-col border-collapse border border-gray-200 overflow-x-scroll
                   shadow-md bg-white w-full table-auto text-gray-700 rounded relative">
-        <thead>
-            <tr class="hidden sm:table-row bg-gray-100 sticky top-0">
+        <thead class="sticky top-0">
+            <tr v-if="!!search" class="bg-white block sm:table-row">
+                <th :colspan=" normalisedHeaders.length" class="px-4 py-8 block sm:table-cell">
+                    <span class="block">
+                        <UIText name="search" placeholder="Search..." @update:model-value="setTerm" />
+                    </span>
+                </th>
+            </tr>
+
+            <tr class="hidden sm:table-row bg-gray-100">
                 <th v-for="column in normalisedHeaders"
                     :key="column.rowProperty"
                     class="py-6 text-left px-4 uppercase font-light text-gray-500 text-sm select-none"
@@ -15,21 +23,33 @@
         </thead>
 
         <tbody class="space-y-5 sm:space-y-0">
-            <tr v-for="row in rows"
-                :key="row.name"
-                :class="{ 'row-highlight': hoverHighlight }"
-                class="flex flex-col flex-no-wrap sm:table-row border-t border-gray-200">
-                <td v-for="name in rowProperties"
-                    :key="name"
-                    :data-column="name"
-                    :class="{ 'cell-highlight': hoverHighlight }"
-                    class="flex flex-row flex-nowrap items-center p-0 sm:table-cell">
-                    <span role="rowheader" class="block sm:hidden content font-bold p-4 flex-none">
-                        {{ getHeader(name) }}
-                    </span>
-                    <span class="block p-4">
-                        <slot :name="name" :row="row">
-                            {{ row[name] }}
+            <template v-if="filteredRows.length">
+                <tr v-for="row in filteredRows"
+                    :key="row.name"
+                    :class="{ 'row-highlight': hoverHighlight }"
+                    class="flex flex-col flex-no-wrap sm:table-row border-t border-gray-200">
+                    <td v-for="name in rowProperties"
+                        :key="name"
+                        :data-column="name"
+                        :class="{ 'cell-highlight': hoverHighlight }"
+                        class="flex flex-row flex-nowrap items-center p-0 sm:table-cell">
+                        <span role="rowheader" class="block sm:hidden content font-bold p-4 flex-none">
+                            {{ getHeader(name) }}
+                        </span>
+                        <span class="block p-4">
+                            <slot :name="name" :row="row">
+                                {{ row[name] }}
+                            </slot>
+                        </span>
+                    </td>
+                </tr>
+            </template>
+
+            <tr v-else>
+                <td :colspan=" normalisedHeaders.length">
+                    <span class="block text-center py-6 text-gray-400">
+                        <slot name="empty">
+                            Nothing to see here...
                         </slot>
                     </span>
                 </td>
@@ -39,22 +59,26 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, watch } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import type { PropType } from 'vue';
 import type { Column, Row } from '@components/table/UITableTypes';
-import { snakeCase } from 'lodash-es';
+import { snakeCase, debounce } from 'lodash-es';
+import UIText from '@components/text/UIText.vue';
 
 // todo - features planned/would be nice to have
 // - sorting -> multi sorting?
 // - row selection - v-model
-// - search
+// - footer
 // - pagination
 // - dropdown extra info
 // - virtualized
 
+// todo - searching while header in fixed position results in odd behaviour
+// todo - header(search) not sticky on mobile view
+
 export default defineComponent({
     name: 'UITable',
-
+    components: { UIText },
     props: {
         /**
          * The rows of the table.
@@ -78,6 +102,13 @@ export default defineComponent({
         hoverHighlight: {
             type: Boolean,
             default: false
+        },
+
+        /**
+         * Boolean flag or callback used on the row.
+         */
+        search: {
+            type: [Boolean, Function] as PropType<boolean | ((row: Row) => boolean)>
         }
     },
 
@@ -102,7 +133,32 @@ export default defineComponent({
             });
         });
         const rowProperties = computed<string[]>(() => normalisedHeaders.value.map(header => header.rowProperty));
+        const term = ref('');
+        const filteredRows = computed<Row[]>(() => {
+            if (!props.search || !term.value) {
+                return props.rows;
+            }
 
+            const search: (row: Row) => boolean = props.search instanceof Function
+                ? props.search
+                : (row) => Object.values(row).some(val => String(val).toLowerCase().includes(term.value.toLowerCase()));
+
+            return props.rows.filter(row => search(row));
+        });
+
+
+        const setTerm = (value: string): void => {
+            const debounced = debounce(() => term.value = value, 200);
+
+            if (!value) {
+                term.value = '';
+                // eslint-disable-next-line
+                debounced.cancel(); // todo - clearing value doesn't work as expected (to reproduce: quickly type "cup" and delete)
+                return;
+            }
+
+            debounced();
+        };
         const getHeader = (rowProperty: string): string => {
             return normalisedHeaders.value.find(header => header.rowProperty === rowProperty).header;
         };
@@ -129,6 +185,8 @@ export default defineComponent({
         return {
             normalisedHeaders,
             rowProperties,
+            filteredRows,
+            setTerm,
             getHeader,
             toggleHighlight
         };
