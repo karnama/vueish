@@ -1,7 +1,7 @@
 <template>
     <div ref="defaultSlot" class="ui-badge relative">
         <slot />
-        <span :style="position"
+        <span :style="positioningStyle"
               class="rounded bg-brand-400 text-white px-2"
               v-bind="$attrs"
               :role="$attrs.role ?? 'status'">
@@ -48,45 +48,45 @@ export default defineComponent({
 
     setup(props) {
         const defaultSlot = ref<HTMLDivElement>();
-        const position = computed(() => {
-            const position: Partial<CSSStyleDeclaration> = {};
-            position.position = 'absolute';
+        const positioningStyle = computed(() => {
+            const style: Partial<CSSStyleDeclaration> = {};
+            style.position = 'absolute';
 
             const slotParameters = defaultSlot.value?.firstElementChild?.getBoundingClientRect();
             const badgeParameters = defaultSlot.value?.lastElementChild?.getBoundingClientRect();
 
             if (!slotParameters || !badgeParameters) {
-                return position;
+                return style;
             }
 
             switch (props.horizontal) {
                 case 'left':
-                    position.left = `-${badgeParameters.width / 2}px`;
+                    style.left = `-${badgeParameters.width / 2}px`;
                     break;
                 case 'right':
-                    position.left = `${slotParameters.width - badgeParameters.width / 2}px`;
+                    style.left = `${slotParameters.width - badgeParameters.width / 2}px`;
                     break;
                 default:
-                    position.left = `${slotParameters.width / 2 - badgeParameters.width / 2}px`;
+                    style.left = `${slotParameters.width / 2 - badgeParameters.width / 2}px`;
             }
 
             switch (props.vertical) {
                 case 'top':
-                    position.top = `-${badgeParameters.height / 2}px`;
+                    style.top = `-${badgeParameters.height / 2}px`;
                     break;
                 case 'bottom':
-                    position.bottom = `-${badgeParameters.height / 2}px`;
+                    style.bottom = `-${badgeParameters.height / 2}px`;
                     break;
                 default:
-                    position.top = `${slotParameters.height / 2 - badgeParameters.height / 2}px`;
+                    style.top = `${slotParameters.height / 2 - badgeParameters.height / 2}px`;
             }
 
-            return position;
+            return style;
         });
 
         return {
             defaultSlot,
-            position
+            positioningStyle
         };
     }
 });
