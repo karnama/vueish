@@ -1,8 +1,8 @@
 <template>
     <table class="flex sm:table flex-nowrap border-collapse border border-gray-200 overflow-x-scroll
-                  shadow-md bg-white w-full table-auto text-gray-700 rounded">
+                  shadow-md bg-white w-full table-auto text-gray-700 rounded relative">
         <thead>
-            <tr class="hidden sm:table-row bg-gray-100">
+            <tr class="hidden sm:table-row bg-gray-100 sticky top-0">
                 <th v-for="column in normalisedHeaders"
                     :key="column.rowProperty"
                     class="py-6 text-left px-4 uppercase font-light text-gray-500 text-sm select-none"
@@ -45,7 +45,6 @@ import type { Column, Row } from '@components/table/UITableTypes';
 import { snakeCase } from 'lodash-es';
 
 // todo - features planned/would be nice to have
-// - fixed header on scroll
 // - sorting -> multi sorting?
 // - row selection - v-model
 // - search
