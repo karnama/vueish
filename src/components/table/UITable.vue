@@ -5,7 +5,8 @@
             <tr class="hidden sm:table-row bg-gray-100">
                 <th v-for="column in normalisedHeaders"
                     :key="column.rowProperty"
-                    class="py-6 text-left px-4 uppercase font-light text-gray-500 text-sm">
+                    class="py-6 text-left px-4 uppercase font-light text-gray-500 text-sm select-none"
+                    @dblclick="toggleHighlight(column.rowProperty)">
                     <slot name="header" :header="column">
                         {{ column.header }}
                     </slot>
@@ -16,11 +17,12 @@
         <tbody class="space-y-5 sm:space-y-0">
             <tr v-for="row in rows"
                 :key="row.name"
-                :class="{ hoverHighlight }"
+                :class="{ 'row-highlight': hoverHighlight }"
                 class="flex flex-col flex-no-wrap sm:table-row border-t border-gray-200">
                 <td v-for="name in rowProperties"
                     :key="name"
-                    :data-column-name="name"
+                    :data-column="name"
+                    :class="{ 'cell-highlight': hoverHighlight }"
                     class="flex flex-row flex-nowrap items-center p-0 sm:table-cell">
                     <span role="rowheader" class="block sm:hidden content font-bold p-4 flex-none">
                         {{ getHeader(name) }}
@@ -85,6 +87,7 @@ export default defineComponent({
         //     const properties = props.headers.map(header => header.rowProperty);
         //     return rows.every(row => Object.keys(row).every(key => key in properties));
         // };
+        let highlightedColumn = '';
 
         const normalisedHeaders = computed<Required<Column>[]>(() => {
             return props.headers.map((col: Column) => {
@@ -104,45 +107,31 @@ export default defineComponent({
         const getHeader = (rowProperty: string): string => {
             return normalisedHeaders.value.find(header => header.rowProperty === rowProperty).header;
         };
-        const addHoverStyles = (value) => {
-            const selector = `style-for-table-${JSON.stringify(rowProperties.value)}`;
-            const [values, hoverHighlight] = value as [string[], boolean];
+        const toggleHighlight = (name: string) => {
+            if (!props.hoverHighlight) return;
 
-            let css: HTMLStyleElement = document.getElementById(selector);
+            if (highlightedColumn) {
+                document.querySelectorAll(`td[data-column="${highlightedColumn}"]`).forEach(td => {
+                    td.classList.remove('bg-brand-50');
+                });
 
-            if (!hoverHighlight) {
-                if (css) {
-                    css.parentElement.removeChild(css);
+                if (name === highlightedColumn) {
+                    highlightedColumn = '';
+                    return;
                 }
-
-                return;
             }
 
-            if (!css) {
-                css = document.createElement('style');
-                css.id = selector;
-                document.head.appendChild(css);
-            }
-
-            values.forEach(name => {
-                css.sheet.insertRule(`td[data-column-name="${name}"]:hover { background-color: var(--color-brand-50)`);
+            document.querySelectorAll(`td[data-column="${name}"]`).forEach(td => {
+                td.classList.add('bg-brand-50');
             });
+            highlightedColumn = name;
         };
-
-        onMounted(() => {
-            addHoverStyles([rowProperties.value, props.hoverHighlight]);
-        });
-
-        watch(
-            [() => rowProperties.value, () => props.hoverHighlight],
-            value => addHoverStyles(value),
-            { immediate: true }
-        );
 
         return {
             normalisedHeaders,
             rowProperties,
-            getHeader
+            getHeader,
+            toggleHighlight
         };
     }
 });
@@ -158,7 +147,37 @@ export default defineComponent({
 //    content: '';
 //    @apply bg-brand-50 w-0 h-0;
 //}
-.hoverHighlight:hover {
+//@screen sm {
+//    table {
+//        overflow: hidden;
+//    }
+//    td {
+//        position: relative;
+//    }
+//    td:hover::after {
+//            @apply bg-brand-100 opacity-40;
+//            content: '\00a0';
+//            height: 10000px;
+//            left: 0;
+//            position: absolute;
+//            top: -5000px;
+//            width: 100%;
+//            z-index: 2;
+//            //content: '';
+//            //top: 0;
+//            //left: 0;
+//            //width: 100%;
+//            //position: absolute;
+//            //height: 100%;
+//            //@apply bg-brand-50;
+//            //z-index: -1;
+//    }
+//}
+//td[data-column-name="name"] { background-color: var(--color-brand-50); }
+.row-highlight:hover {
     @apply bg-brand-50;
+}
+.cell-highlight:hover {
+    @apply bg-brand-200;
 }
 </style>
