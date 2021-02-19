@@ -5,3 +5,6 @@ export type Settings = {
 };
 
 export * from './components';
+
+export const styleTypes = ['default', 'primary', 'info', 'success', 'warning', 'danger', 'brand'] as const;
+export type StyleType = typeof styleTypes[number];
