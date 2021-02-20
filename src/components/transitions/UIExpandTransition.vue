@@ -25,7 +25,7 @@ export default {
         }
     },
 
-    setup(): void {
+    setup() {
         const beforeEnter = (element: HTMLElement): void => {
             element.style.willChange = 'height, opacity';
             requestAnimationFrame(() => {
@@ -36,7 +36,6 @@ export default {
                 element.style.display = 'null';
             });
         };
-
         const enter = (element: HTMLElement): void => {
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
@@ -44,10 +43,9 @@ export default {
                 });
             });
         };
-
         const afterEnter = (element: HTMLElement): void => {
-            element.style.height = 'null';
-            element.style.willChange = 'null';
+            element.style.height = '';
+            element.style.willChange = '';
         };
 
         const beforeLeave = (element: HTMLElement): void => {
@@ -58,7 +56,6 @@ export default {
                 }
             });
         };
-
         const leave = (element: HTMLElement): void => {
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
@@ -66,10 +63,9 @@ export default {
                 });
             });
         };
-
         const afterLeave = (element: HTMLElement): void => {
-            element.style.height = 'null';
-            element.style.willChange = 'null';
+            element.style.height = '';
+            element.style.willChange = '';
         };
 
         return {
