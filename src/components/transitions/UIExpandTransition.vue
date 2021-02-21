@@ -2,6 +2,7 @@
     <transition
         name="expand"
         :appear="appear"
+        :mode="mode"
         @enter="enter"
         @after-enter="afterEnter"
         @leave="leave"
@@ -22,6 +23,14 @@ export default {
         appear: {
             type: Boolean,
             default: false
+        },
+
+        /**
+         * The transition mode between elements.
+         */
+        mode: {
+            type: String,
+            default: 'out-in'
         }
     },
 
@@ -32,8 +41,6 @@ export default {
                 if (!element.style.height) {
                     element.style.height = '0px';
                 }
-
-                element.style.display = 'null';
             });
         };
         const enter = (element: HTMLElement): void => {
