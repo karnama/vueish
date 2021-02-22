@@ -1,80 +1,84 @@
 <template>
-    <table ref="table"
-           class="flex sm:table flex-col border-collapse border border-gray-200 sm:overflow-x-scroll
-                  shadow-md bg-white w-full table-auto text-gray-700 rounded relative"
-           :class="[hoverClass]"
-           @mouseover="handleHover"
-           @mouseleave="handleHover">
-        <thead class="sticky top-0 shadow">
-            <tr v-if="!!search" class="bg-white block sm:table-row">
-                <th :colspan=" normalisedHeaders.length" class="px-4 py-8 block sm:table-cell">
-                    <span class="block">
-                        <UIText name="search" placeholder="Search..." @update:model-value="setTerm" />
-                    </span>
-                </th>
-            </tr>
-
-            <tr class="hidden sm:table-row bg-gray-100">
-                <th v-if="showSelect" class="py-6 px-2">
-                    <span v-if="multiSelect" class="mx-auto">
-                        <UICheckbox name="selectAll"
-                                    classes="justify-center"
-                                    :indeterminate="selected.length !== rows.length"
-                                    :model-value="!!selected.length"
-                                    @update:model-value="toggleFilteredSelection" />
-                    </span>
-                </th>
-                <th v-for="column in normalisedHeaders"
-                    :key="column.rowProperty"
-                    class="py-6 text-left px-4 uppercase font-light text-gray-500 text-sm select-none">
-                    <slot name="header" :header="column">
-                        {{ column.header }}
-                    </slot>
-                </th>
-            </tr>
-        </thead>
-
-        <tbody class="space-y-5 sm:space-y-0">
-            <template v-if="filteredRows.length">
-                <tr v-for="row in filteredRows"
-                    :key="row.name"
-                    :class="{ 'row-highlight': hoverHighlight }"
-                    class="flex flex-col flex-no-wrap sm:table-row border-t border-gray-200">
-                    <td v-if="showSelect" class="px-2">
-                        <UICheckbox :name="row.name"
-                                    :disabled="!row.isSelectable"
-                                    classes="justify-center"
-                                    :model-value="isSelected(row)"
-                                    @update:model-value="toggleRowSelection(row)" />
-                    </td>
-                    <td v-for="name in rowProperties"
-                        :key="name"
-                        :data-column="name"
-                        :class="{ [`hover-cell-${name}`]: true, 'cell-highlight': hoverHighlight }"
-                        class="flex flex-row flex-nowrap items-center p-0 sm:table-cell">
-                        <span role="rowheader" class="block sm:hidden content font-bold p-4 flex-none">
-                            {{ getHeader(name) }}
+    <section class="shadow-md text-gray-700 bg-white">
+        <table class="flex sm:table flex-col border-collapse border-gray-200 sm:overflow-x-scroll
+                      w-full table-auto rounded relative"
+               :class="[hoverClass]"
+               @mouseover="handleHover"
+               @mouseleave="handleHover">
+            <thead class="sticky top-0 shadow">
+                <tr v-if="!!search" class="bg-white block sm:table-row">
+                    <th :colspan=" normalisedHeaders.length" class="px-4 py-8 block sm:table-cell">
+                        <span class="block">
+                            <UIText name="search" placeholder="Search..." @update:model-value="setTerm" />
                         </span>
-                        <span class="block p-4">
-                            <slot :name="name" :row="row">
-                                {{ row[name] }}
+                    </th>
+                </tr>
+
+                <tr class="hidden sm:table-row bg-gray-100">
+                    <th v-if="showSelect" class="py-6 px-2">
+                        <span v-if="multiSelect" class="mx-auto">
+                            <UICheckbox name="selectAll"
+                                        classes="justify-center"
+                                        :indeterminate="selected.length !== rows.length"
+                                        :model-value="!!selected.length"
+                                        @update:model-value="toggleFilteredSelection" />
+                        </span>
+                    </th>
+                    <th v-for="column in normalisedHeaders"
+                        :key="column.rowProperty"
+                        class="py-6 text-left px-4 uppercase font-light text-gray-500 text-sm select-none">
+                        <slot name="header" :header="column">
+                            {{ column.header }}
+                        </slot>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody class="space-y-5 sm:space-y-0">
+                <template v-if="filteredRows.length">
+                    <tr v-for="row in filteredRows"
+                        :key="row.name"
+                        :class="{ 'row-highlight': hoverHighlight }"
+                        class="flex flex-col flex-no-wrap sm:table-row border-t border-gray-200">
+                        <td v-if="showSelect" class="px-2">
+                            <UICheckbox :name="row.name"
+                                        :disabled="!row.isSelectable"
+                                        classes="justify-center"
+                                        :model-value="isSelected(row)"
+                                        @update:model-value="toggleRowSelection(row)" />
+                        </td>
+                        <td v-for="name in rowProperties"
+                            :key="name"
+                            :data-column="name"
+                            :class="{ [`hover-cell-${name}`]: true, 'cell-highlight': hoverHighlight }"
+                            class="flex flex-row flex-nowrap items-center p-0 sm:table-cell">
+                            <span role="rowheader" class="block sm:hidden content font-bold p-4 flex-none">
+                                {{ getHeader(name) }}
+                            </span>
+                            <span class="block p-4">
+                                <slot :name="name" :row="row">
+                                    {{ row[name] }}
+                                </slot>
+                            </span>
+                        </td>
+                    </tr>
+                </template>
+
+                <tr v-else>
+                    <td :colspan="showSelect ? normalisedHeaders.length + 1 : normalisedHeaders.length">
+                        <span class="block text-center px-4 py-6 text-gray-400">
+                            <slot name="empty">
+                                Nothing to see here...
                             </slot>
                         </span>
                     </td>
                 </tr>
-            </template>
-
-            <tr v-else>
-                <td :colspan="showSelect ? normalisedHeaders.length + 1 : normalisedHeaders.length">
-                    <span class="block text-center px-4 py-6 text-gray-400">
-                        <slot name="empty">
-                            Nothing to see here...
-                        </slot>
-                    </span>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+        <footer class="px-4 py-6 bg-white border-t border-gray-300">
+            <slot name="footer" />
+        </footer>
+    </section>
 </template>
 
 <script lang="ts">
@@ -150,6 +154,14 @@ export default defineComponent({
          * Whether multiple rows can be selected or not.
          */
         multiSelect: {
+            type: Boolean,
+            default: false
+        },
+
+        /**
+         * Whether the columns are sortable or not.
+         */
+        noSort: {
             type: Boolean,
             default: false
         }

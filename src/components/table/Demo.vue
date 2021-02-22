@@ -1,25 +1,28 @@
 <template>
-    <!--    <UIPanel closed class="bg-white mb-4">-->
-    <!--        <template #header>-->
-    <!--            Table with slots-->
-    <!--        </template>-->
-    <!--        <UITable :headers="headers" :rows="rows" hover-highlight>-->
-    <!--            <template #name="slotProps">-->
-    <!--                slotted change of {{ slotProps.row.name }}-->
-    <!--            </template>-->
-    <!--        </UITable>-->
-    <!--    </UIPanel>-->
+    <UIPanel closed class="bg-white mb-4">
+        <template #header>
+            Table with slots
+        </template>
+        <UITable :headers="headers" :rows="rows" hover-highlight>
+            <template #name="slotProps">
+                slotted change of {{ slotProps.row.name }}
+            </template>
+            <template #footer>
+                Slotted footer
+            </template>
+        </UITable>
+    </UIPanel>
 
     <!--    Searchable-->
     <!--    <UITable :headers="headers" :rows="rows" search />-->
 
-    With Selection
-    <UITable v-model="selectedRows"
-             :headers="headers"
-             :rows="rows"
-             show-select
-             hover-highlight
-             multi-select />
+<!--    With Selection-->
+<!--    <UITable v-model="selectedRows"-->
+<!--             :headers="headers"-->
+<!--             :rows="rows"-->
+<!--             show-select-->
+<!--             hover-highlight-->
+<!--             multi-select />-->
 </template>
 
 <script lang="ts">
