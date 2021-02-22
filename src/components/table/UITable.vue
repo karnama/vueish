@@ -1,7 +1,7 @@
 <template>
-    <table class="flex sm:table flex-col border-collapse border border-gray-200 overflow-x-scroll
+    <table class="flex sm:table flex-col border-collapse border border-gray-200 sm:overflow-x-scroll
                   shadow-md bg-white w-full table-auto text-gray-700 rounded relative">
-        <thead class="sticky top-0">
+        <thead class="sticky top-0 shadow">
             <tr v-if="!!search" class="bg-white block sm:table-row">
                 <th :colspan=" normalisedHeaders.length" class="px-4 py-8 block sm:table-cell">
                     <span class="block">
@@ -74,7 +74,6 @@ import UIText from '@components/text/UIText.vue';
 // - virtualized
 
 // todo - searching while header in fixed position results in odd behaviour
-// todo - header(search) not sticky on mobile view
 
 const debounced = debounce((term: Ref, value: string) => term.value = value, 200);
 
@@ -153,7 +152,7 @@ export default defineComponent({
             if (!value) {
                 term.value = '';
                 // eslint-disable-next-line
-                debounced.cancel(); // todo - clearing value doesn't work as expected (to reproduce: quickly type "cup" and delete)
+                debounced.cancel();
                 return;
             }
 
