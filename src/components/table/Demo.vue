@@ -1,5 +1,5 @@
 <template>
-    <UIPanel closed class="bg-white mb-4">
+    <UIPanel class="bg-white mb-4">
         <template #header>
             Table with slots
         </template>
@@ -8,7 +8,7 @@
                 slotted change of {{ slotProps.row.name }}
             </template>
             <template #footer>
-                Slotted footer
+                <span class="font-bold text-gray-700">Slotted footer</span>
             </template>
         </UITable>
     </UIPanel>
@@ -41,7 +41,7 @@ export default defineComponent({
             { header: 'Calories', rowProperty: 'calories' },
             { header: 'Fat (g)', rowProperty: 'fat' },
             { header: 'Carbs (g)', rowProperty: 'carbs' },
-            { header: 'Protein (g)', rowProperty: 'protein' },
+            { header: 'Protein (g)', rowProperty: 'protein', sortable: true  },
             { header: 'Iron (%)', rowProperty: 'iron' }
         ]);
         const rows = ref<Row[]>([

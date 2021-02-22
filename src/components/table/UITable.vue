@@ -24,12 +24,29 @@
                                         @update:model-value="toggleFilteredSelection" />
                         </span>
                     </th>
+
                     <th v-for="column in normalisedHeaders"
                         :key="column.rowProperty"
-                        class="py-6 text-left px-4 uppercase font-light text-gray-500 text-sm select-none">
-                        <slot name="header" :header="column">
-                            {{ column.header }}
-                        </slot>
+                        :class="{
+                            'cursor-pointer hover:bg-gray-50': !noSort && column.sortable,
+                            'bg-gray-200': !!sortDirection(column.rowProperty)
+                        }"
+                        class="py-6 text-left px-4 uppercase font-light
+                               text-gray-500 text-sm select-none group transition"
+                        @click="sortBy(column.rowProperty)">
+                        <span class="flex items-center justify-between">
+                            <slot name="header" :header="column">
+                                {{ column.header }}
+                            </slot>
+
+                            <i v-if="!noSort && column.sortable"
+                               class="ml-2 transition transform opacity-0 group-hover:opacity-100"
+                               :class="{
+                                   'opacity-100': !!sortDirection(column.rowProperty),
+                                   'rotate-180': sortDirection(column.rowProperty) === 'desc'
+                               }"
+                               v-html="chevronIcon" />
+                        </span>
                     </th>
                 </tr>
             </thead>
@@ -47,6 +64,7 @@
                                         :model-value="isSelected(row)"
                                         @update:model-value="toggleRowSelection(row)" />
                         </td>
+
                         <td v-for="name in rowProperties"
                             :key="name"
                             :data-column="name"
@@ -68,7 +86,7 @@
                     <td :colspan="showSelect ? normalisedHeaders.length + 1 : normalisedHeaders.length">
                         <span class="block text-center px-4 py-6 text-gray-400">
                             <slot name="empty">
-                                Nothing to see here...
+                                {{ empty }}
                             </slot>
                         </span>
                     </td>
@@ -84,20 +102,21 @@
 <script lang="ts">
 import { computed, defineComponent, Ref, ref, watch } from 'vue';
 import type { PropType } from 'vue';
-import type { Column, Row } from '@components/table/UITableTypes';
-import { snakeCase, debounce, uniqueId, isEqual } from 'lodash-es';
+import type { Column, Row, SortOrder } from '@components/table/UITableTypes';
+import { snakeCase, debounce, uniqueId, isEqual, orderBy } from 'lodash-es';
 import UIText from '@components/text/UIText.vue';
 import UICheckbox from '@components/checkbox/UICheckbox.vue';
 import { useVModel } from '@composables/input';
 import type { MaybeArray } from '@/types';
+import { getIcon } from '@/helpers';
 
 // todo - features planned/would be nice to have
-// - sorting -> multi sorting?
-// - footer
 // - pagination (mind the selection to also select things not on page)
 // - dropdown extra info
 // - virtualized
 
+// todo - multi sort
+// todo - check what's up with the mobile view
 const debounced = debounce((term: Ref, value: string) => term.value = value, 200);
 let styleTagId = '';
 
@@ -143,6 +162,14 @@ export default defineComponent({
         },
 
         /**
+         * The string to display if no data provided.
+         */
+        empty: {
+            type: String,
+            default: 'There\'s no data available'
+        },
+
+        /**
          * Whether rows are selectable or not.
          */
         showSelect: {
@@ -174,6 +201,7 @@ export default defineComponent({
         //     const properties = props.headers.map(header => header.rowProperty);
         //     return rows.every(row => Object.keys(row).every(key => key in properties));
         // };
+        const chevronIcon = getIcon('chevron');
 
         const normalisedHeaders = computed<Required<Column>[]>(() => {
             return props.headers.map((col: Column) => {
@@ -183,8 +211,9 @@ export default defineComponent({
                         previous + ' ' + next.charAt(0).toUpperCase() + next.slice(1));
 
                 return {
+                    sortable: false,
                     ...col,
-                    header: header
+                    header
                 } as Required<Column>;
             });
         });
@@ -200,18 +229,31 @@ export default defineComponent({
         const rowProperties = computed<string[]>(() => normalisedHeaders.value.map(header => header.rowProperty));
         const term = ref('');
         const filteredRows = computed<Row[]>(() => {
+            const sortedRows = (rows: Row[]) => {
+                if (!sortOrder.value.length) return rows;
+
+                return orderBy(
+                    rows,
+                    sortOrder.value.map(order =>
+                        row => isNaN(Number(row[order.column])) ? Number(row[order.column]) : row[order.column]
+                    ),
+                    sortOrder.value.map(order => order.direction)
+                );
+            };
+
             if (!props.search || !term.value) {
-                return normalisedRows.value;
+                return sortedRows(normalisedRows.value);
             }
 
             const search: (row: Row) => boolean = props.search instanceof Function
                 ? props.search
                 : (row) => Object.values(row).some(val => String(val).toLowerCase().includes(term.value.toLowerCase()));
 
-            return normalisedRows.value.filter(row => search(row));
+            return sortedRows(normalisedRows.value.filter(row => search(row)));
         });
         const hoverClass = ref('');
         const selected = useVModel<MaybeArray<Row>>(props);
+        const sortOrder = ref<SortOrder>([]);
 
         const setTerm = (value: string): void => {
             if (!value) {
@@ -304,6 +346,31 @@ export default defineComponent({
         const toggleFilteredSelection = () => {
             selected.value = selected.value.length ? [] : filteredRows.value;
         };
+        const sortBy = (columnName: string): void => {
+            if (props.noSort|| !normalisedHeaders.value.find(header => header.rowProperty === columnName).sortable) {
+                return;
+            }
+
+            const existingOrdering = sortOrder.value.findIndex(colOrder => colOrder.column === columnName);
+
+            if (existingOrdering === -1) {
+                sortOrder.value.push({
+                    column: columnName,
+                    direction: 'asc'
+                });
+                return;
+            }
+
+            if (sortOrder.value[existingOrdering].direction === 'asc') {
+                sortOrder.value[existingOrdering].direction = 'desc';
+                return;
+            }
+
+            sortOrder.value.splice(existingOrdering, 1);
+        };
+        const sortDirection = (columnName: string): undefined | 'asc' | 'desc' => {
+            return sortOrder.value.find(colOrder => colOrder.column === columnName)?.direction;
+        };
 
         watch(
             [() => normalisedHeaders.value, () => props.hoverHighlight],
@@ -318,12 +385,15 @@ export default defineComponent({
             filteredRows,
             hoverClass,
             selected,
+            chevronIcon,
             setTerm,
             getHeader,
             handleHover,
             toggleRowSelection,
             isSelected,
-            toggleFilteredSelection
+            toggleFilteredSelection,
+            sortBy,
+            sortDirection
         };
     }
 });
