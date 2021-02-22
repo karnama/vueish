@@ -1,15 +1,25 @@
 <template>
-    <UIPanel closed class="bg-white mb-4">
-        <template #header>
-            Table with slots
-        </template>
-        <UITable :headers="headers" :rows="rows" hover-highlight>
-            <template #name="slotProps">
-                slotted change of {{ slotProps.row.name }}
-            </template>
-        </UITable>
-    </UIPanel>
-    <UITable :headers="headers" :rows="rows" search />
+    <!--    <UIPanel closed class="bg-white mb-4">-->
+    <!--        <template #header>-->
+    <!--            Table with slots-->
+    <!--        </template>-->
+    <!--        <UITable :headers="headers" :rows="rows" hover-highlight>-->
+    <!--            <template #name="slotProps">-->
+    <!--                slotted change of {{ slotProps.row.name }}-->
+    <!--            </template>-->
+    <!--        </UITable>-->
+    <!--    </UIPanel>-->
+
+    <!--    Searchable-->
+    <!--    <UITable :headers="headers" :rows="rows" search />-->
+
+    With Selection
+    <UITable v-model="selectedRows"
+             :headers="headers"
+             :rows="rows"
+             show-select
+             hover-highlight
+             multi-select />
 </template>
 
 <script lang="ts">
@@ -113,10 +123,12 @@ export default defineComponent({
                 iron: '6%'
             }
         ]);
+        const selectedRows = ref<Row[]>([]);
 
         return {
             headers,
-            rows
+            rows,
+            selectedRows
         };
     }
 });

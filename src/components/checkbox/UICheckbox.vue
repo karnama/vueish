@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-center">
+    <div class="flex items-center" :class="classes">
         <input :id="$attrs.id ?? name"
                type="checkbox"
                class="hidden"
@@ -17,7 +17,7 @@
               @click="toggleValue">
             <span class="transition-all opacity-0 scale-0 text-white" v-html="indeterminate ? dashIcon : tickIcon" />
         </span>
-        <label class="items-center" :for="$attrs.id ?? name">
+        <label v-if="label || $slots.default" class="items-center" :for="$attrs.id ?? name">
             <span class="select-none ml-3 cursor-pointer"
                   :class="{ 'cursor-not-allowed': disabled }">
                 <slot>
@@ -31,6 +31,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 import { label, disabled, name, value } from '@composables/input';
+import { classes } from '@composables/style';
 import { isEqual } from 'lodash-es';
 import { getIcon } from '@/helpers';
 
@@ -50,6 +51,7 @@ export default defineComponent({
             default: false
         },
 
+        classes,
         value,
         label,
         disabled,

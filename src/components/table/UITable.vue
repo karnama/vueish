@@ -15,6 +15,15 @@
             </tr>
 
             <tr class="hidden sm:table-row bg-gray-100">
+                <th v-if="showSelect" class="py-6 px-2">
+                    <span v-if="multiSelect" class="mx-auto">
+                        <UICheckbox name="selectAll"
+                                    classes="justify-center"
+                                    :indeterminate="selected.length !== rows.length"
+                                    :model-value="!!selected.length"
+                                    @update:model-value="toggleFilteredSelection" />
+                    </span>
+                </th>
                 <th v-for="column in normalisedHeaders"
                     :key="column.rowProperty"
                     class="py-6 text-left px-4 uppercase font-light text-gray-500 text-sm select-none">
@@ -31,6 +40,13 @@
                     :key="row.name"
                     :class="{ 'row-highlight': hoverHighlight }"
                     class="flex flex-col flex-no-wrap sm:table-row border-t border-gray-200">
+                    <td v-if="showSelect" class="px-2">
+                        <UICheckbox :name="row.name"
+                                    :disabled="!row.isSelectable"
+                                    classes="justify-center"
+                                    :model-value="isSelected(row)"
+                                    @update:model-value="toggleRowSelection(row)" />
+                    </td>
                     <td v-for="name in rowProperties"
                         :key="name"
                         :data-column="name"
@@ -49,7 +65,7 @@
             </template>
 
             <tr v-else>
-                <td :colspan=" normalisedHeaders.length">
+                <td :colspan="showSelect ? normalisedHeaders.length + 1 : normalisedHeaders.length">
                     <span class="block text-center px-4 py-6 text-gray-400">
                         <slot name="empty">
                             Nothing to see here...
@@ -65,23 +81,32 @@
 import { computed, defineComponent, Ref, ref, watch } from 'vue';
 import type { PropType } from 'vue';
 import type { Column, Row } from '@components/table/UITableTypes';
-import { snakeCase, debounce, uniqueId } from 'lodash-es';
+import { snakeCase, debounce, uniqueId, isEqual } from 'lodash-es';
 import UIText from '@components/text/UIText.vue';
+import UICheckbox from '@components/checkbox/UICheckbox.vue';
+import { useVModel } from '@composables/input';
+import type { MaybeArray } from '@/types';
 
 // todo - features planned/would be nice to have
 // - sorting -> multi sorting?
-// - row selection - v-model
 // - footer
-// - pagination
+// - pagination (mind the selection to also select things not on page)
 // - dropdown extra info
 // - virtualized
 
 const debounced = debounce((term: Ref, value: string) => term.value = value, 200);
+let styleTagId = '';
 
 export default defineComponent({
     name: 'UITable',
-    components: { UIText },
+
+    components: { UIText, UICheckbox },
+
     props: {
+        modelValue: {
+            type: [Array, Object] as PropType<MaybeArray<Row>>
+        },
+
         /**
          * The rows of the table.
          */
@@ -111,15 +136,32 @@ export default defineComponent({
          */
         search: {
             type: [Boolean, Function] as PropType<boolean | ((row: Row) => boolean)>
+        },
+
+        /**
+         * Whether rows are selectable or not.
+         */
+        showSelect: {
+            type: Boolean,
+            default: false
+        },
+
+        /**
+         * Whether multiple rows can be selected or not.
+         */
+        multiSelect: {
+            type: Boolean,
+            default: false
         }
     },
+
+    emits: ['update:modelValue'],
 
     setup(props) {
         // const validateRows = (rows: Row[]): boolean => {
         //     const properties = props.headers.map(header => header.rowProperty);
         //     return rows.every(row => Object.keys(row).every(key => key in properties));
         // };
-        let styleTagId = '';
 
         const normalisedHeaders = computed<Required<Column>[]>(() => {
             return props.headers.map((col: Column) => {
@@ -134,19 +176,30 @@ export default defineComponent({
                 } as Required<Column>;
             });
         });
+        const normalisedRows = computed<Required<Row>[]>(() => {
+            return props.rows.map(row => {
+                const isSelectable = typeof row.isSelectable === 'boolean' ? row.isSelectable : true;
+                return {
+                    ...row,
+                    isSelectable
+                };
+            });
+        });
         const rowProperties = computed<string[]>(() => normalisedHeaders.value.map(header => header.rowProperty));
         const term = ref('');
         const filteredRows = computed<Row[]>(() => {
             if (!props.search || !term.value) {
-                return props.rows;
+                return normalisedRows.value;
             }
 
             const search: (row: Row) => boolean = props.search instanceof Function
                 ? props.search
                 : (row) => Object.values(row).some(val => String(val).toLowerCase().includes(term.value.toLowerCase()));
 
-            return props.rows.filter(row => search(row));
+            return normalisedRows.value.filter(row => search(row));
         });
+        const hoverClass = ref('');
+        const selected = useVModel<MaybeArray<Row>>(props);
 
         const setTerm = (value: string): void => {
             if (!value) {
@@ -199,16 +252,9 @@ export default defineComponent({
                 );
             });
         };
-
-        watch(
-            [() => normalisedHeaders.value, () => props.hoverHighlight],
-            val => addHoverStyles(val),
-            { immediate: true }
-        );
-
-        const hoverClass = ref('');
-
         const handleHover = (event: MouseEvent): void => {
+            if (!props.hoverHighlight) return;
+
             const td: HTMLTableCellElement = (event.target as Element).closest('td');
 
             if (!td) {
@@ -224,15 +270,48 @@ export default defineComponent({
 
             hoverClass.value = `hover-cell-${name}`;
         };
+        const isSelected = (row: Row): boolean => {
+            const selection = Array.isArray(selected.value) ? selected.value : [selected.value];
+            return !!selection.find(selectedRow => isEqual(selectedRow, row));
+        };
+        const toggleRowSelection = (row: Row): void => {
+            if (!row.isSelectable) return;
+
+            if (!props.multiSelect) {
+                selected.value = row;
+                return;
+            }
+
+            let selection = Array.isArray(selected.value) ? selected.value : [selected.value];
+            const rowIndex = selection.findIndex(selectedRow => isEqual(selectedRow, row));
+            rowIndex === -1 ? selection.push(row) : selection.splice(rowIndex, 1);
+
+            selected.value = selection;
+            return;
+        };
+        const toggleFilteredSelection = () => {
+            selected.value = selected.value.length ? [] : filteredRows.value;
+        };
+
+        watch(
+            [() => normalisedHeaders.value, () => props.hoverHighlight],
+            val => addHoverStyles(val),
+            { immediate: true }
+        );
 
         return {
             normalisedHeaders,
+            normalisedRows,
             rowProperties,
             filteredRows,
+            hoverClass,
+            selected,
             setTerm,
             getHeader,
-            hoverClass,
-            handleHover
+            handleHover,
+            toggleRowSelection,
+            isSelected,
+            toggleFilteredSelection
         };
     }
 });

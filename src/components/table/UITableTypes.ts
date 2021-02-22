@@ -1,5 +1,6 @@
 export type Row = {
-    name: string;
+    name: string; // The display value
+    isSelectable?: boolean; // whether the row is selectable
     [key: string]: any;
 };
 
