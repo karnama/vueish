@@ -34,6 +34,7 @@ export default {
         }
     },
 
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     setup() {
         const beforeEnter = (element: HTMLElement): void => {
             element.style.willChange = 'height, opacity';
