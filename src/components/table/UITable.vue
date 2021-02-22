@@ -59,7 +59,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
+import {computed, defineComponent, Ref, ref} from 'vue';
 import type { PropType } from 'vue';
 import type { Column, Row } from '@components/table/UITableTypes';
 import { snakeCase, debounce } from 'lodash-es';
@@ -75,6 +75,8 @@ import UIText from '@components/text/UIText.vue';
 
 // todo - searching while header in fixed position results in odd behaviour
 // todo - header(search) not sticky on mobile view
+
+const debounced = debounce((term: Ref, value: string) => term.value = value, 200);
 
 export default defineComponent({
     name: 'UITable',
@@ -148,8 +150,6 @@ export default defineComponent({
 
 
         const setTerm = (value: string): void => {
-            const debounced = debounce(() => term.value = value, 200);
-
             if (!value) {
                 term.value = '';
                 // eslint-disable-next-line
@@ -157,10 +157,10 @@ export default defineComponent({
                 return;
             }
 
-            debounced();
+            debounced(term, value);
         };
         const getHeader = (rowProperty: string): string => {
-            return normalisedHeaders.value.find(header => header.rowProperty === rowProperty).header;
+            return normalisedHeaders.value.find(header => header.rowProperty === rowProperty)!.header;
         };
         const toggleHighlight = (name: string) => {
             if (!props.hoverHighlight) return;
