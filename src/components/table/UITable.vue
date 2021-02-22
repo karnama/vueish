@@ -1,6 +1,10 @@
 <template>
-    <table class="flex sm:table flex-col border-collapse border border-gray-200 sm:overflow-x-scroll
-                  shadow-md bg-white w-full table-auto text-gray-700 rounded relative">
+    <table ref="table"
+           class="flex sm:table flex-col border-collapse border border-gray-200 sm:overflow-x-scroll
+                  shadow-md bg-white w-full table-auto text-gray-700 rounded relative"
+           :class="{[hoverClass]: true}"
+           @mouseover="handleHover($event)"
+           @mouseleave="handleHover($event)">
         <thead class="sticky top-0 shadow">
             <tr v-if="!!search" class="bg-white block sm:table-row">
                 <th :colspan=" normalisedHeaders.length" class="px-4 py-8 block sm:table-cell">
@@ -31,7 +35,7 @@
                     <td v-for="name in rowProperties"
                         :key="name"
                         :data-column="name"
-                        :class="{ 'cell-highlight': hoverHighlight }"
+                        :class="{ 'cell-highlight': hoverHighlight, [`hover-cell-${name}`]: true }"
                         class="flex flex-row flex-nowrap items-center p-0 sm:table-cell">
                         <span role="rowheader" class="block sm:hidden content font-bold p-4 flex-none">
                             {{ getHeader(name) }}
@@ -59,7 +63,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, Ref, ref} from 'vue';
+import { computed, defineComponent, onMounted, Ref, ref } from 'vue';
 import type { PropType } from 'vue';
 import type { Column, Row } from '@components/table/UITableTypes';
 import { snakeCase, debounce } from 'lodash-es';
@@ -179,13 +183,45 @@ export default defineComponent({
             highlightedColumn = name;
         };
 
+        //todo - make reactive.
+        onMounted(() => {
+            const el = document.createElement('style');
+            document.head.appendChild(el);
+            const sheet = el.sheet;
+
+            normalisedHeaders.value.forEach(header => {
+                sheet!.insertRule(`table.hover-cell-${header.rowProperty}:hover td.hover-cell-${header.rowProperty} {--tw-bg-opacity: 1; background-color: rgba(var(--color-brand-50), var(--tw-bg-opacity, 1)); }`, 0);
+            });
+        });
+
+        const hoverClass = ref('');
+
+        //todo - proper typings, clean up, etc
+        const handleHover = (event: MouseEvent) => {
+            const td: HTMLElement = event.target!.closest('td');
+
+            if (!td) {
+                return hoverClass.value = '';
+            }
+
+            const name = td.getAttribute('data-column');
+
+            if (!name) {
+                return;
+            }
+
+            hoverClass.value = `hover-cell-${name}`;
+        };
+
         return {
             normalisedHeaders,
             rowProperties,
             filteredRows,
             setTerm,
             getHeader,
-            toggleHighlight
+            toggleHighlight,
+            hoverClass,
+            handleHover
         };
     }
 });
@@ -196,6 +232,7 @@ export default defineComponent({
     min-height: 40px;
     width: 140px;
 }
+
 // hack to save the value in the dom
 //tbody:after {
 //    content: '';
@@ -227,10 +264,11 @@ export default defineComponent({
 //            //z-index: -1;
 //    }
 //}
-//td[data-column-name="name"] { background-color: var(--color-brand-50); }
+
 .row-highlight:hover {
     @apply bg-brand-50;
 }
+
 .cell-highlight:hover {
     @apply bg-brand-200;
 }
