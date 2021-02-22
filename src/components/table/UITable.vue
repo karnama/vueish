@@ -1,6 +1,10 @@
 <template>
-    <table class="flex sm:table flex-col border-collapse border border-gray-200 sm:overflow-x-scroll
-                  shadow-md bg-white w-full table-auto text-gray-700 rounded relative">
+    <table ref="table"
+           class="flex sm:table flex-col border-collapse border border-gray-200 sm:overflow-x-scroll
+                  shadow-md bg-white w-full table-auto text-gray-700 rounded relative"
+           :class="[hoverClass]"
+           @mouseover="handleHover"
+           @mouseleave="handleHover">
         <thead class="sticky top-0 shadow">
             <tr v-if="!!search" class="bg-white block sm:table-row">
                 <th :colspan=" normalisedHeaders.length" class="px-4 py-8 block sm:table-cell">
@@ -13,8 +17,7 @@
             <tr class="hidden sm:table-row bg-gray-100">
                 <th v-for="column in normalisedHeaders"
                     :key="column.rowProperty"
-                    class="py-6 text-left px-4 uppercase font-light text-gray-500 text-sm select-none"
-                    @dblclick="toggleHighlight(column.rowProperty)">
+                    class="py-6 text-left px-4 uppercase font-light text-gray-500 text-sm select-none">
                     <slot name="header" :header="column">
                         {{ column.header }}
                     </slot>
@@ -31,7 +34,7 @@
                     <td v-for="name in rowProperties"
                         :key="name"
                         :data-column="name"
-                        :class="{ 'cell-highlight': hoverHighlight }"
+                        :class="{ [`hover-cell-${name}`]: true, 'cell-highlight': hoverHighlight }"
                         class="flex flex-row flex-nowrap items-center p-0 sm:table-cell">
                         <span role="rowheader" class="block sm:hidden content font-bold p-4 flex-none">
                             {{ getHeader(name) }}
@@ -59,10 +62,10 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, Ref, ref} from 'vue';
+import { computed, defineComponent, Ref, ref, watch } from 'vue';
 import type { PropType } from 'vue';
 import type { Column, Row } from '@components/table/UITableTypes';
-import { snakeCase, debounce } from 'lodash-es';
+import { snakeCase, debounce, uniqueId } from 'lodash-es';
 import UIText from '@components/text/UIText.vue';
 
 // todo - features planned/would be nice to have
@@ -116,7 +119,7 @@ export default defineComponent({
         //     const properties = props.headers.map(header => header.rowProperty);
         //     return rows.every(row => Object.keys(row).every(key => key in properties));
         // };
-        let highlightedColumn = '';
+        let styleTagId = '';
 
         const normalisedHeaders = computed<Required<Column>[]>(() => {
             return props.headers.map((col: Column) => {
@@ -145,11 +148,9 @@ export default defineComponent({
             return props.rows.filter(row => search(row));
         });
 
-
         const setTerm = (value: string): void => {
             if (!value) {
                 term.value = '';
-                // eslint-disable-next-line
                 debounced.cancel();
                 return;
             }
@@ -159,24 +160,69 @@ export default defineComponent({
         const getHeader = (rowProperty: string): string => {
             return normalisedHeaders.value.find(header => header.rowProperty === rowProperty)!.header;
         };
-        const toggleHighlight = (name: string) => {
-            if (!props.hoverHighlight) return;
-
-            if (highlightedColumn) {
-                document.querySelectorAll(`td[data-column="${highlightedColumn}"]`).forEach(td => {
-                    td.classList.remove('bg-brand-50');
-                });
-
-                if (name === highlightedColumn) {
-                    highlightedColumn = '';
+        const addHoverStyles = (arg) => {
+            const [headers, hoverHighlight]: [Required<Column>[], boolean] = arg;
+            if (!styleTagId) {
+                if (!hoverHighlight) {
                     return;
+                } else {
+                    styleTagId = uniqueId('style_');
                 }
             }
 
-            document.querySelectorAll(`td[data-column="${name}"]`).forEach(td => {
-                td.classList.add('bg-brand-50');
+            let style: HTMLStyleElement = document.getElementById(styleTagId);
+
+            if (!hoverHighlight) {
+                style?.parentElement.removeChild(style);
+                return;
+            }
+
+            if (!style) {
+                style = document.createElement('style');
+                style.type = 'text/css';
+                style.id = styleTagId;
+                document.head.appendChild(style);
+            }
+
+            if (style.sheet.cssRules.length) {
+                for (let i = 0; i < style.sheet.cssRules.length; i++) {
+                    style.sheet.deleteRule(i);
+                }
+            }
+
+            headers.forEach(header => {
+                // todo - get the resolved sm value from tailwind
+                style.sheet.insertRule(
+                    '@media (min-width: 640px) {'
+                    + `table.hover-cell-${header.rowProperty}:hover td.hover-cell-${header.rowProperty} `
+                    + '{ background-color: rgba(var(--color-brand-50), var(--tw-bg-opacity, 1)); }}'
+                );
             });
-            highlightedColumn = name;
+        };
+
+        watch(
+            [() => normalisedHeaders.value, () => props.hoverHighlight],
+            val => addHoverStyles(val),
+            { immediate: true }
+        );
+
+        const hoverClass = ref('');
+
+        const handleHover = (event: MouseEvent): void => {
+            const td: HTMLTableCellElement = (event.target as Element).closest('td');
+
+            if (!td) {
+                hoverClass.value = '';
+                return;
+            }
+
+            const name = td.getAttribute('data-column');
+
+            if (!name) {
+                return;
+            }
+
+            hoverClass.value = `hover-cell-${name}`;
         };
 
         return {
@@ -185,7 +231,8 @@ export default defineComponent({
             filteredRows,
             setTerm,
             getHeader,
-            toggleHighlight
+            hoverClass,
+            handleHover
         };
     }
 });
@@ -196,42 +243,14 @@ export default defineComponent({
     min-height: 40px;
     width: 140px;
 }
-// hack to save the value in the dom
-//tbody:after {
-//    content: '';
-//    @apply bg-brand-50 w-0 h-0;
-//}
-//@screen sm {
-//    table {
-//        overflow: hidden;
-//    }
-//    td {
-//        position: relative;
-//    }
-//    td:hover::after {
-//            @apply bg-brand-100 opacity-40;
-//            content: '\00a0';
-//            height: 10000px;
-//            left: 0;
-//            position: absolute;
-//            top: -5000px;
-//            width: 100%;
-//            z-index: 2;
-//            //content: '';
-//            //top: 0;
-//            //left: 0;
-//            //width: 100%;
-//            //position: absolute;
-//            //height: 100%;
-//            //@apply bg-brand-50;
-//            //z-index: -1;
-//    }
-//}
-//td[data-column-name="name"] { background-color: var(--color-brand-50); }
-.row-highlight:hover {
-    @apply bg-brand-50;
-}
-.cell-highlight:hover {
-    @apply bg-brand-200;
+
+@screen sm {
+    .row-highlight:hover {
+        @apply bg-brand-50;
+    }
+
+    .cell-highlight:hover {
+        background-color: rgba(var(--color-brand-200), var(--tw-bg-opacity, 1)) !important;
+    }
 }
 </style>
