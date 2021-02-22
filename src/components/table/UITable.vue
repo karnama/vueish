@@ -47,7 +47,7 @@
 
             <tr v-else>
                 <td :colspan=" normalisedHeaders.length">
-                    <span class="block text-center py-6 text-gray-400">
+                    <span class="block text-center px-4 py-6 text-gray-400">
                         <slot name="empty">
                             Nothing to see here...
                         </slot>
@@ -72,8 +72,6 @@ import UIText from '@components/text/UIText.vue';
 // - pagination
 // - dropdown extra info
 // - virtualized
-
-// todo - searching while header in fixed position results in odd behaviour
 
 const debounced = debounce((term: Ref, value: string) => term.value = value, 200);
 
