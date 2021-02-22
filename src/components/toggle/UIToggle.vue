@@ -1,5 +1,5 @@
 <template>
-    <div :class="class" :style="style">
+    <div :class="classes" :style="style">
         <label :for="$attrs.id ?? name" class="cursor-pointer pb-2">
             <slot name="label">{{ label }}</slot>
         </label>
@@ -26,8 +26,6 @@ export default defineComponent({
 
     inheritAttrs: false,
 
-    emits: ['update:modelValue'],
-
     props: {
         modelValue: {
             type: Boolean
@@ -36,7 +34,7 @@ export default defineComponent({
         /**
          * Use the class on the root element.
          */
-        class: {
+        classes: {
             type: String
         },
 
@@ -51,6 +49,8 @@ export default defineComponent({
         label,
         disabled
     },
+
+    emits: ['update:modelValue'],
 
     setup: (props) => ({ model: useVModel(props) })
 });
