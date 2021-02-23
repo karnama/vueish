@@ -1,5 +1,5 @@
 <template>
-    <UIPanel class="bg-white mb-4">
+    <UIPanel closed class="bg-white mb-4">
         <template #header>
             Table with slots
         </template>
@@ -13,16 +13,20 @@
         </UITable>
     </UIPanel>
 
-    <!--    Searchable-->
-    <!--    <UITable :headers="headers" :rows="rows" search />-->
+    Searchable
+    <UITable :headers="headers"
+             :rows="rows"
+             search
+             no-sort />
 
-<!--    With Selection-->
-<!--    <UITable v-model="selectedRows"-->
-<!--             :headers="headers"-->
-<!--             :rows="rows"-->
-<!--             show-select-->
-<!--             hover-highlight-->
-<!--             multi-select />-->
+    With Selection
+    <UITable v-model="selectedRows"
+             :headers="headers"
+             :rows="rows"
+             show-select
+             no-sort
+             hover-highlight
+             multi-select />
 </template>
 
 <script lang="ts">
@@ -75,7 +79,8 @@ export default defineComponent({
                 fat: 3.7,
                 carbs: 67,
                 protein: 4.3,
-                iron: '8'
+                iron: '8',
+                isSelectable: false
             },
             {
                 name: 'Gingerbread',

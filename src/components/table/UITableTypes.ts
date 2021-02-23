@@ -1,5 +1,4 @@
 export interface Row {
-    name: string; // The display value
     isSelectable?: boolean; // whether the row is selectable
     [key: string]: any;
 }

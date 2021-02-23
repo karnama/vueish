@@ -53,13 +53,13 @@
 
             <tbody class="space-y-5 sm:space-y-0">
                 <template v-if="filteredRows.length">
-                    <tr v-for="row in filteredRows"
-                        :key="row.name"
+                    <tr v-for="(row, index) in filteredRows"
+                        :key="index"
                         :class="{ 'row-highlight': hoverHighlight }"
                         class="flex flex-col flex-no-wrap sm:table-row border-t border-gray-200">
                         <td v-if="showSelect" class="px-2">
-                            <UICheckbox :name="row.name"
-                                        :disabled="!row.isSelectable"
+                            <UICheckbox v-if="row.isSelectable"
+                                        :name="index"
                                         classes="justify-center"
                                         :model-value="isSelected(row)"
                                         @update:model-value="toggleRowSelection(row)" />
@@ -136,7 +136,8 @@ import { getIcon } from '@/helpers';
 // todo - features planned/would be nice to have
 // - pagination (mind the selection to also select things not on page)
 // - dropdown extra info
-// - virtualized
+// - grouping
+// - virtualized - https://www.npmjs.com/package/vue3-virtual-scroller
 
 // todo - window resize even listener for mobile view?
 const debounced = debounce((term: Ref, value: string) => term.value = value, 200);
