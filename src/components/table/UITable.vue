@@ -28,7 +28,7 @@
                     <th v-for="column in normalisedHeaders"
                         :key="column.rowProperty"
                         :class="{
-                            'cursor-pointer hover:bg-gray-50': !noSort && column.sortable,
+                            'cursor-pointer hover:bg-gray-300': !noSort && column.sortable,
                             'bg-gray-200': !!sortDirection(column.rowProperty)
                         }"
                         class="py-6 text-left px-4 uppercase font-light
@@ -77,7 +77,7 @@
                                   class="flex items-center justify-between sm:hidden content font-bold p-4
                                          flex-none transition select-none group"
                                   :class="{
-                                      'cursor-pointer hover:bg-gray-50': !noSort && getColumn(name).sortable,
+                                      'cursor-pointer hover:bg-gray-300': !noSort && getColumn(name).sortable,
                                       'bg-gray-200': !!sortDirection(name)
                                   }"
                                   @click="sortBy(name)">
@@ -252,11 +252,10 @@ export default defineComponent({
             const sortedRows = (rows: Row[]) => {
                 if (!sortOrder.value.length) return rows;
 
+                // console.log(sortOrder.value.map(order => order.column), sortOrder.value.map(order => order.direction));
                 return orderBy(
                     rows,
-                    sortOrder.value.map(order =>
-                        row => isNaN(Number(row[order.column])) ? Number(row[order.column]) : row[order.column]
-                    ),
+                    sortOrder.value.map(order => order.column),
                     sortOrder.value.map(order => order.direction)
                 );
             };
