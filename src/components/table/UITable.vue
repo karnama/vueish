@@ -9,7 +9,7 @@
                 <tr v-if="!!search" class="bg-white block sm:table-row">
                     <th :colspan=" normalisedHeaders.length" class="px-4 py-8 block sm:table-cell">
                         <span class="block">
-                            <UIText name="search" placeholder="Search..." @update:model-value="setTerm" />
+                            <UIText v-model="term" name="search" placeholder="Search..." />
                         </span>
                     </th>
                 </tr>
@@ -59,7 +59,7 @@
                         class="flex flex-col flex-no-wrap sm:table-row border-t border-gray-200">
                         <td v-if="showSelect" class="px-2">
                             <UICheckbox v-if="row.isSelectable"
-                                        :name="index"
+                                        :name="String(index)"
                                         classes="justify-center"
                                         :model-value="isSelected(row)"
                                         @update:model-value="toggleRowSelection(row)" />
@@ -123,15 +123,16 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, Ref, ref, watch } from 'vue';
+import { computed, defineComponent, ref, watch } from 'vue';
 import type { PropType } from 'vue';
 import type { Column, Row, SortOrder } from '@components/table/UITableTypes';
-import { snakeCase, debounce, uniqueId, isEqual, orderBy } from 'lodash-es';
+import { snakeCase, uniqueId, isEqual, orderBy } from 'lodash-es';
 import UIText from '@components/text/UIText.vue';
 import UICheckbox from '@components/checkbox/UICheckbox.vue';
 import { useVModel } from '@composables/input';
 import type { MaybeArray } from '@/types';
 import { getIcon } from '@/helpers';
+import { debouncedRef } from '@composables/reactivity';
 
 // todo - features planned/would be nice to have
 // - pagination (mind the selection to also select things not on page)
@@ -140,7 +141,6 @@ import { getIcon } from '@/helpers';
 // - virtualized - https://www.npmjs.com/package/vue3-virtual-scroller
 
 // todo - window resize even listener for mobile view?
-const debounced = debounce((term: Ref, value: string) => term.value = value, 200);
 let styleTagId = '';
 
 export default defineComponent({
@@ -253,7 +253,7 @@ export default defineComponent({
             });
         });
         const rowProperties = computed<string[]>(() => normalisedHeaders.value.map(header => header.rowProperty));
-        const term = ref('');
+        const term = debouncedRef('');
         const filteredRows = computed<Row[]>(() => {
             const sortedRows = (rows: Row[]) => {
                 if (!sortOrder.value.length) return rows;
@@ -275,7 +275,7 @@ export default defineComponent({
 
             const search: (row: Row) => boolean = props.search instanceof Function
                 ? props.search
-                : (row) => Object.values(row).some(val => String(val).toLowerCase().includes(term.value.toLowerCase()));
+                : row => Object.values(row).some(value => new RegExp(term.value, 'i').test(String(value)));
 
             return sortedRows(normalisedRows.value.filter(row => search(row)));
         });
@@ -283,15 +283,6 @@ export default defineComponent({
         const selected = useVModel<MaybeArray<Row>>(props);
         const sortOrder = ref<SortOrder[]>([]);
 
-        const setTerm = (value: string): void => {
-            if (!value) {
-                term.value = '';
-                debounced.cancel();
-                return;
-            }
-
-            debounced(term, value);
-        };
         const getColumn = (rowProperty: string): Required<Column> => {
             return normalisedHeaders.value.find(header => header.rowProperty === rowProperty);
         };
@@ -415,7 +406,7 @@ export default defineComponent({
             hoverClass,
             selected,
             chevronIcon,
-            setTerm,
+            term,
             getColumn,
             handleHover,
             toggleRowSelection,
