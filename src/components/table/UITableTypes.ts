@@ -7,15 +7,17 @@ export type Row = {
 export type Column<T = Row> = {
     header?: string;
     rowProperty: string;
-    suffix?: string; // todo - implement this?
-    prefix?: string; // todo - implement this?
+    suffix?: string;
+    prefix?: string;
     sortable?: boolean;
-    sortFunc?: (previousRow: T, nextRow: T, direction: Direction) => -1 | 0 | 1;
+    sortFunc?: SortFunc<T>;
 };
 
 export type SortOrder = {
     column: string;
+    sortFunc?: SortFunc<Row>;
     direction: Direction;
 }[];
 
 type Direction = 'asc' | 'desc';
+type SortFunc<T> = (row: T, direction: Direction) => any;

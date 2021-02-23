@@ -96,7 +96,7 @@
 
                             <span class="block p-4">
                                 <slot :name="name" :row="row">
-                                    {{ row[name] }}
+                                    {{ getColumn(name).prefix + row[name] + getColumn(name).suffix }}
                                 </slot>
                             </span>
                         </td>
@@ -232,6 +232,9 @@ export default defineComponent({
 
                 return {
                     sortable: false,
+                    prefix: '',
+                    suffix: '',
+                    sortFunc: null,
                     ...col,
                     header
                 } as Required<Column>;
@@ -252,10 +255,13 @@ export default defineComponent({
             const sortedRows = (rows: Row[]) => {
                 if (!sortOrder.value.length) return rows;
 
-                // console.log(sortOrder.value.map(order => order.column), sortOrder.value.map(order => order.direction));
                 return orderBy(
                     rows,
-                    sortOrder.value.map(order => order.column),
+                    sortOrder.value.map(order => {
+                        return order.sortFunc ?? (row => isNaN(Number(row[order.column]))
+                            ? row[order.column]
+                            : Number(row[order.column]));
+                    }),
                     sortOrder.value.map(order => order.direction)
                 );
             };
@@ -375,7 +381,8 @@ export default defineComponent({
             if (existingOrdering === -1) {
                 sortOrder.value.push({
                     column: columnName,
-                    direction: 'asc'
+                    direction: 'asc',
+                    sortFunc: getColumn(columnName).sortFunc
                 });
                 return;
             }
