@@ -2,6 +2,7 @@
     <transition
         name="expand"
         :appear="appear"
+        :mode="mode"
         @enter="enter"
         @after-enter="afterEnter"
         @leave="leave"
@@ -22,21 +23,28 @@ export default {
         appear: {
             type: Boolean,
             default: false
+        },
+
+        /**
+         * The transition mode between elements.
+         */
+        mode: {
+            type: String,
+            default: 'out-in',
+            validator: (val: string): boolean => val === 'out-in' || val === 'in-out'
         }
     },
 
-    setup(): void {
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    setup() {
         const beforeEnter = (element: HTMLElement): void => {
             element.style.willChange = 'height, opacity';
             requestAnimationFrame(() => {
                 if (!element.style.height) {
                     element.style.height = '0px';
                 }
-
-                element.style.display = 'null';
             });
         };
-
         const enter = (element: HTMLElement): void => {
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
@@ -44,10 +52,9 @@ export default {
                 });
             });
         };
-
         const afterEnter = (element: HTMLElement): void => {
-            element.style.height = 'null';
-            element.style.willChange = 'null';
+            element.style.height = '';
+            element.style.willChange = '';
         };
 
         const beforeLeave = (element: HTMLElement): void => {
@@ -58,7 +65,6 @@ export default {
                 }
             });
         };
-
         const leave = (element: HTMLElement): void => {
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
@@ -66,10 +72,9 @@ export default {
                 });
             });
         };
-
         const afterLeave = (element: HTMLElement): void => {
-            element.style.height = 'null';
-            element.style.willChange = 'null';
+            element.style.height = '';
+            element.style.willChange = '';
         };
 
         return {
