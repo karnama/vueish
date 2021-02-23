@@ -50,7 +50,7 @@ describe('UIRadioGroup', () => {
 
         const wrapper = mount({
             template: `
-                <UIRadioGroup label="${label}">
+                <UIRadioGroup label="${label}" name="name">
                 <UIRadio value="foo" />
                 <UIRadio value="bar" />
                 </UIRadioGroup>`,
@@ -65,7 +65,7 @@ describe('UIRadioGroup', () => {
 
         const wrapper = mount({
             template: `
-                <UIRadioGroup>
+                <UIRadioGroup name="name">
                 <template #label>${label}</template>
                 <UIRadio value="foo" />
                 <UIRadio value="bar" />
@@ -79,7 +79,7 @@ describe('UIRadioGroup', () => {
     it('should bind the correct classes when in default orientation', () => {
         const wrapper = mount({
             template: `
-                <UIRadioGroup>
+                <UIRadioGroup name="name">
                 <UIRadio value="foo" />
                 <UIRadio value="bar" />
                 </UIRadioGroup>`,
@@ -92,7 +92,7 @@ describe('UIRadioGroup', () => {
     it('should bind the correct classes when set to horizontal', () => {
         const wrapper = mount({
             template: `
-                <UIRadioGroup horizontal>
+                <UIRadioGroup horizontal name="name">
                 <UIRadio value="foo" />
                 <UIRadio value="bar" />
                 </UIRadioGroup>`,
@@ -120,7 +120,7 @@ describe('UIRadioGroup', () => {
     it('should bind the disabled value to the radio inputs', async () => {
         const wrapper = mount({
             template: `
-                <UIRadioGroup>
+                <UIRadioGroup name="name">
                 <UIRadio value="foo" />
                 <UIRadio value="bar" />
                 </UIRadioGroup>`,
@@ -137,7 +137,7 @@ describe('UIRadioGroup', () => {
     it('should bind the required value to the radio inputs', async () => {
         const wrapper = mount({
             template: `
-                <UIRadioGroup>
+                <UIRadioGroup name="name">
                 <UIRadio value="foo" />
                 <UIRadio value="bar" />
                 </UIRadioGroup>`,
@@ -162,6 +162,7 @@ describe('UIRadioGroup', () => {
         },
         {
             props: {
+                name: 'name',
                 modelValue: 'foo'
             }
         });
@@ -186,6 +187,7 @@ describe('UIRadioGroup', () => {
         },
         {
             props: {
+                name: 'name',
                 modelValue: 'foo'
             }
         });
