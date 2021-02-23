@@ -1,6 +1,6 @@
 <template>
     <section class="shadow-md text-gray-700 bg-white">
-        <table class="flex sm:table flex-col border-collapse border-gray-200 sm:overflow-x-scroll
+        <table class="flex sm:table flex-col border-collapse border-gray-200 overflow-x-scroll
                       w-full table-auto rounded relative"
                :class="[hoverClass]"
                @mouseover="handleHover"
@@ -68,11 +68,32 @@
                         <td v-for="name in rowProperties"
                             :key="name"
                             :data-column="name"
-                            :class="{ [`hover-cell-${name}`]: true, 'cell-highlight': hoverHighlight }"
+                            :class="{
+                                [`hover-cell-${name}`]: true,
+                                'cell-highlight': hoverHighlight
+                            }"
                             class="flex flex-row flex-nowrap items-center p-0 sm:table-cell">
-                            <span role="rowheader" class="block sm:hidden content font-bold p-4 flex-none">
-                                {{ getHeader(name) }}
+                            <span role="rowheader"
+                                  class="flex items-center justify-between sm:hidden content font-bold p-4
+                                         flex-none transition select-none group"
+                                  :class="{
+                                      'cursor-pointer hover:bg-gray-50': !noSort && getColumn(name).sortable,
+                                      'bg-gray-200': !!sortDirection(name)
+                                  }"
+                                  @click="sortBy(name)">
+                                <slot name="header" :header="getColumn(name)">
+                                    {{ getColumn(name).header }}
+                                </slot>
+
+                                <i v-if="!noSort && getColumn(name).sortable"
+                                   class="ml-2 transition transform opacity-0 group-hover:opacity-100"
+                                   :class="{
+                                       'opacity-100': !!sortDirection(name),
+                                       'rotate-180': sortDirection(name) === 'desc'
+                                   }"
+                                   v-html="chevronIcon" />
                             </span>
+
                             <span class="block p-4">
                                 <slot :name="name" :row="row">
                                     {{ row[name] }}
@@ -115,8 +136,7 @@ import { getIcon } from '@/helpers';
 // - dropdown extra info
 // - virtualized
 
-// todo - multi sort
-// todo - check what's up with the mobile view
+// todo - window resize even listener for mobile view?
 const debounced = debounce((term: Ref, value: string) => term.value = value, 200);
 let styleTagId = '';
 
@@ -264,8 +284,8 @@ export default defineComponent({
 
             debounced(term, value);
         };
-        const getHeader = (rowProperty: string): string => {
-            return normalisedHeaders.value.find(header => header.rowProperty === rowProperty)!.header;
+        const getColumn = (rowProperty: string): Required<Column> => {
+            return normalisedHeaders.value.find(header => header.rowProperty === rowProperty);
         };
         const addHoverStyles = (arg) => {
             const [headers, hoverHighlight]: [Required<Column>[], boolean] = arg;
@@ -387,7 +407,7 @@ export default defineComponent({
             selected,
             chevronIcon,
             setTerm,
-            getHeader,
+            getColumn,
             handleHover,
             toggleRowSelection,
             isSelected,

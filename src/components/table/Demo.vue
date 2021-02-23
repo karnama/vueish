@@ -40,7 +40,7 @@ export default defineComponent({
             { header: 'Dessert (100g serving)', rowProperty: 'name' },
             { header: 'Calories', rowProperty: 'calories' },
             { header: 'Fat (g)', rowProperty: 'fat' },
-            { header: 'Carbs (g)', rowProperty: 'carbs' },
+            { header: 'Carbs (g)', rowProperty: 'carbs', sortable: true },
             { header: 'Protein (g)', rowProperty: 'protein', sortable: true  },
             { header: 'Iron (%)', rowProperty: 'iron' }
         ]);
