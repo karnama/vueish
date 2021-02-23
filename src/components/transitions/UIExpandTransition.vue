@@ -30,7 +30,8 @@ export default {
          */
         mode: {
             type: String,
-            default: 'out-in'
+            default: 'out-in',
+            validator: (val: string): boolean => val === 'out-in' || val === 'in-out'
         }
     },
 
