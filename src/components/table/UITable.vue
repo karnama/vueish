@@ -72,31 +72,33 @@
                                 [`hover-cell-${name}`]: true,
                                 'cell-highlight': hoverHighlight
                             }"
+                            :data-sort="sortDir = sortDirection(name)"
+                            :data-col="col = getColumn(name)"
                             class="flex flex-row flex-nowrap items-center p-0 sm:table-cell">
                             <span role="rowheader"
                                   class="flex items-center justify-between sm:hidden content font-bold p-4
                                          flex-none transition select-none group"
                                   :class="{
-                                      'cursor-pointer hover:bg-gray-300': !noSort && getColumn(name).sortable,
-                                      'bg-gray-200': !!sortDirection(name)
+                                      'cursor-pointer hover:bg-gray-300': !noSort && col.sortable,
+                                      'bg-gray-200': !!sortDir
                                   }"
                                   @click="sortBy(name)">
-                                <slot name="header" :header="getColumn(name)">
-                                    {{ getColumn(name).header }}
+                                <slot name="header" :header="col">
+                                    {{ col.header }}
                                 </slot>
 
-                                <i v-if="!noSort && getColumn(name).sortable"
+                                <i v-if="!noSort && col.sortable"
                                    class="ml-2 transition transform opacity-0 group-hover:opacity-100"
                                    :class="{
-                                       'opacity-100': !!sortDirection(name),
-                                       'rotate-180': sortDirection(name) === 'desc'
+                                       'opacity-100': !!sortDir,
+                                       'rotate-180': sortDir=== 'desc'
                                    }"
                                    v-html="chevronIcon" />
                             </span>
 
                             <span class="block p-4">
                                 <slot :name="name" :row="row">
-                                    {{ getColumn(name).prefix + row[name] + getColumn(name).suffix }}
+                                    {{ col.prefix + row[name] + col.suffix }}
                                 </slot>
                             </span>
                         </td>
@@ -278,7 +280,7 @@ export default defineComponent({
         });
         const hoverClass = ref('');
         const selected = useVModel<MaybeArray<Row>>(props);
-        const sortOrder = ref<SortOrder>([]);
+        const sortOrder = ref<SortOrder[]>([]);
 
         const setTerm = (value: string): void => {
             if (!value) {
