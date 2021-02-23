@@ -1,5 +1,6 @@
 import { computed, ref, onMounted, getCurrentInstance } from 'vue';
-import type { Ref } from 'vue';
+import type { Ref, SetupContext } from 'vue';
+import { omit } from 'lodash-es';
 
 /**
  * The input label.
@@ -99,4 +100,15 @@ export function autofocusElement(autofocus: boolean, input: Ref<HTMLInputElement
             }
         });
     }
+}
+
+/**
+ * Strip out the style and class attributes from the given object.
+ *
+ * @param attrs
+ */
+export function withoutDesign(
+    attrs: SetupContext['attrs']
+): Pick<SetupContext['attrs'], Exclude<keyof SetupContext['attrs'], string[][number]>> {
+    return omit(attrs, ['class', 'style']);
 }

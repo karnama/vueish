@@ -1,5 +1,5 @@
 <template>
-    <div :class="classes" :style="style">
+    <div :class="$attrs.class" :style="$attrs.style">
         <label :for="$attrs.id ?? name" class="cursor-pointer pb-2">
             <slot name="label">{{ label }}</slot>
         </label>
@@ -7,7 +7,7 @@
             <input :id="$attrs.id ?? name"
                    v-model="model"
                    type="checkbox"
-                   v-bind="$attrs"
+                   v-bind="withoutDesign($attrs)"
                    class="w-full h-full cursor-pointer opacity-0 m-0 p-0"
                    :disabled="disabled"
                    :name="name">
@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { name, useVModel, disabled, label } from '@composables/input';
+import { name, useVModel, disabled, label, withoutDesign } from '@composables/input';
 
 export default defineComponent({
     name: 'UIToggle',
@@ -31,20 +31,6 @@ export default defineComponent({
             type: Boolean
         },
 
-        /**
-         * Use the class on the root element.
-         */
-        classes: {
-            type: String
-        },
-
-        /**
-         * Use the style on the root element.
-         */
-        style: {
-            type: String
-        },
-
         name,
         label,
         disabled
@@ -52,7 +38,7 @@ export default defineComponent({
 
     emits: ['update:modelValue'],
 
-    setup: (props) => ({ model: useVModel(props) })
+    setup: (props) => ({ model: useVModel(props), withoutDesign })
 });
 </script>
 
