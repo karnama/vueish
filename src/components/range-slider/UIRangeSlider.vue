@@ -3,18 +3,20 @@
         <slot name="label">
             {{ label }}
         </slot>
-        <span class="relative block">
-            <svg class="range-thumb-indicator opacity-100 transition-opacity range-value fill-current text-brand-400"
+        <div class="relative block">
+            <div class="range-value opacity-100 transition-opacity -mt-10 flex items-center justify-center"
                  :class="{ 'opacity-100': showLabel }"
-                 viewBox="0 0 80 90"
-                 :data-value="model"
                  :style="leftOffset">
-                <path d="M40 99.5 C-22.5 47.5 0 0 40 0.5 C80 0 102.5 47.5 40 99.5z" />
-            </svg>
-            <span class="range-value opacity-100 transition-opacity"
-                  :class="{ 'opacity-100': showLabel }"
-                  :style="leftOffset"
-                  :data-value="model" />
+                <svg class="range-thumb-indicator opacity-100 transition-opacity fill-current text-brand-400"
+                     :class="{ 'opacity-100': showLabel }"
+                     viewBox="0 0 80 90"
+                     :data-value="model">
+                    <path d="M40 99.5 C-22.5 47.5 0 0 40 0.5 C80 0 102.5 47.5 40 99.5z" />
+                </svg>
+                <span class="absolute text-sm">
+                    {{ model }}
+                </span>
+            </div>
             <input :id="$attrs.id ?? name"
                    v-model="model"
                    type="range"
@@ -28,8 +30,12 @@
                    :max="max"
                    @mousedown="showLabel = true"
                    @mouseup="closeLabel">
-        </span>
+        </div>
     </label>
+
+    <div>
+        Percentage of the slider travel: {{ progress() }}%
+    </div>
 </template>
 
 <script lang="ts">
@@ -82,23 +88,32 @@ export default defineComponent({
     setup(props) {
         const showLabel = ref(false);
         const model = useVModel<number>(props);
+
+        function progress() {
+            return Number((model.value - props.min) * 100 / (props.max - props.min));
+        }
+
         const bgColor = computed<Partial<CSSStyleDeclaration>>(() => {
+            // return {
+            //     backgroundImage:
+            //         `-webkit-gradient(linear, left top, right top,
+            //         color-stop(${Number(model.value) / 100}, ${props.disabled ? 'rgba(0,0,0,0)' : 'red'}),
+            //         color-stop(${Number(model.value) / 100}, rgba(0,0,0,0)))`
+            // };
+
             return {
-                backgroundImage:
-                    `-webkit-gradient(linear, left top, right top,
-                    color-stop(${Number(model.value) / 100}, ${props.disabled ? 'rgba(0,0,0,0)' : 'red'}),
-                    color-stop(${Number(model.value) / 100}, rgba(0,0,0,0)))`
+                background: `linear-gradient(90deg, blue ${progress()}%,white ${progress()}%)`
             };
         });
-        function percentage(partialValue, totalValue) {
-            return 100 * partialValue / totalValue;
-        }
+
         const leftOffset = computed<Partial<CSSStyleDeclaration>>(() => {
-            const range = Math.abs(props.min - Math.abs(props.max));
-            const maxSteps = Math.abs(range / props.step);
+            // const range = Math.abs(props.min - Math.abs(props.max));
+            // const maxSteps = Math.abs(range / props.step);
             // console.log(maxSteps);
-            const currentValue = percentage(model.value, range);
-            return { left: `calc(${currentValue}% + ${props.min * -1}%)` };
+            // const currentValue = progress(model.value, range);
+
+            // 5px is the half-width of the svg minus the half-width of the thumb.
+            return { left: `calc(${progress()}% - ${/* $range-handle-size */25 / 100 * progress()}px - 5px)` };
         });
 
         const closeLabel = () => setTimeout(() => showLabel.value = false, 750);
@@ -108,7 +123,8 @@ export default defineComponent({
             showLabel,
             bgColor,
             leftOffset,
-            closeLabel
+            closeLabel,
+            progress
         };
     }
 });
@@ -123,15 +139,14 @@ $indicatorHeight: 50px;
 .range-thumb-indicator {
     height: $indicatorHeight;
     width: $indicatorWidth;
-    margin-left: -($indicatorWidth / 7);
 }
+
 .range-value {
     text-align: center;
     height: $indicatorHeight;
     width: $indicatorWidth;
-    margin-left: -($indicatorWidth / 7);
     position: absolute;
-    top: -45px;
+
     &:after {
         display: block;
         font-size: 0.8rem;

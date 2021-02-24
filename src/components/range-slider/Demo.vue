@@ -1,5 +1,11 @@
 <template>
-    <UIRangeSlider v-model="num" name="slider" label="Range" :step="0.5" min="-30" max="110" />
+    <UIRangeSlider v-model="num"
+                   name="slider"
+                   label="Range"
+                   :step="0.5"
+                   min="-100"
+                   max="100" />
+    Value: {{ num }}
 </template>
 
 <script lang="ts">
