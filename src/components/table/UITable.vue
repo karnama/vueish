@@ -126,7 +126,7 @@
 import { computed, defineComponent, ref, watch } from 'vue';
 import type { PropType } from 'vue';
 import type { Column, Row, SortOrder } from '@components/table/UITableTypes';
-import { snakeCase, uniqueId, isEqual, orderBy } from 'lodash-es';
+import { snakeCase, uniqueId, isEqual, orderBy, cloneDeep } from 'lodash-es';
 import UIText from '@components/text/UIText.vue';
 import UICheckbox from '@components/checkbox/UICheckbox.vue';
 import { useVModel } from '@composables/input';
@@ -356,7 +356,7 @@ export default defineComponent({
                 return;
             }
 
-            let selection = Array.isArray(selected.value) ? selected.value : [selected.value];
+            let selection = Array.isArray(selected.value) ? cloneDeep(selected.value) : [cloneDeep(selected.value)];
             const rowIndex = selection.findIndex(selectedRow => isEqual(selectedRow, row));
             rowIndex === -1 ? selection.push(row) : selection.splice(rowIndex, 1);
 
