@@ -4,7 +4,7 @@
             {{ label }}
         </slot>
         <div class="relative block">
-            <div class="range-value opacity-100 transition-opacity -mt-10 flex items-center justify-center"
+            <div class="range-value opacity-100 transition-opacity transform -translate-y-full flex items-center justify-center"
                  :class="{ 'opacity-100': showLabel }"
                  :style="leftOffset">
                 <svg class="range-thumb-indicator opacity-100 transition-opacity fill-current text-brand-400"
