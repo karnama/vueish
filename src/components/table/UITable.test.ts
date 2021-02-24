@@ -412,7 +412,7 @@ describe('UITable', () => {
     });
 
     describe('slots', () => {
-        it('should accept footer, empty and header slots', async () => {
+        it('should accept footer, empty, action and header slots', async () => {
             const wrapper = mount(UITable, {
                 props: {
                     rows,
@@ -421,7 +421,8 @@ describe('UITable', () => {
                 slots: {
                     footer: '<div id="footer-content" />',
                     empty: '<div id="empty-content" />',
-                    header: (params) => h('div', { id: params.header.rowProperty }, JSON.stringify(params.header))
+                    header: (params) => h('div', { id: params.header.rowProperty }, JSON.stringify(params.header)),
+                    action: (params) => h('div', { id: params.row.letter }, JSON.stringify(params.row))
                 }
             });
 
@@ -433,6 +434,11 @@ describe('UITable', () => {
 
                 // it was given the slotProps
                 expect(JSON.parse(headerWrapper.text()).rowProperty).toBe(header.rowProperty);
+            });
+            rows.forEach(row => {
+                const actionWrapper = wrapper.find('#' + String(row.letter));
+                expect(actionWrapper.exists()).toBe(true);
+                expect(JSON.parse(actionWrapper.text()).number).toBe(row.number);
             });
 
             await wrapper.setProps({ rows: [] });

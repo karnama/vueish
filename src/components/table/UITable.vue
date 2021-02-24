@@ -48,6 +48,8 @@
                                v-html="chevronIcon" />
                         </span>
                     </th>
+
+                    <th v-if="$slots.action" />
                 </tr>
             </thead>
 
@@ -102,6 +104,10 @@
                                 </slot>
                             </span>
                         </td>
+
+                        <td v-if="$slots.action">
+                            <slot name="action" :row="row" />
+                        </td>
                     </tr>
                 </template>
 
@@ -116,7 +122,7 @@
                 </tr>
             </tbody>
         </table>
-        <footer class="px-4 py-6 bg-white border-t border-gray-300">
+        <footer v-if="$slots.footer" class="px-4 py-6 bg-white border-t border-gray-300">
             <slot name="footer" />
         </footer>
     </section>
@@ -140,9 +146,8 @@ import { debouncedRef } from '@composables/reactivity';
 // - grouping
 // - virtualized - https://www.npmjs.com/package/vue3-virtual-scroller
 
-// todo - actions column when action slot detected
 // todo - window resize even listener for mobile view?
-// todo - remove footer if not given
+// todo footer on mobile view ?
 let styleTagId = '';
 
 export default defineComponent({
@@ -255,7 +260,6 @@ export default defineComponent({
             });
         });
         const rowProperties = computed<string[]>(() => normalisedHeaders.value.map(header => header.rowProperty));
-        const term = debouncedRef('');
         const filteredRows = computed<Required<Row>[]>(() => {
             const sortedRows = (rows: Row[]) => {
                 if (!sortOrder.value.length) return rows;
@@ -281,6 +285,7 @@ export default defineComponent({
 
             return sortedRows(normalisedRows.value.filter(row => search(row, term.value)));
         });
+        const term = debouncedRef('');
         const hoverClass = ref('');
         const selected = useVModel<MaybeArray<Row>>(props);
         const sortOrder = ref<SortOrder[]>([]);

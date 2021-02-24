@@ -4,8 +4,16 @@
             Table with slots
         </template>
         <UITable :headers="headers" :rows="rows" hover-highlight>
+            <template #header="slotProps">
+                slotted {{ slotProps.header.rowProperty }}
+            </template>
             <template #name="slotProps">
                 slotted change of {{ slotProps.row.name }}
+            </template>
+            <template #action>
+                <UIButton type="brand">
+                    CTA
+                </UIButton>
             </template>
             <template #footer>
                 <span class="font-bold text-gray-700">Slotted footer</span>
@@ -25,20 +33,20 @@
              :rows="rows"
              show-select
              no-sort
-             hover-highlight
              multi-select />
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue';
+import { defineComponent, ref } from 'vue';
 import UITable from '@components/table/UITable.vue';
 import { Column, Row } from '@components/table/UITableTypes';
 import UIPanel from '@components/panel/UIPanel.vue';
+import UIButton from '@components/button/UIButton.vue';
 
 export default defineComponent({
     // eslint-disable-next-line vue/no-reserved-component-names
     name: 'Table',
-    components: { UIPanel, UITable },
+    components: { UIButton, UIPanel, UITable },
     setup() {
         const headers = ref<Column[]>([
             { header: 'Dessert (100g serving)', rowProperty: 'name' },
