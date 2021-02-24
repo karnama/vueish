@@ -28,7 +28,9 @@
                    :disabled="disabled"
                    :min="min"
                    :max="max"
+                   @touchstart="showLabel = true"
                    @mousedown="showLabel = true"
+                   @touchend="closeLabel"
                    @mouseup="closeLabel">
         </div>
     </label>
@@ -42,6 +44,8 @@
 import { computed, defineComponent, ref } from 'vue';
 import { useVModel } from '@composables/input';
 import { disabled, name, label } from '@composables/input';
+
+// todo - mobile touch doesn't work
 
 export default defineComponent({
     name: 'UIRangeSlider',
@@ -93,25 +97,34 @@ export default defineComponent({
             return Number((model.value - props.min) * 100 / (props.max - props.min));
         }
 
-        const bgColor = computed<Partial<CSSStyleDeclaration>>(() => {
-            // return {
-            //     backgroundImage:
-            //         `-webkit-gradient(linear, left top, right top,
-            //         color-stop(${Number(model.value) / 100}, ${props.disabled ? 'rgba(0,0,0,0)' : 'red'}),
-            //         color-stop(${Number(model.value) / 100}, rgba(0,0,0,0)))`
-            // };
+        // const realPercentage = computed<number>(() => {
+        //     const range = Math.abs(props.min - Math.abs(props.max));
+        //     const offset = Math.abs(0 - Math.abs(props.min));
+        //     return (Number(model.value) + offset) / range * 100;
+        // });
 
+        // const bgColor = computed<Partial<CSSStyleDeclaration>>(() => {
+        //     return {
+        //         backgroundImage:
+        //             `-webkit-gradient(linear, left top, right top,
+        //             color-stop(${realPercentage.value / 100}, ${props.disabled ? 'rgba(0,0,0,0)' : 'red'}),
+        //             color-stop(${realPercentage.value / 100}, rgba(0,0,0,0)))`
+        //     };
+        // });
+
+        const bgColor = computed<Partial<CSSStyleDeclaration>>(() => {
             return {
                 background: `linear-gradient(90deg, blue ${progress()}%,white ${progress()}%)`
             };
         });
 
-        const leftOffset = computed<Partial<CSSStyleDeclaration>>(() => {
-            // const range = Math.abs(props.min - Math.abs(props.max));
-            // const maxSteps = Math.abs(range / props.step);
-            // console.log(maxSteps);
-            // const currentValue = progress(model.value, range);
+        // const leftOffset = computed<Partial<CSSStyleDeclaration>>(() => {
+        //     return {
+        //         left: `calc(${realPercentage.value}% - ${/* $range-handle-size */25 / 100 * realPercentage.value}px)`
+        //     };
+        // });
 
+        const leftOffset = computed<Partial<CSSStyleDeclaration>>(() => {
             // 5px is the half-width of the svg minus the half-width of the thumb.
             return { left: `calc(${progress()}% - ${/* $range-handle-size */25 / 100 * progress()}px - 5px)` };
         });
