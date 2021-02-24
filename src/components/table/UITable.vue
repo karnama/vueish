@@ -16,7 +16,7 @@
 
                 <tr class="hidden sm:table-row bg-gray-100">
                     <th v-if="showSelect" class="py-6 px-2">
-                        <span v-if="multiSelect" class="mx-auto">
+                        <span v-if="multiSelect && Array.isArray(selected)" class="mx-auto">
                             <UICheckbox name="selectAll"
                                         classes="justify-center"
                                         :indeterminate="selected.length !== rows.length"
@@ -123,7 +123,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from 'vue';
+import {computed, defineComponent, nextTick, ref, watch} from 'vue';
 import type { PropType } from 'vue';
 import type { Column, Row, SortOrder } from '@components/table/UITableTypes';
 import { snakeCase, uniqueId, isEqual, orderBy, cloneDeep } from 'lodash-es';
@@ -142,6 +142,7 @@ import { debouncedRef } from '@composables/reactivity';
 
 // todo - actions column when action slot detected
 // todo - window resize even listener for mobile view?
+// todo - remove footer if not given
 let styleTagId = '';
 
 export default defineComponent({
@@ -356,7 +357,7 @@ export default defineComponent({
                 return;
             }
 
-            let selection = Array.isArray(selected.value) ? cloneDeep(selected.value) : [cloneDeep(selected.value)];
+            let selection = cloneDeep(selected.value) as Row[];
             const rowIndex = selection.findIndex(selectedRow => isEqual(selectedRow, row));
             rowIndex === -1 ? selection.push(row) : selection.splice(rowIndex, 1);
 
@@ -396,6 +397,16 @@ export default defineComponent({
         watch(
             [() => normalisedHeaders.value, () => props.hoverHighlight],
             val => addHoverStyles(val),
+            { immediate: true }
+        );
+        watch(
+            () => props.multiSelect,
+            val => {
+                if (val && !Array.isArray(selected.value)) {
+                    // ensure it's a collection without falsy values
+                    selected.value = selected.value ? [selected.value] : [];
+                }
+            },
             { immediate: true }
         );
 

@@ -3,12 +3,10 @@ import UITextarea from './UITextarea.vue';
 
 describe('UITextarea', () => {
     it('should handle model-binding correctly', async () => {
-        const wrapper = mount({
-            template: '<div><UITextarea v-model="input" name="input"/></div>',
-            components: { UITextarea },
-            props: {},
-            data() {
-                return { input: '' };
+        const wrapper = mount(UITextarea, {
+            props: {
+                name: 'name',
+                modelValue: ''
             }
         });
 

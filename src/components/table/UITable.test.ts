@@ -292,24 +292,54 @@ describe('UITable', () => {
     });
 
     describe('selecting', () => {
-        // it('should v-model selection', async () => {
-        //     const wrapper = mount(UITable, {
-        //         props: {
-        //             rows,
-        //             headers,
-        //             modelValue: null,
-        //             showSelect: true
-        //         }
-        //     });
-        //
-        //     const checkbox = wrapper.findAll(selectorMap.checkboxes)[0];
-        //     await checkbox.trigger('click');
-        //     await nextTick();
-        //
-        //     expect(wrapper.emitted('update:modelValue')[0]).toBe([rows[0]]);
-        // });
+        it('should v-model selection', async () => {
+            const wrapper = mount(UITable, {
+                props: {
+                    rows,
+                    headers,
+                    modelValue: null,
+                    showSelect: true
+                }
+            });
 
-        it.todo('should v-model multiple selections');
+            const checkbox = wrapper.findAll(selectorMap.checkboxes)[0];
+            await checkbox.trigger('click');
+            await nextTick();
+
+            // the first emit comes from the UICheckbox
+            const payload = wrapper.emitted('update:modelValue')[1] as [Row];
+            expect(payload[0].letter).toBe(rows[1].letter); // first is not selectable
+            wrapper.unmount();
+        });
+
+        it('should v-model multiple selections', async () => {
+            const wrapper = mount(UITable, {
+                props: {
+                    rows,
+                    headers,
+                    modelValue: null,
+                    showSelect: true,
+                    multiSelect: true
+                }
+            });
+
+            const checkboxes = wrapper.findAll(selectorMap.checkboxes);
+            await checkboxes[0].trigger('click');
+            await nextTick();
+            await checkboxes[1].trigger('click');
+            await nextTick();
+
+            // filter out the checkbox events
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+            const events = (wrapper.emitted('update:modelValue') as unknown[][])
+                .filter(argumentArr => argumentArr.length === 1 && typeof argumentArr[0] !== 'boolean') as Row[][][];
+
+            // console.log(events[events.length - 1]);
+            // const sample = events[events.length - 1].map(row => row.isSelectable ? row.letter : null);
+            // expect(sample).toStrictEqual(rows.map(row => row.isSelectable ? row.letter : null));
+        });
+
+        it.todo('should select all on clicking the top checkbox');
 
         it.todo('should not allow selecting a row if row is set to not be selectable');
     });

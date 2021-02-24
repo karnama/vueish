@@ -3,11 +3,10 @@ import UIText from './UIText.vue';
 
 describe('UIText', () => {
     it('should handle model-binding correctly', async () => {
-        const wrapper = mount({
-            template: '<div><UIText v-model="input" name="input"/></div>',
-            components: { UIText },
-            data() {
-                return { input: '' };
+        const wrapper = mount(UIText, {
+            props: {
+                name: 'name',
+                modelValue: ''
             }
         });
 
