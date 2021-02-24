@@ -1,23 +1,23 @@
 <template>
-<!--    <UIPanel closed class="bg-white mb-4">-->
-<!--        <template #header>-->
-<!--            Table with slots-->
-<!--        </template>-->
-<!--        <UITable :headers="headers" :rows="rows" hover-highlight>-->
-<!--            <template #name="slotProps">-->
-<!--                slotted change of {{ slotProps.row.name }}-->
-<!--            </template>-->
-<!--            <template #footer>-->
-<!--                <span class="font-bold text-gray-700">Slotted footer</span>-->
-<!--            </template>-->
-<!--        </UITable>-->
-<!--    </UIPanel>-->
+    <UIPanel closed class="bg-white mb-4">
+        <template #header>
+            Table with slots
+        </template>
+        <UITable :headers="headers" :rows="rows" hover-highlight>
+            <template #name="slotProps">
+                slotted change of {{ slotProps.row.name }}
+            </template>
+            <template #footer>
+                <span class="font-bold text-gray-700">Slotted footer</span>
+            </template>
+        </UITable>
+    </UIPanel>
 
-<!--    Searchable-->
-<!--    <UITable :headers="headers"-->
-<!--             :rows="rows"-->
-<!--             search-->
-<!--             no-sort />-->
+    Searchable
+    <UITable :headers="headers"
+             :rows="rows"
+             search
+             no-sort />
 
     With Selection
     <UITable v-model="selectedRows"
@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref, watch} from 'vue';
+import { defineComponent, ref, watch } from 'vue';
 import UITable from '@components/table/UITable.vue';
 import { Column, Row } from '@components/table/UITableTypes';
 import UIPanel from '@components/panel/UIPanel.vue';
@@ -132,7 +132,6 @@ export default defineComponent({
             }
         ]);
         const selectedRows = ref<Row[]>(null);
-        watch(() => selectedRows.value, val => console.log(val));
 
         return {
             headers,

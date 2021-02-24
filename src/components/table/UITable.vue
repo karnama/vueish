@@ -21,7 +21,7 @@
                                         classes="justify-center"
                                         :indeterminate="selected.length !== rows.length"
                                         :model-value="!!selected.length"
-                                        @update:model-value="toggleFilteredSelection" />
+                                        @update:model-value="toggleAllRowSelection" />
                         </span>
                     </th>
 
@@ -123,7 +123,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, nextTick, ref, watch} from 'vue';
+import { computed, defineComponent, ref, watch } from 'vue';
 import type { PropType } from 'vue';
 import type { Column, Row, SortOrder } from '@components/table/UITableTypes';
 import { snakeCase, uniqueId, isEqual, orderBy, cloneDeep } from 'lodash-es';
@@ -256,7 +256,7 @@ export default defineComponent({
         });
         const rowProperties = computed<string[]>(() => normalisedHeaders.value.map(header => header.rowProperty));
         const term = debouncedRef('');
-        const filteredRows = computed<Row[]>(() => {
+        const filteredRows = computed<Required<Row>[]>(() => {
             const sortedRows = (rows: Row[]) => {
                 if (!sortOrder.value.length) return rows;
 
@@ -345,11 +345,11 @@ export default defineComponent({
 
             hoverClass.value = `hover-cell-${name}`;
         };
-        const isSelected = (row: Row): boolean => {
+        const isSelected = (row: Required<Row>): boolean => {
             const selection = Array.isArray(selected.value) ? selected.value : [selected.value];
             return !!selection.find(selectedRow => isEqual(selectedRow, row));
         };
-        const toggleRowSelection = (row: Row): void => {
+        const toggleRowSelection = (row: Required<Row>): void => {
             if (!row.isSelectable) return;
 
             if (!props.multiSelect) {
@@ -364,8 +364,8 @@ export default defineComponent({
             selected.value = selection;
             return;
         };
-        const toggleFilteredSelection = () => {
-            selected.value = selected.value.length ? [] : filteredRows.value;
+        const toggleAllRowSelection = () => {
+            selected.value = selected.value.length ? [] : filteredRows.value.filter(row => row.isSelectable);
         };
         const sortBy = (columnName: string): void => {
             if (props.noSort|| !normalisedHeaders.value.find(header => header.rowProperty === columnName).sortable) {
@@ -423,7 +423,7 @@ export default defineComponent({
             handleHover,
             toggleRowSelection,
             isSelected,
-            toggleFilteredSelection,
+            toggleAllRowSelection,
             sortBy,
             sortDirection
         };

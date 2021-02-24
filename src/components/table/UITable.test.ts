@@ -1,9 +1,10 @@
 import type { Column, Row } from '@components/table/UITableTypes';
-import { mount } from '@vue/test-utils';
+import { mount, VueWrapper } from '@vue/test-utils';
 import UITable from '@components/table/UITable.vue';
 import { snakeCase } from 'lodash-es';
 import UIText from '@components/text/UIText.vue';
 import { nextTick, h } from 'vue';
+import type { ComponentPublicInstance } from 'vue';
 import { orderBy } from 'lodash-es';
 
 const headers: Readonly<Column[]> = [
@@ -49,6 +50,14 @@ function titleCase(str: string): string {
         .split('_')
         .reduce((previous: string, next: string) =>
             previous + ' ' + next.charAt(0).toUpperCase() + next.slice(1));
+}
+
+function getLastEventValue(wrapper: VueWrapper<ComponentPublicInstance>) {
+    // filter out the checkbox events
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+    const events = (wrapper.emitted('update:modelValue') as unknown[][])
+        .filter(argumentArr => argumentArr.length === 1 && typeof argumentArr[0] !== 'boolean') as Row[][][];
+    return events[events.length - 1];
 }
 
 describe('UITable', () => {
@@ -317,31 +326,89 @@ describe('UITable', () => {
                 props: {
                     rows,
                     headers,
-                    modelValue: null,
+                    modelValue: [],
                     showSelect: true,
                     multiSelect: true
                 }
             });
 
+            // todo - remove these manual prop sets when vtu 2.0.0-rc2 released
+            //  https://github.com/vuejs/vue-test-utils-next/pull/393
             const checkboxes = wrapper.findAll(selectorMap.checkboxes);
             await checkboxes[0].trigger('click');
-            await nextTick();
+            await wrapper.setProps({ modelValue: getLastEventValue(wrapper)[0] });
             await checkboxes[1].trigger('click');
-            await nextTick();
+            await wrapper.setProps({ modelValue: getLastEventValue(wrapper)[0] });
 
-            // filter out the checkbox events
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-            const events = (wrapper.emitted('update:modelValue') as unknown[][])
-                .filter(argumentArr => argumentArr.length === 1 && typeof argumentArr[0] !== 'boolean') as Row[][][];
-
-            // console.log(events[events.length - 1]);
-            // const sample = events[events.length - 1].map(row => row.isSelectable ? row.letter : null);
-            // expect(sample).toStrictEqual(rows.map(row => row.isSelectable ? row.letter : null));
+            // console.log(getLastEventValue(wrapper)[0].map(row => row.letter));
+            expect(getLastEventValue(wrapper)[0].map(row => row.letter)).toStrictEqual(
+                rows.filter(row => typeof row.isSelectable === 'boolean' ? row.isSelectable : true)
+                    .map(row => row.letter)
+            );
         });
 
-        it.todo('should select all on clicking the top checkbox');
+        it('should select all on clicking the top checkbox', async () => {
+            const wrapper = mount(UITable, {
+                props: {
+                    rows,
+                    headers,
+                    modelValue: [],
+                    showSelect: true,
+                    multiSelect: true
+                }
+            });
 
-        it.todo('should not allow selecting a row if row is set to not be selectable');
+            await wrapper.find(selectorMap.topCheckbox).trigger('click');
+
+            expect(getLastEventValue(wrapper)[0].map(row => row.letter)).toStrictEqual(
+                rows.filter(row => typeof row.isSelectable === 'boolean' ? row.isSelectable : true)
+                    .map(row => row.letter)
+            );
+        });
+
+        it('should clear the selection first if some are selected when clicking select all', async () => {
+            const wrapper = mount(UITable, {
+                props: {
+                    rows,
+                    headers,
+                    modelValue: [],
+                    showSelect: true,
+                    multiSelect: true
+                }
+            });
+
+            await wrapper.find(selectorMap.checkboxes).trigger('click');
+            await wrapper.setProps({ modelValue: getLastEventValue(wrapper)[0] });
+
+            expect(getLastEventValue(wrapper)[0]).toHaveLength(1);
+            await wrapper.find(selectorMap.topCheckbox).trigger('click');
+            await wrapper.setProps({ modelValue: getLastEventValue(wrapper)[0] });
+
+            expect(getLastEventValue(wrapper)[0]).toHaveLength(0);
+            await wrapper.find(selectorMap.topCheckbox).trigger('click');
+
+            expect(getLastEventValue(wrapper)[0]).toHaveLength(
+                rows.filter(row => typeof row.isSelectable === 'boolean' ? row.isSelectable : true).length
+            );
+        });
+
+        it('should not allow selecting a row if row is set to not be selectable', async () => {
+            const wrapper = mount(UITable, {
+                props: {
+                    rows,
+                    headers,
+                    modelValue: [],
+                    showSelect: true,
+                    multiSelect: true
+                }
+            });
+
+            await wrapper.find(selectorMap.topCheckbox).trigger('click');
+
+            expect(getLastEventValue(wrapper)[0]).toHaveLength(
+                rows.filter(row => typeof row.isSelectable === 'boolean' ? row.isSelectable : true).length
+            );
+        });
     });
 
     describe('slots', () => {
