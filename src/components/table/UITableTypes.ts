@@ -9,14 +9,13 @@ export interface Column<T = Row> {
     suffix?: string;
     prefix?: string;
     sortable?: boolean;
-    sortFunc?: SortFunc<T>;
+    sortByFunc?: SortByFunc<T>;
 }
 
 export interface SortOrder {
     column: string;
-    sortFunc?: SortFunc<Row>;
-    direction: Direction;
+    sortByFunc?: SortByFunc<Row>;
+    direction: 'asc' | 'desc';
 }
 
-type Direction = 'asc' | 'desc';
-type SortFunc<T> = (row: T, direction: Direction) => any;
+type SortByFunc<T> = (row: T) => any;

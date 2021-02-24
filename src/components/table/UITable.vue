@@ -140,6 +140,7 @@ import { debouncedRef } from '@composables/reactivity';
 // - grouping
 // - virtualized - https://www.npmjs.com/package/vue3-virtual-scroller
 
+// todo - actions column when action slot detected
 // todo - window resize even listener for mobile view?
 let styleTagId = '';
 
@@ -181,7 +182,7 @@ export default defineComponent({
          * Boolean flag or callback used on the row.
          */
         search: {
-            type: [Boolean, Function] as PropType<boolean | ((row: Row) => boolean)>
+            type: [Boolean, Function] as PropType<boolean | ((row: Row, searchTerm: string) => boolean)>
         },
 
         /**
@@ -237,7 +238,7 @@ export default defineComponent({
                     sortable: false,
                     prefix: '',
                     suffix: '',
-                    sortFunc: null,
+                    sortByFunc: null,
                     ...col,
                     header
                 } as Required<Column>;
@@ -261,7 +262,7 @@ export default defineComponent({
                 return orderBy(
                     rows,
                     sortOrder.value.map(order => {
-                        return order.sortFunc ?? (row => isNaN(Number(row[order.column]))
+                        return order.sortByFunc ?? (row => isNaN(Number(row[order.column]))
                             ? row[order.column]
                             : Number(row[order.column]));
                     }),
@@ -275,9 +276,9 @@ export default defineComponent({
 
             const search: (row: Row) => boolean = props.search instanceof Function
                 ? props.search
-                : row => Object.values(row).some(value => new RegExp(term.value, 'i').test(String(value)));
+                : (row, str) => Object.values(row).some(value => new RegExp(str, 'i').test(String(value)));
 
-            return sortedRows(normalisedRows.value.filter(row => search(row)));
+            return sortedRows(normalisedRows.value.filter(row => search(row, term.value)));
         });
         const hoverClass = ref('');
         const selected = useVModel<MaybeArray<Row>>(props);
@@ -376,7 +377,7 @@ export default defineComponent({
                 sortOrder.value.push({
                     column: columnName,
                     direction: 'asc',
-                    sortFunc: getColumn(columnName).sortFunc
+                    sortByFunc: getColumn(columnName).sortByFunc
                 });
                 return;
             }
