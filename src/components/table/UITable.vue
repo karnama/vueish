@@ -1,6 +1,6 @@
 <template>
-    <section class="shadow-md text-gray-700 bg-white">
-        <table class="flex sm:table flex-col border-collapse border-gray-200 overflow-x-scroll
+    <section class="shadow-md text-gray-700 bg-white relative">
+        <table class="flex sm:table flex-col border-collapse border-gray-200
                       w-full table-auto rounded relative"
                :class="[hoverClass]"
                @mouseover="handleHover"
@@ -122,7 +122,7 @@
                 </tr>
             </tbody>
         </table>
-        <footer v-if="$slots.footer" class="px-4 py-6 bg-white border-t border-gray-300">
+        <footer v-if="$slots.footer" class="sticky sm:relative bottom-0 px-4 py-6 bg-white border-t border-gray-300">
             <slot name="footer" />
         </footer>
     </section>
