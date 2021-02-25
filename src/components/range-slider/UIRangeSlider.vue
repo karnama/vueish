@@ -1,24 +1,21 @@
 <template>
     <label class="mt-4">
-        <slot name="label">
+        <slot name="label" :value="model">
             {{ label }}
         </slot>
-        <div class="relative block">
-            <div class="range-value opacity-100 transition-opacity transform -translate-y-full flex items-center justify-center"
+        <span class="relative block">
+            <svg class="range-thumb-indicator opacity-0 transition-opacity range-value fill-current text-brand-400"
                  :class="{ 'opacity-100': showLabel }"
+                 viewBox="0 0 80 90"
+                 :data-value="model"
                  :style="leftOffset">
-                <svg class="range-thumb-indicator opacity-100 transition-opacity fill-current text-brand-400"
-                     :class="{ 'opacity-100': showLabel }"
-                     viewBox="0 0 80 90"
-                     :data-value="model">
-                    <path d="M40 99.5 C-22.5 47.5 0 0 40 0.5 C80 0 102.5 47.5 40 99.5z" />
-                </svg>
-                <span class="absolute text-sm">
-                    {{ model }}
-                </span>
-            </div>
-            <input :id="$attrs.id ?? name"
-                   v-model="model"
+                <path d="M40 99.5 C-22.5 47.5 0 0 40 0.5 C80 0 102.5 47.5 40 99.5z" />
+            </svg>
+            <span class="range-value opacity-0 transition-opacity"
+                  :class="{ 'opacity-100': showLabel }"
+                  :style="leftOffset"
+                  :data-value="model" />
+            <input v-model="model"
                    type="range"
                    class="range-slider-range bg-darker outline-none text-white transition-all border-0 w-full"
                    :style="bgColor"
@@ -32,12 +29,8 @@
                    @mousedown="showLabel = true"
                    @touchend="closeLabel"
                    @mouseup="closeLabel">
-        </div>
+        </span>
     </label>
-
-    <div>
-        Percentage of the slider travel: {{ progress() }}%
-    </div>
 </template>
 
 <script lang="ts">
@@ -92,41 +85,21 @@ export default defineComponent({
     setup(props) {
         const showLabel = ref(false);
         const model = useVModel<number>(props);
-
-        function progress() {
-            return Number((model.value - props.min) * 100 / (props.max - props.min));
-        }
-
-        // const realPercentage = computed<number>(() => {
-        //     const range = Math.abs(props.min - Math.abs(props.max));
-        //     const offset = Math.abs(0 - Math.abs(props.min));
-        //     return (Number(model.value) + offset) / range * 100;
-        // });
-
-        // const bgColor = computed<Partial<CSSStyleDeclaration>>(() => {
-        //     return {
-        //         backgroundImage:
-        //             `-webkit-gradient(linear, left top, right top,
-        //             color-stop(${realPercentage.value / 100}, ${props.disabled ? 'rgba(0,0,0,0)' : 'red'}),
-        //             color-stop(${realPercentage.value / 100}, rgba(0,0,0,0)))`
-        //     };
-        // });
+        const progress = computed(() => Number((model.value - props.min) * 100 / (props.max - props.min)));
 
         const bgColor = computed<Partial<CSSStyleDeclaration>>(() => {
             return {
-                background: `linear-gradient(90deg, blue ${progress()}%,white ${progress()}%)`
+                backgroundImage:
+                    `-webkit-gradient(linear, left top, right top,
+                    color-stop(${progress.value / 100},
+                        ${props.disabled? 'rgba(0,0,0,0)' : 'rgba(var(--color-brand-400), 1)'}),
+                    color-stop(${progress.value / 100}, rgba(0,0,0,0)))`
             };
         });
 
-        // const leftOffset = computed<Partial<CSSStyleDeclaration>>(() => {
-        //     return {
-        //         left: `calc(${realPercentage.value}% - ${/* $range-handle-size */25 / 100 * realPercentage.value}px)`
-        //     };
-        // });
-
         const leftOffset = computed<Partial<CSSStyleDeclaration>>(() => {
-            // 5px is the half-width of the svg minus the half-width of the thumb.
-            return { left: `calc(${progress()}% - ${/* $range-handle-size */25 / 100 * progress()}px - 5px)` };
+            // offset by the $range-handle-size and 5px which is the half width of the svg
+            return { left: `calc(${progress.value}% - ${25 / 100 * progress.value}px - 5px)` };
         });
 
         const closeLabel = () => setTimeout(() => showLabel.value = false, 750);
@@ -136,8 +109,7 @@ export default defineComponent({
             showLabel,
             bgColor,
             leftOffset,
-            closeLabel,
-            progress
+            closeLabel
         };
     }
 });
@@ -159,7 +131,7 @@ $indicatorHeight: 50px;
     height: $indicatorHeight;
     width: $indicatorWidth;
     position: absolute;
-
+    top: -$indicatorHeight;
     &:after {
         display: block;
         font-size: 0.8rem;
@@ -207,7 +179,7 @@ $indicatorHeight: 50px;
 
     &:disabled {
         &::-moz-range-thumb, ::-webkit-slider-thumb {
-            background: var(--color-bg-darker);
+            @apply bg-gray-400 cursor-not-allowed;
             box-shadow: none;
         }
     }

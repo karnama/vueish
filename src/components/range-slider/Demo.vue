@@ -1,11 +1,13 @@
 <template>
     <UIRangeSlider v-model="num"
                    name="slider"
-                   label="Range"
                    :step="0.5"
                    min="-100"
-                   max="100" />
-    Value: {{ num }}
+                   max="100">
+        <template #label="slotProps">
+            Range ({{ slotProps.value }})
+        </template>
+    </UIRangeSlider>
 </template>
 
 <script lang="ts">
