@@ -19,7 +19,7 @@
                         <span v-if="multiSelect && Array.isArray(selected)" class="mx-auto">
                             <UICheckbox name="selectAll"
                                         classes="justify-center"
-                                        :indeterminate="selected.length !== rows.length"
+                                        :indeterminate="selected.length !== selectableRows.length"
                                         :model-value="!!selected.length"
                                         @update:model-value="toggleAllRowSelection" />
                         </span>
@@ -289,6 +289,7 @@ export default defineComponent({
         const hoverClass = ref('');
         const selected = useVModel<MaybeArray<Row>>(props);
         const sortOrder = ref<SortOrder[]>([]);
+        const selectableRows = computed(() => normalisedRows.value.filter(r => r.isSelectable));
 
         const getColumn = (rowProperty: string): Required<Column> => {
             return normalisedHeaders.value.find(header => header.rowProperty === rowProperty);
@@ -418,6 +419,7 @@ export default defineComponent({
         return {
             normalisedHeaders,
             normalisedRows,
+            selectableRows,
             rowProperties,
             filteredRows,
             hoverClass,

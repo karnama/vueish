@@ -15,7 +15,7 @@
             </div>
 
             <UIApp>
-                <div class="flex-1 min-h-screen container mx-auto bg-gray-200 themed light p-10">
+                <div class="flex-1 min-h-screen container mx-auto bg-gray-100 themed light p-10">
                     <div class="mx-auto" style="max-width: 1000px">
                         <router-view />
                     </div>
