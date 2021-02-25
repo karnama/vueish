@@ -6,14 +6,16 @@
             <UILinearLoader v-if="loading" class="absolute rounded-t" />
         </UIFadeTransition>
 
-        <header v-if="$slots.header || $slots.actions"
+        <header v-if="hasHeader || $slots.actions"
                 class="w-full flex items-center px-12 relative transition-all">
             <h1 class="select-none flex-grow py-8"
                 :class="{
                     'cursor-pointer': collapsible,
                 }"
                 @click="toggle">
-                <slot name="header" />
+                <slot name="header">
+                    {{ header }}
+                </slot>
             </h1>
 
             <div v-if="open" class="my-2">
@@ -22,15 +24,17 @@
         </header>
 
         <UIExpandTransition :appear="appear">
-            <div v-show="open">
-                <main class="w-full px-12 py-6 text-gray-700">
-                    <slot />
-                </main>
+            <keep-alive>
+                <div v-cloak v-if="open">
+                    <main class="w-full px-12 py-6 text-gray-700">
+                        <slot />
+                    </main>
 
-                <footer v-if="$slots.footer" class="py-8 px-12 flex items-center">
-                    <slot name="footer" />
-                </footer>
-            </div>
+                    <footer v-if="$slots.footer" class="py-8 px-12 flex items-center">
+                        <slot name="footer" />
+                    </footer>
+                </div>
+            </keep-alive>
         </UIExpandTransition>
     </section>
 </template>
@@ -93,12 +97,20 @@ export default defineComponent({
         loading: {
             type: Boolean,
             default: false
+        },
+
+        /**
+         * Prop alternative to the header slot.
+         */
+        header: {
+            type: String
         }
     },
 
     setup(props, ctx) {
-        const collapsible = computed(() => ctx.slots.header ? !props.noCollapse : false);
-        const open = ref(!ctx.slots.header || !collapsible.value ? true : !props.closed);
+        const hasHeader = computed<boolean>(() => !!props.header || !!ctx.slots.header);
+        const collapsible = computed(() => hasHeader.value ? !props.noCollapse : false);
+        const open = ref(!hasHeader.value || !collapsible.value ? true : !props.closed);
         watch(() => props.closed, () => open.value = !props.closed);
 
         if (props.id) {
@@ -125,6 +137,7 @@ export default defineComponent({
         };
 
         return {
+            hasHeader,
             open,
             toggle,
             collapsible
