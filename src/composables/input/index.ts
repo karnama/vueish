@@ -1,6 +1,5 @@
 import { computed, ref, onMounted, getCurrentInstance } from 'vue';
-import type { Ref, SetupContext } from 'vue';
-import { omit } from 'lodash-es';
+import type { Ref } from 'vue';
 
 /**
  * The input label.
