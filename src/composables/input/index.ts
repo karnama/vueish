@@ -101,14 +101,3 @@ export function autofocusElement(autofocus: boolean, input: Ref<HTMLInputElement
         });
     }
 }
-
-/**
- * Strip out the style and class attributes from the given object.
- *
- * @param attrs
- */
-export function withoutDesign(
-    attrs: SetupContext['attrs']
-): Pick<SetupContext['attrs'], Exclude<keyof SetupContext['attrs'], string[][number]>> {
-    return omit(attrs, ['class', 'style']);
-}

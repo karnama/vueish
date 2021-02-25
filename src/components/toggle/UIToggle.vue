@@ -7,7 +7,7 @@
             <input :id="$attrs.id ?? name"
                    v-model="model"
                    type="checkbox"
-                   v-bind="withoutDesign($attrs)"
+                   v-bind="omit($attrs, ['class', 'style'])"
                    class="w-full h-full cursor-pointer opacity-0 m-0 p-0"
                    :disabled="disabled"
                    :name="name">
@@ -19,7 +19,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { name, useVModel, disabled, label, withoutDesign } from '@composables/input';
+import { name, useVModel, disabled, label } from '@composables/input';
+import { omit } from 'lodash-es';
 
 export default defineComponent({
     name: 'UIToggle',
@@ -38,7 +39,7 @@ export default defineComponent({
 
     emits: ['update:modelValue'],
 
-    setup: (props) => ({ model: useVModel(props), withoutDesign })
+    setup: (props) => ({ model: useVModel(props), omit })
 });
 </script>
 
