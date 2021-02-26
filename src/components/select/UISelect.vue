@@ -43,7 +43,7 @@
                  @keydown.esc="closeList">
                 <!--Header to display instructions-->
                 <div class="px-2 py-1 text-sm bg-dark border-b select-none">
-                    <slot name="list-header">
+                    <slot name="header">
                         {{ header }}
                     </slot>
                 </div>
@@ -216,8 +216,10 @@ export default defineComponent({
             search.value = '';
         };
         const openList = () => {
+            if (props.disabled) return;
+
             open.value = true;
-            searchInput.value?.focus(); // todo - doesn't work
+            searchInput.value?.focus();
         };
         const clearSelection = (option?: Option) => {
             if (
@@ -283,6 +285,7 @@ export default defineComponent({
 
         onMounted(() => {
             if (props.autofocus) {
+                console.log(searchInput.value);
                 openList();
             }
 
