@@ -1,5 +1,6 @@
 import UISelect from './UISelect.vue';
 import { DOMWrapper, mount } from '@vue/test-utils';
+import { nextTick } from 'vue';
 
 const options = [
     {
@@ -21,12 +22,12 @@ const options = [
 ] as const;
 
 const getList = (): DOMWrapper<HTMLDivElement> | null => {
-    const element: HTMLDivElement | null = document.querySelector(selectors.list);
+    const element = document.querySelector<HTMLDivElement>(selectorMap.list) ;
 
     return element ? new DOMWrapper(element) : null;
 };
 
-const selectors = {
+const selectorMap = {
     currentSelection: '.current-selection',
     selectionClear: '.current-selection .clear-icon',
     list: '.list',
@@ -41,10 +42,10 @@ describe('UISelect', () => {
         });
 
         expect(getList()).toBeNull();
-        await wrapper.find(selectors.currentSelection).trigger('click');
-        const htmlOptions = getList()?.findAll(selectors.options);
+        await wrapper.find(selectorMap.currentSelection).trigger('click');
+        const htmlOptions = getList()!.findAll(selectorMap.options);
         expect(htmlOptions).toHaveLength(options.length);
-        expect(htmlOptions![0].html()).toContain(options[0].name);
+        expect(htmlOptions[0].html()).toContain(options[0].name);
         wrapper.unmount();
     });
 
@@ -56,13 +57,13 @@ describe('UISelect', () => {
             }
         });
 
-        await wrapper.find(selectors.currentSelection).trigger('click');
-        await getList()?.find(selectors.options).trigger('click');
-        expect(wrapper.emitted('update:modelValue')[0]).toStrictEqual([options[0]]);
+        await wrapper.find(selectorMap.currentSelection).trigger('click');
+        await getList()!.find(selectorMap.options).trigger('click');
+        expect(wrapper.lastEventValue()).toStrictEqual([options[0]]);
         await wrapper.setProps({ modelValue: options [1] });
 
         const selected = getList()
-            ?.findAll(selectors.options)
+            ?.findAll(selectorMap.options)
             .filter(option => option.attributes()['aria-selected'] === 'true');
 
         expect(selected).toHaveLength(1);
@@ -78,17 +79,18 @@ describe('UISelect', () => {
             }
         });
 
-        await wrapper.find(selectors.currentSelection).trigger('click');
-        const htmlOptions = getList()?.findAll(selectors.options);
+        await wrapper.find(selectorMap.currentSelection).trigger('click');
+        const htmlOptions = getList()!.findAll(selectorMap.options);
 
-        await htmlOptions![0].trigger('click');
-        expect(wrapper.emitted('update:modelValue')[0]).toStrictEqual([options[0]]);
+        await htmlOptions[0].trigger('click');
+        expect(wrapper.lastEventValue()).toStrictEqual([options[0]]);
 
         await wrapper.setProps({ multi: true, modelValue: null });
-        await htmlOptions![0].trigger('click');
-        await htmlOptions![1].trigger('click');
+        await htmlOptions[0].trigger('click');
+        await wrapper.setProps({ modelValue: wrapper.lastEventValue<unknown[]>()![0] });
+        await htmlOptions[1].trigger('click');
 
-        expect(wrapper.emitted('update:modelValue')[2]).toStrictEqual([[options[0], options[1]]]);
+        expect(wrapper.lastEventValue()).toStrictEqual([[options[0], options[1]]]);
 
         wrapper.unmount();
     });
@@ -102,13 +104,15 @@ describe('UISelect', () => {
             }
         });
 
-        await wrapper.find(selectors.currentSelection).trigger('click');
-        const htmlOptions = getList()?.findAll(selectors.options);
+        await wrapper.find(selectorMap.currentSelection).trigger('click');
+        const htmlOptions = getList()!.findAll(selectorMap.options);
 
-        await htmlOptions![0].trigger('click');
-        await htmlOptions![1].trigger('click');
+        await htmlOptions[0].trigger('click');
+        await wrapper.setProps({ modelValue: wrapper.lastEventValue<unknown[]>()![0] });
+        await htmlOptions[1].trigger('click');
 
-        expect(wrapper.emitted('update:modelValue')[1]).toStrictEqual([options[0], options[1]]);
+        expect(wrapper.lastEventValue<unknown[]>()![0]).toStrictEqual([options[0], options[1]]);
+        wrapper.unmount();
     });
 
     it.todo('should be able to clear all values');

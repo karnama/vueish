@@ -5,7 +5,7 @@
          class="text-default relative group outline-none"
          role="list"
          :aria-disabled="disabled"
-         :aria-valuetext="selectionDisplay.join(', ')"
+         :aria-valuetext="selectionDisplay"
          v-bind="$attrs">
         <!--Clickable area showing the current value and opens the list-->
         <div class="current-selection cursor-pointer select-none border-b flex justify-between"
@@ -13,9 +13,9 @@
                  'text-muted cursor-not-allowed': disabled
              }"
              @click="open ? closeList() : openList()">
-            <slot name="selected" :option="selected">
-                <span v-if="selectionDisplay.length">
-                    {{ selectionDisplay.join(', ') }}
+            <slot name="selected" :selected="selected">
+                <span v-if="selectionDisplay">
+                    {{ selectionDisplay }}
                 </span>
 
                 <span v-else class="opacity-50">
@@ -27,10 +27,10 @@
                   class="h-5 w-5 text-gray-400"
                   v-html="lockIcon" />
 
-            <span v-else-if="!noClear && selectionDisplay.length"
+            <span v-else-if="!noClear && selectionDisplay"
                   class="opacity-0 clear-icon h-5 w-5 cursor-pointer right-0 top-1 group-hover:opacity-100
                          transition-opacity text-gray-500 relative -mr-5 group-hover:mr-0 -mt-1 transition-spacing"
-                  @click.stop="clearSelection"
+                  @click.stop="clearSelection(undefined)"
                   v-html="clearIcon" />
         </div>
 
@@ -89,12 +89,13 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, onUnmounted, nextTick, unref, isRef } from 'vue';
-import { cloneDeep, isEqual as _isEqual } from 'lodash-es';
+import { computed, defineComponent, onMounted, ref, onUnmounted } from 'vue';
+import { isEqual as _isEqual, cloneDeep } from 'lodash-es';
 import type { PropType } from 'vue';
 import { placeholder, autofocus, noClear, disabled, useVModel } from '@composables/input';
 import { getIcon, wrap } from '@/helpers';
 import { MaybeArray } from '@/types';
+// @ts-expect-error
 import { directive } from 'vue3-click-away';
 
 // todo - accessibility
@@ -182,16 +183,16 @@ export default defineComponent({
         const selected = useVModel<MaybeArray<Option> | null>(props);
         const lockIcon = getIcon('lock');
         const clearIcon = getIcon('clear');
-        const selectionDisplay = computed<string[]>(() => {
+        const selectionDisplay = computed<string>(() => {
             if (!selected.value) {
-                return [];
+                return '';
             }
 
-            const options = wrap<Option>(selected.value);
-            return options.map(option => option[props.labelKey]);
+            const options = wrap<Option>(cloneDeep(selected.value));
+            return options.map(option => option[props.labelKey]).join(', ');
         });
         const filteredOptions = computed<Option[]>(() => {
-            const options = selected.value ? wrap(selected.value) : [];
+            const options = selected.value ? wrap(cloneDeep(selected.value)) : [];
 
             (props.options ?? [])
                 // exclude already selected
@@ -221,7 +222,7 @@ export default defineComponent({
         const clearSelection = (option?: Option) => {
             if (
                 // nothing to clear
-                !selected.value || props.multi && (selected.value as Option[]).length === 0
+                !selected.value || Array.isArray(selected.value) && selected.value.length === 0
                 // or not clearable single select
                 || props.noClear && !props.multi
                 // or not clearable multi-select with only one value
@@ -232,6 +233,7 @@ export default defineComponent({
 
             if (option && props.multi) {
                 selected.value = (selected.value as Option[]).filter(opt => !isEqual(opt, option));
+                return;
             }
 
             selected.value = props.multi ? [] : null;
@@ -242,27 +244,28 @@ export default defineComponent({
                 : _isEqual(previous[props.compareKey], next[props.compareKey]);
         };
         const isSelected = (option: Option) => {
-            const values = selected.value ? wrap(selected.value) : [];
+            const values = selected.value ? wrap(cloneDeep(selected.value)) : [];
 
             return values.findIndex(selectedOption => isEqual(selectedOption, option)) !== -1;
         };
-        const select = async (option: Option) => {
+        const select = (option: Option) => {
+            if (isSelected(option)) {
+                return;
+            }
+
             if (!props.multi) {
                 selected.value = option;
                 return;
             }
 
-            if (isSelected(option)) {
+            if (!Array.isArray(selected.value)) {
+                // console.log(selected.value);
+                selected.value = selected.value ? [selected.value, option] : [option];
                 return;
             }
 
-            const options: Option[] = (selected.value as Option[]) ?? [];
-            options.push(option);
-
-            selected.value = cloneDeep(options);
-            console.log(selected.value, options);
-            await nextTick();
-            console.log(selected.value, options);
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+            selected.value = [...selected.value, option];
         };
         const setPosition = () => {
             const rectangle = selectComp.value?.getBoundingClientRect();

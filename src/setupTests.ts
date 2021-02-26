@@ -1,5 +1,7 @@
 import { config } from '@vue/test-utils';
+import type { VueWrapper } from '@vue/test-utils';
 import defaultSettings from '@/defaultSettings';
+import type { ComponentPublicInstance } from 'vue';
 
 beforeAll(() => {
     if (process.env.IS_CI) {
@@ -11,3 +13,21 @@ beforeAll(() => {
         Vueish: defaultSettings
     };
 });
+
+const lastEventPlugin = (wrapper: VueWrapper<ComponentPublicInstance>) => {
+    return {
+        lastEventValue: (eventName = 'update:modelValue'): unknown | undefined => {
+            const events = wrapper.emitted(eventName);
+
+            return events ? events[events.length - 1] : undefined;
+        }
+    };
+};
+
+config.plugins.VueWrapper.install(lastEventPlugin);
+
+declare module '@vue/test-utils' {
+    interface VueWrapper<T extends ComponentPublicInstance> {
+        lastEventValue<R extends unknown>(eventName?: string): R | undefined;
+    }
+}
