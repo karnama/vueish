@@ -89,7 +89,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, onUnmounted } from 'vue';
+import { computed, defineComponent, onMounted, ref, onUnmounted, nextTick } from 'vue';
 import { isEqual as _isEqual, cloneDeep } from 'lodash-es';
 import type { PropType } from 'vue';
 import { placeholder, autofocus, noClear, disabled, useVModel } from '@composables/input';
@@ -178,7 +178,7 @@ export default defineComponent({
     setup(props) {
         const search = ref('');
         const open = ref(false);
-        const searchInput = ref<HTMLInputElement>();
+        const searchInput = ref<HTMLInputElement>(null);
         const selectComp = ref<HTMLInputElement>();
         const selected = useVModel<MaybeArray<Option> | null>(props);
         const lockIcon = getIcon('lock');
@@ -214,12 +214,16 @@ export default defineComponent({
         const closeList = () => {
             open.value = false;
             search.value = '';
+            window.removeEventListener('resize', setPosition);
         };
-        const openList = () => {
+        const openList = async () => {
             if (props.disabled) return;
 
             open.value = true;
+            await nextTick();
+            setPosition();
             searchInput.value?.focus();
+            window.addEventListener('resize', setPosition);
         };
         const clearSelection = (option?: Option) => {
             if (
@@ -283,17 +287,14 @@ export default defineComponent({
             };
         };
 
-        onMounted(() => {
+        onMounted(async () => {
             if (props.autofocus) {
-                console.log(searchInput.value);
-                openList();
+                await openList();
             }
-
-            setPosition();
-            window.addEventListener('resize', setPosition);
         });
 
         onUnmounted(() => {
+            // in case it's unmounted while open
             window.removeEventListener('resize', setPosition);
         });
 

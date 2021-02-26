@@ -1,5 +1,6 @@
 import UISelect from './UISelect.vue';
 import { DOMWrapper, mount } from '@vue/test-utils';
+import { nextTick } from 'vue';
 
 const options = [
     {
@@ -208,6 +209,7 @@ describe('UISelect', () => {
 
         await wrapper.find(selectorMap.currentSelection).trigger('click');
         expect(getList()?.find('#my-header').exists()).toBe(true);
+        wrapper.unmount();
     });
 
     it('should not allow clearing the value on single select given the prop', async () => {
@@ -263,13 +265,13 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: [],
-                multi: true
+                autofocus: true
             }
         });
 
-        await wrapper.find(selectorMap.currentSelection).trigger('click');
-        console.log(document.activeElement);
+        await nextTick();
         expect(document.activeElement?.getAttribute('name')).toBe('search');
+        wrapper.unmount();
     });
 
     it('should display the names when the input is closed', async () => {
