@@ -1,7 +1,6 @@
 <template>
     <div ref="selectComp"
          :class="{ 'cursor-not-allowed': disabled }"
-         tabindex="0"
          class="text-default relative group outline-none"
          role="list"
          :aria-disabled="disabled"
@@ -12,6 +11,9 @@
              :class="{
                  'text-muted cursor-not-allowed': disabled
              }"
+             tabindex="0"
+             @keydown.space.prevent="openList"
+             @keydown.tab="closeList"
              @click="open ? closeList() : openList()">
             <slot name="selected" :selected="selected">
                 <span v-if="selectionDisplay">
@@ -37,6 +39,7 @@
         <!--List of available options-->
         <teleport to="body">
             <div v-if="open"
+                 ref="list"
                  v-click-away="closeList"
                  class="list overflow-y-scroll absolute w-full border bg-white shadow-md"
                  :style="style"
@@ -62,10 +65,13 @@
                 <ul>
                     <li v-for="(option, index) in filteredOptions"
                         :key="option[labelKey] + '-' + index"
-                        class="option border-t cursor-pointer bg-default hover:bg-gray-100 relative justify-center"
+                        class="option border-t cursor-pointer bg-default hover:bg-gray-100 relative
+                               justify-center focus:bg-brand-200"
                         :class="{'selected-option bg-gray-200': isSelected(option)}"
                         role="option"
+                        tabindex="0"
                         :aria-selected="isSelected(option)"
+                        @keydown.enter="select(option)"
                         @click.stop="select(option)">
                         <div class="flex justify-between">
                             <div class="p-2">
@@ -180,6 +186,7 @@ export default defineComponent({
         const open = ref(false);
         const searchInput = ref<HTMLInputElement>(null);
         const selectComp = ref<HTMLInputElement>();
+        const list = ref<HTMLDivElement>();
         const selected = useVModel<MaybeArray<Option> | null>(props);
         const lockIcon = getIcon('lock');
         const clearIcon = getIcon('clear');
@@ -211,7 +218,15 @@ export default defineComponent({
         });
         const style = ref<Partial<CSSStyleDeclaration>>({});
 
-        const closeList = () => {
+        const closeList = async (event?: Event) => {
+            await nextTick();
+            if (
+                event && (event.target as Element)?.contains(document.activeElement)
+                || event && list.value?.contains(document.activeElement)
+            ) {
+                return;
+            }
+
             open.value = false;
             search.value = '';
             window.removeEventListener('resize', setPosition);
@@ -254,18 +269,18 @@ export default defineComponent({
 
             return values.findIndex(selectedOption => isEqual(selectedOption, option)) !== -1;
         };
-        const select = (option: Option) => {
+        const select = async (option: Option) => {
             if (isSelected(option)) {
                 return;
             }
 
             if (!props.multi) {
                 selected.value = option;
+                await closeList();
                 return;
             }
 
             if (!Array.isArray(selected.value)) {
-                // console.log(selected.value);
                 selected.value = selected.value ? [selected.value, option] : [option];
                 return;
             }
@@ -301,6 +316,7 @@ export default defineComponent({
         return {
             search,
             open,
+            list,
             selectComp,
             style,
             searchInput,

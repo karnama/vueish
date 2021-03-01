@@ -22,7 +22,7 @@ const options = [
 ] as const;
 
 const getList = (): DOMWrapper<HTMLDivElement> | null => {
-    const element = document.querySelector<HTMLDivElement>(selectorMap.list) ;
+    const element = document.querySelector<HTMLDivElement>(selectorMap.list);
 
     return element ? new DOMWrapper(element) : null;
 };
@@ -35,7 +35,6 @@ const selectorMap = {
     optionClear: '.option .clear-icon'
 } as const;
 
-// todo - remove the manual props when vtu2-rc2 released
 describe('UISelect', () => {
     it('should display the given options when open', async () => {
         const wrapper  = mount(UISelect, {
@@ -61,14 +60,13 @@ describe('UISelect', () => {
         await wrapper.find(selectorMap.currentSelection).trigger('click');
         await getList()!.find(selectorMap.options).trigger('click');
         expect(wrapper.lastEventValue()).toStrictEqual([options[0]]);
-        await wrapper.setProps({ modelValue: options [1] });
 
-        const selected = getList()
-            ?.findAll(selectorMap.options)
+        await wrapper.find(selectorMap.currentSelection).trigger('click');
+        const selected = getList()!.findAll(selectorMap.options)
             .filter(option => option.attributes()['aria-selected'] === 'true');
 
         expect(selected).toHaveLength(1);
-        expect(selected![0].html()).toContain(options[1].name);
+        expect(selected[0].text()).toContain(options[0].name);
         wrapper.unmount();
     });
 
@@ -88,7 +86,6 @@ describe('UISelect', () => {
 
         await wrapper.setProps({ multi: true, modelValue: null });
         await htmlOptions[0].trigger('click');
-        await wrapper.setProps({ modelValue: wrapper.lastEventValue<unknown[]>()![0] });
         await htmlOptions[1].trigger('click');
 
         expect(wrapper.lastEventValue()).toStrictEqual([[options[0], options[1]]]);
@@ -109,7 +106,6 @@ describe('UISelect', () => {
         const htmlOptions = getList()!.findAll(selectorMap.options);
 
         await htmlOptions[0].trigger('click');
-        await wrapper.setProps({ modelValue: wrapper.lastEventValue<unknown[]>()![0] });
         await htmlOptions[1].trigger('click');
 
         expect(wrapper.lastEventValue<unknown[]>()![0]).toStrictEqual([options[0], options[1]]);
@@ -129,7 +125,6 @@ describe('UISelect', () => {
         const htmlOptions = getList()!.findAll(selectorMap.options);
 
         await htmlOptions[0].trigger('click');
-        await wrapper.setProps({ modelValue: wrapper.lastEventValue<unknown[]>()![0] });
 
         await wrapper.find(selectorMap.selectionClear).trigger('click');
         expect(wrapper.lastEventValue<unknown[]>()![0]).toStrictEqual([]);
@@ -149,7 +144,6 @@ describe('UISelect', () => {
         const htmlOptions = getList()!.findAll(selectorMap.options);
 
         await htmlOptions[0].trigger('click');
-        await wrapper.setProps({ modelValue: wrapper.lastEventValue<unknown[]>()![0] });
         expect(wrapper.lastEventValue<unknown[]>()![0]).toStrictEqual([options[0]]);
 
         await htmlOptions[0].find(selectorMap.optionClear).trigger('click');
@@ -225,7 +219,6 @@ describe('UISelect', () => {
         const htmlOptions = getList()!.findAll(selectorMap.options);
 
         await htmlOptions[0].trigger('click');
-        await wrapper.setProps({ modelValue: wrapper.lastEventValue<unknown[]>()![0] });
         expect(wrapper.lastEventValue()).toStrictEqual([options[0]]);
 
         await htmlOptions[0].find(selectorMap.optionClear).trigger('click');
@@ -247,12 +240,9 @@ describe('UISelect', () => {
         const htmlOptions = getList()!.findAll(selectorMap.options);
 
         await htmlOptions[0].trigger('click');
-        await wrapper.setProps({ modelValue: wrapper.lastEventValue<unknown[]>()![0] });
         await htmlOptions[1].trigger('click');
-        await wrapper.setProps({ modelValue: wrapper.lastEventValue<unknown[]>()![0] });
 
         await htmlOptions[1].find(selectorMap.optionClear).trigger('click');
-        await wrapper.setProps({ modelValue: wrapper.lastEventValue<unknown[]>()![0] });
         expect(wrapper.lastEventValue<unknown[]>()![0]).toStrictEqual([options[0]]);
         await htmlOptions[0].trigger('click');
         expect(wrapper.lastEventValue<unknown[]>()![0]).toStrictEqual([options[0]]);
@@ -288,7 +278,6 @@ describe('UISelect', () => {
 
         for await (const option of htmlOptions) {
             await option.trigger('click');
-            await wrapper.setProps({ modelValue: wrapper.lastEventValue<unknown[]>()![0] });
         }
 
         expect(wrapper.html()).toContain(options.map(o => o.name).join(', '));

@@ -5,7 +5,6 @@
               class="mb-12" />
     <UISelect v-model="multiSelected"
               multi
-              autofocus
               :options="options"
               placeholder="Please select..." />
 </template>
