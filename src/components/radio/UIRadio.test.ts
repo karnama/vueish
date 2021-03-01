@@ -3,7 +3,6 @@ import type { DOMWrapper } from '@vue/test-utils';
 import UIRadio from './UIRadio.vue';
 import UIRadioGroup from './UIRadioGroup.vue';
 import { disableConsoleWarn, enableConsoleWarn } from '@helpers/test';
-import { h } from 'vue';
 
 describe('UIRadio', () => {
     it('should bind attributes to the input', () => {
