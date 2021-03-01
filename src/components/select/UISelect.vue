@@ -9,10 +9,10 @@
         <!--Clickable area showing the current value and opens the list-->
         <div class="current-selection cursor-pointer select-none border-b flex justify-between"
              :class="{
-                 'text-muted cursor-not-allowed': disabled
+                 'text-muted cursor-not-allowed focus:outline-none': disabled
              }"
              tabindex="0"
-             @keydown.space.prevent="openList"
+             @keydown.space="openList"
              @keydown.tab="closeList"
              @click="open ? closeList() : openList()">
             <slot name="selected" :selected="selected">
@@ -218,15 +218,8 @@ export default defineComponent({
         });
         const style = ref<Partial<CSSStyleDeclaration>>({});
 
-        const closeList = async (event?: Event) => {
+        const closeList = async () => {
             await nextTick();
-            if (
-                event && (event.target as Element)?.contains(document.activeElement)
-                || event && list.value?.contains(document.activeElement)
-            ) {
-                return;
-            }
-
             open.value = false;
             search.value = '';
             window.removeEventListener('resize', setPosition);

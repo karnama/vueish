@@ -1,10 +1,17 @@
 <template>
     <UISelect v-model="selected"
               :options="options"
-              placeholder="Please select..."
-              class="mb-12" />
+              placeholder="Please select..." />
+
     <UISelect v-model="multiSelected"
               multi
+              class="my-12"
+              :options="options"
+              placeholder="Please select..." />
+
+    <UISelect v-model="multiSelected"
+              multi
+              disabled
               :options="options"
               placeholder="Please select..." />
 </template>

@@ -70,6 +70,23 @@ describe('UISelect', () => {
         wrapper.unmount();
     });
 
+    it('should close the list on selection when using single select', async () => {
+        const wrapper = mount(UISelect, {
+            props: {
+                options,
+                modelValue: []
+            }
+        });
+
+        await wrapper.find(selectorMap.currentSelection).trigger('click');
+        expect(getList()).not.toBeNull();
+
+        const currentFocus = new DOMWrapper(document.activeElement!);
+        await currentFocus.trigger('keydown', { key: 'esc' });
+
+        expect(getList()).toBeNull();
+    });
+
     it('should allow null value on both single and multi select', async () => {
         const wrapper  = mount(UISelect, {
             props: {
@@ -282,5 +299,17 @@ describe('UISelect', () => {
 
         expect(wrapper.html()).toContain(options.map(o => o.name).join(', '));
         wrapper.unmount();
+    });
+
+    it('should open the list on space down when focused', async () => {
+        const wrapper = mount(UISelect, {
+            props: {
+                options,
+                modelValue: []
+            }
+        });
+
+        await wrapper.find(selectorMap.currentSelection).trigger('keydown', { key: 'space' });
+        expect(getList()).not.toBeNull();
     });
 });
