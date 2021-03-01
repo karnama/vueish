@@ -56,7 +56,7 @@ function getLastEventValue(wrapper: VueWrapper<ComponentPublicInstance>) {
     // filter out the checkbox events
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const events = (wrapper.emitted('update:modelValue') as unknown[][])
-        .filter(argumentArr => argumentArr.length === 1 && typeof argumentArr[0] !== 'boolean') as Row[][][];
+        .filter(argumentArr => argumentArr.length === 1 && typeof argumentArr[0] !== 'boolean') as Row[][];
     return events[events.length - 1];
 }
 
@@ -315,9 +315,7 @@ describe('UITable', () => {
             await checkbox.trigger('click');
             await nextTick();
 
-            // the first emit comes from the UICheckbox
-            const payload = wrapper.emitted('update:modelValue')[1] as [Row];
-            expect(payload[0].letter).toBe(rows[1].letter); // first is not selectable
+            expect(getLastEventValue(wrapper)[0].letter).toBe(rows[1].letter); // first is not selectable
             wrapper.unmount();
         });
 
@@ -332,16 +330,11 @@ describe('UITable', () => {
                 }
             });
 
-            // todo - remove these manual prop sets when vtu 2.0.0-rc2 released
-            //  https://github.com/vuejs/vue-test-utils-next/pull/393
             const checkboxes = wrapper.findAll(selectorMap.checkboxes);
             await checkboxes[0].trigger('click');
-            await wrapper.setProps({ modelValue: getLastEventValue(wrapper)[0] });
             await checkboxes[1].trigger('click');
-            await wrapper.setProps({ modelValue: getLastEventValue(wrapper)[0] });
 
-            // console.log(getLastEventValue(wrapper)[0].map(row => row.letter));
-            expect(getLastEventValue(wrapper)[0].map(row => row.letter)).toStrictEqual(
+            expect(getLastEventValue(wrapper)[0].map((row: Row) => row.letter)).toStrictEqual(
                 rows.filter(row => typeof row.isSelectable === 'boolean' ? row.isSelectable : true)
                     .map(row => row.letter)
             );
@@ -360,7 +353,7 @@ describe('UITable', () => {
 
             await wrapper.find(selectorMap.topCheckbox).trigger('click');
 
-            expect(getLastEventValue(wrapper)[0].map(row => row.letter)).toStrictEqual(
+            expect(getLastEventValue(wrapper)[0].map((row: Row) => row.letter)).toStrictEqual(
                 rows.filter(row => typeof row.isSelectable === 'boolean' ? row.isSelectable : true)
                     .map(row => row.letter)
             );
@@ -378,11 +371,9 @@ describe('UITable', () => {
             });
 
             await wrapper.find(selectorMap.checkboxes).trigger('click');
-            await wrapper.setProps({ modelValue: getLastEventValue(wrapper)[0] });
 
             expect(getLastEventValue(wrapper)[0]).toHaveLength(1);
             await wrapper.find(selectorMap.topCheckbox).trigger('click');
-            await wrapper.setProps({ modelValue: getLastEventValue(wrapper)[0] });
 
             expect(getLastEventValue(wrapper)[0]).toHaveLength(0);
             await wrapper.find(selectorMap.topCheckbox).trigger('click');
