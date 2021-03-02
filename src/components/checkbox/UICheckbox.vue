@@ -1,10 +1,10 @@
 <template>
-    <div class="flex items-center">
+    <div class="flex items-center" :class="$attrs.class" :style="$attrs.style">
         <input :id="$attrs.id ?? name"
                type="checkbox"
                class="hidden"
                :name="name"
-               v-bind="$attrs"
+               v-bind="omit($attrs, ['class', 'style'])"
                :disabled="disabled"
                :checked="isChecked"
                @click="toggleValue">
@@ -31,7 +31,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 import { label, disabled, name, value } from '@composables/input';
-import { isEqual } from 'lodash-es';
+import { isEqual, omit } from 'lodash-es';
 import { getIcon } from '@/helpers';
 
 export default defineComponent({
@@ -94,7 +94,8 @@ export default defineComponent({
             toggleValue,
             isChecked,
             dashIcon,
-            tickIcon
+            tickIcon,
+            omit
         };
     }
 });

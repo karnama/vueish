@@ -31,7 +31,7 @@ export default {
          */
         mode: {
             type: String,
-            required: false
+            default: 'out-in'
         }
     }
 };

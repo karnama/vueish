@@ -27,7 +27,7 @@
 import { computed, defineComponent, ref, watch, onMounted } from 'vue';
 
 export default defineComponent({
-    name: 'SpinnerLoader',
+    name: 'UISpinnerLoader',
 
     inheritAttrs: false,
 
