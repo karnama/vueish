@@ -1,9 +1,13 @@
 <template>
-    <UIPanel closed class="bg-white mb-4">
+    <UIPanel class="bg-white mb-4">
         <template #header>
             Table with slots
         </template>
-        <UITable :headers="headers" :rows="rows" hover-highlight>
+        <UITable :headers="headers"
+                 :rows="rows"
+                 hover-highlight
+                 :items-per-page="itemsPerPage"
+                 :page="page">
             <template #header="slotProps">
                 slotted {{ slotProps.header.rowProperty }}
             </template>
@@ -21,19 +25,19 @@
         </UITable>
     </UIPanel>
 
-    Searchable
-    <UITable :headers="headers"
-             :rows="rows"
-             search
-             no-sort />
+<!--    Searchable-->
+<!--    <UITable :headers="headers"-->
+<!--             :rows="rows"-->
+<!--             search-->
+<!--             no-sort />-->
 
-    With Selection
-    <UITable v-model="selectedRows"
-             :headers="headers"
-             :rows="rows"
-             show-select
-             no-sort
-             multi-select />
+<!--    With Selection-->
+<!--    <UITable v-model="selectedRows"-->
+<!--             :headers="headers"-->
+<!--             :rows="rows"-->
+<!--             show-select-->
+<!--             no-sort-->
+<!--             multi-select />-->
 </template>
 
 <script lang="ts">
@@ -140,11 +144,15 @@ export default defineComponent({
             }
         ]);
         const selectedRows = ref<Row[]>(null);
+        const page = ref(1);
+        const itemsPerPage = ref(2);
 
         return {
             headers,
             rows,
-            selectedRows
+            selectedRows,
+            page,
+            itemsPerPage
         };
     }
 });

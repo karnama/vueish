@@ -1,8 +1,9 @@
 <template>
-    <section class="shadow-md text-gray-700 bg-white relative">
+    <section class="shadow-md text-gray-700 bg-white relative w-full overflow-x-scroll">
         <table class="flex sm:table flex-col border-collapse border-gray-200
                       w-full table-auto rounded relative"
                :class="[hoverClass]"
+               style="box-sizing: content-box"
                @mouseover="handleHover"
                @mouseleave="handleHover">
             <thead class="sticky top-0 shadow">
@@ -54,8 +55,8 @@
             </thead>
 
             <tbody class="space-y-5 sm:space-y-0">
-                <template v-if="filteredRows.length">
-                    <tr v-for="(row, index) in filteredRows"
+                <template v-if="pageRows.length">
+                    <tr v-for="(row, index) in pageRows"
                         :key="index"
                         :class="{ 'row-highlight': hoverHighlight }"
                         class="flex flex-col flex-no-wrap sm:table-row border-t border-gray-200">
@@ -121,10 +122,30 @@
                     </td>
                 </tr>
             </tbody>
+
+            <tfoot v-if="$slots.footer || filteredRows.length > itemsPerPage" class="border-t border-gray-300">
+                <tr>
+                    <td :colspan="normalisedHeaders.length + ($slots.action ? 1 : 0)">
+                        <span class="block px-4 py-6">
+                            <span v-if="filteredRows.length > itemsPerPage"
+                                  class="flex justify-end items-center space-x-2">
+                                <span v-if="hasPrevious"
+                                      class="block p-2 hover:bg-gray-200 rounded transition transform
+                                             cursor-pointer rotate-90"
+                                      @click="currentPage--"
+                                      v-html="chevronIcon" />
+                                <span v-if="hasNext"
+                                      class="block p-2 hover:bg-gray-200 rounded transition transform
+                                            cursor-pointer rotate-270"
+                                      @click="increment"
+                                      v-html="chevronIcon" />
+                            </span>
+                            <slot name="footer" />
+                        </span>
+                    </td>
+                </tr>
+            </tfoot>
         </table>
-        <footer v-if="$slots.footer" class="sticky sm:relative bottom-0 px-4 py-6 bg-white border-t border-gray-300">
-            <slot name="footer" />
-        </footer>
     </section>
 </template>
 
@@ -141,14 +162,13 @@ import { getIcon } from '@/helpers';
 import { debouncedRef } from '@composables/reactivity';
 
 // todo - features planned/would be nice to have
-// - pagination (mind the selection to also select things not on page)
 // - dropdown extra info
 // - grouping
 // - virtualized - https://www.npmjs.com/package/vue3-virtual-scroller
 
 // todo - window resize even listener for mobile view?
-// todo footer on mobile view ?
-let styleTagId = '';
+// todo - make footer sticky if isn't already
+let styleTagId: string;
 
 export default defineComponent({
     name: 'UITable',
@@ -221,10 +241,26 @@ export default defineComponent({
         noSort: {
             type: Boolean,
             default: false
+        },
+
+        /**
+         * The current page.
+         */
+        page: {
+            type: Number,
+            default: 1
+        },
+
+        /**
+         * The number of rows on the page.
+         */
+        itemsPerPage: {
+            type: Number,
+            default: 2 // todo - update to 10
         }
     },
 
-    emits: ['update:modelValue'],
+    emits: ['update:modelValue', 'update:page', 'update:itemsPerPage'],
 
     setup(props) {
         // const validateRows = (rows: Row[]): boolean => {
@@ -232,6 +268,8 @@ export default defineComponent({
         //     return rows.every(row => Object.keys(row).every(key => key in properties));
         // };
         const chevronIcon = getIcon('chevron');
+        let internalPage: number;
+        let internalItemsPerPage: number;
 
         const normalisedHeaders = computed<Required<Column>[]>(() => {
             return props.headers.map((col: Column) => {
@@ -260,8 +298,8 @@ export default defineComponent({
             });
         });
         const rowProperties = computed<string[]>(() => normalisedHeaders.value.map(header => header.rowProperty));
-        const filteredRows = computed<Required<Row>[]>(() => {
-            const sortedRows = (rows: Row[]) => {
+        const filteredRows = computed(() => {
+            const sortedRows = (rows: Required<Row>[]): Required<Row>[] => {
                 if (!sortOrder.value.length) return rows;
 
                 return orderBy(
@@ -279,23 +317,52 @@ export default defineComponent({
                 return sortedRows(normalisedRows.value);
             }
 
-            const search: (row: Row) => boolean = props.search instanceof Function
+            const search: (row: Row, searchString: string) => boolean = props.search instanceof Function
                 ? props.search
                 : (row, str) => Object.values(row).some(value => new RegExp(str, 'i').test(String(value)));
 
             return sortedRows(normalisedRows.value.filter(row => search(row, term.value)));
         });
+        const pageRows = computed(() => {
+            const start = currentItemsPerPage.value * (currentPage.value - 1);
+
+            return filteredRows.value.slice(start, start + currentItemsPerPage.value);
+        });
+        // const pageCount = computed(() => filteredRows.value.length / currentItemsPerPage.value);
+        const hasNext = computed(() => {
+            return !!filteredRows.value.slice((currentPage.value - 1) * currentItemsPerPage.value).length;
+        });
+        const hasPrevious = computed(() => currentPage.value > 1);
         const term = debouncedRef('');
         const hoverClass = ref('');
         const selected = useVModel<MaybeArray<Row>>(props);
         const sortOrder = ref<SortOrder[]>([]);
         const selectableRows = computed(() => normalisedRows.value.filter(r => r.isSelectable));
 
-        const getColumn = (rowProperty: string): Required<Column> => {
+        const currentPage = useVModel<number>(props, 'page');
+        const currentItemsPerPage = useVModel<number>(props, 'itemsPerPage');
+        // const currentPage = computed<number>({
+        //     get: () => {
+        //         return internalPage;
+        //     },
+        //     set: val => {
+        //         internalPage = val;
+        //         ctx.emit('update:page', val);
+        //     }
+        // });
+        // const currentItemsPerPage = computed<number>({
+        //     get: () => internalItemsPerPage,
+        //     set: val => {
+        //         internalItemsPerPage = val;
+        //         ctx.emit('update:itemsPerPage', val);
+        //     }
+        // });
+
+        const getColumn = (rowProperty: string): Required<Column> | undefined => {
             return normalisedHeaders.value.find(header => header.rowProperty === rowProperty);
         };
-        const addHoverStyles = (arg) => {
-            const [headers, hoverHighlight]: [Required<Column>[], boolean] = arg;
+        const addHoverStyles = (arg: [Required<Column>[], boolean]) => {
+            const [headers, hoverHighlight] = arg;
             if (!styleTagId) {
                 if (!hoverHighlight) {
                     return;
@@ -304,10 +371,10 @@ export default defineComponent({
                 }
             }
 
-            let style: HTMLStyleElement = document.getElementById(styleTagId);
+            let style = document.getElementById(styleTagId) as HTMLStyleElement;
 
             if (!hoverHighlight) {
-                style?.parentElement.removeChild(style);
+                style?.parentElement?.removeChild(style);
                 return;
             }
 
@@ -318,7 +385,7 @@ export default defineComponent({
                 document.head.appendChild(style);
             }
 
-            if (style.sheet.cssRules.length) {
+            if (style.sheet?.cssRules.length) {
                 for (let i = 0; i < style.sheet.cssRules.length; i++) {
                     style.sheet.deleteRule(i);
                 }
@@ -326,7 +393,7 @@ export default defineComponent({
 
             headers.forEach(header => {
                 // todo - get the resolved sm value from tailwind
-                style.sheet.insertRule(
+                style.sheet?.insertRule(
                     '@media (min-width: 640px) {'
                     + `table.hover-cell-${header.rowProperty}:hover td.hover-cell-${header.rowProperty} `
                     + '{ background-color: rgba(var(--color-brand-50), var(--tw-bg-opacity, 1)); }}'
@@ -336,7 +403,7 @@ export default defineComponent({
         const handleHover = (event: MouseEvent): void => {
             if (!props.hoverHighlight) return;
 
-            const td: HTMLTableCellElement = (event.target as Element).closest('td');
+            const td = (event.target as Element).closest('td');
 
             if (!td) {
                 hoverClass.value = '';
@@ -374,7 +441,7 @@ export default defineComponent({
             selected.value = selected.value.length ? [] : filteredRows.value.filter(row => row.isSelectable);
         };
         const sortBy = (columnName: string): void => {
-            if (props.noSort|| !normalisedHeaders.value.find(header => header.rowProperty === columnName).sortable) {
+            if (props.noSort|| !normalisedHeaders.value.find(header => header.rowProperty === columnName)?.sortable) {
                 return;
             }
 
@@ -384,7 +451,7 @@ export default defineComponent({
                 sortOrder.value.push({
                     column: columnName,
                     direction: 'asc',
-                    sortByFunc: getColumn(columnName).sortByFunc
+                    sortByFunc: getColumn(columnName)?.sortByFunc
                 });
                 return;
             }
@@ -398,6 +465,10 @@ export default defineComponent({
         };
         const sortDirection = (columnName: string): undefined | 'asc' | 'desc' => {
             return sortOrder.value.find(colOrder => colOrder.column === columnName)?.direction;
+        };
+        const increment = () => {
+            currentPage.value++;
+            console.log(currentPage.value);
         };
 
         watch(
@@ -416,23 +487,32 @@ export default defineComponent({
             { immediate: true }
         );
 
+        // watch(() => props.page, val => internalPage = val, { immediate: true });
+        // watch(() => props.itemsPerPage, val => internalItemsPerPage = val, { immediate: true });
+
         return {
+            currentItemsPerPage,
             normalisedHeaders,
             normalisedRows,
             selectableRows,
             rowProperties,
             filteredRows,
+            chevronIcon,
+            hasPrevious,
+            currentPage,
             hoverClass,
             selected,
-            chevronIcon,
+            pageRows,
+            increment,
+            hasNext,
             term,
-            getColumn,
-            handleHover,
-            toggleRowSelection,
-            isSelected,
-            toggleAllRowSelection,
             sortBy,
-            sortDirection
+            getColumn,
+            isSelected,
+            handleHover,
+            sortDirection,
+            toggleRowSelection,
+            toggleAllRowSelection
         };
     }
 });
