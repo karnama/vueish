@@ -192,11 +192,12 @@ describe('UIRadioGroup', () => {
             }
         });
 
+        const radioGroup = wrapper.findComponent(UIRadioGroup);
         const input = wrapper.find('input[type="radio"]');
 
         await input.trigger('click');
-        expect(wrapper.emitted()).toHaveProperty('update:modelValue');
-        expect(wrapper.emitted()['update:modelValue'][0]).toStrictEqual(['foo']);
+        expect(radioGroup.emitted('update:modelValue')).not.toBeUndefined();
+        expect(radioGroup.emitted('update:modelValue')![0]).toStrictEqual(['foo']);
     });
 
     it('should throw an error if there are missing UIRadio components', () => {
