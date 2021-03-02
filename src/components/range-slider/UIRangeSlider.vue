@@ -1,5 +1,5 @@
 <template>
-    <label class="mt-4 group">
+    <label class="mt-4">
         <slot name="label" :value="model">
             {{ label }}
         </slot>
@@ -25,10 +25,10 @@
                    :disabled="disabled"
                    :min="min"
                    :max="max"
-                   @touchstart="showLabel = true"
-                   @mousedown="showLabel = true"
-                   @mouseover="showLabel = true"
-                   @mouseout="showLabel = false"
+                   @mouseover="openLabel"
+                   @mouseout="openLabel"
+                   @touchstart="openLabel"
+                   @mousedown="openLabel"
                    @touchend="closeLabel"
                    @mouseup="closeLabel">
         </span>
@@ -41,6 +41,7 @@ import { useVModel } from '@composables/input';
 import { disabled, name, label } from '@composables/input';
 
 // todo - mobile touch doesn't work
+let timeoutId;
 
 export default defineComponent({
     name: 'UIRangeSlider',
@@ -104,14 +105,21 @@ export default defineComponent({
             return { left: `calc(${progress.value}% - ${25 / 100 * progress.value}px - 13px)` };
         });
 
-        const closeLabel = () => setTimeout(() => showLabel.value = false, 750);
+        const closeLabel = () => {
+            timeoutId = setTimeout(() => showLabel.value = false, 750);
+        };
+        const openLabel = () => {
+            clearTimeout(timeoutId);
+            showLabel.value = true;
+        };
 
         return {
             model,
             showLabel,
             bgColor,
             leftOffset,
-            closeLabel
+            closeLabel,
+            openLabel
         };
     }
 });
@@ -181,6 +189,12 @@ $indicatorHeight: 50px;
 
         &:hover {
             background: currentColor;
+        }
+    }
+
+    &:active {
+        &::-moz-range-thumb, ::-webkit-slider-thumb {
+            cursor: grabbing;
         }
     }
 
