@@ -1,7 +1,7 @@
 <template>
     <UIRangeSlider v-model="num"
                    name="slider"
-                   :step="0.5"
+                   :step="0.01"
                    min="-100"
                    max="100">
         <template #label="slotProps">
