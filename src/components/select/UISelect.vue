@@ -1,7 +1,7 @@
 <template>
     <div ref="selectComp"
          :class="{ 'cursor-not-allowed': disabled }"
-         class="text-default relative group outline-none"
+         class="ui-select text-default relative group outline-none"
          role="list"
          :aria-disabled="disabled"
          :aria-valuetext="selectionDisplay"
@@ -13,7 +13,6 @@
              }"
              tabindex="0"
              @keydown.space="openList"
-             @keydown.tab="closeList"
              @click="open ? closeList() : openList()">
             <slot name="selected" :selected="selected">
                 <span v-if="selectionDisplay">
@@ -64,7 +63,7 @@
                 <!--Options available for selection-->
                 <ul>
                     <li v-for="(option, index) in filteredOptions"
-                        :key="option[labelKey] + '-' + index"
+                        :key="option[optionLabel] + '-' + index"
                         class="option border-t cursor-pointer bg-default hover:bg-gray-100 relative
                                justify-center focus:bg-brand-200"
                         :class="{'selected-option bg-gray-200': isSelected(option)}"
@@ -76,7 +75,7 @@
                         <div class="flex justify-between">
                             <div class="p-2">
                                 <slot name="option" :option="option">
-                                    {{ option[labelKey] }}
+                                    {{ option[optionLabel] }}
                                 </slot>
                             </div>
 
@@ -98,14 +97,13 @@
 import { computed, defineComponent, onMounted, ref, onUnmounted, nextTick } from 'vue';
 import { isEqual as _isEqual, cloneDeep } from 'lodash-es';
 import type { PropType } from 'vue';
-import { placeholder, autofocus, noClear, disabled, useVModel } from '@composables/input';
+import { placeholder, autofocus, noClear, disabled, useVModel, label } from '@composables/input';
 import { getIcon, wrap } from '@/helpers';
 import { MaybeArray } from '@/types';
 // @ts-expect-error
 import { directive } from 'vue3-click-away';
 
 // todo - accessibility
-// todo - review header prop
 
 type Option = Record<string, any>;
 
@@ -134,7 +132,7 @@ export default defineComponent({
         /**
          * The key to find the label by on the options.
          */
-        labelKey: {
+        optionLabel: {
             type: String,
             default: 'name'
         },
@@ -144,7 +142,7 @@ export default defineComponent({
          * Otherwise if set to 'whole' The objects will
          * be compared based on deep equality.
          */
-        compareKey: {
+        optionKey: {
             type: String,
             default: 'id'
         },
@@ -159,7 +157,7 @@ export default defineComponent({
         },
 
         /**
-         * Function to use when evaluating a strm.
+         * Function to use when evaluating a search term.
          */
         searchClosure: {
             type: Function as PropType<(o: Option, term: string) => boolean>
@@ -173,6 +171,7 @@ export default defineComponent({
             default: false
         },
 
+        label,
         placeholder,
         noClear,
         autofocus,
@@ -184,8 +183,8 @@ export default defineComponent({
     setup(props) {
         const search = ref('');
         const open = ref(false);
-        const searchInput = ref<HTMLInputElement>(null);
-        const selectComp = ref<HTMLInputElement>();
+        const searchInput = ref<HTMLInputElement>();
+        const selectComp = ref<HTMLDivElement>();
         const list = ref<HTMLDivElement>();
         const selected = useVModel<MaybeArray<Option> | null>(props);
         const lockIcon = getIcon('lock');
@@ -196,9 +195,13 @@ export default defineComponent({
             }
 
             const options = wrap<Option>(cloneDeep(selected.value));
-            return options.map(option => option[props.labelKey]).join(', ');
+            return options.map(option => option[props.optionLabel]).join(', ');
         });
         const filteredOptions = computed<Option[]>(() => {
+            if (!search.value) {
+                return props.options ?? [];
+            }
+
             const options = selected.value ? wrap(cloneDeep(selected.value)) : [];
 
             (props.options ?? [])
@@ -207,7 +210,7 @@ export default defineComponent({
                 .forEach(option => {
                     const isHit = props.searchClosure
                         ? props.searchClosure(option, search.value)
-                        : (option[props.labelKey] as string).toLowerCase().includes(search.value.toLowerCase());
+                        : (option[props.optionLabel] as string).toLowerCase().includes(search.value.toLowerCase());
 
                     if (isHit) {
                         options.push(option);
@@ -253,9 +256,9 @@ export default defineComponent({
             selected.value = props.multi ? [] : null;
         };
         const isEqual = (previous: Option, next: Option): boolean => {
-            return props.compareKey === 'whole'
+            return props.optionKey === 'whole'
                 ? _isEqual(previous, next)
-                : _isEqual(previous[props.compareKey], next[props.compareKey]);
+                : _isEqual(previous[props.optionKey], next[props.optionKey]);
         };
         const isSelected = (option: Option) => {
             const values = selected.value ? wrap(cloneDeep(selected.value)) : [];

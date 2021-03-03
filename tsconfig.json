@@ -2,11 +2,9 @@
     "compilerOptions": {
         "target": "esnext",
         "module": "esnext",
-        "noEmit": true,
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "strict": true,
-        "noEmit": true,
         "jsx": "preserve",
         "noEmit": true,
         "sourceMap": true,

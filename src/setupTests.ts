@@ -16,10 +16,10 @@ beforeAll(() => {
 
 const lastEventPlugin = (wrapper: VueWrapper<ComponentPublicInstance>) => {
     return {
-        lastEventValue: (eventName = 'update:modelValue'): unknown | undefined => {
+        lastEventValue<T>(eventName = 'update:modelValue'): T | undefined  {
             const events = wrapper.emitted(eventName);
 
-            return events ? events[events.length - 1] : undefined;
+            return events ? events[events.length - 1] as T : undefined;
         }
     };
 };
@@ -29,6 +29,11 @@ config.plugins.VueWrapper.install(lastEventPlugin);
 declare module '@vue/test-utils' {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface VueWrapper<T extends ComponentPublicInstance> {
+        /**
+         * Return the last event value if any that has occurred.
+         *
+         * @param {string=} eventName
+         */
         lastEventValue<R extends unknown>(eventName?: string): R | undefined;
     }
 }

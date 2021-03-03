@@ -17,8 +17,8 @@ export function getIcon(icon: Icon): string {
  * @return {array};
  */
 export function wrap<T>(value?: T | T[]): T[] {
-    if (!value && typeof value !== 'boolean') {
-        value = [];
+    if (value === undefined) {
+        return [];
     }
 
     if (!Array.isArray(value)) {
