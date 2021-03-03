@@ -1,7 +1,7 @@
 <template>
     <main class="h-full">
         <div class="flex">
-            <div class="px-12">
+            <div class="px-12 shadow-2xl">
                 <h1 class="text-2xl mt-4 mb-6">
                     Vueish UI
                 </h1>
@@ -15,7 +15,7 @@
             </div>
 
             <UIApp>
-                <div class="flex-1 h-screen container mx-auto bg-gray-50 h-full themed light p-10">
+                <div class="flex-1 h-screen bg-gray-200 w-full themed light p-10">
                     <div class="mx-auto" style="max-width: 1000px">
                         <router-view />
                     </div>
