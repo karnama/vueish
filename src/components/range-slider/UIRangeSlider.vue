@@ -4,13 +4,13 @@
             {{ label }}
         </slot>
         <span class="relative block">
-            <!--            <svg class="range-thumb-indicator opacity-0 transition-opacity range-value fill-current text-brand-400"-->
-            <!--                 :class="{ 'opacity-100': showLabel }"-->
-            <!--                 viewBox="0 0 80 90"-->
-            <!--                 :data-value="model"-->
-            <!--                 :style="leftOffset">-->
-            <!--                <path d="M40 99.5 C-22.5 47.5 0 0 40 0.5 C80 0 102.5 47.5 40 99.5z" />-->
-            <!--            </svg>-->
+            <svg class="range-thumb-indicator opacity-0 transition-opacity range-value fill-current text-brand-400"
+                 :class="{ 'opacity-100': showLabel }"
+                 viewBox="0 0 80 90"
+                 :data-value="model"
+                 :style="leftOffset">
+                <path d="M40 99.5 C-22.5 47.5 0 0 40 0.5 C80 0 102.5 47.5 40 99.5z" />
+            </svg>
             <span class="range-value opacity-0 transition-opacity"
                   :class="{ 'opacity-100': showLabel }"
                   :style="leftOffset"
@@ -25,10 +25,8 @@
                    :disabled="disabled"
                    :min="min"
                    :max="max"
-                   @mouseover="openLabel"
-                   @mouseout="openLabel"
-                   @touchstart="openLabel"
-                   @mousedown="openLabel"
+                   @touchstart="showLabel = true"
+                   @mousedown="showLabel = true"
                    @touchend="closeLabel"
                    @mouseup="closeLabel">
         </span>
@@ -40,8 +38,7 @@ import { computed, defineComponent, ref } from 'vue';
 import { useVModel } from '@composables/input';
 import { disabled, name, label } from '@composables/input';
 
-// todo - mobile touch doesn't work
-let timeoutId;
+let timeoutId: any;
 
 export default defineComponent({
     name: 'UIRangeSlider',
@@ -95,14 +92,14 @@ export default defineComponent({
                 backgroundImage:
                     `-webkit-gradient(linear, left top, right top,
                     color-stop(${progress.value / 100},
-                        ${props.disabled ? 'rgba(0,0,0,0)' : 'rgba(var(--color-brand-400), 1)'}),
+                        ${props.disabled? 'rgba(0,0,0,0)' : 'rgba(var(--color-brand-400), 1)'}),
                     color-stop(${progress.value / 100}, rgba(0,0,0,0)))`
             };
         });
 
         const leftOffset = computed<Partial<CSSStyleDeclaration>>(() => {
             // offset by the $range-handle-size and 5px which is the half width of the svg
-            return { left: `calc(${progress.value}% - ${25 / 100 * progress.value}px - 13px)` };
+            return { left: `calc(${progress.value}% - ${25 / 100 * progress.value}px - 5px)` };
         });
 
         const closeLabel = () => {
@@ -138,12 +135,10 @@ $indicatorHeight: 50px;
 
 .range-value {
     text-align: center;
-    //height: $indicatorHeight;
-    //width: $indicatorWidth;
+    height: $indicatorHeight;
+    width: $indicatorWidth;
     position: absolute;
-    top: -30px;
-    width: 50px;
-
+    top: -$indicatorHeight;
     &:after {
         display: block;
         font-size: 0.8rem;
@@ -168,11 +163,8 @@ $indicatorHeight: 50px;
         box-shadow: $shadow;
         background: currentColor;
         cursor: pointer;
-        transition: background, border-radius .15s ease-in-out;
-        transform: rotate(-45deg);
 
         &:hover {
-            border-radius: 80% 15% 55% 50% / 55% 15% 80% 50%;
             background: currentColor;
         }
     }
@@ -180,12 +172,12 @@ $indicatorHeight: 50px;
     &::-moz-range-thumb {
         width: $range-handle-size;
         height: $range-handle-size;
+        border: 0;
         box-shadow: $shadow;
         border-radius: 50%;
         background: currentColor;
         cursor: pointer;
-        transition: background, border-radius .15s ease-in-out;
-        transform: rotate(-45deg);
+        transition: background .15s ease-in-out;
 
         &:hover {
             background: currentColor;
@@ -203,10 +195,6 @@ $indicatorHeight: 50px;
             @apply bg-gray-400 cursor-not-allowed;
             box-shadow: none;
         }
-    }
-
-    &:hover::-moz-range-thumb, &::-webkit-slider-thumb {
-        border-radius: 80% 15% 55% 50% / 55% 15% 80% 50%;
     }
 }
 
