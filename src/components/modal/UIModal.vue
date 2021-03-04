@@ -11,6 +11,7 @@
                             relative bg-default m-auto shadow-xl rounded bg-white opacity-0 translate-y-0"
                      role="dialog"
                      aria-modal="true"
+                     :aria-label="header"
                      v-bind="$attrs"
                      no-collapse>
                 <!--Modal Header-->

@@ -37,12 +37,12 @@
                       class="h-5 w-5 mr-2 text-gray-400"
                       v-html="lockIcon" />
 
-                <span v-else-if="clearable && modelValue"
-                      class="clear-icon h-5 w-5 cursor-pointer mr-2 text-gray-500"
-                      :aria-controls="$attrs.id ?? name"
-                      aria-roledescription="clear"
-                      @click="model = ''"
-                      v-html="clearIcon" />
+                <button v-else-if="clearable && modelValue"
+                        class="clear-icon h-5 w-5 cursor-pointer mr-2 text-gray-500"
+                        :aria-controls="$attrs.id ?? name"
+                        aria-roledescription="clear"
+                        @click="model = ''"
+                        v-html="clearIcon" />
 
                 <div v-if="isNumber" class="flex flex-col select-none h-full">
                     <button :aria-controls="$attrs.id ?? name"

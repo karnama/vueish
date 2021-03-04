@@ -1,35 +1,36 @@
 <template>
     <div class="ui-text">
-        <label :for="$attrs.id ?? name" class="text-sm text-gray-500">
+        <label :for="$attrs.id ?? name" class="font-medium text-gray-700">
             {{ label }}
         </label>
 
-        <div class="group relative container">
-            <div class="flex overflow-hidden relative">
+        <div class="group relative shadow border border-gray-300 rounded bg-white
+                    transition focus-within:border-blue-400"
+             :class="{ 'bg-gray-100': disabled }">
+            <div class="flex items-center">
                 <textarea :id="$attrs.id ?? name"
-                          v-bind="$attrs"
+                          v-bind="omit($attrs, ['class', 'style'])"
                           ref="input"
-                          v-model="value"
+                          v-model="model"
                           :name="name"
                           :disabled="disabled"
-                          class="flex-1 appearance-none bg-transparent transition-border-color leading-tight
-                                 focus:outline-none rounded-none transition-text-color disabled:cursor-not-allowed
-                                 disabled:text-gray-400"
+                          :aria-placeholder="$attrs.placeholder"
+                          class="flex-1 p-3 appearance-none bg-transparent outline-none
+                                 disabled:cursor-not-allowed disabled:text-gray-400"
                           :style="disabled || fixed ? 'resize: none' : ''" />
 
                 <span v-if="disabled"
-                      class="h-5 w-5 text-gray-400"
+                      class="h-5 w-5 mr-2 text-gray-400"
                       v-html="lockIcon" />
 
 
-                <span v-else-if="clearable && modelValue"
-                      class="clear-icon h-5 w-5 cursor-pointer right-0 top-1 group-hover:opacity-100 transition-opacity
-                            text-gray-500 relative -mr-5 group-hover:mr-0 -mt-1 transition-spacing"
-                      @click="value = ''"
-                      v-html="clearIcon" />
+                <button v-else-if="clearable && modelValue"
+                        class="clear-icon h-5 w-5 cursor-pointer mr-2 text-gray-500"
+                        :aria-controls="$attrs.id ?? name"
+                        aria-roledescription="clear"
+                        @click="model = ''"
+                        v-html="clearIcon" />
             </div>
-
-            <div class="absolute w-full border-b left-0 bottom-0" />
         </div>
     </div>
 </template>
@@ -46,6 +47,7 @@ import {
     useVModel
 } from '@composables/input';
 import { getIcon } from '@/helpers';
+import { omit } from 'lodash-es';
 
 export default defineComponent({
     name: 'UITextarea',
@@ -70,16 +72,17 @@ export default defineComponent({
 
     setup(props) {
         const input = ref<HTMLInputElement>();
-        const value = useVModel<string>(props);
+        const model = useVModel<string>(props);
         const lockIcon = getIcon('lock');
         const clearIcon = getIcon('clear');
         autofocusElement(props.autofocus, input);
 
         return {
-            value,
+            model,
             input,
             lockIcon,
-            clearIcon
+            clearIcon,
+            omit
         };
     }
 });
