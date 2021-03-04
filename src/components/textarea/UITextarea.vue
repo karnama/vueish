@@ -48,7 +48,7 @@ import {
 import { getIcon } from '@/helpers';
 
 export default defineComponent({
-    name: 'UIText',
+    name: 'UITextarea',
 
     inheritAttrs: false,
 

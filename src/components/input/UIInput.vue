@@ -83,7 +83,7 @@ import { getIcon, getPrecision } from '@/helpers';
 import { omit } from 'lodash-es';
 
 export default defineComponent({
-    name: 'UIText',
+    name: 'UIInput',
 
     inheritAttrs: false,
 
