@@ -22,7 +22,7 @@
                       v-html="lockIcon" />
 
 
-                <span v-else-if="!noClear && modelValue"
+                <span v-else-if="clearable && modelValue"
                       class="clear-icon h-5 w-5 cursor-pointer right-0 top-1 group-hover:opacity-100 transition-opacity
                             text-gray-500 relative -mr-5 group-hover:mr-0 -mt-1 transition-spacing"
                       @click="value = ''"
@@ -40,7 +40,7 @@ import {
     autofocus,
     label,
     autofocusElement,
-    noClear,
+    clearable,
     name,
     disabled,
     useVModel
@@ -61,7 +61,7 @@ export default defineComponent({
         fixed: Boolean,
         label,
         autofocus,
-        noClear,
+        clearable,
         name,
         disabled
     },

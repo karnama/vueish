@@ -47,11 +47,7 @@ export const suffix = {
     type: String
 };
 
-/**
- * Prevents the clear model value option from
- * appearing.
- */
-export const noClear = {
+export const clearable = {
     type: Boolean,
     default: false
 };

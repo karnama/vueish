@@ -9,6 +9,8 @@
             <!--Main modal dialog-->
             <UIPanel class="modal top-0 w-full overflow-y-scroll
                             relative bg-default m-auto shadow-xl rounded bg-white opacity-0 translate-y-0"
+                     role="dialog"
+                     aria-modal="true"
                      v-bind="$attrs"
                      no-collapse>
                 <!--Modal Header-->

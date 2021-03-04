@@ -4,24 +4,34 @@
     </h1>
 
     <div class="space-y-10">
+        <UIText v-model="text"
+                clearable
+                name="ui-text"
+                placeholder="Some instructions..."
+                label="Field Label" />
+
         <div>
             <UIText v-model="text"
                     name="ui-text"
                     label="Standard"
                     no-clear />
-            <small class="mt-3">Output: </small>
-            <small>{{ text }}</small>
+            <small>Output: {{ text }}</small>
         </div>
 
         <UIText v-model="number"
                 name="ui-text4"
                 type="number"
                 autofocus
+                min="10"
+                max="100"
+                step="0.01"
+                placeholder=""
                 label="Number" />
 
         <UIText v-model="password"
                 name="ui-text9"
                 type="password"
+                clearable
                 label="Password" />
 
         <UIText v-model="disabled"
@@ -58,6 +68,7 @@
 
         <UIText v-model="suffixSlot"
                 name="ui-text7"
+                class="mt-10"
                 label="Suffix (Using slot)">
             <template #suffix>
                 <svg xmlns="http://www.w3.org/2000/svg"
