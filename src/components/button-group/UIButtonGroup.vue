@@ -1,5 +1,5 @@
 <template>
-    <div class="button-group" :class="{ vertical, spread }">
+    <div class="button-group" :class="{ vertical, spread }" role="group">
         <slot />
     </div>
 </template>
@@ -7,19 +7,22 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+export const props = {
+    vertical: {
+        type: Boolean,
+        default: false
+    },
+
+    spread: {
+        type: Boolean,
+        default: false
+    }
+};
+
 export default defineComponent({
     name: 'UIButtonGroup',
 
-    props: {
-        vertical: {
-            type: Boolean,
-            default: false
-        },
-        spread: {
-            type: Boolean,
-            default: false
-        }
-    }
+    props
 });
 </script>
 

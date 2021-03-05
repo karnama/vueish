@@ -61,6 +61,14 @@ export const value = {
 };
 
 /**
+ * Generic two-way value binding.
+ */
+export const modelValue = {
+    type: [String, Boolean, Array, Object, Number],
+    required: true
+};
+
+/**
  *
  * @param {} props
  * @param name
