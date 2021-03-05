@@ -1,7 +1,7 @@
 <template>
     <button type="button"
             :class="classes"
-            class="vue-ui-button rounded px-4 disabled:cursor-not-allowed disabled:opacity-50">
+            class="vue-ui-button rounded px-4 transition disabled:cursor-not-allowed disabled:opacity-50">
         <slot>
             {{ label }}
         </slot>
@@ -16,12 +16,12 @@ import { label } from '@composables/input';
 
 const typeClasses = {
     default: 'hover:bg-gray-200 bg-gray-300 disabled:bg-gray-300',
-    primary: 'input-white bg-blue-600 hover:bg-blue-400 disabled:bg-blue-600',
-    info: 'input-white bg-blue-400 hover:bg-blue-300 disabled:bg-blue-400',
-    success: 'input-white bg-green-400 hover:bg-green-300 disabled:bg-green-400',
-    warning: 'input-white bg-yellow-400 hover:bg-yellow-300 disabled:bg-yellow-400',
-    danger: 'input-white bg-red-400 hover:bg-red-300 disabled:bg-red-400',
-    brand: 'input-white bg-brand-400 hover:bg-brand-300 disabled:bg-brand-400'
+    primary: 'text-white bg-blue-600 hover:bg-blue-400 disabled:bg-blue-600',
+    info: 'text-white bg-blue-400 hover:bg-blue-300 disabled:bg-blue-400',
+    success: 'text-white bg-green-400 hover:bg-green-300 disabled:bg-green-400',
+    warning: 'text-white bg-yellow-400 hover:bg-yellow-300 disabled:bg-yellow-400',
+    danger: 'text-white bg-red-400 hover:bg-red-300 disabled:bg-red-400',
+    brand: 'text-white bg-brand-400 hover:bg-brand-300 disabled:bg-brand-400'
 } as { [key in StyleType]: string; };
 
 export default defineComponent({
