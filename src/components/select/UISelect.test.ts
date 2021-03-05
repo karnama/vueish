@@ -32,7 +32,8 @@ const selectorMap = {
     selectionClear: '.current-selection .clear-icon',
     list: '.list',
     options: '.option',
-    optionClear: '.option .clear-icon'
+    optionClear: '.option .clear-icon',
+    search: '[name="search"]'
 } as const;
 
 describe('UISelect', () => {
@@ -311,5 +312,84 @@ describe('UISelect', () => {
 
         await wrapper.find(selectorMap.currentSelection).trigger('keydown', { key: 'space' });
         expect(getList()).not.toBeNull();
+    });
+
+    it.todo('should focus the next element on tab', async () => {
+        const wrapper = mount(UISelect, {
+            props: {
+                options,
+                modelValue: [],
+                noClear: true,
+                multi: true
+            }
+        });
+
+        await wrapper.find(selectorMap.currentSelection).trigger('click');
+        const htmlOptions = getList()!.findAll(selectorMap.options);
+        await getList()!.find(selectorMap.search).trigger('keydown', { keyCode: 9, key: 'tab' });
+
+        expect(document.activeElement?.innerHTML).toBe(htmlOptions[0].html());
+    });
+
+    it('should focus the previous element on key up if possible', async () => {
+        const wrapper = mount(UISelect, {
+            props: {
+                options,
+                modelValue: [],
+                noClear: true,
+                multi: true
+            }
+        });
+
+        await wrapper.find(selectorMap.currentSelection).trigger('click');
+        const htmlOptions = getList()!.findAll<HTMLDivElement>(selectorMap.options);
+        htmlOptions[1].element.focus();
+        await htmlOptions[1].trigger('keydown', { keycode: 38, key: 'up' });
+
+        expect(document.activeElement?.innerHTML).toBe(htmlOptions[0]);
+
+        await htmlOptions[0].trigger('keydown', { keycode: 38, key: 'up' });
+
+        expect(document.activeElement?.innerHTML).toBe(htmlOptions[0]);
+    });
+
+    it('should focus the next element on key down if possible', async () => {
+        const wrapper = mount(UISelect, {
+            props: {
+                options,
+                modelValue: [],
+                noClear: true,
+                multi: true
+            }
+        });
+
+        await wrapper.find(selectorMap.currentSelection).trigger('click');
+        const htmlOptions = getList()!.findAll<HTMLDivElement>(selectorMap.options);
+        const lastIndex = htmlOptions.length - 1;
+        htmlOptions[lastIndex - 1].element.focus();
+        await htmlOptions[lastIndex - 1].trigger('keydown', { keycode: 40, key: 'down' });
+
+        expect(document.activeElement?.innerHTML).toBe(htmlOptions[lastIndex]);
+
+        await htmlOptions[lastIndex].trigger('keydown', { keycode: 40, key: 'down' });
+
+        expect(document.activeElement?.innerHTML).toBe(htmlOptions[lastIndex]);
+    });
+
+    it('should close the list when clicking away', async () => {
+        const wrapper = mount(UISelect, {
+            props: {
+                options,
+                modelValue: [],
+                noClear: true,
+                multi: true
+            }
+        });
+
+        expect(document.activeElement?.isSameNode(document.body)).toBe(true);
+        await wrapper.find(selectorMap.currentSelection).trigger('click');
+        expect(document.activeElement?.isSameNode(document.body)).toBe(false);
+        await new DOMWrapper(document.body).trigger('click');
+        expect(document.activeElement?.isSameNode(document.body)).toBe(true);
     });
 });

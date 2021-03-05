@@ -6,6 +6,7 @@
     <UISelect v-model="multiSelected"
               multi
               class="my-12"
+              no-clear
               :options="options"
               placeholder="Please select..." />
 

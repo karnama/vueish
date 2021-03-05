@@ -2,7 +2,7 @@
     <div ref="selectComp"
          :class="{ 'cursor-not-allowed': disabled }"
          class="ui-select text-default relative group outline-none"
-         role="list"
+         role="listbox"
          :aria-disabled="disabled"
          :aria-valuetext="selectionDisplay"
          v-bind="$attrs">
@@ -32,6 +32,7 @@
                   class="opacity-0 clear-icon h-5 w-5 cursor-pointer right-0 top-1 group-hover:opacity-100
                          transition-opacity text-gray-500 relative -mr-5 group-hover:mr-0 -mt-1 transition-spacing"
                   @click.stop="clearSelection(undefined)"
+                  aria-controls=""
                   v-html="clearIcon" />
         </div>
 
@@ -61,15 +62,18 @@
                 </div>
 
                 <!--Options available for selection-->
-                <ul>
+                <ul role="list">
                     <li v-for="(option, index) in filteredOptions"
                         :key="option[optionLabel] + '-' + index"
+                        :ref="el => { if (el) listElements[index] = el }"
                         class="option border-t cursor-pointer bg-default hover:bg-gray-100 relative
-                               justify-center focus:bg-brand-200"
+                               justify-center focus:bg-brand-200 outline-none"
                         :class="{'selected-option bg-gray-200': isSelected(option)}"
                         role="option"
                         tabindex="0"
                         :aria-selected="isSelected(option)"
+                        @keydown.up="listElements[index-1]?.focus()"
+                        @keydown.down="listElements[index+1]?.focus()"
                         @keydown.enter="select(option)"
                         @click.stop="select(option)">
                         <div class="flex justify-between">
@@ -79,7 +83,7 @@
                                 </slot>
                             </div>
 
-                            <div class="flex items-center  justify-between p-2 px-3">
+                            <div class="flex items-center justify-between p-2 px-3">
                                 <span v-if="isSelected(option)"
                                       class="clear-icon h-5 w-5 cursor-pointer text-gray-500"
                                       @click.stop="clearSelection(option)"
@@ -94,7 +98,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, onUnmounted, nextTick } from 'vue';
+import { computed, defineComponent, onMounted, ref, onUnmounted, nextTick, onBeforeUpdate } from 'vue';
 import { isEqual as _isEqual, cloneDeep } from 'lodash-es';
 import type { PropType } from 'vue';
 import { placeholder, autofocus, noClear, disabled, useVModel, label } from '@composables/input';
@@ -102,8 +106,6 @@ import { getIcon, wrap } from '@/helpers';
 import { MaybeArray } from '@/types';
 // @ts-expect-error
 import { directive } from 'vue3-click-away';
-
-// todo - accessibility
 
 type Option = Record<string, any>;
 
@@ -220,6 +222,7 @@ export default defineComponent({
             return options;
         });
         const style = ref<Partial<CSSStyleDeclaration>>({});
+        const listElements = ref<HTMLLIElement[]>({});
 
         const closeList = async () => {
             await nextTick();
@@ -304,6 +307,10 @@ export default defineComponent({
             }
         });
 
+        onBeforeUpdate(() => {
+            listElements.value = [];
+        });
+
         onUnmounted(() => {
             // in case it's unmounted while open
             window.removeEventListener('resize', setPosition);
@@ -321,6 +328,7 @@ export default defineComponent({
             clearIcon,
             filteredOptions,
             selectionDisplay,
+            listElements,
             select,
             closeList,
             openList,
