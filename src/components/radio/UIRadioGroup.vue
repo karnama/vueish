@@ -8,6 +8,7 @@
 
         <div ref="slot"
              class="slot flex pt-2"
+             role="radiogroup"
              :class="horizontal ? 'space-x-6': 'flex-col space-y-4'">
             <slot />
         </div>
@@ -15,8 +16,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, watch } from 'vue';
-import { label } from '@composables/input';
+import { defineComponent, ref, onMounted, onBeforeUpdate, watch } from 'vue';
+import { label, disabled, name } from '@composables/input';
 
 export default defineComponent({
     name: 'UIRadioGroup',
@@ -27,42 +28,65 @@ export default defineComponent({
         },
 
         label,
-        disabled: Boolean,
+        disabled,
+        name,
         horizontal: Boolean,
         required: Boolean
     },
 
     emits: ['update:modelValue'],
 
-    setup(props, { emit, attrs }) {
-        const slot = ref<HTMLElement>();
+    setup(props, ctx) {
+        const slot = ref<HTMLDivElement>();
+        const watchStopHandlers: ReturnType<typeof watch>[] = [];
+        const updateInputs = () => {
+            watchStopHandlers.forEach(stop => stop());
+            watchStopHandlers.length = 0;
 
-        onMounted(() => {
             // Search for radio inputs in the slot
             const inputs = slot.value?.querySelectorAll('input[type="radio"]') as NodeListOf<HTMLInputElement>;
 
             // Validate they exist
             if (!inputs || inputs.length < 2) {
-                throw Error('UIRadioGroup requires at least 2 UIRadio components present');
+                throw Error('UIRadioGroup requires at least 2 UIRadio components present.');
             }
 
-            // Set the attributes on each one
+            const setChecked = (input: HTMLInputElement) => input.checked = props.modelValue === input.value;
+            const setName = (input: HTMLInputElement) => {
+                input.name = props.name!;
+            };
+            const setDisabled = (input: HTMLInputElement) => {
+                const disabled = input.hasAttribute('disabled') ? input.disabled : props.disabled;
+                const label = input.closest('label')!;
+                input.disabled = disabled;
+
+                if (disabled) {
+                    label.classList.add('disabled');
+                    label.tabIndex = -1;
+                } else {
+                    label.classList.remove('disabled');
+                    label.tabIndex = 0;
+                }
+            };
+
+            watchStopHandlers.push(
+                // Update the inputs on props change
+                watch(() => props.name, () => inputs.forEach(setName), { immediate: true }),
+                watch(() => props.modelValue, () => inputs.forEach(setChecked), { immediate: true }),
+                watch(() => props.disabled, () => inputs.forEach(setDisabled), { immediate: true }),
+                watch(() => props.required, value => inputs[0].required = value, { immediate: true })
+            );
+
+            // Set event listeners
             inputs.forEach(input => {
-                input.onclick = (event: MouseEvent) =>
-                    emit('update:modelValue', (event.target as HTMLInputElement).value);
-                input.name = attrs.name as string;
-                input.checked = props.modelValue === input.value;
-                input.disabled = props.disabled;
+                input.onclick = () => ctx.emit('update:modelValue', input.value);
+                input.closest('label')!.onkeydown = (e: KeyboardEvent) =>
+                    e.key !== ' ' || ctx.emit('update:modelValue', input.value);
             });
+        };
 
-            // Only need to set one to the group required status
-            inputs[0].required = props.required;
-
-            // Update the inputs on external change
-            watch(() => props.modelValue, value => inputs.forEach(input => input.checked = value === input.value));
-            watch(() => props.disabled, value => inputs.forEach(input => input.disabled = value));
-            watch(() => props.required, value => inputs[0].required = value);
-        });
+        onMounted(updateInputs);
+        onBeforeUpdate(updateInputs);
 
         return { slot };
     }

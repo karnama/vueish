@@ -5,6 +5,7 @@
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "strict": true,
+        "noEmit": true,
         "jsx": "preserve",
         "sourceMap": true,
         "baseUrl": ".",
@@ -28,7 +29,8 @@
         ],
         "types": [
             "vite/client",
-            "jest"
+            "jest",
+            "node"
         ],
         "plugins": [],
         "esModuleInterop": true
