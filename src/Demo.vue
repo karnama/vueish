@@ -44,7 +44,7 @@ export default defineComponent({
     setup() {
         const darkMode = computed({
             get: () => {
-                const theme = cache.get('theme', 'light');
+                const theme = cache.get('theme', 'light') as 'dark' | 'light';
                 return theme === 'dark';
             },
             set: (val: boolean) => {
@@ -54,7 +54,7 @@ export default defineComponent({
             }
         });
 
-        document.body.classList.add(cache.get('theme', 'light'));
+        document.body.classList.add(cache.get('theme', 'light')!);
 
         return { darkMode };
     }
