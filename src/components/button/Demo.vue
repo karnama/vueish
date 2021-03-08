@@ -13,6 +13,7 @@
                   :disabled="disabled"
                   @click="stuff(type)">
             {{ type }}
+            <template #loader>Loading...</template>
         </UIButton>
     </div>
 

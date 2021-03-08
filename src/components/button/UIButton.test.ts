@@ -63,7 +63,7 @@ describe('UIButton', () => {
         expect(wrapper.text()).toBe(msg);
     });
 
-    it('should set the pointer events none role on loading', () => {
+    it('should set the pointer events none on loading', () => {
         const wrapper = mount(UIButton, {
             props: {
                 label: 'hi',
@@ -72,5 +72,30 @@ describe('UIButton', () => {
         });
 
         expect(wrapper.attributes('class')).toContain('pointer-events-none');
+    });
+
+    it('should not show the button default slot when loading', () => {
+        const wrapper = mount(UIButton, {
+            props: {
+                label: 'hi',
+                loading: true
+            }
+        });
+
+        expect(wrapper.html()).not.toContain('hi');
+    });
+
+    it('should display the given loading slot', () => {
+        const wrapper = mount(UIButton, {
+            props: {
+                label: 'hi',
+                loading: true
+            },
+            slots: {
+                loader: 'loading...'
+            }
+        });
+
+        expect(wrapper.html()).toContain('loading..');
     });
 });

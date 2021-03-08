@@ -1,24 +1,24 @@
 <template>
-    <button type="button"
+    <button ref="button"
+            type="button"
             :class="classes"
-            class="vue-ui-button rounded px-4 disabled:cursor-not-allowed disabled:opacity-50 transition">
-        <UIFadeTransition>
-            <UISpinnerLoader v-if="loading"
-                             key="loading"
-                             class="mx-auto color"
-                             :stroke="2"
-                             :diameter="25" />
-            <span v-else key="content">
-                <slot>
-                    {{ label }}
-                </slot>
-            </span>
+            :style="style"
+            class="vue-ui-button rounded px-4 disabled:cursor-not-allowed disabled:opacity-50 transition relative">
+        <UIFadeTransition mode="in-out">
+            <slot v-if="loading" key="loading" name="loader">
+                <UISpinnerLoader class="absolute color abs-center"
+                                 :stroke="2"
+                                 :diameter="25" />
+            </slot>
+            <slot v-else key="content">
+                {{ label }}
+            </slot>
         </UIFadeTransition>
     </button>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import type { StyleType } from '@/types';
 import { type } from '@composables/style';
 import { label } from '@composables/input';
@@ -52,8 +52,23 @@ export default defineComponent({
         const classes = computed(() => {
             return typeClasses[props.type as StyleType] + (props.loading ? ' pointer-events-none' : '');
         });
+        const button = ref<HTMLButtonElement>();
+        const style = computed<Partial<CSSStyleDeclaration>>(() => {
+            const styles = button.value?.getBoundingClientRect();
 
-        return { classes };
+            return props.loading
+                ? {
+                    width: String(styles?.width) + 'px',
+                    height: String(styles?.height) + 'px'
+                }
+                : {};
+        });
+
+        return {
+            classes,
+            button,
+            style
+        };
     }
 });
 </script>
@@ -65,5 +80,10 @@ export default defineComponent({
 }
 .color {
     @apply text-white;
+}
+.abs-center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 </style>
