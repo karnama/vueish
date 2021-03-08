@@ -71,20 +71,16 @@ describe('UISelect', () => {
         wrapper.unmount();
     });
 
-    it('should close the list on selection when using single select', async () => {
+    it('should close the list on selection on single select an option', async () => {
         const wrapper = mount(UISelect, {
             props: {
                 options,
-                modelValue: []
+                modelValue: null
             }
         });
 
         await wrapper.find(selectorMap.currentSelection).trigger('click');
-        expect(getList()).not.toBeNull();
-
-        const currentFocus = new DOMWrapper(document.activeElement!);
-        await currentFocus.trigger('keydown', { key: 'esc' });
-
+        await getList()!.find(selectorMap.options).trigger('click');
         expect(getList()).toBeNull();
     });
 
@@ -397,5 +393,38 @@ describe('UISelect', () => {
         await wrapper.find(selectorMap.currentSelection).trigger('click');
         expect(getList()).toBeNull();
         wrapper.unmount();
+    });
+
+    it('should close the list on esc keydown', async () => {
+        const wrapper = mount(UISelect, {
+            props: {
+                options,
+                modelValue: []
+            }
+        });
+
+        await wrapper.find(selectorMap.currentSelection).trigger('click');
+        expect(getList()).not.toBeNull();
+
+        const currentFocus = new DOMWrapper(document.activeElement!);
+        await currentFocus.trigger('keydown', { key: 'esc' });
+
+        expect(getList()).toBeNull();
+    });
+
+    it('should select an option on enter keydown', async () => {
+        const wrapper = mount(UISelect, {
+            props: {
+                options,
+                modelValue: [],
+                noClear: true
+            }
+        });
+
+        await wrapper.find(selectorMap.currentSelection).trigger('click');
+        const htmlOption = getList()!.find<HTMLDivElement>(selectorMap.options);
+
+        await htmlOption.trigger('keydown', { key: 'enter' });
+        expect(wrapper.lastEventValue()).toStrictEqual([options[0]]);
     });
 });
