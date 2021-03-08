@@ -18,7 +18,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-// todo check stuff like .top.bottom
 export default defineComponent({
     name: 'Tooltip'
 });
