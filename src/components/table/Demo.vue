@@ -33,9 +33,8 @@
 
     <UIPanel closed class="bg-white mb-4">
         <template #header>
-            Searchable
+            With Selection
         </template>
-        With Selection
         <UITable v-model="selectedRows"
                  :headers="headers"
                  :rows="rows"
