@@ -3,3 +3,5 @@ When changing a cell with named slots the cell's value will not match the actual
 Hover highlight only works on screens larger than 640px
 
 the given sort function is a function that  takes the row and the direction and returns a value which is utilised by https://lodash.com/docs/4.17.15#orderBy
+
+The components emits values with Required<Row>

@@ -1,46 +1,46 @@
 <template>
+<!--    <UIPanel closed class="bg-white mb-4">-->
+<!--        <template #header>-->
+<!--            Table with slots-->
+<!--        </template>-->
+<!--        <UITable :headers="headers" :rows="rows" hover-highlight>-->
+<!--            <template #header="slotProps">-->
+<!--                slotted {{ slotProps.header.rowProperty }}-->
+<!--            </template>-->
+<!--            <template #name="slotProps">-->
+<!--                slotted change of {{ slotProps.row.name }}-->
+<!--            </template>-->
+<!--            <template #action>-->
+<!--                <UIButton type="brand">-->
+<!--                    CTA-->
+<!--                </UIButton>-->
+<!--            </template>-->
+<!--            <template #footer>-->
+<!--                <span class="font-bold text-gray-700">Slotted footer</span>-->
+<!--            </template>-->
+<!--        </UITable>-->
+<!--    </UIPanel>-->
+
+<!--    <UIPanel closed class="bg-white mb-4">-->
+<!--        <template #header>-->
+<!--            Searchable-->
+<!--        </template>-->
+<!--        <UITable :headers="headers"-->
+<!--                 :rows="rows"-->
+<!--                 search-->
+<!--                 no-sort />-->
+<!--    </UIPanel>-->
+
     <UIPanel class="bg-white mb-4">
-        <template #header>
-            Table with slots
-        </template>
-        <UITable :headers="headers" :rows="rows" hover-highlight>
-            <template #header="slotProps">
-                slotted {{ slotProps.header.rowProperty }}
-            </template>
-            <template #name="slotProps">
-                slotted change of {{ slotProps.row.name }}
-            </template>
-            <template #action>
-                <UIButton type="brand">
-                    CTA
-                </UIButton>
-            </template>
-            <template #footer>
-                <span class="font-bold text-gray-700">Slotted footer</span>
-            </template>
-        </UITable>
-    </UIPanel>
-
-    <UIPanel closed class="bg-white mb-4">
-        <template #header>
-            Searchable
-        </template>
-        <UITable :headers="headers"
-                 :rows="rows"
-                 search
-                 no-sort />
-    </UIPanel>
-
-    <UIPanel closed class="bg-white mb-4">
         <template #header>
             With Selection
         </template>
         <UITable v-model="selectedRows"
                  :headers="headers"
                  :rows="rows"
-                 show-select
-                 no-sort
-                 select-all />
+                 selectable
+                 single-select
+                 no-sort />
     </UIPanel>
 </template>
 

@@ -15,12 +15,14 @@
                 </tr>
 
                 <tr class="hidden sm:table-row bg-gray-100">
-                    <th v-if="showSelect" class="py-6 px-2">
-                        <span v-if="selectAll && Array.isArray(selected)" class="mx-auto">
+                    <th v-if="selectable" class="py-6 px-2">
+                        <span v-if="!singleSelect" class="mx-auto">
                             <UICheckbox name="selectAll"
                                         class="justify-center"
-                                        :indeterminate="selected.length !== selectableRows.length"
-                                        :model-value="!!selected.length"
+                                        :indeterminate="Array.isArray(selected)
+                                            ? selected.length !== selectableRows.length
+                                            : true"
+                                        :model-value="Array.isArray(selected) && !!selected.length"
                                         @update:model-value="toggleAllRowSelection" />
                         </span>
                     </th>
@@ -59,7 +61,7 @@
                         :key="index"
                         :class="{ 'row-highlight': hoverHighlight }"
                         class="flex flex-col flex-no-wrap sm:table-row border-t border-gray-200">
-                        <td v-if="showSelect" class="px-2">
+                        <td v-if="selectable" class="px-2">
                             <UICheckbox v-if="row.isSelectable"
                                         :name="String(index)"
                                         class="justify-center"
@@ -100,9 +102,7 @@
 
                             <span class="block p-4">
                                 <slot :name="name" :row="row">
-                                    {{ col.prefix }}
-                                    {{ row[name] ?? '' }}
-                                    {{ col.suffix }}
+                                    {{ col.prefix + (row[name] ?? '') + col.suffix }}
                                 </slot>
                             </span>
                         </td>
@@ -114,7 +114,7 @@
                 </template>
 
                 <tr v-else>
-                    <td :colspan="showSelect ? normalisedHeaders.length + 1 : normalisedHeaders.length">
+                    <td :colspan="selectable ? normalisedHeaders.length + 1 : normalisedHeaders.length">
                         <span class="block text-center px-4 py-6 text-gray-400">
                             <slot name="empty">
                                 {{ empty }}
@@ -203,15 +203,15 @@ export default defineComponent({
         /**
          * Whether the option to select a row is visible or not.
          */
-        showSelect: {
+        selectable: {
             type: Boolean,
             default: false
         },
 
         /**
-         * Whether all rows can be batch selected.
+         * Only allow selecting single a single row.
          */
-        selectAll: {
+        singleSelect: {
             type: Boolean,
             default: false
         },
@@ -356,12 +356,15 @@ export default defineComponent({
         const toggleRowSelection = (row: Required<Row>): void => {
             if (!row.isSelectable) return;
 
-            if (!props.selectAll) {
-                selected.value = row;
+            if (props.singleSelect) {
+                selected.value = isEqual(selected.value, row) ? null : row;
                 return;
             }
 
-            let selection = cloneDeep(selected.value) as Row[];
+            let selection: Row[] = Array.isArray(selected.value)
+                ? cloneDeep(selected.value)
+                : selected.value ? cloneDeep(selected.value) : [];
+
             const rowIndex = selection.findIndex(selectedRow => isEqual(selectedRow, row));
             rowIndex === -1 ? selection.push(row) : selection.splice(rowIndex, 1);
 
@@ -369,7 +372,9 @@ export default defineComponent({
             return;
         };
         const toggleAllRowSelection = () => {
-            selected.value = selected.value.length ? [] : filteredRows.value.filter(row => row.isSelectable);
+            selected.value = Array.isArray(selected.value)
+                ? selected.value.length ? [] : filteredRows.value.filter(row => row.isSelectable)
+                : filteredRows.value.filter(row => row.isSelectable);
         };
         const sortBy = (columnName: string): void => {
             if (props.noSort|| !normalisedHeaders.value.find(header => header.rowProperty === columnName).sortable) {
@@ -401,16 +406,6 @@ export default defineComponent({
         watch(
             [() => normalisedHeaders.value, () => props.hoverHighlight],
             val => addHoverStyles(val),
-            { immediate: true }
-        );
-        watch(
-            () => props.selectAll,
-            val => {
-                if (val && !Array.isArray(selected.value)) {
-                    // ensure it's a collection without falsy values
-                    selected.value = selected.value ? [selected.value] : [];
-                }
-            },
             { immediate: true }
         );
 

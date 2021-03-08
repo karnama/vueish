@@ -307,15 +307,42 @@ describe('UITable', () => {
                     rows,
                     headers,
                     modelValue: null,
-                    showSelect: true
+                    selectable: true
                 }
             });
 
-            const checkbox = wrapper.findAll(selectorMap.checkboxes)[0];
+            const checkbox = wrapper.find(selectorMap.checkboxes);
             await checkbox.trigger('click');
             await nextTick();
 
-            expect(getLastEventValue(wrapper)[0].letter).toBe(rows[1].letter); // first is not selectable
+            // first is not selectable
+            expect(getLastEventValue(wrapper)[0]).toStrictEqual([expect.objectContaining(rows[1])]);
+            wrapper.unmount();
+        });
+
+        it('should only allow selecting one row given the prop', async () => {
+            const wrapper = mount(UITable, {
+                props: {
+                    rows,
+                    headers,
+                    modelValue: null,
+                    selectable: true,
+                    singleSelect: true
+                }
+            });
+
+            const checkboxes = wrapper.findAll(selectorMap.checkboxes);
+            await checkboxes[0].trigger('click');
+            await nextTick();
+
+            expect(wrapper.lastEventValue<Row[]>()![0].letter).toBe(rows[1].letter); // first is not selectable
+
+            await checkboxes[checkboxes.length - 1].trigger('click');
+            await nextTick();
+
+            expect(wrapper.lastEventValue<Row[]>()![0]).not.toBeInstanceOf(Array);
+            expect(wrapper.lastEventValue<Row[]>()![0].letter).toBe(rows[rows.length - 1].letter);
+
             wrapper.unmount();
         });
 
@@ -325,8 +352,7 @@ describe('UITable', () => {
                     rows,
                     headers,
                     modelValue: [],
-                    showSelect: true,
-                    multiSelect: true
+                    selectable: true
                 }
             });
 
@@ -346,8 +372,7 @@ describe('UITable', () => {
                     rows,
                     headers,
                     modelValue: [],
-                    showSelect: true,
-                    multiSelect: true
+                    selectable: true
                 }
             });
 
@@ -365,8 +390,7 @@ describe('UITable', () => {
                     rows,
                     headers,
                     modelValue: [],
-                    showSelect: true,
-                    multiSelect: true
+                    selectable: true
                 }
             });
 
@@ -389,8 +413,7 @@ describe('UITable', () => {
                     rows,
                     headers,
                     modelValue: [],
-                    showSelect: true,
-                    multiSelect: true
+                    selectable: true
                 }
             });
 
