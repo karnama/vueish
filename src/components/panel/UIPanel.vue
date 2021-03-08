@@ -1,6 +1,7 @@
 <template>
     <section :id="id"
              class="ui-panel rounded shadow-md bg-default relative transition-all"
+             :aria-expanded="open"
              :class="{ 'hover:shadow-lg': !open }">
         <UIFadeTransition>
             <UILinearLoader v-if="loading" class="absolute rounded-t" />

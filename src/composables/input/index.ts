@@ -34,6 +34,13 @@ export const autofocus = {
 };
 
 /**
+ * The placeholder the input should display.
+ */
+export const placeholder = {
+    type: String
+};
+
+/**
  * String to prefix the input with, eg: £.
  */
 export const prefix = {
@@ -65,9 +72,12 @@ export const value = {
 };
 
 /**
+ * Make the prop 2-way reactive.
+ * You may only replace this value.
+ * Interact with it like `.push()` will cause unexpected errors.
  *
- * @param {} props
- * @param name
+ * @param {object} props
+ * @param {string} name - the string to append to the emitted event eg.: 'option' will be used for v-model:option=""
  */
 export function useVModel<T>(props: Record<string, any>, name = 'modelValue'): Ref<T> {
     const instance = getCurrentInstance();
