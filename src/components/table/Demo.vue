@@ -1,5 +1,5 @@
 <template>
-    <UIPanel closed class="bg-white mb-4">
+    <UIPanel class="bg-white mb-4">
         <template #header>
             Table with slots
         </template>
@@ -21,19 +21,28 @@
         </UITable>
     </UIPanel>
 
-    Searchable
-    <UITable :headers="headers"
-             :rows="rows"
-             search
-             no-sort />
+    <UIPanel closed class="bg-white mb-4">
+        <template #header>
+            Searchable
+        </template>
+        <UITable :headers="headers"
+                 :rows="rows"
+                 search
+                 no-sort />
+    </UIPanel>
 
-    With Selection
-    <UITable v-model="selectedRows"
-             :headers="headers"
-             :rows="rows"
-             show-select
-             no-sort
-             multi-select />
+    <UIPanel closed class="bg-white mb-4">
+        <template #header>
+            Searchable
+        </template>
+        With Selection
+        <UITable v-model="selectedRows"
+                 :headers="headers"
+                 :rows="rows"
+                 show-select
+                 no-sort
+                 multi-select />
+    </UIPanel>
 </template>
 
 <script lang="ts">
