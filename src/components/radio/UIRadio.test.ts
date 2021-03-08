@@ -202,7 +202,8 @@ describe('UIRadioGroup', () => {
 
     it('should throw an error if there are missing UIRadio components', () => {
         disableConsoleWarn();
-        expect(() => mount(UIRadioGroup)).toThrow('UIRadioGroup requires at least 2 UIRadio components present');
+        expect(() => mount(UIRadioGroup))
+            .toThrow('UIRadioGroup requires at least 2 UIRadio components in the default slot.');
         enableConsoleWarn();
     });
 });

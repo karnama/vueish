@@ -5,15 +5,15 @@ describe('UIText', () => {
     it('should handle model-binding correctly', async () => {
         const wrapper = mount(UIText, {
             props: {
-                name: 'name',
-                modelValue: ''
+                modelValue: '',
+                name: 'input'
             }
         });
 
         await wrapper.find('input').setValue('Hello World');
 
-        expect(wrapper.emitted()).toHaveProperty('update:modelValue');
-        expect(wrapper.emitted()['update:modelValue'][0]).toStrictEqual(['Hello World']);
+        expect(wrapper.emitted('update:modelValue')).not.toBeUndefined();
+        expect(wrapper.emitted('update:modelValue')![0]).toStrictEqual(['Hello World']);
     });
 
     it('should be enabled by default', () => {
