@@ -10,9 +10,9 @@ describe('UIToggle', () => {
         });
 
         await wrapper.find('input').trigger('click');
-        expect(wrapper.emitted('update:modelValue')[0]).toStrictEqual([true]);
+        expect(wrapper.emitted('update:modelValue')![0]).toStrictEqual([true]);
         await wrapper.find('input').trigger('click');
-        expect(wrapper.emitted('update:modelValue')[1]).toStrictEqual([false]);
+        expect(wrapper.emitted('update:modelValue')![1]).toStrictEqual([false]);
     });
 
     it('should disable input on given prop', async () => {
@@ -23,10 +23,10 @@ describe('UIToggle', () => {
         });
 
         await wrapper.find('input').trigger('click');
-        expect(wrapper.emitted('update:modelValue')[0]).toStrictEqual([true]);
+        expect(wrapper.emitted('update:modelValue')![0]).toStrictEqual([true]);
         await wrapper.setProps({ disabled: true });
         await wrapper.find('input').trigger('click');
-        expect(wrapper.emitted('update:modelValue')[1]).toBeUndefined();
+        expect(wrapper.emitted('update:modelValue')![1]).toBeUndefined();
     });
 
     it('should display the label when given as a prop', () => {
