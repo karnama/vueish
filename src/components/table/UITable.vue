@@ -16,7 +16,7 @@
 
                 <tr class="hidden sm:table-row bg-gray-100">
                     <th v-if="showSelect" class="py-6 px-2">
-                        <span v-if="multiSelect && Array.isArray(selected)" class="mx-auto">
+                        <span v-if="selectAll && Array.isArray(selected)" class="mx-auto">
                             <UICheckbox name="selectAll"
                                         class="justify-center"
                                         :indeterminate="selected.length !== selectableRows.length"
@@ -100,7 +100,9 @@
 
                             <span class="block p-4">
                                 <slot :name="name" :row="row">
-                                    {{ col.prefix + row[name] + col.suffix }}
+                                    {{ col.prefix }}
+                                    {{ row[name] ?? '' }}
+                                    {{ col.suffix }}
                                 </slot>
                             </span>
                         </td>
@@ -148,7 +150,6 @@ import { debouncedRef } from '@composables/reactivity';
 
 // todo - window resize even listener for mobile view?
 // todo - footer on mobile view ?
-let styleTagId = '';
 
 export default defineComponent({
     name: 'UITable',
@@ -200,7 +201,7 @@ export default defineComponent({
         },
 
         /**
-         * Whether the option to select all rows is visible or not.
+         * Whether the option to select a row is visible or not.
          */
         showSelect: {
             type: Boolean,
@@ -208,9 +209,9 @@ export default defineComponent({
         },
 
         /**
-         * Whether multiple rows can be selected or not.
+         * Whether all rows can be batch selected.
          */
-        multiSelect: {
+        selectAll: {
             type: Boolean,
             default: false
         },
@@ -227,11 +228,8 @@ export default defineComponent({
     emits: ['update:modelValue'],
 
     setup(props) {
-        // const validateRows = (rows: Row[]): boolean => {
-        //     const properties = props.headers.map(header => header.rowProperty);
-        //     return rows.every(row => Object.keys(row).every(key => key in properties));
-        // };
         const chevronIcon = getIcon('chevron');
+        let styleTagId = '';
 
         const normalisedHeaders = computed<Required<Column>[]>(() => {
             return props.headers.map((col: Column) => {
@@ -358,7 +356,7 @@ export default defineComponent({
         const toggleRowSelection = (row: Required<Row>): void => {
             if (!row.isSelectable) return;
 
-            if (!props.multiSelect) {
+            if (!props.selectAll) {
                 selected.value = row;
                 return;
             }
@@ -406,7 +404,7 @@ export default defineComponent({
             { immediate: true }
         );
         watch(
-            () => props.multiSelect,
+            () => props.selectAll,
             val => {
                 if (val && !Array.isArray(selected.value)) {
                     // ensure it's a collection without falsy values

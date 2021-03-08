@@ -40,7 +40,7 @@
                  :rows="rows"
                  show-select
                  no-sort
-                 multi-select />
+                 select-all />
     </UIPanel>
 </template>
 
