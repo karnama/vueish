@@ -18,7 +18,7 @@
                     <th v-if="showSelect" class="py-6 px-2">
                         <span v-if="multiSelect && Array.isArray(selected)" class="mx-auto">
                             <UICheckbox name="selectAll"
-                                        classes="justify-center"
+                                        class="justify-center"
                                         :indeterminate="selected.length !== selectableRows.length"
                                         :model-value="!!selected.length"
                                         @update:model-value="toggleAllRowSelection" />
@@ -62,7 +62,7 @@
                         <td v-if="showSelect" class="px-2">
                             <UICheckbox v-if="row.isSelectable"
                                         :name="String(index)"
-                                        classes="justify-center"
+                                        class="justify-center"
                                         :model-value="isSelected(row)"
                                         @update:model-value="toggleRowSelection(row)" />
                         </td>
@@ -147,7 +147,7 @@ import { debouncedRef } from '@composables/reactivity';
 // - virtualized - https://www.npmjs.com/package/vue3-virtual-scroller
 
 // todo - window resize even listener for mobile view?
-// todo footer on mobile view ?
+// todo - footer on mobile view ?
 let styleTagId = '';
 
 export default defineComponent({
@@ -200,7 +200,7 @@ export default defineComponent({
         },
 
         /**
-         * Whether rows are selectable or not.
+         * Whether the option to select all rows is visible or not.
          */
         showSelect: {
             type: Boolean,
