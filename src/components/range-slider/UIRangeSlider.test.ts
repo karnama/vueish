@@ -39,7 +39,7 @@ describe('UIRangeSlider', () => {
         });
 
         await wrapper.find('input').setValue(75);
-        expect(wrapper.emitted('update:modelValue')[0]).toStrictEqual(['75']);
+        expect(wrapper.emitted('update:modelValue')![0]).toStrictEqual(['75']);
         await wrapper.setProps({ disabled: true });
         await wrapper.find('input').setValue(0);
         expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
