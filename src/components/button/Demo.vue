@@ -36,7 +36,6 @@ export default defineComponent({
         const loading = ref(false);
         const clicked = ref('');
         const stuff = (type: string) => {
-            console.log(type);
             clicked.value = type;
         };
 

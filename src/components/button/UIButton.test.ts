@@ -63,15 +63,14 @@ describe('UIButton', () => {
         expect(wrapper.text()).toBe(msg);
     });
 
-    // it('should not emit click when loading', async () => {
-    //     const wrapper = mount(UIButton, {
-    //         props: {
-    //             label: 'hi'
-    //         }
-    //     });
-    //
-    //     await wrapper.find('button').trigger('click');
-    //     console.log(wrapper.emitted());
-    //     expect(wrapper.emitted()).not.toBeNull();
-    // });
+    it('should set the pointer events none role on loading', () => {
+        const wrapper = mount(UIButton, {
+            props: {
+                label: 'hi',
+                loading: true
+            }
+        });
+
+        expect(wrapper.attributes('class')).toContain('pointer-events-none');
+    });
 });
