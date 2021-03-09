@@ -3,6 +3,7 @@ import type { DefineComponent } from 'vue';
 import type { Settings, DeepPartial } from '@/types';
 import { merge } from 'lodash-es';
 import defaultSettings from './defaultSettings';
+import * as directives from './directives';
 
 const componentModules = import.meta.globEager('./**/UI*.vue');
 const components: DefineComponent[] = Object.keys(componentModules)
@@ -10,8 +11,14 @@ const components: DefineComponent[] = Object.keys(componentModules)
     .flat(1);
 
 export default {
-    install: (Vue: App, setting: DeepPartial<Settings> = {}): void => {
-        Vue.config.globalProperties.Vueish = merge(defaultSettings, setting);
-        components.forEach(component => Vue.component(component.name, component));
+    install: (app: App, setting: DeepPartial<Settings> = {}): void => {
+        app.config.globalProperties.Vueish = merge(defaultSettings, setting);
+
+        components.forEach(component => app.component(component.name, component));
+
+        Object.keys(directives).forEach(name => {
+            // @ts-expect-error
+            app.directive(name, directives[name]);
+        });
     }
 };

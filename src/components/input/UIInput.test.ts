@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils';
 import UIInput from './UIInput.vue';
+import UIText from "*.vue";
 
 describe('UIInput', () => {
     it('should handle model-binding correctly', async () => {
