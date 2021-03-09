@@ -39,7 +39,6 @@
                  :headers="headers"
                  :rows="rows"
                  selectable
-                 single-select
                  no-sort />
     </UIPanel>
 </template>
