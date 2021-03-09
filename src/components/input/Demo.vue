@@ -2,11 +2,16 @@
     <h1 class="text-2xl mb-12 text-center">
         UIInput
     </h1>
+    <UICheckbox v-model="large"
+                name="large"
+                label="Large Style"
+                class="mb-6" />
 
     <div class="space-y-10">
         <UIInput v-model="text"
                  clearable
                  name="ui-text"
+                 :large="large"
                  placeholder="Some instructions..."
                  label="Field Label" />
 
@@ -14,6 +19,7 @@
             <UIInput v-model="text"
                      name="ui-text"
                      label="Standard"
+                     :large="large"
                      no-clear />
             <small>Output: {{ text }}</small>
         </div>
@@ -22,6 +28,7 @@
                  name="ui-text4"
                  type="number"
                  autofocus
+                 :large="large"
                  min="10"
                  max="100"
                  step="0.01"
@@ -32,20 +39,24 @@
                  name="ui-text9"
                  type="password"
                  clearable
+                 :large="large"
                  label="Password" />
 
         <UIInput v-model="disabled"
                  name="ui-text3"
                  label="Disabled"
+                 :large="large"
                  disabled />
 
         <UIInput v-model="prefixProp"
                  name="ui-text5"
+                 :large="large"
                  label="Prefix (Using prop)"
                  prefix="Reason:" />
 
         <UIInput v-model="prefixSlot"
                  name="ui-text6"
+                 :large="large"
                  label="Prefix (Using slot)">
             <template #prefix>
                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -63,12 +74,14 @@
 
         <UIInput v-model="suffixProp"
                  name="ui-text6"
+                 :large="large"
                  label="Suffix (Using prop)"
                  suffix="kg" />
 
         <UIInput v-model="suffixSlot"
                  name="ui-text7"
                  class="mt-10"
+                 :large="large"
                  label="Suffix (Using slot)">
             <template #suffix>
                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -90,11 +103,12 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import UIInput from './UIInput.vue';
+import UICheckbox from '@components/checkbox/UICheckbox.vue';
 
 export default defineComponent({
     // eslint-disable-next-line vue/no-reserved-component-names
     name: 'Input',
-    components: { UIInput },
+    components: { UICheckbox, UIInput },
     setup() {
         const text = ref('I\'m a input input!');
         const disabled = ref('Can\'t touch this!');
@@ -104,6 +118,7 @@ export default defineComponent({
         const prefixSlot = ref('Billions');
         const suffixProp = ref('100');
         const suffixSlot = ref('Feather-weight');
+        const large = ref(false);
 
         return {
             text,
@@ -113,7 +128,8 @@ export default defineComponent({
             prefixProp,
             prefixSlot,
             suffixProp,
-            suffixSlot
+            suffixSlot,
+            large
         };
     }
 });

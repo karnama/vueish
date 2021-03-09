@@ -54,6 +54,15 @@ export const suffix = {
     type: String
 };
 
+// todo - remove when updating the select
+export const noClear = {
+    type: Boolean,
+    default: false
+};
+
+/**
+ * Whether the component is clearable or not.
+ */
 export const clearable = {
     type: Boolean,
     default: false
