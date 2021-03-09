@@ -30,7 +30,7 @@ export default defineComponent({
         const defaultSlot = ctx.slots?.default instanceof Function ? ctx.slots.default() : [];
 
         if (defaultSlot.length < 2) {
-            throw new Error('UITabs expect at least 1 UITab in the default slot.');
+            throw new Error('UITabs expect at least 2 UITabs in the default slot.');
         }
 
         const activeTab = ref(0);

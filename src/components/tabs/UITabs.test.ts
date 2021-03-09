@@ -37,7 +37,7 @@ describe('UITabs', () => {
             }
         });
 
-        expect(failingFunc).toThrow(new Error('UITabs expect at least 1 UITab in the default slot.'));
+        expect(failingFunc).toThrow(new Error('UITabs expect at least 2 UITabs in the default slot.'));
         enableConsoleWarn();
     });
 
@@ -50,12 +50,21 @@ describe('UITabs', () => {
             }
         });
 
-        expect(failingFunc).toThrow(new Error('UITabs expect at least 1 UITab in the default slot.'));
+        expect(failingFunc).toThrow(new Error('UITabs expect at least 2 UITabs in the default slot.'));
 
         enableConsoleWarn();
     });
 
-    it.todo('should display the titles from the slotted content');
+    it('should display the titles from the slotted content', () => {
+        const wrapper = mount(UITabs, {
+            slots: {
+                default: '<UITab title="tab1" /><UITab title="tab2" />'
+            }
+        });
+
+        expect(wrapper.html()).toContain('tab1');
+        expect(wrapper.html()).toContain('tab2');
+    });
 
     it.todo('should switch tabs when clicking on the title');
 

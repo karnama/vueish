@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onUpdated } from 'vue';
 
 export default defineComponent({
     name: 'UITab',
@@ -16,9 +16,15 @@ export default defineComponent({
     },
 
     setup(props, ctx) {
-        if (!props.title && !ctx.slots['title']) {
-            throw new Error('The title prop or slot is required when using UITab.');
-        }
+        const validateTitle = () => {
+            if (!props.title && !ctx.slots['title']) {
+                throw new Error('The title prop or slot is required when using UITab.');
+            }
+        };
+
+        validateTitle();
+
+        onUpdated(validateTitle);
     }
 });
 </script>
