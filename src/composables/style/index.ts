@@ -6,4 +6,3 @@ export const type: Prop<string, 'default'> = {
     default: 'default',
     validator: (value: StyleType): boolean => styleTypes.includes(value)
 };
-

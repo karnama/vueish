@@ -31,8 +31,8 @@
             <span v-else-if="!noClear && selectionDisplay"
                   class="opacity-0 clear-icon h-5 w-5 cursor-pointer right-0 top-1 group-hover:opacity-100
                          transition-opacity text-gray-500 relative -mr-5 group-hover:mr-0 -mt-1 transition-spacing"
-                  @click.stop="clearSelection(undefined)"
                   aria-controls=""
+                  @click.stop="clearSelection(undefined)"
                   v-html="clearIcon" />
         </div>
 
