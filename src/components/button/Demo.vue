@@ -5,7 +5,7 @@
                 name="disabled"
                 class="my-4" />
     <div class="flex justify-evenly flex-wrap">
-        <UIButton v-for="type in styleTypes"
+        <UIButton v-for="(type, index) in styleTypes"
                   :key="type"
                   :type="type"
                   class="m-2"
@@ -13,7 +13,7 @@
                   :disabled="disabled"
                   @click="stuff(type)">
             {{ type }}
-            <template #loader>Loading...</template>
+            <template v-if="index > (styleTypes.length / 2)" #loader>Loading...</template>
         </UIButton>
     </div>
 
