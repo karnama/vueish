@@ -10,10 +10,12 @@
                   :type="type"
                   class="m-2"
                   :loading="loading"
+                  :label="type"
                   :disabled="disabled"
                   @click="stuff(type)">
-            {{ type }}
-            <template v-if="index > (styleTypes.length / 2)" #loader>Loading...</template>
+            <template v-if="index > styleTypes.length / 2" #loader>
+                Loading...
+            </template>
         </UIButton>
     </div>
 

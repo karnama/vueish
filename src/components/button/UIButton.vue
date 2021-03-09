@@ -5,14 +5,19 @@
             :style="style"
             class="vue-ui-button rounded px-4 disabled:cursor-not-allowed disabled:opacity-50 transition relative">
         <UIFadeTransition mode="in-out">
-            <slot v-if="loading" key="loading" name="loader">
-                <UISpinnerLoader class="absolute color abs-center"
-                                 :stroke="2"
-                                 :diameter="25" />
-            </slot>
-            <slot v-else key="content">
-                {{ label }}
-            </slot>
+            <span v-if="loading" class="absolute abs-center">
+                <slot name="loader">
+                    <UISpinnerLoader class="color"
+                                     :stroke="2"
+                                     :diameter="25" />
+                </slot>
+            </span>
+
+            <span v-else>
+                <slot>
+                    {{ label }}
+                </slot>
+            </span>
         </UIFadeTransition>
     </button>
 </template>
