@@ -35,7 +35,9 @@
             </UIButton>
         </template>
 
-        This panel will remember its closed status.
+        <h3 class="font-bold">
+            This panel will remember its closed status.
+        </h3>
         <br>
         <br>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, eligendi, odio! Alias asperiores debitis

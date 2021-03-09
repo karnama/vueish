@@ -34,7 +34,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-$blue: theme('colors.blue.500');
+$color: theme('colors.brand-500');
 
 .ui-radio-btn:after {
     content: '';
@@ -44,7 +44,7 @@ $blue: theme('colors.blue.500');
     width: 10px;
     height: 10px;
     border-radius: 100%;
-    background: $blue;
+    background: $color;
     transform: scale(0);
     transition: all .2s ease;
     opacity: .08;
@@ -70,22 +70,14 @@ input:checked + .ui-radio-btn:after {
 }
 
 input:checked:enabled + .ui-radio-btn {
-    border-color: $blue;
-}
-
-.ui-radio-btn:focus {
-    border-color: $blue;
+    border-color: $color;
 }
 
 label:hover input:enabled > .ui-radio-btn:after {
     transform: scale(3.6);
 }
 
-label:focus {
-    color: $blue;
-
-    .ui-radio-btn {
-        border-color: currentColor;
-    }
+label:focus > input:enabled + .ui-radio-btn {
+    border-color: $color;
 }
 </style>
