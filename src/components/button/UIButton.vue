@@ -32,38 +32,6 @@ import { type, large } from '@composables/style';
 import { label, disabled } from '@composables/input';
 import UISpinnerLoader from '@components/loader-spinner/UISpinnerLoader.vue';
 
-/* eslint-disable max-len */
-const primaryTypeClasses = {
-    default: 'text-gray-900 hover:bg-gray-200 bg-gray-300 disabled:bg-gray-300',
-    primary: 'text-white bg-blue-600 hover:bg-blue-400',
-    info: 'text-white bg-blue-400 hover:bg-blue-300',
-    success: 'text-white bg-green-400 hover:bg-green-300',
-    warning: 'bg-yellow-400 hover:bg-yellow-300',
-    danger: 'text-white bg-red-400 hover:bg-red-300',
-    brand: 'text-white bg-brand-400 hover:bg-brand-300'
-} as const;
-
-const secondaryTypeClasses = {
-    default: 'border shadow-sm border-gray-300 hover:bg-gray-200 disabled:bg-gray-300 disabled:shadow-none',
-    primary: 'border shadow-sm border-blue-400 hover:bg-blue-400 hover:border-blue-400 disabled:bg-gray-200 disabled:shadow-none',
-    info: 'border shadow-sm border-blue-200 hover:bg-blue-200 hover:border-blue-200 disabled:bg-gray-200 disabled:shadow-none',
-    success: 'border shadow-sm border-green-300 hover:bg-green-300 hover:border-green-300  disabled:bg-gray-200 disabled:shadow-none',
-    warning: 'border shadow-sm border-yellow-300 hover:bg-yellow-300 hover:border-yellow-300 disabled:bg-gray-200 disabled:shadow-none',
-    danger: 'border shadow-sm border-red-300 hover:bg-red-300 hover:border-red-300 disabled:bg-gray-200 disabled:shadow-none',
-    brand: 'border shadow-sm border-brand-300 hover:bg-brand-300 hover:border-brand-300 disabled:bg-gray-200 disabled:shadow-none'
-} as { [key in StyleType]: string; };
-
-const ternaryTypeClasses = {
-    default: 'text-gray-600 hover:bg-gray-200 disabled:bg-gray-300',
-    primary: 'text-blue-600 hover:bg-blue-200 disabled:bg-gray-300',
-    info: 'text-blue-400 hover:bg-blue-200 disabled:bg-gray-300',
-    success: 'text-green-600 hover:bg-green-200 disabled:bg-gray-300',
-    warning: 'text-yellow-500 hover:bg-yellow-200 disabled:bg-gray-300',
-    danger: 'text-red-600 hover:bg-red-200 disabled:bg-gray-300',
-    brand: 'text-brand-600 hover:bg-brand-200 disabled:bg-gray-300'
-} as { [key in StyleType]: string; };
-/* eslint-enable max-len */
-
 // todo - loading state content may overflow the default width
 
 export default defineComponent({
@@ -94,23 +62,58 @@ export default defineComponent({
     },
 
     setup(props) {
+        const primaryTypeClasses = computed<{ [key in StyleType]: string; }>(() => ({
+            default: 'text-gray-900 bg-gray-300 disabled:bg-gray-300' + (props.disabled ? '' : ' hover:bg-gray-200'),
+            primary: 'text-white bg-blue-600' + (props.disabled ? '' : ' hover:bg-blue-400'),
+            info: 'text-white bg-blue-400' + (props.disabled ? '' : ' hover:bg-blue-300'),
+            success: 'text-white bg-green-400' + (props.disabled ? '' : ' hover:bg-green-300'),
+            warning: 'bg-yellow-400' + (props.disabled ? '' : ' hover:bg-yellow-300'),
+            danger: 'text-white bg-red-400' + (props.disabled ? '' : ' hover:bg-red-300'),
+            brand: 'text-white bg-brand-400' + (props.disabled ? '' : ' hover:bg-brand-300')
+        }));
+        const secondaryTypeClasses = computed<{ [key in StyleType]: string; }>(() =>({
+            default: 'border shadow-sm border-gray-300 disabled:bg-gray-300 disabled:shadow-none'
+                + (props.disabled ? '' : ' hover:bg-gray-200'),
+            primary: 'border shadow-sm border-blue-400 disabled:bg-gray-200 disabled:shadow-none'
+                + (props.disabled ? '' : ' hover:bg-blue-400 hover:border-blue-400'),
+            info: 'border shadow-sm border-blue-200 disabled:bg-gray-200 disabled:shadow-none'
+                + (props.disabled ? '' : ' hover:bg-blue-200 hover:border-blue-200'),
+            success: 'border shadow-sm border-green-300 disabled:bg-gray-200 disabled:shadow-none'
+                + (props.disabled ? '' : ' hover:bg-green-300 hover:border-green-300'),
+            warning: 'border shadow-sm border-yellow-300 disabled:bg-gray-200 disabled:shadow-none'
+                + (props.disabled ? '' : ' hover:bg-yellow-300 hover:border-yellow-300'),
+            danger: 'border shadow-sm border-red-300 disabled:bg-gray-200 disabled:shadow-none'
+                + (props.disabled ? '' : ' hover:bg-red-300 hover:border-red-300'),
+            brand: 'border shadow-sm border-brand-300 disabled:bg-gray-200 disabled:shadow-none'
+                + (props.disabled ? '' : ' hover:bg-brand-300 hover:border-brand-300')
+        }));
+        const ternaryTypeClasses = computed<{ [key in StyleType]: string; }>(() => ({
+            default: 'text-gray-600 disabled:bg-gray-300' + (props.disabled ? '' : ' hover:bg-gray-200'),
+            primary: 'text-blue-600 disabled:bg-gray-300' + (props.disabled ? '' : ' hover:bg-blue-200'),
+            info: 'text-blue-400 disabled:bg-gray-300' + (props.disabled ? '' : ' hover:bg-blue-200'),
+            success: 'text-green-600 disabled:bg-gray-300' + (props.disabled ? '' : ' hover:bg-green-200'),
+            warning: 'text-yellow-500 disabled:bg-gray-300' + (props.disabled ? '' : ' hover:bg-yellow-200'),
+            danger: 'text-red-600 disabled:bg-gray-300' + (props.disabled ? '' : ' hover:bg-red-200'),
+            brand: 'text-brand-600 disabled:bg-gray-300' + (props.disabled ? '' : ' hover:bg-brand-200')
+        }));
+
         const classes = computed(() => {
             const type = props.type as StyleType;
             let classes: string;
 
             if (props.secondary) {
-                classes = secondaryTypeClasses[type];
+                classes = secondaryTypeClasses.value[type];
             } else if (props.ternary) {
-                classes = ternaryTypeClasses[type];
+                classes = ternaryTypeClasses.value[type];
             } else {
-                classes = primaryTypeClasses[type];
+                classes = primaryTypeClasses.value[type];
             }
 
             if (props.large) {
                 classes += ' px-7 py-3';
             }
 
-            if (props.loading || props.disabled) {
+            if (props.loading) {
                 classes += ' pointer-events-none';
             }
 
@@ -148,6 +151,7 @@ export default defineComponent({
 
             return color;
         });
+        console.log(primaryTypeClasses.value['primary']);
 
         return {
             classes,
