@@ -1,5 +1,5 @@
 <template>
-    <UILinearLoader />
+    <UILinearLoader :height="Number(height)" />
     <br>
     <UILinearLoader determinate
                     :steps="Number(steps)"

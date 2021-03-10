@@ -1,11 +1,20 @@
 <template>
+    <UICheckbox v-model="secondary"
+                label="Secondary"
+                name="secondary"
+                class="mb-6" />
+    <UICheckbox v-model="disabled"
+                label="Disabled"
+                name="disabled"
+                class="mb-6" />
+
     <p>Prop options</p>
-    <UIButtonToggle v-model="selected" :options="options" />
+    <UIButtonToggle v-model="selected" :options="options" :secondary="secondary" :disabled="disabled" />
 
     <p class="mt-4">
         Slotted option
     </p>
-    <UIButtonToggle v-model="selected" :options="slottedOptions">
+    <UIButtonToggle v-model="selected" :options="slottedOptions" :secondary="secondary" :disabled="disabled">
         <template #places="slotProps">
             slotted {{ slotProps.option.label }}
         </template>
@@ -22,10 +31,11 @@
 import { defineComponent, ref } from 'vue';
 import UIButtonToggle from '@components/button-toggle/UIButtonToggle.vue';
 import { Option } from '@components/button-toggle/UIButtonToggleTypes';
+import UICheckbox from '@components/checkbox/UICheckbox.vue';
 
 export default defineComponent({
     name: 'ButtonToggle',
-    components: { UIButtonToggle },
+    components: { UICheckbox, UIButtonToggle },
 
     setup() {
         const options: Option[] = [
@@ -40,11 +50,15 @@ export default defineComponent({
             { label: 'Map', value: 'map', slot: 'map' }
         ];
         const selected = ref('');
+        const secondary = ref(false);
+        const disabled = ref(false);
 
         return {
             options,
             slottedOptions,
-            selected
+            selected,
+            secondary,
+            disabled
         };
     }
 });
