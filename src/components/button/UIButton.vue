@@ -1,6 +1,5 @@
 <template>
-    <button ref="button"
-            type="button"
+    <button type="button"
             :class="classes"
             class="vue-ui-button rounded px-4 disabled:cursor-not-allowed disabled:opacity-50 transition relative">
         <span class="loader absolute abs-center transition-opacity duration-200"
@@ -13,7 +12,9 @@
             </slot>
         </span>
 
-        <span class="label transition-opacity duration-200" :class="{'opacity-1': !loading, 'opacity-0': loading}">
+        <span class="label transition-opacity duration-200"
+              :aria-hidden="loading"
+              :class="{ 'opacity-1': !loading, 'opacity-0': loading }">
             <slot>
                 {{ label }}
             </slot>
@@ -22,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineComponent } from 'vue';
 import type { StyleType } from '@/types';
 import { type } from '@composables/style';
 import { label } from '@composables/input';
@@ -55,11 +56,9 @@ export default defineComponent({
         const classes = computed(() => {
             return typeClasses[props.type as StyleType] + (props.loading ? ' pointer-events-none' : '');
         });
-        const button = ref<HTMLButtonElement>();
 
         return {
-            classes,
-            button
+            classes
         };
     }
 });
