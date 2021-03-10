@@ -2,7 +2,7 @@ import type { Column, Row } from '@components/table/UITableTypes';
 import { mount, VueWrapper } from '@vue/test-utils';
 import UITable from '@components/table/UITable.vue';
 import { snakeCase } from 'lodash-es';
-import UIText from '@components/text/UIText.vue';
+import UIInput from '@components/input/UIInput.vue';
 import { nextTick, h } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import { orderBy } from 'lodash-es';
@@ -123,7 +123,7 @@ describe('UITable', () => {
                 }
             });
 
-            const search = wrapper.findComponent(UIText);
+            const search = wrapper.findComponent(UIInput);
             await search.find('input').setValue('1');
             jest.runAllTimers(); // search is debounced
             await nextTick(); // wait for dom updates
@@ -145,7 +145,7 @@ describe('UITable', () => {
                 }
             });
 
-            const search = wrapper.findComponent(UIText);
+            const search = wrapper.findComponent(UIInput);
             await search.find('input').setValue('a1');
             jest.runAllTimers(); // search is debounced
             await nextTick(); // wait for dom updates

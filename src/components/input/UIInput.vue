@@ -40,7 +40,7 @@
                       :class="{ 'mr-5': large }"
                       v-html="lockIcon" />
 
-                <button v-else-if="clearable && modelValue"
+                <button v-else-if="clearable && model"
                         class="clear-icon h-5 w-5 cursor-pointer mr-3 text-gray-500"
                         :class="{ 'mr-5': large }"
                         :aria-controls="$attrs.id ?? name"
@@ -83,6 +83,7 @@ import {
     disabled,
     useVModel
 } from '@composables/input';
+import { large } from '@composables/style';
 import { getIcon, getPrecision } from '@/helpers';
 import { omit } from 'lodash-es';
 
@@ -97,11 +98,7 @@ export default defineComponent({
             required: true
         },
 
-        large: {
-            type: Boolean,
-            default: false
-        },
-
+        large,
         prefix,
         suffix,
         label,

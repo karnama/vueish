@@ -1,19 +1,25 @@
 <template>
-    <UICheckbox v-model="loading" label="Loading" name="loading" />
-    <UICheckbox v-model="disabled"
-                label="Disabled"
-                name="disabled"
-                class="my-4" />
+    <div class="space-y-2 mb-6">
+        <UICheckbox v-model="secondary" label="Secondary" name="secondary" />
+        <UICheckbox v-model="ternary" label="Ternary" name="ternary" />
+        <UICheckbox v-model="loading" label="Loading" name="loading" />
+        <UICheckbox v-model="disabled" label="Disabled" name="disabled" />
+        <UICheckbox v-model="large" label="Large Style" name="large" />
+    </div>
+
     <div class="flex justify-evenly flex-wrap">
         <UIButton v-for="(type, index) in styleTypes"
                   :key="type"
                   :type="type"
                   class="m-2"
+                  :secondary="secondary"
+                  :ternary="ternary"
+                  :large="large"
                   :loading="loading"
-                  :label="type"
+                  :label="type.charAt(0).toUpperCase() + type.slice(1)"
                   :disabled="disabled"
                   @click="stuff(type)">
-            <template v-if="index > styleTypes.length / 2" #loader>
+            <template v-if="index % 2 === 0" #loader>
                 Loading...
             </template>
         </UIButton>
@@ -37,6 +43,9 @@ export default defineComponent({
     setup() {
         const disabled = ref(false);
         const loading = ref(false);
+        const secondary = ref(false);
+        const ternary = ref(false);
+        const large = ref(false);
         const clicked = ref('');
         const stuff = (type: string) => {
             clicked.value = type;
@@ -47,7 +56,10 @@ export default defineComponent({
             disabled,
             loading,
             clicked,
-            stuff
+            stuff,
+            secondary,
+            ternary,
+            large
         };
     }
 });
