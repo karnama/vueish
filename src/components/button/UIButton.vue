@@ -44,12 +44,12 @@ const primaryTypeClasses = {
 
 const secondaryTypeClasses = {
     default: 'border shadow-sm border-gray-300 hover:bg-gray-200 disabled:bg-gray-300 disabled:shadow-none',
-    primary: 'border shadow-sm border-blue-600 hover:bg-blue-400 hover:border-blue-400 disabled:bg-gray-200 disabled:shadow-none',
-    info: 'border shadow-sm border-blue-400 hover:bg-blue-300 hover:border-blue-300 disabled:bg-gray-200 disabled:shadow-none',
-    success: 'border shadow-sm border-green-400 hover:bg-green-300 hover:border-green-300  disabled:bg-gray-200 disabled:shadow-none',
-    warning: 'border shadow-sm border-yellow-400 hover:bg-yellow-300 hover:border-yellow-300 disabled:bg-gray-200 disabled:shadow-none',
-    danger: 'border shadow-sm border-red-400 hover:bg-red-300 hover:border-red-300 disabled:bg-gray-200 disabled:shadow-none',
-    brand: 'border shadow-sm border-brand-400 hover:bg-brand-300 hover:border-brand-300 disabled:bg-gray-200 disabled:shadow-none'
+    primary: 'border shadow-sm border-blue-400 hover:bg-blue-400 hover:border-blue-400 disabled:bg-gray-200 disabled:shadow-none',
+    info: 'border shadow-sm border-blue-200 hover:bg-blue-200 hover:border-blue-200 disabled:bg-gray-200 disabled:shadow-none',
+    success: 'border shadow-sm border-green-300 hover:bg-green-300 hover:border-green-300  disabled:bg-gray-200 disabled:shadow-none',
+    warning: 'border shadow-sm border-yellow-300 hover:bg-yellow-300 hover:border-yellow-300 disabled:bg-gray-200 disabled:shadow-none',
+    danger: 'border shadow-sm border-red-300 hover:bg-red-300 hover:border-red-300 disabled:bg-gray-200 disabled:shadow-none',
+    brand: 'border shadow-sm border-brand-300 hover:bg-brand-300 hover:border-brand-300 disabled:bg-gray-200 disabled:shadow-none'
 } as { [key in StyleType]: string; };
 
 const ternaryTypeClasses = {
