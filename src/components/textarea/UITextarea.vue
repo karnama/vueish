@@ -17,7 +17,6 @@
                           :aria-placeholder="$attrs.placeholder"
                           class="flex-1 p-3 appearance-none bg-transparent outline-none
                                  disabled:cursor-not-allowed disabled:text-gray-400"
-                          :class="{ 'px-7 py-5': large }"
                           :style="disabled || fixed ? 'resize: none' : ''" />
 
                 <span v-if="disabled"

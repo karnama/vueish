@@ -4,7 +4,7 @@
             :disabled="disabled"
             class="ui-button rounded disabled:cursor-not-allowed disabled:opacity-50
                    px-3 py-2 transition relative font-bold text-sm border-0">
-        <span class="absolute abs-center transition-opacity duration-200"
+        <span class="loader absolute abs-center transition-opacity duration-200"
               :class="{ 'opacity-1': loading, 'opacity-0': !loading }">
             <slot name="loader">
                 <UISpinnerLoader
@@ -15,7 +15,7 @@
             </slot>
         </span>
 
-        <span class="opacity-1 transition-opacity duration-200"
+        <span class="label opacity-1 transition-opacity duration-200"
               :aria-hidden="loading"
               :class="{ 'opacity-0': loading }">
             <slot>

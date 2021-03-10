@@ -3,18 +3,16 @@ import UIInput from './UIInput.vue';
 
 describe('UIInput', () => {
     it('should handle model-binding correctly', async () => {
-        const wrapper = mount({
-            template: '<div><UIInput v-model="input" name="input"/></div>',
-            components: { UIInput },
-            data() {
-                return { input: '' };
+        const wrapper = mount(UIInput, {
+            props: {
+                modelValue: '',
+                name: 'input'
             }
         });
 
         await wrapper.find('input').setValue('Hello World');
 
-        expect(wrapper.emitted()).toHaveProperty('update:modelValue');
-        expect(wrapper.emitted()['update:modelValue'][0]).toStrictEqual(['Hello World']);
+        expect(wrapper.emitted('update:modelValue')![0]).toStrictEqual(['Hello World']);
     });
 
     it('should be enabled by default', () => {
@@ -135,9 +133,7 @@ describe('UIInput', () => {
         const wrapper = mount(UIInput, {
             props: {
                 name: 'input',
-                modelValue: 'Hello World'
-            },
-            attrs: {
+                modelValue: 'Hello World',
                 disabled: true
             }
         });
@@ -146,21 +142,17 @@ describe('UIInput', () => {
     });
 
     it('should clear the value when the clear icon is clicked', async () => {
-        const modelValue = 'Hello World';
-
         const wrapper = mount(UIInput, {
             props: {
                 name: 'input',
-                modelValue
+                modelValue: 'Hello World',
+                clearable: true
             }
         });
 
-        const input = wrapper.get('input').element;
-
-        expect(input.value).toBe(modelValue);
         await wrapper.get('.clear-icon').trigger('click');
         expect(wrapper.emitted()).toHaveProperty('update:modelValue');
-        expect(wrapper.emitted()['update:modelValue'][0]).toStrictEqual(['']);
+        expect(wrapper.emitted('update:modelValue')![0]).toStrictEqual(['']);
     });
 
     it('should display the prefix when passed as a slot', () => {
