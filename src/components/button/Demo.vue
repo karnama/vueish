@@ -1,14 +1,33 @@
 <template>
-    <UICheckbox v-model="disabled" label="Disabled" name="Disabled" />
+    <div class="space-y-2 mb-6">
+        <UICheckbox v-model="secondary" label="Secondary" name="secondary" />
+        <UICheckbox v-model="ternary" label="Ternary" name="ternary" />
+        <UICheckbox v-model="loading" label="Loading" name="loading" />
+        <UICheckbox v-model="disabled" label="Disabled" name="disabled" />
+        <UICheckbox v-model="large" label="Large Style" name="large" />
+    </div>
+
     <div class="flex justify-evenly flex-wrap">
-        <UIButton v-for="type in styleTypes"
+        <UIButton v-for="(type, index) in styleTypes"
                   :key="type"
                   :type="type"
                   class="m-2"
-                  :disabled="disabled">
-            {{ type }}
+                  :secondary="secondary"
+                  :ternary="ternary"
+                  :large="large"
+                  :loading="loading"
+                  :label="type.charAt(0).toUpperCase() + type.slice(1)"
+                  :disabled="disabled"
+                  @click="stuff(type)">
+            <template v-if="index % 2 === 0" #loader>
+                Loading...
+            </template>
         </UIButton>
     </div>
+
+    <p v-show="clicked">
+        Last clicked button: {{ clicked }}
+    </p>
 </template>
 
 <script lang="ts">
@@ -23,8 +42,25 @@ export default defineComponent({
     components: { UICheckbox, UIButton },
     setup() {
         const disabled = ref(false);
+        const loading = ref(false);
+        const secondary = ref(false);
+        const ternary = ref(false);
+        const large = ref(false);
+        const clicked = ref('');
+        const stuff = (type: string) => {
+            clicked.value = type;
+        };
 
-        return { styleTypes, disabled };
+        return {
+            styleTypes,
+            disabled,
+            loading,
+            clicked,
+            stuff,
+            secondary,
+            ternary,
+            large
+        };
     }
 });
 </script>

@@ -35,7 +35,9 @@
             </UIButton>
         </template>
 
-        This panel will remember its closed status.
+        <h3 class="font-bold">
+            This panel will remember its closed status.
+        </h3>
         <br>
         <br>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, eligendi, odio! Alias asperiores debitis
@@ -49,27 +51,27 @@
 
     <UIPanel class="mt-10 bg-white"
              closed
+             blocking-loader
              :no-collapse="false"
              :loading="loading">
         <p>Without header -> cannot be collapsed regardless of props</p>
         <p>Without footer</p>
+        <b>Using blocking loader</b>
     </UIPanel>
 
-    <label>
-        loading
-        <input v-model="loading" type="checkbox">
-    </label>
+    <UICheckbox v-model="loading" label="Loading" class="mt-6" name="loading" />
 </template>
 
 <script lang="ts">
 import UIPanel from './UIPanel.vue';
 import { defineComponent, ref } from 'vue';
 import UIButton from '../button/UIButton.vue';
+import UICheckbox from '@components/checkbox/UICheckbox.vue';
 
 export default defineComponent({
     name: 'Panel',
 
-    components: { UIButton, UIPanel },
+    components: { UICheckbox, UIButton, UIPanel },
 
     setup() {
         const loading = ref(false);

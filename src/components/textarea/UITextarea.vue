@@ -17,6 +17,7 @@
                           :aria-placeholder="$attrs.placeholder"
                           class="flex-1 p-3 appearance-none bg-transparent outline-none
                                  disabled:cursor-not-allowed disabled:text-gray-400"
+                          :class="{ 'px-7 py-5': large }"
                           :style="disabled || fixed ? 'resize: none' : ''" />
 
                 <span v-if="disabled"
@@ -24,7 +25,7 @@
                       v-html="lockIcon" />
 
 
-                <button v-else-if="clearable && modelValue"
+                <button v-else-if="clearable && model"
                         class="clear-icon h-5 w-5 cursor-pointer mr-2 text-gray-500"
                         :aria-controls="$attrs.id ?? name"
                         aria-roledescription="clear"
@@ -46,11 +47,12 @@ import {
     disabled,
     useVModel
 } from '@composables/input';
+import { large } from '@composables/style';
 import { getIcon } from '@/helpers';
 import { omit } from 'lodash-es';
 
 export default defineComponent({
-    name: 'UITextarea',
+    name: 'UITextArea',
 
     inheritAttrs: false,
 
@@ -60,6 +62,7 @@ export default defineComponent({
             required: true
         },
 
+        large,
         fixed: Boolean,
         label,
         autofocus,

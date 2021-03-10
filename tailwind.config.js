@@ -20,7 +20,11 @@ const brandColors = (levels) => {
     return colors;
 };
 
+/**
+ * @type {import('@types/tailwindcss').TailwindConfig}
+ */
 module.exports = {
+    darkMode: 'class',
     purge: ['./index.html', './src/**/*.{vue,ts,tsx}'],
     theme: {
         borderColor: theme => ({
@@ -43,7 +47,8 @@ module.exports = {
             cursor: ['disabled'],
             backgroundOpacity: ['disabled'],
             textColor: ['disabled'],
-            margin: ['group-hover']
+            margin: ['group-hover'],
+            boxShadow: ['disabled']
         }
     }
 };

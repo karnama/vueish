@@ -9,7 +9,7 @@
              :class="{ 'bg-gray-100': disabled }"
              :style="$attrs.style">
             <div class="flex items-center">
-                <span v-if="prefix ?? $slots.prefix" class="prefix ml-3 select-none">
+                <span v-if="prefix ?? $slots.prefix" class="prefix ml-3 select-none" :class="{ 'ml-5 -mr-3': large }">
                     <slot name="prefix">
                         {{ prefix }}
                     </slot>
@@ -24,9 +24,11 @@
                        class="flex-1 p-3 appearance-none bg-transparent outline-none
                               disabled:cursor-not-allowed disabled:text-gray-400"
                        :disabled="disabled"
+                       :class="{ 'px-7 py-5': large }"
                        @keydown="handleKeydown">
 
                 <span v-if="suffix ?? $slots.suffix"
+                      :class="{ 'mr-5': large }"
                       class="suffix mr-3 select-none">
                     <slot name="suffix">
                         {{ suffix }}
@@ -34,28 +36,30 @@
                 </span>
 
                 <span v-if="disabled"
-                      class="h-5 w-5 mr-2 text-gray-400"
+                      class="h-5 w-5 mr-3 text-gray-400"
+                      :class="{ 'mr-5': large }"
                       v-html="lockIcon" />
 
-                <button v-else-if="clearable && modelValue"
-                        class="clear-icon h-5 w-5 cursor-pointer mr-2 text-gray-500"
+                <button v-else-if="clearable && model"
+                        class="clear-icon h-5 w-5 cursor-pointer mr-3 text-gray-500"
+                        :class="{ 'mr-5': large }"
                         :aria-controls="$attrs.id ?? name"
                         aria-roledescription="clear"
                         @click="model = ''"
                         v-html="clearIcon" />
 
-                <div v-if="isNumber" class="flex flex-col select-none h-full">
+                <div v-if="isNumber" class="flex flex-col select-none min-h-full self-stretch">
                     <button :aria-controls="$attrs.id ?? name"
                             aria-roledescription="increment"
                             tabindex="-1"
-                            class="px-2 bg-gray-50 transition hover:bg-gray-200 cursor-pointer rounded-tr"
+                            class="px-2 bg-gray-50 h-full transition hover:bg-gray-200 cursor-pointer rounded-tr"
                             @click="increment">
                         ^
                     </button>
                     <button :aria-controls="$attrs.id ?? name"
                             aria-roledescription="decrement"
                             tabindex="-1"
-                            class="px-2 bg-gray-50 transition hover:bg-gray-200 cursor-pointer
+                            class="px-2 bg-gray-50 h-full transition hover:bg-gray-200 cursor-pointer
                                    transform rotate-180 rounded-tl"
                             @click="decrement">
                         ^
@@ -79,6 +83,7 @@ import {
     disabled,
     useVModel
 } from '@composables/input';
+import { large } from '@composables/style';
 import { getIcon, getPrecision } from '@/helpers';
 import { omit } from 'lodash-es';
 
@@ -93,6 +98,7 @@ export default defineComponent({
             required: true
         },
 
+        large,
         prefix,
         suffix,
         label,

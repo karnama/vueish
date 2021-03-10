@@ -39,6 +39,7 @@ export default defineComponent({
     setup(props, ctx) {
         const slot = ref<HTMLDivElement>();
         const watchStopHandlers: ReturnType<typeof watch>[] = [];
+
         const updateInputs = () => {
             watchStopHandlers.forEach(stop => stop());
             watchStopHandlers.length = 0;
@@ -48,7 +49,7 @@ export default defineComponent({
 
             // Validate they exist
             if (!inputs || inputs.length < 2) {
-                throw Error('UIRadioGroup requires at least 2 UIRadio components present.');
+                throw Error('UIRadioGroup requires at least 2 UIRadio components in the default slot.');
             }
 
             const setChecked = (input: HTMLInputElement) => input.checked = props.modelValue === input.value;
