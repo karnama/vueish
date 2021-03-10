@@ -2,17 +2,19 @@
     <div class="w-full overflow-hidden ui-linear-loader"
          :style="{ 'height': height + 'px' }">
         <div class="relative h-full">
-            <div class="progress-background w-full absolute h-full bg-brand-300" />
+            <div class="progress-background w-full absolute h-full" />
             <div class="absolute h-full"
                  role="progressbar"
-                 :class="determinate ? 'bg-brand-600' : 'indeterminate'"
-                 :style="{width}" />
+                 v-bind="ariaAttributes"
+                 :class="determinate ? 'bg-current' : 'indeterminate'"
+                 :style="{ width }" />
         </div>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
+import { inheritColor } from '@composables/style';
 
 export default defineComponent({
     name: 'UILinearLoader',
@@ -55,18 +57,20 @@ export default defineComponent({
             validator: function(value: number) {
                 return value > 0;
             }
-        }
+        },
+
+        inheritColor
     },
 
     setup(props) {
         if (props.determinate) {
             if (!props.steps) {
-                throw new TypeError(
+                throw new Error(
                     'UILinearLoader - The prop is set to finite loading without giving a number of steps'
                 );
             }
             if (props.progress > props.steps) {
-                throw new TypeError('UILinearLoader  - The progress cannot be higher that the steps');
+                throw new Error('UILinearLoader  - The progress cannot be higher that the steps');
             }
         }
 
@@ -77,9 +81,21 @@ export default defineComponent({
 
             return String(100 / props.steps * props.progress) + '%';
         });
+        const ariaAttributes = computed(() => {
+            if (!props.determinate) {
+                return {};
+            }
+
+            return {
+                ariaValueNow: props.progress,
+                ariaValueMin: 0,
+                ariaValueMax: props.steps
+            };
+        });
 
         return {
-            width
+            width,
+            ariaAttributes
         };
     }
 });
@@ -88,14 +104,15 @@ export default defineComponent({
 <style lang="scss" scoped>
 .progress-background {
     background-clip: padding-box;
-    opacity: 0.6;
+    background-color: currentColor;
+    opacity: 0.2;
 }
 
 .indeterminate:before {
     content: '';
     z-index: 1000;
     position: absolute;
-    @apply bg-brand-600;
+    background-color: currentColor;
     filter: brightness(110%);
     top: 0;
     left: 0;
@@ -108,7 +125,7 @@ export default defineComponent({
     content: '';
     z-index: 1000;
     position: absolute;
-    @apply bg-brand-600;
+    background-color: currentColor;
     filter: brightness(110%);
     opacity: 1;
     top: 0;

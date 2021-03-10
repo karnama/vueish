@@ -1,7 +1,9 @@
 <template>
-    <UILinearLoader />
+    <UILinearLoader inherit-color class="text-red-600" :height="height" />
     <br>
     <UILinearLoader determinate
+                    inherit-color
+                    class="text-gray-700"
                     :steps="Number(steps)"
                     :progress="Number(progress)"
                     :height="Number(height)" />

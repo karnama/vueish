@@ -6,3 +6,13 @@ export const type: Prop<string, 'default'> = {
     default: 'default',
     validator: (value: StyleType): boolean => styleTypes.includes(value)
 };
+
+/**
+ * Flag indicating that the loader should
+ * inherit the currentColour, rather than
+ * set itself to brand.
+ */
+export const inheritColor: Prop<boolean, false> ={
+    type: Boolean,
+    default: false
+}
