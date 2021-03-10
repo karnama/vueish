@@ -151,7 +151,6 @@ export default defineComponent({
 
             return color;
         });
-        console.log(primaryTypeClasses.value['primary']);
 
         return {
             classes,
