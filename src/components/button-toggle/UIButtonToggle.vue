@@ -8,11 +8,13 @@
                   :disabled="disabled"
                   class="border"
                   :class="{
-                      'border-gray-600 hover:border-gray-400 hover:bg-gray-400 hover:text-gray-900': secondary,
-                      'border-blue-600 hover:border-blue-400': !secondary,
-                      'text-blue-600 hover:white-text': !checked && !secondary,
-                      'white-text bg-gray-600': checked && secondary,
-                      'disabled:bg-gray-600': checked && secondary && disabled,
+                      'border-gray-600': secondary,
+                      'hover:border-gray-400 hover:bg-gray-400 hover:text-gray-900': secondary && !disabled,
+                      'border-blue-600': !secondary,
+                      'hover:border-blue-400': !secondary && !disabled,
+                      'text-blue-600': !checked && !secondary,
+                      'hover:white-text': !checked && !secondary && !disabled,
+                      'white-text bg-gray-600 disabled:bg-gray-600': checked && secondary,
                       'border-l-0': index > 0
                   }"
                   role="switch"
@@ -66,6 +68,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 @variants hover {
+    // specificity hack
     .white-text {
         @apply text-white;
     }
