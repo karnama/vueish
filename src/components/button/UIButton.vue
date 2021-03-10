@@ -3,7 +3,7 @@
             type="button"
             :class="classes"
             class="vue-ui-button rounded px-4 disabled:cursor-not-allowed disabled:opacity-50 transition relative">
-        <span class="absolute abs-center transition-opacity duration-200"
+        <span class="loader absolute abs-center transition-opacity duration-200"
               :class="{'opacity-1': loading, 'opacity-0': !loading}">
             <slot name="loader" class="text-red-500">
                 <UISpinnerLoader
@@ -13,7 +13,7 @@
             </slot>
         </span>
 
-        <span class="transition-opacity duration-200" :class="{'opacity-1': !loading, 'opacity-0': loading}">
+        <span class="label transition-opacity duration-200" :class="{'opacity-1': !loading, 'opacity-0': loading}">
             <slot>
                 {{ label }}
             </slot>

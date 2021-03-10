@@ -82,7 +82,8 @@ describe('UIButton', () => {
             }
         });
 
-        expect(wrapper.html()).not.toContain('hi');
+        expect(wrapper.find('.label').classes()).toContain('opacity-0');
+        expect(wrapper.find('.loader').classes()).toContain('opacity-1');
     });
 
     it('should display the given loading slot', () => {
