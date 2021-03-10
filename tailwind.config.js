@@ -1,6 +1,4 @@
-const brandColor = (
-    level
-) => {
+const brandColor = (level) => {
     return function ({opacityVariable, opacityValue}) {
         if (opacityValue) {
             return `rgba(var(--color-brand-${level}), ${opacityValue})`;

@@ -1,6 +1,7 @@
 <template>
     <button type="button"
             :class="classes"
+            :disabled="disabled"
             class="ui-button rounded disabled:cursor-not-allowed disabled:opacity-50
                    px-3 py-2 transition relative font-bold text-sm border-0">
         <span class="absolute abs-center transition-opacity duration-200"
@@ -28,7 +29,7 @@
 import { computed, defineComponent } from 'vue';
 import type { StyleType } from '@/types';
 import { type, large } from '@composables/style';
-import { label } from '@composables/input';
+import { label, disabled } from '@composables/input';
 import UISpinnerLoader from '@components/loader-spinner/UISpinnerLoader.vue';
 
 /* eslint-disable max-len */
@@ -64,9 +65,12 @@ const ternaryTypeClasses = {
 /* eslint-enable max-len */
 
 // todo - loading state content may overflow the default width
+
 export default defineComponent({
     name: 'UIButton',
+
     components: { UISpinnerLoader },
+
     props: {
         loading: {
             type: Boolean,
@@ -83,6 +87,7 @@ export default defineComponent({
             default: false
         },
 
+        disabled,
         large,
         label,
         type
@@ -105,7 +110,7 @@ export default defineComponent({
                 classes += ' px-7 py-3';
             }
 
-            if (props.loading) {
+            if (props.loading || props.disabled) {
                 classes += ' pointer-events-none';
             }
 
