@@ -15,4 +15,4 @@ export const type: Prop<string, 'default'> = {
 export const inheritColor: Prop<boolean, false> ={
     type: Boolean,
     default: false
-}
+};
