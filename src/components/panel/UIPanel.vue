@@ -2,13 +2,14 @@
     <section :id="id"
              class="ui-panel rounded shadow-md bg-default relative transition-all"
              :aria-expanded="open"
-             :class="{ 'hover:shadow-lg': !open }">
+             :class="{ 'hover:shadow-lg': !open, 'pointer-events-none select-none': loading && blockingLoader }">
         <UIFadeTransition>
-            <UILinearLoader v-if="loading" class="absolute rounded-t" />
+            <UILinearLoader v-if="loading && !blockingLoader" class="absolute rounded-t" />
         </UIFadeTransition>
 
         <header v-if="hasHeader || $slots.actions"
-                class="w-full flex items-center px-12 relative transition-all">
+                class="w-full flex items-center px-12 relative transition-all no-blur"
+                :class="{ 'blur': loading && blockingLoader }">
             <h1 class="select-none flex-grow py-8"
                 :class="{
                     'cursor-pointer': collapsible,
@@ -26,7 +27,10 @@
 
         <UIExpandTransition :appear="appear">
             <keep-alive>
-                <div v-cloak v-if="open">
+                <div v-cloak
+                     v-if="open"
+                     class="no-blur"
+                     :class="{ 'blur': loading && blockingLoader }">
                     <main class="w-full px-12 py-6 text-gray-700">
                         <slot />
                     </main>
@@ -37,6 +41,14 @@
                 </div>
             </keep-alive>
         </UIExpandTransition>
+
+        <UIFadeTransition>
+            <div v-if="loading && blockingLoader"
+                 class="rounded absolute top-0 left-0 w-full h-full blocking-loader-bg
+                        flex justify-center items-center">
+                <UISpinnerLoader />
+            </div>
+        </UIFadeTransition>
     </section>
 </template>
 
@@ -46,6 +58,7 @@ import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
 import UILinearLoader from '@components/loader-linear/UILinearLoader.vue';
 import LocalCache from '@/helpers/cache/LocalCache';
 import { defineComponent, ref, computed, watch } from 'vue';
+import UISpinnerLoader from '@components/loader-spinner/UISpinnerLoader.vue';
 
 let cache: LocalCache;
 
@@ -53,6 +66,7 @@ export default defineComponent({
     name: 'UIPanel',
 
     components: {
+        UISpinnerLoader,
         UIFadeTransition,
         UILinearLoader,
         UIExpandTransition
@@ -96,6 +110,14 @@ export default defineComponent({
          * Boolean flag to indicate if loader is visible.
          */
         loading: {
+            type: Boolean,
+            default: false
+        },
+
+        /**
+         * Use the spinner loading in the middle of the panel instead of the linear loader.
+         */
+        blockingLoader: {
             type: Boolean,
             default: false
         },
@@ -146,3 +168,17 @@ export default defineComponent({
     }
 });
 </script>
+
+<style scoped>
+.blocking-loader-bg {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.no-blur {
+    filter: blur(0);
+    transition: filter 100ms ease;
+}
+.blur {
+    filter: blur(1px);
+    transition: filter 100ms ease;
+}
+</style>
