@@ -2,23 +2,22 @@
     <button ref="button"
             type="button"
             :class="classes"
-            :style="style"
             class="vue-ui-button rounded px-4 disabled:cursor-not-allowed disabled:opacity-50 transition relative">
-        <UIFadeTransition mode="in-out">
-            <span v-if="loading" class="absolute abs-center">
-                <slot name="loader">
-                    <UISpinnerLoader class="color"
-                                     :stroke="2"
-                                     :diameter="25" />
-                </slot>
-            </span>
+        <span class="absolute abs-center transition-opacity duration-200"
+              :class="{'opacity-1': loading, 'opacity-0': !loading}">
+            <slot name="loader" class="text-red-500">
+                <UISpinnerLoader
+                    inherit-color
+                    :stroke="2"
+                    :diameter="25" />
+            </slot>
+        </span>
 
-            <span v-else>
-                <slot>
-                    {{ label }}
-                </slot>
-            </span>
-        </UIFadeTransition>
+        <span class="transition-opacity duration-200" :class="{'opacity-1': !loading, 'opacity-0': loading}">
+            <slot>
+                {{ label }}
+            </slot>
+        </span>
     </button>
 </template>
 
@@ -28,7 +27,6 @@ import type { StyleType } from '@/types';
 import { type } from '@composables/style';
 import { label } from '@composables/input';
 import UISpinnerLoader from '@components/loader-spinner/UISpinnerLoader.vue';
-import UIFadeTransition from '@components/transitions/UIFadeTransition.vue';
 
 const typeClasses = {
     default: 'hover:bg-gray-200 bg-gray-300 disabled:bg-gray-300',
@@ -42,7 +40,7 @@ const typeClasses = {
 
 export default defineComponent({
     name: 'UIButton',
-    components: { UIFadeTransition, UISpinnerLoader },
+    components: { UISpinnerLoader },
     props: {
         loading: {
             type: Boolean,
@@ -58,21 +56,10 @@ export default defineComponent({
             return typeClasses[props.type as StyleType] + (props.loading ? ' pointer-events-none' : '');
         });
         const button = ref<HTMLButtonElement>();
-        const style = computed<Partial<CSSStyleDeclaration>>(() => {
-            const styles = button.value?.getBoundingClientRect();
-
-            return props.loading
-                ? {
-                    width: String(styles?.width) + 'px',
-                    height: String(styles?.height) + 'px'
-                }
-                : {};
-        });
 
         return {
             classes,
-            button,
-            style
+            button
         };
     }
 });
@@ -83,9 +70,7 @@ export default defineComponent({
     min-width: 110px;
     min-height: 35px;
 }
-.color {
-    @apply text-white;
-}
+
 .abs-center {
     top: 50%;
     left: 50%;
