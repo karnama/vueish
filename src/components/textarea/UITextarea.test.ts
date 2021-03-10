@@ -145,20 +145,17 @@ describe('UITextarea', () => {
     });
 
     it('should clear the value when the clear icon is clicked', async () => {
-        const modelValue = 'Hello World';
-
         const wrapper = mount(UITextarea, {
             props: {
                 name: 'input',
-                modelValue
+                modelValue: 'Hello World',
+                clearable: true
             }
         });
 
-        const input = wrapper.get('textarea').element;
-
-        expect(input.value).toBe(modelValue);
+        expect(wrapper.get('textarea').element.value).toBe('Hello World');
         await wrapper.get('.clear-icon').trigger('click');
         expect(wrapper.emitted()).toHaveProperty('update:modelValue');
-        expect(wrapper.emitted()['update:modelValue'][0]).toStrictEqual(['']);
+        expect(wrapper.emitted('update:modelValue')![0]).toStrictEqual(['']);
     });
 });
