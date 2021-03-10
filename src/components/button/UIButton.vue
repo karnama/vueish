@@ -1,10 +1,24 @@
 <template>
     <button type="button"
             :class="classes"
-            class="vue-ui-button rounded px-4 disabled:cursor-not-allowed disabled:opacity-50">
-        <slot>
-            {{ label }}
-        </slot>
+            class="vue-ui-button rounded px-4 disabled:cursor-not-allowed disabled:opacity-50 transition relative">
+        <span class="loader absolute abs-center transition-opacity duration-200"
+              :class="{'opacity-1': loading, 'opacity-0': !loading}">
+            <slot name="loader" class="text-red-500">
+                <UISpinnerLoader
+                    inherit-color
+                    :stroke="2"
+                    :diameter="25" />
+            </slot>
+        </span>
+
+        <span class="label transition-opacity duration-200"
+              :aria-hidden="loading"
+              :class="{ 'opacity-1': !loading, 'opacity-0': loading }">
+            <slot>
+                {{ label }}
+            </slot>
+        </span>
     </button>
 </template>
 
@@ -13,6 +27,7 @@ import { computed, defineComponent } from 'vue';
 import type { StyleType } from '@/types';
 import { type } from '@composables/style';
 import { label } from '@composables/input';
+import UISpinnerLoader from '@components/loader-spinner/UISpinnerLoader.vue';
 
 const typeClasses = {
     default: 'hover:bg-gray-200 bg-gray-300 disabled:bg-gray-300',
@@ -22,20 +37,29 @@ const typeClasses = {
     warning: 'text-white bg-yellow-400 hover:bg-yellow-300 disabled:bg-yellow-400',
     danger: 'text-white bg-red-400 hover:bg-red-300 disabled:bg-red-400',
     brand: 'text-white bg-brand-400 hover:bg-brand-300 disabled:bg-brand-400'
-} as { [key in StyleType]: string; };
+} as const;
 
 export default defineComponent({
     name: 'UIButton',
-
+    components: { UISpinnerLoader },
     props: {
+        loading: {
+            type: Boolean,
+            default: false
+        },
+
         label,
         type
     },
 
     setup(props) {
-        const classes = computed(() => typeClasses[props.type as StyleType]);
+        const classes = computed(() => {
+            return typeClasses[props.type as StyleType] + (props.loading ? ' pointer-events-none' : '');
+        });
 
-        return { classes };
+        return {
+            classes
+        };
     }
 });
 </script>
@@ -44,5 +68,11 @@ export default defineComponent({
 .vue-ui-button {
     min-width: 110px;
     min-height: 35px;
+}
+
+.abs-center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 </style>

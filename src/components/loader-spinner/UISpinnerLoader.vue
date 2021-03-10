@@ -1,7 +1,7 @@
 <template>
     <transition name="progress-spinner" appear>
-        <div class="ui-spinner-loader text-brand-400"
-             :class="{ 'indeterminate': !determinate }"
+        <div class="ui-spinner-loader"
+             :class="{ 'indeterminate': !determinate, 'text-brand-400': !inheritColor }"
              role="progressbar"
              v-bind="$attrs">
             <svg ref="spinnerDraw"
@@ -49,6 +49,13 @@ export default defineComponent({
             type: Boolean,
             default: false
         },
+
+        /**
+         * Flag indicating that the loader should
+         * inherit the currentColour, rather than
+         * set itself to brand.
+         */
+        inheritColor: Boolean,
 
         /**
          * The diameter of the circle in pixels.
