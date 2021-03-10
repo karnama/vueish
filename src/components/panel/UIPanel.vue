@@ -62,8 +62,6 @@ import UISpinnerLoader from '@components/loader-spinner/UISpinnerLoader.vue';
 
 let cache: LocalCache;
 
-// todo - on fade fix sync the blur and fade
-
 export default defineComponent({
     name: 'UIPanel',
 
