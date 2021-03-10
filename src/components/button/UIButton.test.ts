@@ -62,4 +62,41 @@ describe('UIButton', () => {
 
         expect(wrapper.text()).toBe(msg);
     });
+
+    it('should set the pointer events none on loading', () => {
+        const wrapper = mount(UIButton, {
+            props: {
+                label: 'hi',
+                loading: true
+            }
+        });
+
+        expect(wrapper.attributes('class')).toContain('pointer-events-none');
+    });
+
+    it('should not show the button default slot when loading', () => {
+        const wrapper = mount(UIButton, {
+            props: {
+                label: 'hi',
+                loading: true
+            }
+        });
+
+        expect(wrapper.find('.label').classes()).toContain('opacity-0');
+        expect(wrapper.find('.loader').classes()).toContain('opacity-1');
+    });
+
+    it('should display the given loading slot', () => {
+        const wrapper = mount(UIButton, {
+            props: {
+                label: 'hi',
+                loading: true
+            },
+            slots: {
+                loader: 'loading...'
+            }
+        });
+
+        expect(wrapper.html()).toContain('loading..');
+    });
 });

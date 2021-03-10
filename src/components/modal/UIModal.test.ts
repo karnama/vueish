@@ -2,6 +2,10 @@ import UIModal from './UIModal.vue';
 import { mount } from '@vue/test-utils';
 
 describe('UIModal', () => {
+    afterEach(() => {
+        document.body.innerHTML = '';
+    });
+
     it('should render', () => {
         const wrapper = mount(UIModal);
         expect(wrapper).toBeDefined();
@@ -28,8 +32,7 @@ describe('UIModal', () => {
 
         // @ts-expect-error
         await wrapper.vm.open();
-        // @ts-expect-error
-        await document.querySelector('.overlay')?.click();
+        document.querySelector<HTMLDivElement>('.overlay')?.click();
 
         expect(wrapper.emitted()['cancel']).toHaveLength(1);
         wrapper.unmount();
@@ -40,8 +43,7 @@ describe('UIModal', () => {
 
         // @ts-expect-error
         await wrapper.vm.open();
-        // @ts-expect-error
-        await document.querySelector('.ui-modal-close')?.click();
+        document.querySelector<HTMLButtonElement>('.ui-modal-close')?.click();
 
         expect(wrapper.emitted()['cancel']).toHaveLength(1);
         wrapper.unmount();
@@ -58,7 +60,7 @@ describe('UIModal', () => {
         await wrapper.vm.open();
         let button: HTMLButtonElement | undefined;
         document.querySelectorAll('button').forEach(btn => {
-            if (btn.innerHTML === 'acceptBtn') {
+            if (btn.innerHTML.includes('acceptBtn')) {
                 button = btn;
             }
         });
@@ -85,7 +87,7 @@ describe('UIModal', () => {
         await wrapper.vm.open();
         let count = 0;
         document.querySelectorAll('button').forEach(button => {
-            if (button.innerHTML === 'acceptBtn' || button.innerHTML === 'closeBtn') {
+            if (button.innerHTML.includes('acceptBtn') || button.innerHTML.includes('closeBtn')) {
                 count++;
             }
         });
