@@ -50,7 +50,7 @@ import { getIcon } from '@/helpers';
 import { omit } from 'lodash-es';
 
 export default defineComponent({
-    name: 'UITextarea',
+    name: 'UITextArea',
 
     inheritAttrs: false,
 

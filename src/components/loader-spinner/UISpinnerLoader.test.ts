@@ -73,4 +73,12 @@ describe('UISpinner', () => {
 
         expect(wrapper.find('svg').attributes()['viewBox']).toBe('0 0 50 50');
     });
+
+    it('should not apply default colour classes when inherit-color is passed', async () => {
+        const wrapper = mount(UISpinnerLoader);
+
+        expect(wrapper.find('.ui-spinner-loader').classes('text-brand-400')).toBe(true);
+        await wrapper.setProps({ inheritColor: true });
+        expect(wrapper.find('.ui-spinner-loader').classes('text-brand-400')).toBe(false);
+    });
 });
