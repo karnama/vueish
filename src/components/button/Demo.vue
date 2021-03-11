@@ -11,12 +11,12 @@
         <UIButton v-for="(type, index) in styleTypes"
                   :key="type"
                   :type="type"
-                  class="m-2"
+                  class="m-2 capitalize"
                   :secondary="secondary"
                   :ternary="ternary"
                   :large="large"
                   :loading="loading"
-                  :label="type.charAt(0).toUpperCase() + type.slice(1)"
+                  :label="type"
                   :disabled="disabled"
                   @click="stuff(type)">
             <template v-if="index % 2 === 0" #loader>
