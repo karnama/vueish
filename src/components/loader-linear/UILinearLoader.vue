@@ -1,5 +1,6 @@
 <template>
     <div class="w-full overflow-hidden ui-linear-loader"
+         :class="inheritColor ? '' : 'text-brand-600'"
          :style="{ 'height': height + 'px' }">
         <div class="relative h-full">
             <div class="progress-background w-full absolute h-full" />
