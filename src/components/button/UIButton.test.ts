@@ -84,8 +84,8 @@ describe('UIButton', () => {
             }
         });
 
-        expect(wrapper.get('.label').isVisible()).toContain(false);
-        expect(wrapper.get('.loader').isVisible()).toContain(true);
+        expect(wrapper.get('.label').isVisible()).toBe(false);
+        expect(wrapper.get('.loader').isVisible()).toBe(true);
     });
 
     it('should display the given loading slot', () => {
