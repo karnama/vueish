@@ -59,7 +59,10 @@
         <b>Using blocking loader</b>
     </UIPanel>
 
-    <UICheckbox v-model="loading" label="Loading" class="mt-6" name="loading" />
+    <UICheckbox v-model="loading"
+                label="Loading"
+                class="mt-6"
+                name="loading" />
 </template>
 
 <script lang="ts">
