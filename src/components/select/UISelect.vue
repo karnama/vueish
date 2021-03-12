@@ -104,17 +104,14 @@ import type { PropType } from 'vue';
 import { placeholder, autofocus, noClear, disabled, useVModel, label } from '@composables/input';
 import { getIcon, wrap } from '@/helpers';
 import { MaybeArray } from '@/types';
-// @ts-expect-error
-import { directive } from 'vue3-click-away';
+import clickAway from '@composables/interactivity/clickAway';
 
 type Option = Record<string, any>;
 
 export default defineComponent({
     name: 'UISelect',
 
-    directives: {
-        clickAway: directive
-    },
+    directives: { clickAway },
 
     inheritAttrs: false,
 
