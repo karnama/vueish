@@ -8,6 +8,7 @@
               :class="{ 'opacity-1': loading, 'opacity-0': !loading }">
             <slot name="loader">
                 <UISpinnerLoader
+                    v-if="loading"
                     inherit-color
                     :class="loaderColor"
                     :stroke="2"
