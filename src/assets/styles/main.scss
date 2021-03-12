@@ -1,3 +1,5 @@
+@import "tooltip.scss";
+
 :root {
 	--color-brand-50: 245, 243, 255;
 	--color-brand-100: 237, 233, 254;
@@ -15,8 +17,3 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-	html, body {
-		@apply h-full;
-	}
-}

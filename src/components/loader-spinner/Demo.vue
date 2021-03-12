@@ -5,10 +5,7 @@
                      :determinate="determinate">
         <span v-if="determinate" class="text-sm text-black">{{ progress }} %</span>
     </UISpinnerLoader>
-    <label>
-        Determinate
-        <input v-model="determinate" type="checkbox">
-    </label>
+    <UICheckbox v-model="determinate" name="determinate" label="Determinate" />
     <div v-show="determinate" class="w-full flex flex-row flex-wrap justify-between items-center content-center">
         <label class="w-2/12" for="progress">0</label>
         <input id="progress"
@@ -24,11 +21,13 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import UISpinnerLoader from './UISpinnerLoader.vue';
+import UICheckbox from '@components/checkbox/UICheckbox.vue';
 
 export default defineComponent({
     name: 'SpinnerLoader',
 
     components: {
+        UICheckbox,
         UISpinnerLoader
     },
 

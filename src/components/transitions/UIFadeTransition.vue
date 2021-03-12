@@ -31,7 +31,7 @@ export default {
          */
         mode: {
             type: String,
-            required: false
+            default: 'out-in'
         }
     }
 };
@@ -39,10 +39,11 @@ export default {
 
 <style scoped>
 .fade-enter-active, .fade-leave-active {
-    transition: opacity 200ms;
+    transition: opacity 200ms ease-in;
 }
 
-.fade-enter, .fade-leave-to {
+.fade-enter-from, .fade-leave-to {
     opacity: 0;
+    transition: opacity 200ms ease-out;
 }
 </style>

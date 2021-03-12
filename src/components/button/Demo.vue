@@ -1,14 +1,27 @@
 <template>
-    <UICheckbox v-model="disabled" label="Disabled" name="Disabled" />
+    <UICheckbox v-model="loading" label="Loading" name="loading" />
+    <UICheckbox v-model="disabled"
+                label="Disabled"
+                name="disabled"
+                class="my-4" />
     <div class="flex justify-evenly flex-wrap">
-        <UIButton v-for="type in styleTypes"
+        <UIButton v-for="(type, index) in styleTypes"
                   :key="type"
                   :type="type"
                   class="m-2"
-                  :disabled="disabled">
-            {{ type }}
+                  :loading="loading"
+                  :label="type"
+                  :disabled="disabled"
+                  @click="stuff(type)">
+            <template v-if="index > styleTypes.length / 2" #loader>
+                Loading...
+            </template>
         </UIButton>
     </div>
+
+    <p v-show="clicked">
+        Last clicked button: {{ clicked }}
+    </p>
 </template>
 
 <script lang="ts">
@@ -23,8 +36,19 @@ export default defineComponent({
     components: { UICheckbox, UIButton },
     setup() {
         const disabled = ref(false);
+        const loading = ref(false);
+        const clicked = ref('');
+        const stuff = (type: string) => {
+            clicked.value = type;
+        };
 
-        return { styleTypes, disabled };
+        return {
+            styleTypes,
+            disabled,
+            loading,
+            clicked,
+            stuff
+        };
     }
 });
 </script>
