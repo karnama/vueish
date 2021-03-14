@@ -7,25 +7,23 @@
         <UICheckbox v-model="large" label="Large Style" name="large" />
     </div>
 
-    <div class="flex justify-evenly flex-wrap">
-        <UIButton v-for="(type, index) in styleTypes"
-                  :key="type"
-                  :type="type"
-                  class="m-2 capitalize"
-                  :secondary="secondary"
-                  :ternary="ternary"
-                  :large="large"
-                  :loading="loading"
-                  :label="type"
-                  :disabled="disabled"
-                  @click="stuff(type)">
-            <template v-if="index % 2 === 0" #loader>
-                Loading...
-            </template>
-        </UIButton>
-    </div>
+    <UIButton v-for="(type, index) in styleTypes"
+              :key="type"
+              :type="type"
+              class="mr-2 capitalize"
+              :secondary="secondary"
+              :ternary="ternary"
+              :large="large"
+              :loading="loading"
+              :label="type"
+              :disabled="disabled"
+              @click="stuff(type)">
+        <template v-if="index % 2 === 0" #loader>
+            Loading...
+        </template>
+    </UIButton>
 
-    <p v-show="clicked">
+    <p v-show="clicked" class="mt-5">
         Last clicked button: {{ clicked }}
     </p>
 </template>
