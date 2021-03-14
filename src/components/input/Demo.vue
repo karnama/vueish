@@ -112,7 +112,7 @@ export default defineComponent({
     setup() {
         const text = ref('I\'m a input input!');
         const disabled = ref('Can\'t touch this!');
-        const number = ref(123);
+        const number = ref(50);
         const password = ref('password123');
         const prefixProp = ref('Because');
         const prefixSlot = ref('Billions');
