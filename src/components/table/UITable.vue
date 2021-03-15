@@ -123,7 +123,8 @@
                 </tr>
             </tbody>
 
-            <tfoot v-if="$slots.footer || filteredRows.length > itemsPerPage" class="border-t border-gray-300">
+            <tfoot v-if="$slots.footer || filteredRows.length > itemsPerPage"
+                   class="border-t border-gray-300 sticky bg-white bottom-0 sm:relative">
                 <tr class="w-full flex sm:table-row">
                     <td class="block flex-grow sm:table-cell"
                         :colspan="normalisedHeaders.length + ($slots.action ? 1 : 0) + (selectable ? 1 : 0)">
