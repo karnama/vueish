@@ -8,6 +8,16 @@ export const type: Prop<string, 'default'> = {
 };
 
 /**
+ * Flag indicating that the loader should
+ * inherit the currentColour, rather than
+ * set itself to brand.
+ */
+export const inheritColor: Prop<boolean, false> ={
+    type: Boolean,
+    default: false
+};
+
+/**
  * Convert numbers and vh/vw values to px values.
  */
 export const getPxValue = (value: string | number): number => {
