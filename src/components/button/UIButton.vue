@@ -3,7 +3,7 @@
             :class="classes"
             :disabled="disabled"
             class="ui-button rounded disabled:cursor-not-allowed disabled:opacity-50
-                   px-3 py-2 transition relative font-bold text-sm border-0">
+                   transition relative font-bold text-sm border-0 m-0">
         <span class="loader absolute abs-center transition-opacity duration-200"
               :class="{ 'opacity-1': loading, 'opacity-0': !loading }">
             <slot name="loader">
@@ -46,12 +46,12 @@ export default defineComponent({
             default: false
         },
 
-        secondary: {
+        outline: {
             type: Boolean,
             default: false
         },
 
-        ternary: {
+        minimal: {
             type: Boolean,
             default: false
         },
@@ -64,15 +64,15 @@ export default defineComponent({
 
     setup(props) {
         const primaryTypeClasses = computed<{ [key in StyleType]: string; }>(() => ({
-            default: 'text-gray-900 bg-gray-300 disabled:bg-gray-300' + (props.disabled ? '' : ' hover:bg-gray-200'),
-            primary: 'text-white bg-blue-600' + (props.disabled ? '' : ' hover:bg-blue-400'),
-            info: 'text-white bg-blue-400' + (props.disabled ? '' : ' hover:bg-blue-300'),
-            success: 'text-white bg-green-400' + (props.disabled ? '' : ' hover:bg-green-300'),
-            warning: 'bg-yellow-400' + (props.disabled ? '' : ' hover:bg-yellow-300'),
-            danger: 'text-white bg-red-400' + (props.disabled ? '' : ' hover:bg-red-300'),
-            brand: 'text-white bg-brand-400' + (props.disabled ? '' : ' hover:bg-brand-300')
+            default: 'text-gray-900 bg-gray-300 disabled:bg-gray-300' + (props.disabled ? '' : ' hover:bg-gray-400'),
+            primary: 'text-white bg-blue-600' + (props.disabled ? '' : ' hover:bg-blue-700'),
+            info: 'text-white bg-blue-400' + (props.disabled ? '' : ' hover:bg-blue-500'),
+            success: 'text-white bg-green-400' + (props.disabled ? '' : ' hover:bg-green-500'),
+            warning: 'bg-yellow-400' + (props.disabled ? '' : ' hover:bg-yellow-500'),
+            danger: 'text-white bg-red-400' + (props.disabled ? '' : ' hover:bg-red-500'),
+            brand: 'text-white bg-brand-400' + (props.disabled ? '' : ' hover:bg-brand-500')
         }));
-        const secondaryTypeClasses = computed<{ [key in StyleType]: string; }>(() =>({
+        const outlineTypeClasses = computed<{ [key in StyleType]: string; }>(() =>({
             default: 'border shadow-sm border-gray-300 disabled:bg-gray-300 disabled:shadow-none'
                 + (props.disabled ? '' : ' hover:bg-gray-200'),
             primary: 'border shadow-sm border-blue-400 disabled:bg-gray-200 disabled:shadow-none'
@@ -88,7 +88,7 @@ export default defineComponent({
             brand: 'border shadow-sm border-brand-300 disabled:bg-gray-200 disabled:shadow-none'
                 + (props.disabled ? '' : ' hover:bg-brand-300 hover:border-brand-300')
         }));
-        const ternaryTypeClasses = computed<{ [key in StyleType]: string; }>(() => ({
+        const minimalTypeClasses = computed<{ [key in StyleType]: string; }>(() => ({
             default: 'text-gray-600 disabled:bg-gray-300' + (props.disabled ? '' : ' hover:bg-gray-200'),
             primary: 'text-blue-600 disabled:bg-gray-300' + (props.disabled ? '' : ' hover:bg-blue-200'),
             info: 'text-blue-400 disabled:bg-gray-300' + (props.disabled ? '' : ' hover:bg-blue-200'),
@@ -102,17 +102,15 @@ export default defineComponent({
             const type = props.type as StyleType;
             let classes: string;
 
-            if (props.secondary) {
-                classes = secondaryTypeClasses.value[type];
-            } else if (props.ternary) {
-                classes = ternaryTypeClasses.value[type];
+            if (props.outline) {
+                classes = outlineTypeClasses.value[type];
+            } else if (props.minimal) {
+                classes = minimalTypeClasses.value[type];
             } else {
                 classes = primaryTypeClasses.value[type];
             }
 
-            if (props.large) {
-                classes += ' px-7 py-3';
-            }
+            classes += props.large ? ' px-7 py-3.5' : ' px-3.5 py-2';
 
             if (props.loading) {
                 classes += ' pointer-events-none';
@@ -121,7 +119,7 @@ export default defineComponent({
             return classes;
         });
         const loaderColor = computed(() => {
-            if (!props.secondary && !props.ternary) {
+            if (!props.outline && !props.minimal) {
                 return '';
             }
 

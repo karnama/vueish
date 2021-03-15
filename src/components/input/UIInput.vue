@@ -9,7 +9,9 @@
              :class="{ 'bg-gray-100': disabled }"
              :style="$attrs.style">
             <div class="flex items-center">
-                <span v-if="prefix ?? $slots.prefix" class="prefix ml-3 select-none" :class="{ 'ml-5 -mr-3': large }">
+                <span v-if="prefix ?? $slots.prefix"
+                      class="prefix ml-3 -mr-1 select-none"
+                      :class="{ 'ml-5 -mr-4': large }">
                     <slot name="prefix">
                         {{ prefix }}
                     </slot>
@@ -21,7 +23,7 @@
                        v-model="model"
                        :name="name"
                        :aria-placeholder="$attrs.placeholder"
-                       class="flex-1 p-3 appearance-none bg-transparent outline-none
+                       class="flex-1 p-3.5 appearance-none bg-transparent outline-none
                               disabled:cursor-not-allowed disabled:text-gray-400"
                        :disabled="disabled"
                        :class="{ 'px-7 py-5': large }"
@@ -52,18 +54,16 @@
                     <button :aria-controls="$attrs.id ?? name"
                             aria-roledescription="increment"
                             tabindex="-1"
-                            class="px-2 bg-gray-50 h-full transition hover:bg-gray-200 cursor-pointer rounded-tr"
-                            @click="increment">
-                        ^
-                    </button>
+                            class="px-2 bg-gray-50 h-full transition hover:bg-gray-200 cursor-pointer
+                                   rounded-bl transform rotate-180"
+                            @click="increment"
+                            v-html="chevronIcon" />
                     <button :aria-controls="$attrs.id ?? name"
                             aria-roledescription="decrement"
                             tabindex="-1"
-                            class="px-2 bg-gray-50 h-full transition hover:bg-gray-200 cursor-pointer
-                                   transform rotate-180 rounded-tl"
-                            @click="decrement">
-                        ^
-                    </button>
+                            class="px-2 bg-gray-50 h-full transition hover:bg-gray-200 cursor-pointer rounded-br"
+                            @click="decrement"
+                            v-html="chevronIcon" />
                 </div>
             </div>
         </div>
@@ -115,6 +115,7 @@ export default defineComponent({
         const isNumber = computed(() => ctx.attrs.type === 'number');
         const lockIcon = getIcon('lock');
         const clearIcon = getIcon('clear');
+        const chevronIcon = getIcon('chevron');
         const model = useVModel<string | number>(props);
         const handleKeydown = (event: KeyboardEvent) => {
             if (isNumber.value) {
@@ -137,7 +138,7 @@ export default defineComponent({
             const step = Number(ctx.attrs.step) || 1;
             const max = Number(ctx.attrs.max);
             const min = Number(ctx.attrs.min);
-            const nextValue = (Number(model.value) + step).toFixed(getPrecision(step));
+            const nextValue = Number((Number(model.value) + step).toFixed(getPrecision(step)));
 
             if (nextValue < min) {
                 model.value = min;
@@ -165,7 +166,7 @@ export default defineComponent({
             const step = Number(ctx.attrs.step) || 1;
             const min = Number(ctx.attrs.min);
             const max = Number(ctx.attrs.max);
-            const nextValue = (Number(model.value) - step).toFixed(getPrecision(step));
+            const nextValue = Number((Number(model.value) - step).toFixed(getPrecision(step)));
 
             if (nextValue > max) {
                 model.value = max;
@@ -197,6 +198,7 @@ export default defineComponent({
             isNumber,
             lockIcon,
             clearIcon,
+            chevronIcon,
             omit,
             increment,
             decrement
