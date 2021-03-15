@@ -126,7 +126,7 @@
 
             <tfoot v-if="$slots.footer || filteredRows.length > itemsPerPage" class="border-t border-gray-300">
                 <tr class="w-full">
-                    <td :colspan="normalisedHeaders.length + ($slots.action ? 1 : 0)">
+                    <td :colspan="normalisedHeaders.length + ($slots.action ? 1 : 0) + (selectable ? 1 : 0)">
                         <span class="block px-4 py-6">
                             <span v-if="!disablePagination && filteredRows.length > itemsPerPage"
                                   class="flex justify-end items-center space-x-2">
@@ -163,12 +163,9 @@ import { getIcon } from '@/helpers';
 import { debouncedRef } from '@composables/reactivity';
 
 // todo - features planned/would be nice to have
-// - pagination (mind the selection to also select things not on page)
 // - dropdown extra info
 // - grouping
 // - virtualized - https://www.npmjs.com/package/vue3-virtual-scroller
-
-// todo - window resize even listener for mobile view?
 
 export default defineComponent({
     name: 'UITable',
@@ -257,7 +254,7 @@ export default defineComponent({
          */
         itemsPerPage: {
             type: Number,
-            default: 2, // todo - update to 10,
+            default: 10,
             validator: (val: number) => val > 0
         },
 
@@ -491,7 +488,7 @@ export default defineComponent({
                 currentPage.value = props.page;
             }
 
-            if (props.itemsPerPage !== currentItemsPerPage.value && props.itemsPerPage !== 2) {
+            if (props.itemsPerPage !== currentItemsPerPage.value && props.itemsPerPage !== 10) {
                 currentItemsPerPage.value = props.itemsPerPage;
             }
         });

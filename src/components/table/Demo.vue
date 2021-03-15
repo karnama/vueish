@@ -30,13 +30,13 @@
              search
              disable-sorting />
 
-<!--    With Selection-->
-<!--    <UITable v-model="selectedRows"-->
-<!--             :headers="headers"-->
-<!--             :rows="rows"-->
-<!--             show-select-->
-<!--             disable-sorting-->
-<!--             multi-select />-->
+    With Selection
+    <UITable v-model="selectedRows"
+             :headers="headers"
+             :rows="rows"
+             selectable
+             :items-per-page="Number(2)"
+             disable-sorting />
 </template>
 
 <script lang="ts">
