@@ -8,6 +8,16 @@ export const type: Prop<string, 'default'> = {
 };
 
 /**
+ * Flag indicating that the loader should
+ * inherit the currentColour, rather than
+ * set itself to brand.
+ */
+export const inheritColor: Prop<boolean, false> ={
+    type: Boolean,
+    default: false
+};
+
+/**
  * Apply the large styles.
  */
 export const large: Prop<boolean, false> = {
