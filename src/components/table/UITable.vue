@@ -140,16 +140,14 @@
                             </span>
                             <span v-if="!disablePagination && filteredRows.length > itemsPerPage"
                                   class="flex justify-end items-center space-x-2">
-                                <span v-if="hasPrevious"
-                                      class="block p-2 hover:bg-gray-200 rounded transition transform
-                                             cursor-pointer rotate-90"
-                                      @click="previousPage"
-                                      v-html="chevronIcon" />
-                                <span v-if="hasNext"
-                                      class="block p-2 hover:bg-gray-200 rounded transition transform
-                                            cursor-pointer rotate-270"
-                                      @click="nextPage"
-                                      v-html="chevronIcon" />
+                                <button v-if="hasPrevious"
+                                        class="p-2 hover:bg-gray-200 rounded transition transform rotate-90"
+                                        @click="previousPage"
+                                        v-html="chevronIcon" />
+                                <button v-if="hasNext"
+                                        class="p-2 hover:bg-gray-200 rounded transition transform rotate-270"
+                                        @click="nextPage"
+                                        v-html="chevronIcon" />
                             </span>
                             <slot name="footer" />
                         </span>
@@ -173,6 +171,7 @@ import { getIcon } from '@/helpers';
 import { debouncedRef } from '@composables/reactivity';
 
 // todo - features planned/would be nice to have
+// - pagination: add jump to page
 // - dropdown extra info
 // - grouping
 // - virtualized - https://www.npmjs.com/package/vue3-virtual-scroller

@@ -20,7 +20,7 @@ const headers: Readonly<Column[]> = [
         sortable: true,
         suffix: '%'
     }
-];
+] as const;
 const rows: Readonly<Row[]> = [
     {
         letter: 'b',
@@ -35,14 +35,17 @@ const rows: Readonly<Row[]> = [
         letter: 'a',
         number: 1
     }
-];
+] as const;
 
 const selectorMap = {
     search: '#search',
     rows: 'tbody > tr',
     headers: 'thead > tr.hidden.bg-gray-100 > th.py-6.text-left.px-4.uppercase',
     checkboxes: 'tbody > tr > td.px-2 input',
-    topCheckbox: 'thead > tr.hidden.bg-gray-100 > th.py-6.px-2 > span.mx-auto input'
+    topCheckbox: 'thead > tr.hidden.bg-gray-100 > th.py-6.px-2 > span.mx-auto input',
+    bottomCheckbox: 'tfoot > tr > td > span > span input',
+    previousPageBtn: 'span > button.p-2.rounded.transform.rotate-90',
+    nextPageBtn: 'span > button.p-2.rounded.transform.rotate-270'
 } as const;
 
 function titleCase(str: string): string {
@@ -487,6 +490,76 @@ describe('UITable', () => {
                 expect(JSON.stringify(rows)).toContain(rowWrapper.text());
             });
             wrapper.unmount();
+        });
+    });
+
+    describe('pagination', () => {
+        it('should show the correct number of rows', () => {
+            const wrapper = mount(UITable, {
+                props: {
+                    rows,
+                    headers,
+                    itemsPerPage: 1
+                }
+            });
+
+            expect(wrapper.findAll(selectorMap.rows)).toHaveLength(1);
+        });
+
+        it('should disable pagination given the prop', () => {
+            const wrapper = mount(UITable, {
+                props: {
+                    rows,
+                    headers,
+                    itemsPerPage: 1,
+                    disablePagination: true
+                }
+            });
+
+            expect(wrapper.findAll(selectorMap.rows)).toHaveLength(rows.length);
+            expect(wrapper.find(selectorMap.previousPageBtn).exists()).toBe(false);
+            expect(wrapper.find(selectorMap.nextPageBtn).exists()).toBe(false);
+        });
+
+        it('should only display the navigation button if the next/previous page exists', async () => {
+            const wrapper = mount(UITable, {
+                props: {
+                    rows,
+                    headers,
+                    itemsPerPage: 2
+                }
+            });
+
+            expect(wrapper.find(selectorMap.previousPageBtn).exists()).toBe(false);
+            expect(wrapper.find(selectorMap.nextPageBtn).exists()).toBe(true);
+
+            await wrapper.find(selectorMap.nextPageBtn).trigger('click');
+
+            expect(wrapper.find(selectorMap.previousPageBtn).exists()).toBe(true);
+            expect(wrapper.find(selectorMap.nextPageBtn).exists()).toBe(false);
+        });
+
+        it('should display the next/previous page on navigation to the next page', async () => {
+            const wrapper = mount(UITable, {
+                props: {
+                    rows,
+                    headers,
+                    itemsPerPage: 1
+                }
+            });
+
+            expect(wrapper.text()).toContain(rows[0].number);
+            expect(wrapper.text()).not.toContain(rows[1].number);
+
+            await wrapper.find(selectorMap.nextPageBtn).trigger('click');
+
+            expect(wrapper.text()).not.toContain(rows[0].number);
+            expect(wrapper.text()).toContain(rows[1].number);
+
+            await wrapper.find(selectorMap.previousPageBtn).trigger('click');
+
+            expect(wrapper.text()).toContain(rows[0].number);
+            expect(wrapper.text()).not.toContain(rows[1].number);
         });
     });
 });
