@@ -6,8 +6,7 @@
         <UITable :headers="headers"
                  :rows="rows"
                  hover-highlight
-                 :items-per-page="itemsPerPage"
-                 :page="page">
+                 :items-per-page="Number(2)">
             <template #header="slotProps">
                 slotted {{ slotProps.header.rowProperty }}
             </template>
@@ -25,18 +24,18 @@
         </UITable>
     </UIPanel>
 
-<!--    Searchable-->
-<!--    <UITable :headers="headers"-->
-<!--             :rows="rows"-->
-<!--             search-->
-<!--             no-sort />-->
+    Searchable
+    <UITable :headers="headers"
+             :rows="rows"
+             search
+             disable-sorting />
 
 <!--    With Selection-->
 <!--    <UITable v-model="selectedRows"-->
 <!--             :headers="headers"-->
 <!--             :rows="rows"-->
 <!--             show-select-->
-<!--             no-sort-->
+<!--             disable-sorting-->
 <!--             multi-select />-->
 </template>
 
@@ -143,7 +142,7 @@ export default defineComponent({
                 iron: '6'
             }
         ]);
-        const selectedRows = ref<Row[]>(null);
+        const selectedRows = ref<Row[]>();
         const page = ref(1);
         const itemsPerPage = ref(2);
 

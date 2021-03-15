@@ -50,7 +50,6 @@ export default defineComponent({
             default: false
         },
 
-        classes,
         value,
         label,
         disabled,
