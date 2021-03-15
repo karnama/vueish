@@ -18,7 +18,6 @@
                     <th v-if="selectable" class="py-6 px-2">
                         <span v-if="!singleSelect" class="mx-auto">
                             <UICheckbox name="selectAll"
-                                        class="justify-center"
                                         :indeterminate="Array.isArray(selected)
                                             ? selected.length !== selectableRows.length
                                             : true"
@@ -55,13 +54,13 @@
                 </tr>
             </thead>
 
-            <tbody class="space-y-5 sm:space-y-0">
+            <tbody class="space-y-5 sm:space-y-0 divide-y">
                 <template v-if="pageRows.length">
                     <tr v-for="(row, index) in pageRows"
                         :key="index"
                         :class="{ 'row-highlight': hoverHighlight }"
-                        class="flex flex-col flex-no-wrap sm:table-row border-t border-gray-200">
-                        <td v-if="selectable" class="px-2">
+                        class="flex flex-col flex-no-wrap sm:table-row border-gray-200">
+                        <td v-if="selectable" class="px-2 py-2 sm:py-0">
                             <UICheckbox v-if="row.isSelectable"
                                         :name="String(index)"
                                         class="justify-center"
@@ -107,7 +106,7 @@
                             </span>
                         </td>
 
-                        <td v-if="$slots.action">
+                        <td v-if="$slots.action" class="p-4">
                             <slot name="action" :row="row" />
                         </td>
                     </tr>
@@ -125,9 +124,20 @@
             </tbody>
 
             <tfoot v-if="$slots.footer || filteredRows.length > itemsPerPage" class="border-t border-gray-300">
-                <tr class="w-full">
-                    <td :colspan="normalisedHeaders.length + ($slots.action ? 1 : 0) + (selectable ? 1 : 0)">
+                <tr class="w-full flex sm:table-row">
+                    <td class="block flex-grow sm:table-cell"
+                        :colspan="normalisedHeaders.length + ($slots.action ? 1 : 0) + (selectable ? 1 : 0)">
                         <span class="block px-4 py-6">
+                            <span v-if="selectable && !singleSelect" class="block sm:hidden">
+                                <UICheckbox name="selectAll"
+                                            class="justify-center"
+                                            label="Select All"
+                                            :indeterminate="Array.isArray(selected)
+                                                ? selected.length !== selectableRows.length
+                                                : true"
+                                            :model-value="Array.isArray(selected) && !!selected.length"
+                                            @update:model-value="toggleAllRowSelection" />
+                            </span>
                             <span v-if="!disablePagination && filteredRows.length > itemsPerPage"
                                   class="flex justify-end items-center space-x-2">
                                 <span v-if="hasPrevious"
