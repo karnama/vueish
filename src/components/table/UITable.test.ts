@@ -282,7 +282,7 @@ describe('UITable', () => {
                 props: {
                     rows,
                     headers,
-                    noSort: true
+                    disableSorting: true
                 }
             });
 
