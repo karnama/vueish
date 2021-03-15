@@ -1,5 +1,5 @@
 <template>
-    <div class="ui-text">
+    <div class="ui-textarea">
         <label :for="$attrs.id ?? name" class="font-medium text-gray-700">
             {{ label }}
         </label>
@@ -9,7 +9,7 @@
              :class="{ 'bg-gray-100': disabled }">
             <div class="flex items-center">
                 <textarea :id="$attrs.id ?? name"
-                          v-bind="omit($attrs, ['class', 'style'])"
+                          v-bind="$attrs"
                           ref="input"
                           v-model="model"
                           :name="name"
@@ -47,7 +47,6 @@ import {
     useVModel
 } from '@composables/input';
 import { getIcon } from '@/helpers';
-import { omit } from 'lodash-es';
 
 export default defineComponent({
     name: 'UITextArea',
@@ -81,8 +80,7 @@ export default defineComponent({
             model,
             input,
             lockIcon,
-            clearIcon,
-            omit
+            clearIcon
         };
     }
 });
