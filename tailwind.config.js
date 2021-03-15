@@ -21,6 +21,7 @@ const brandColors = (levels) => {
 };
 
 module.exports = {
+    darkMode: 'class',
     purge: ['./index.html', './src/**/*.{vue,ts,tsx}'],
     theme: {
         borderColor: theme => ({

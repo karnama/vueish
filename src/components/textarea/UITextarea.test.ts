@@ -5,15 +5,15 @@ describe('UITextarea', () => {
     it('should handle model-binding correctly', async () => {
         const wrapper = mount(UITextarea, {
             props: {
-                name: 'name',
-                modelValue: ''
+                modelValue: '',
+                name: 'input'
             }
         });
 
         await wrapper.get('textarea').setValue('Hello World');
 
-        expect(wrapper.emitted()).toHaveProperty('update:modelValue');
-        expect(wrapper.emitted()['update:modelValue'][0]).toStrictEqual(['Hello World']);
+        expect(wrapper.emitted('update:modelValue')).not.toBeUndefined();
+        expect(wrapper.emitted('update:modelValue')![0]).toStrictEqual(['Hello World']);
     });
 
     it('should be enabled by default', () => {
