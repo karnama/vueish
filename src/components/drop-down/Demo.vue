@@ -1,6 +1,6 @@
 <template>
     <p>Default example</p>
-    <UIContextMenu ref="contextMenu" at-mouse-position>
+    <UIDropdown ref="contextMenu" at-mouse-position>
         <UIButton type="primary" @click.stop="$refs.contextMenu.toggle()">
             Toggle
         </UIButton>
@@ -13,19 +13,19 @@
                 </div>
             </div>
         </template>
-    </UIContextMenu>
+    </UIDropdown>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import UIButton from '@components/button/UIButton.vue';
-import UIContextMenu from '@components/context-menu/UIContextMenu.vue';
+import UIDropdown from '@components/drop-down/UIDropdown.vue';
 import { range } from 'lodash-es';
 
 export default defineComponent({
-    name: 'ContextMenu',
+    name: 'Dropdown',
 
-    components: { UIContextMenu, UIButton },
+    components: { UIDropdown, UIButton },
 
     setup: () => ({ range })
 });

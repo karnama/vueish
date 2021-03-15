@@ -23,7 +23,7 @@ import { clickAway } from '@composables/interactivity';
 import { getPxValue } from '@composables/style';
 
 export default defineComponent({
-    name: 'UIContextMenu',
+    name: 'UIDropdown',
 
     directives: { clickAway },
 

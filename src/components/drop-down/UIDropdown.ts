@@ -1,10 +1,10 @@
 import { mount } from '@vue/test-utils';
-import UIContextMenu from '@components/context-menu/UIContextMenu.vue';
+import UIDropdown from '@components/drop-down/UIDropdown.vue';
 import { h, nextTick } from 'vue';
 
-describe('UIContextMenu', () => {
+describe('UIDropdown', () => {
     it('should display the given content when open', async () => {
-        const wrapper = mount(UIContextMenu, {
+        const wrapper = mount(UIDropdown, {
             slots: {
                 default: h('div', { id: 'default-content' }),
                 menu: h('div', { id: 'content' })
