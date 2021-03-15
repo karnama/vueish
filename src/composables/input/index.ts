@@ -54,11 +54,16 @@ export const suffix = {
     type: String
 };
 
-/**
- * Prevents the clear model value option from
- * appearing.
- */
+// todo - remove when updating the select
 export const noClear = {
+    type: Boolean,
+    default: false
+};
+
+/**
+ * Whether the component is clearable or not.
+ */
+export const clearable = {
     type: Boolean,
     default: false
 };

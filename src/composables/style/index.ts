@@ -17,3 +17,10 @@ export const inheritColor: Prop<boolean, false> ={
     default: false
 };
 
+/**
+ * Apply the large styles.
+ */
+export const large: Prop<boolean, false> = {
+    type: Boolean,
+    default: false
+};

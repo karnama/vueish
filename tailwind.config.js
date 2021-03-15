@@ -1,6 +1,4 @@
-const brandColor = (
-    level
-) => {
+const brandColor = (level) => {
     return function ({opacityVariable, opacityValue}) {
         if (opacityValue) {
             return `rgba(var(--color-brand-${level}), ${opacityValue})`;
@@ -20,6 +18,9 @@ const brandColors = (levels) => {
     return colors;
 };
 
+/**
+ * @type {import('@types/tailwindcss').TailwindConfig}
+ */
 module.exports = {
     darkMode: 'class',
     purge: ['./index.html', './src/**/*.{vue,ts,tsx}'],
@@ -47,7 +48,8 @@ module.exports = {
             cursor: ['disabled'],
             backgroundOpacity: ['disabled'],
             textColor: ['disabled'],
-            margin: ['group-hover']
+            margin: ['group-hover'],
+            boxShadow: ['disabled']
         }
     }
 };

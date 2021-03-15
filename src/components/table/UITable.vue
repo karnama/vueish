@@ -9,7 +9,7 @@
                 <tr v-if="!!search" class="bg-white block sm:table-row">
                     <th :colspan=" normalisedHeaders.length" class="px-4 py-8 block sm:table-cell">
                         <span class="block">
-                            <UIText v-model="term" name="search" placeholder="Search..." />
+                            <UIInput v-model="term" name="search" placeholder="Search..." />
                         </span>
                     </th>
                 </tr>
@@ -155,7 +155,7 @@ import { computed, defineComponent, ref, watch, onUpdated } from 'vue';
 import type { PropType } from 'vue';
 import type { Column, Row, SortOrder } from '@components/table/UITableTypes';
 import { snakeCase, uniqueId, isEqual, orderBy, cloneDeep } from 'lodash-es';
-import UIText from '@components/text/UIText.vue';
+import UIInput from '@components/input/UIInput.vue';
 import UICheckbox from '@components/checkbox/UICheckbox.vue';
 import { useVModel } from '@composables/input';
 import type { MaybeArray } from '@/types';
@@ -173,7 +173,7 @@ import { debouncedRef } from '@composables/reactivity';
 export default defineComponent({
     name: 'UITable',
 
-    components: { UIText, UICheckbox },
+    components: { UIInput, UICheckbox },
 
     props: {
         modelValue: {
