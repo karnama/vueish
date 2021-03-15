@@ -324,7 +324,9 @@ export default defineComponent({
 
             const search: (row: Row, searchString: string) => boolean = props.search instanceof Function
                 ? props.search
-                : (row, str) => Object.values(row).some(value => new RegExp(str, 'i').test(String(value)));
+                : (row, str) => Object.values(row).some(value => {
+                    return typeof value === 'boolean' ? false : new RegExp(str, 'i').test(String(value));
+                });
 
             return sortedRows(normalisedRows.value.filter(row => search(row, term.value)));
         });
@@ -442,7 +444,9 @@ export default defineComponent({
                 : filteredRows.value.filter(row => row.isSelectable);
         };
         const sortBy = (columnName: string): void => {
-            if (props.disableSorting || !normalisedHeaders.value.find(header => header.rowProperty === columnName)?.sortable) {
+            if (props.disableSorting
+                || !normalisedHeaders.value.find(header => header.rowProperty === columnName)?.sortable
+            ) {
                 return;
             }
 
