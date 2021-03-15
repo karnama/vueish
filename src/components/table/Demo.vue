@@ -1,5 +1,5 @@
 <template>
-    <UIPanel class="bg-white mb-4">
+    <UIPanel closed class="bg-white mb-4">
         <template #header>
             Table with slots
         </template>
