@@ -1,5 +1,5 @@
 <template>
-    <UITabs>
+    <UITabs vertical>
         <UITab title="title 1">
             tab 1
         </UITab>
