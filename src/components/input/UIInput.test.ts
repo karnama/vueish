@@ -1,24 +1,22 @@
 import { mount } from '@vue/test-utils';
-import UIText from './UIText.vue';
+import UIInput from './UIInput.vue';
 
-describe('UIText', () => {
+describe('UIInput', () => {
     it('should handle model-binding correctly', async () => {
-        const wrapper = mount({
-            template: '<div><UIText v-model="input" name="input"/></div>',
-            components: { UIText },
-            data() {
-                return { input: '' };
+        const wrapper = mount(UIInput, {
+            props: {
+                modelValue: '',
+                name: 'input'
             }
         });
 
         await wrapper.find('input').setValue('Hello World');
 
-        expect(wrapper.emitted()).toHaveProperty('update:modelValue');
-        expect(wrapper.emitted()['update:modelValue'][0]).toStrictEqual(['Hello World']);
+        expect(wrapper.emitted('update:modelValue')![0]).toStrictEqual(['Hello World']);
     });
 
     it('should be enabled by default', () => {
-        const wrapper = mount(UIText, {
+        const wrapper = mount(UIInput, {
             props: {
                 modelValue: '',
                 name: 'input'
@@ -29,7 +27,7 @@ describe('UIText', () => {
     });
 
     it('should be disabled when the prop is provided so', async () => {
-        const wrapper = mount(UIText, {
+        const wrapper = mount(UIInput, {
             props: {
                 modelValue: '',
                 name: 'input',
@@ -47,7 +45,7 @@ describe('UIText', () => {
     it('should assign the name prop', () => {
         const name = 'input';
 
-        const wrapper = mount(UIText, {
+        const wrapper = mount(UIInput, {
             props: {
                 modelValue: '',
                 name
@@ -65,7 +63,7 @@ describe('UIText', () => {
     it('should assign the type prop', () => {
         const type = 'number';
 
-        const wrapper = mount(UIText, {
+        const wrapper = mount(UIInput, {
             props: {
                 modelValue: '',
                 name: 'input',
@@ -81,7 +79,7 @@ describe('UIText', () => {
     it('should display the label when passed as a prop', () => {
         const label = 'text';
 
-        const wrapper = mount(UIText, {
+        const wrapper = mount(UIInput, {
             props: {
                 modelValue: '',
                 name: 'input',
@@ -96,7 +94,7 @@ describe('UIText', () => {
         const elem = document.createElement('div');
         document.body.appendChild(elem);
 
-        const wrapper = mount(UIText, {
+        const wrapper = mount(UIInput, {
             props: {
                 modelValue: '',
                 name: 'input',
@@ -109,7 +107,7 @@ describe('UIText', () => {
     });
 
     it('should not show the clear icon if no-clear is provided', () => {
-        const wrapper = mount(UIText, {
+        const wrapper = mount(UIInput, {
             props: {
                 name: 'input',
                 modelValue: 'Hello World',
@@ -121,7 +119,7 @@ describe('UIText', () => {
     });
 
     it('should not show the clear icon if there is no value', () => {
-        const wrapper = mount(UIText, {
+        const wrapper = mount(UIInput, {
             props: {
                 name: 'input',
                 modelValue: ''
@@ -132,12 +130,10 @@ describe('UIText', () => {
     });
 
     it('should not show the clear icon if it is disabled', () => {
-        const wrapper = mount(UIText, {
+        const wrapper = mount(UIInput, {
             props: {
                 name: 'input',
-                modelValue: 'Hello World'
-            },
-            attrs: {
+                modelValue: 'Hello World',
                 disabled: true
             }
         });
@@ -146,27 +142,23 @@ describe('UIText', () => {
     });
 
     it('should clear the value when the clear icon is clicked', async () => {
-        const modelValue = 'Hello World';
-
-        const wrapper = mount(UIText, {
+        const wrapper = mount(UIInput, {
             props: {
                 name: 'input',
-                modelValue
+                modelValue: 'Hello World',
+                clearable: true
             }
         });
 
-        const input = wrapper.get('input').element;
-
-        expect(input.value).toBe(modelValue);
         await wrapper.get('.clear-icon').trigger('click');
         expect(wrapper.emitted()).toHaveProperty('update:modelValue');
-        expect(wrapper.emitted()['update:modelValue'][0]).toStrictEqual(['']);
+        expect(wrapper.emitted('update:modelValue')![0]).toStrictEqual(['']);
     });
 
     it('should display the prefix when passed as a slot', () => {
         const prefix = 'prefix';
 
-        const wrapper = mount(UIText, {
+        const wrapper = mount(UIInput, {
             props: {
                 modelValue: '',
                 name: 'input'
@@ -182,7 +174,7 @@ describe('UIText', () => {
     it('should display the prefix when passed as a prop', () => {
         const prefix = 'prefix';
 
-        const wrapper = mount(UIText, {
+        const wrapper = mount(UIInput, {
             props: {
                 modelValue: '',
                 name: 'input',
@@ -196,7 +188,7 @@ describe('UIText', () => {
     it('should display the suffix when passed as a slot', () => {
         const suffix = 'suffix';
 
-        const wrapper = mount(UIText, {
+        const wrapper = mount(UIInput, {
             props: {
                 modelValue: '',
                 name: 'input'
@@ -212,7 +204,7 @@ describe('UIText', () => {
     it('should display the suffix when passed as a prop', () => {
         const suffix = 'suffix';
 
-        const wrapper = mount(UIText, {
+        const wrapper = mount(UIInput, {
             props: {
                 modelValue: '',
                 name: 'input',

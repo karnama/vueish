@@ -1,0 +1,88 @@
+$distanceFromContent: 10px;
+
+[data-v-tooltip] {
+    position: relative;
+
+    &:after {
+        display: block;
+        content: attr(data-v-tooltip);
+        position: absolute;
+        width: max-content;
+        opacity: 0;
+        background-color: rgba(0, 0, 0, 0.85);
+        z-index: 99999;
+        visibility: hidden;
+        transition: opacity 150ms ease, visibility 0ms 150ms;
+        @apply text-white px-2 py-1 rounded pointer-events-none;
+    }
+
+    &:hover:after {
+        visibility: visible;
+        transition: opacity 150ms ease, visibility 0ms;
+        opacity: 1;
+    }
+
+    &[data-v-tooltip-y-position="top"]:after {
+        bottom: initial;
+        right: initial;
+        top: 0;
+        transform: translate(-50%, calc(-100% - #{$distanceFromContent}));
+        left: 50%
+    }
+
+    &[data-v-tooltip-y-position="bottom"]:after {
+        top: 100%;
+        bottom: initial;
+        right: initial;
+        transform: translate(-50%, #{$distanceFromContent});
+        left: 50%
+    }
+
+    &[data-v-tooltip-x-position="left"]:after {
+        right: 100%;
+        top: 50%;
+        bottom: initial;
+        left: initial;
+        transform: translate(-#{$distanceFromContent}, -50%);
+    }
+
+    &[data-v-tooltip-x-position="right"]:after {
+        top: 50%;
+        left: 100%;
+        bottom: initial;
+        right: initial;
+        transform: translate(#{$distanceFromContent}, -50%);
+    }
+
+    &[data-v-tooltip-y-position="top"][data-v-tooltip-x-position="right"]:after {
+        top: initial;
+        right: initial;
+        bottom: 100%;
+        left: 100%;
+        transform: translate(#{$distanceFromContent}, -#{$distanceFromContent});
+    }
+
+    &[data-v-tooltip-y-position="top"][data-v-tooltip-x-position="left"]:after {
+        top: initial;
+        right: 100%;
+        bottom: 100%;
+        left: initial;
+        transform: translate(-#{$distanceFromContent}, -#{$distanceFromContent});
+    }
+
+    &[data-v-tooltip-y-position="bottom"][data-v-tooltip-x-position="right"]:after {
+        top: 100%;
+        right: initial;
+        bottom: initial;
+        left: 100%;
+        transform: translate(#{$distanceFromContent}, #{$distanceFromContent});
+    }
+
+    &[data-v-tooltip-y-position="bottom"][data-v-tooltip-x-position="left"]:after {
+        top: 100%;
+        right: 100%;
+        bottom: initial;
+        left: initial;
+        transform: translate(-#{$distanceFromContent}, #{$distanceFromContent});
+    }
+}

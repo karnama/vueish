@@ -62,4 +62,43 @@ describe('UIButton', () => {
 
         expect(wrapper.text()).toBe(msg);
     });
+
+    it('should set the pointer events none on loading', () => {
+        const wrapper = mount(UIButton, {
+            props: {
+                label: 'hi',
+                loading: true
+            }
+        });
+
+        expect(wrapper.attributes('class')).toContain('pointer-events-none');
+    });
+
+    // todo uncomment when https://github.com/vuejs/vue-test-utils-next/pull/454 is merged
+    // eslint-disable-next-line jest/no-disabled-tests
+    it.skip('should not show the button default slot when loading', () => {
+        const wrapper = mount(UIButton, {
+            props: {
+                label: 'hi',
+                loading: true
+            }
+        });
+
+        expect(wrapper.get('.label').isVisible()).toBe(false);
+        expect(wrapper.get('.loader').isVisible()).toBe(true);
+    });
+
+    it('should display the given loading slot', () => {
+        const wrapper = mount(UIButton, {
+            props: {
+                label: 'hi',
+                loading: true
+            },
+            slots: {
+                loader: 'loading...'
+            }
+        });
+
+        expect(wrapper.html()).toContain('loading..');
+    });
 });
