@@ -3,38 +3,35 @@
         <slot name="label" :value="model">
             {{ label }}
         </slot>
-        <span class="relative block">
-            <svg class="range-thumb-indicator opacity-0 transition-opacity range-value fill-current text-brand-400"
-                 :class="{ 'opacity-100': showLabel }"
-                 viewBox="0 0 80 90"
-                 :data-value="model"
-                 :style="leftOffset">
-                <path d="M40 99.5 C-22.5 47.5 0 0 40 0.5 C80 0 102.5 47.5 40 99.5z" />
-            </svg>
-            <span class="range-value opacity-0 transition-opacity"
+        <teleport to="body">
+            <span ref="labelElement"
+                  class="range-value opacity-100 transition-opacity px-2 py-1
+                             bg-red-400 rounded text-center absolute"
                   :class="{ 'opacity-100': showLabel }"
-                  :style="leftOffset"
-                  :data-value="model" />
-            <input v-model="model"
-                   type="range"
-                   class="range-slider-range bg-darker outline-none text-white transition-all border-0 w-full"
-                   :style="bgColor"
-                   :step="step"
-                   v-bind="$attrs"
-                   :name="name"
-                   :disabled="disabled"
-                   :min="min"
-                   :max="max"
-                   @touchstart="showLabel = true"
-                   @mousedown="showLabel = true"
-                   @touchend="closeLabel"
-                   @mouseup="closeLabel">
-        </span>
+                  :style="position">
+                {{ model }}
+            </span>
+        </teleport>
+        <input ref="range"
+               v-model="model"
+               type="range"
+               class="range-slider-range bg-darker outline-none text-white transition-all border-0 w-full"
+               :style="bgColor"
+               :step="step"
+               v-bind="$attrs"
+               :name="name"
+               :disabled="disabled"
+               :min="min"
+               :max="max"
+               @touchstart="openLabel"
+               @mousedown="openLabel"
+               @touchend="closeLabel"
+               @mouseup="closeLabel">
     </label>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineComponent, ref, watch } from 'vue';
 import { useVModel } from '@composables/input';
 import { disabled, name, label } from '@composables/input';
 
@@ -84,8 +81,12 @@ export default defineComponent({
 
     setup(props) {
         const showLabel = ref(false);
+        const range = ref<HTMLInputElement>();
+        const labelElement = ref<HTMLSpanElement>();
         const model = useVModel<number>(props);
-        const progress = computed(() => Number((model.value - props.min) * 100 / (props.max - props.min)));
+        const progress = computed(() =>
+            (Number(model.value) - Number(props.min)) * 100 / (Number(props.max) - Number(props.min))
+        );
 
         const bgColor = computed<Partial<CSSStyleDeclaration>>(() => {
             return {
@@ -96,11 +97,19 @@ export default defineComponent({
                     color-stop(${progress.value / 100}, rgba(0,0,0,0)))`
             };
         });
+        const position = ref<Partial<CSSStyleDeclaration>>({});
 
-        const leftOffset = computed<Partial<CSSStyleDeclaration>>(() => {
-            // offset by the $range-handle-size and 5px which is the half width of the svg
-            return { left: `calc(${progress.value}% - ${25 / 100 * progress.value}px - 5px)` };
-        });
+        watch(
+            () => progress.value,
+            (val: number) => {
+                const rangeRect = range.value?.getBoundingClientRect();
+                const labelRect = labelElement.value?.getBoundingClientRect();
+
+                if (!rangeRect || !labelRect) return;
+
+                position.value.top = `calc(${rangeRect.y}px - ${labelRect.height}px - 12.5px - 5px)`;
+                position.value.left = `calc(${rangeRect.left}px + ${rangeRect.width / 100 * val}px - ${25 / 100 * val}px)`;
+            });
 
         const closeLabel = () => {
             timeoutId = setTimeout(() => showLabel.value = false, 750);
@@ -114,7 +123,9 @@ export default defineComponent({
             model,
             showLabel,
             bgColor,
-            leftOffset,
+            position,
+            range,
+            labelElement,
             closeLabel,
             openLabel
         };
@@ -125,28 +136,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 $shadow: 0px 0px 2px #00000061;
 $range-handle-size: 25px;
-
-$indicatorWidth: 35px;
-$indicatorHeight: 50px;
-.range-thumb-indicator {
-    height: $indicatorHeight;
-    width: $indicatorWidth;
-}
-
-.range-value {
-    text-align: center;
-    height: $indicatorHeight;
-    width: $indicatorWidth;
-    position: absolute;
-    top: -$indicatorHeight;
-    &:after {
-        display: block;
-        font-size: 0.8rem;
-        word-break: break-all;
-        content: attr(data-value);
-        padding-top: .5rem;
-    }
-}
 
 .range-slider-range {
     transform: rotate(0deg);
@@ -206,9 +195,5 @@ $indicatorHeight: 50px;
 input::-moz-focus-inner,
 input::-moz-focus-outer {
     border: 0;
-}
-
-.indicator {
-    min-width: 20px;
 }
 </style>
