@@ -18,6 +18,14 @@ export const inheritColor: Prop<boolean, false> ={
 };
 
 /**
+ * Apply the large styles.
+ */
+export const large: Prop<boolean, false> = {
+    type: Boolean,
+    default: false
+};
+
+/**
  * Convert numbers and vh/vw values to px values.
  */
 export const getPxValue = (value: string | number): number => {
