@@ -61,7 +61,10 @@ module.exports = {
         // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin#supported-rules
         '@typescript-eslint/indent': ['warn', 4],
         '@typescript-eslint/semi': 'error',
-        '@typescript-eslint/no-unused-expressions': 'error',
+        '@typescript-eslint/no-unused-expressions': ['error', {
+            allowTernary: true,
+            allowShortCircuit: true
+        }],
         '@typescript-eslint/quotes': ['warn', 'single'],
         '@typescript-eslint/no-extra-parens': 'error',
         '@typescript-eslint/no-unused-vars': 'warn',

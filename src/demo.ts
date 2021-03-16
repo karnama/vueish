@@ -17,7 +17,8 @@ const routes = Object.keys(demos)
         path: '/' + String(demos[path].default.name),
         component: demos[path].default,
         meta: {
-            label: String(demos[path].default.name)
+            label: String(demos[path].default.name),
+            type: path.includes('directives') ? 'Directives' : 'Components'
         }
     }))
     .flat(1) as RouteRecordRaw[];
