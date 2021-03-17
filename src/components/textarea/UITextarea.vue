@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, onMounted, onUpdated, onBeforeUnmount } from 'vue';
 import {
     autofocus,
     label,
@@ -59,6 +59,14 @@ export default defineComponent({
             required: true
         },
 
+        /**
+         * Flag to enable auto-sizing the the text area's height.
+         */
+        autoSize: {
+            type: Boolean,
+            default: false
+        },
+
         fixed: Boolean,
         label,
         autofocus,
@@ -74,7 +82,29 @@ export default defineComponent({
         const model = useVModel<string>(props);
         const lockIcon = getIcon('lock');
         const clearIcon = getIcon('clear');
+
+        const setHeight = () => {
+            input.value!.style.height = 'auto';
+            input.value!.style.height = `${input.value!.scrollHeight}px`;
+        };
+
         autofocusElement(props.autofocus, input);
+
+        onMounted(() => {
+            if (props.autoSize) {
+                input.value!.addEventListener('input', setHeight);
+            }
+        });
+        onUpdated(() => {
+            if (props.autoSize) {
+                input.value!.addEventListener('input', setHeight);
+            } else {
+                input.value!.removeEventListener('input', setHeight);
+            }
+        });
+        onBeforeUnmount(() => {
+            input.value!.removeEventListener('input', setHeight);
+        });
 
         return {
             model,
