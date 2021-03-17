@@ -27,7 +27,7 @@
 
             <UIApp>
                 <div class="flex-1 min-h-screen h-full bg-gray-100 dark:bg-gray-700 transition w-full p-10">
-                    <UIButton v-if="!isOpen" @click="isOpen = true">
+                    <UIButton v-if="!isOpen" class="mb-6" @click="isOpen = true">
                         Open menu
                     </UIButton>
                     <div class="mx-auto" style="max-width: 1000px">
