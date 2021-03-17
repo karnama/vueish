@@ -158,4 +158,22 @@ describe('UITextarea', () => {
         expect(wrapper.emitted()).toHaveProperty('update:modelValue');
         expect(wrapper.emitted('update:modelValue')![0]).toStrictEqual(['']);
     });
+
+    it('should display the character count given the prop', async () => {
+        const value = 'Hello World';
+        const wrapper = mount(UITextarea, {
+            props: {
+                name: 'input',
+                modelValue: value
+            }
+        });
+
+        expect(wrapper.text()).not.toContain(value.length);
+        await wrapper.setProps({ countChars: true });
+        expect(wrapper.text()).toContain(value.length);
+
+        await wrapper.get('textarea').setValue(value + ' + 1');
+        await wrapper.trigger('input');
+        expect(wrapper.text()).toContain((value + ' + 1').length);
+    });
 });
