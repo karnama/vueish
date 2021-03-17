@@ -25,6 +25,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, watch, onMounted } from 'vue';
+import { inheritColor } from '@composables/style';
 
 export default defineComponent({
     name: 'UISpinnerLoader',
@@ -38,6 +39,7 @@ export default defineComponent({
          */
         progress: {
             type: Number,
+            // todo - add steps prop
             validator: (value: number) => value >= 0 && value <= 100
         },
 
@@ -49,13 +51,6 @@ export default defineComponent({
             type: Boolean,
             default: false
         },
-
-        /**
-         * Flag indicating that the loader should
-         * inherit the currentColour, rather than
-         * set itself to brand.
-         */
-        inheritColor: Boolean,
 
         /**
          * The diameter of the circle in pixels.
@@ -71,7 +66,9 @@ export default defineComponent({
         stroke: {
             type: Number,
             default: 6
-        }
+        },
+
+        inheritColor
     },
 
     setup(props) {
