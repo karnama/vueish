@@ -36,7 +36,16 @@
                               class="absolute top-1 left-1"
                               minimal
                               @click="isOpen = !isOpen">
-                        <div v-html="menuIcon" />
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             height="20px"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
                     </UIButton>
                     <div class="mx-auto" style="max-width: 1000px">
                         <router-view />
@@ -93,14 +102,12 @@ export default defineComponent({
 
         document.body.classList.add(cache.get('theme', 'light')!);
 
-        const menuIcon = getIcon('menu');
         const clearIcon = getIcon('clear');
 
         return {
             darkMode,
             routeMap,
             isOpen,
-            menuIcon,
             clearIcon
         };
     }
