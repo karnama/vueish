@@ -1,13 +1,18 @@
 <template>
     <main class="h-full">
         <div class="flex">
-            <div v-if="isOpen" class="px-12 shadow-xl dark:bg-gray-600 dark:text-gray-300 transition relative">
+            <div class="menu px-12 shadow-xl dark:bg-gray-600 dark:text-gray-300 transition
+                        ease-in-out transition-all duration-300 z-30 bg-white relative"
+                 :class="{
+                     'closed': !isOpen
+                 }">
                 <h1 class="text-2xl mt-4 mb-6">
                     Vueish UI
                 </h1>
-                <UIButton v-if="isOpen" @click="isOpen = false">
-                    Close menu
-                </UIButton>
+                <UIButton class="absolute top-1 right-3 md:top-2 md:right-2"
+                          minimal
+                          @click="isOpen = !isOpen"
+                          v-html="clearIcon" />
                 <div class="flex-col flex">
                     <UIToggle v-model="darkMode"
                               label="Dark Mode"
@@ -27,8 +32,11 @@
 
             <UIApp>
                 <div class="flex-1 min-h-screen h-full bg-gray-100 dark:bg-gray-700 transition w-full p-10">
-                    <UIButton v-if="!isOpen" class="mb-6" @click="isOpen = true">
-                        Open menu
+                    <UIButton v-if="!isOpen"
+                              class="absolute top-1 left-1"
+                              minimal
+                              @click="isOpen = !isOpen">
+                        <div v-html="menuIcon" />
                     </UIButton>
                     <div class="mx-auto" style="max-width: 1000px">
                         <router-view />
@@ -46,6 +54,7 @@ import UIToggle from '@components/toggle/UIToggle.vue';
 import LocalCache from '@helpers/cache/LocalCache';
 import { Router, RouteRecord } from 'vue-router';
 import UIButton from '@components/button/UIButton.vue';
+import { getIcon } from '@/helpers';
 
 const cache = new LocalCache('demo');
 
@@ -84,20 +93,34 @@ export default defineComponent({
 
         document.body.classList.add(cache.get('theme', 'light')!);
 
+        const menuIcon = getIcon('menu');
+        const clearIcon = getIcon('clear');
+
         return {
             darkMode,
             routeMap,
-            isOpen
+            isOpen,
+            menuIcon,
+            clearIcon
         };
     }
 });
 </script>
 
-<style>
+<style lang="scss">
 .router-link-active {
     @apply text-green-600;
 }
+
 .dark .router-link-active {
     @apply text-green-400;
+}
+
+.menu {
+    min-width: 300px;
+
+    &.closed {
+        margin-left: -300px;
+    }
 }
 </style>
