@@ -35,6 +35,9 @@ module.exports = {
             },
             transitionProperty: {
                 'spacing': 'margin, padding'
+            },
+            rotate: {
+                '270': '270deg',
             }
         }
     },
