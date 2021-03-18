@@ -81,6 +81,7 @@
                             <span role="rowheader"
                                   class="flex items-center justify-between sm:hidden content font-bold p-4
                                          flex-none transition select-none group"
+                                  style="min-height: 40px; width: 140px;"
                                   :class="{
                                       'cursor-pointer hover:bg-gray-300': !disableSorting && col.sortable,
                                       'bg-gray-200': !!sortDir
@@ -123,7 +124,9 @@
                 </tr>
             </tbody>
 
-            <tfoot v-if="$slots.footer || filteredRows.length > itemsPerPage"
+            <tfoot v-if="$slots.footer
+                       || selectable && !singleSelect
+                       || filteredRows.length > itemsPerPage && !disablePagination"
                    class="border-t border-gray-300 sticky bg-white bottom-0 sm:relative">
                 <tr class="w-full flex sm:table-row">
                     <td class="block flex-grow sm:table-cell"
@@ -139,17 +142,35 @@
                                             :model-value="Array.isArray(selected) && !!selected.length"
                                             @update:model-value="toggleAllRowSelection" />
                             </span>
-                            <span v-if="!disablePagination && filteredRows.length > itemsPerPage"
-                                  class="flex justify-end items-center space-x-2">
-                                <button v-if="hasPrevious"
-                                        class="p-2 hover:bg-gray-200 rounded transition transform rotate-90"
-                                        @click="previousPage"
-                                        v-html="chevronIcon" />
-                                <button v-if="hasNext"
-                                        class="p-2 hover:bg-gray-200 rounded transition transform rotate-270"
-                                        @click="nextPage"
-                                        v-html="chevronIcon" />
-                            </span>
+                            <slot v-if="!disablePagination && filteredRows.length > itemsPerPage"
+                                  name="pagination"
+                                  v-bind="{
+                                      itemsPerPage: currentItemsPerPage,
+                                      page: currentPage,
+                                      pageCount,
+                                      hasNext,
+                                      hasPrevious,
+                                      jumpToPage
+                                  }">
+                                <span class="flex items-center justify-end">
+                                    <UIInput :model-value="currentPage"
+                                             name="pageNum"
+                                             type="number"
+                                             min="1"
+                                             :max="pageCount"
+                                             @update:model-value="jumpToPage" />
+                                    <span class="flex justify-end items-center space-x-2">
+                                        <button v-if="hasPrevious"
+                                                class="p-2 hover:bg-gray-200 rounded transition transform rotate-90"
+                                                @click="currentPage--"
+                                                v-html="chevronIcon" />
+                                        <button v-if="hasNext"
+                                                class="p-2 hover:bg-gray-200 rounded transition transform rotate-270"
+                                                @click="currentPage++"
+                                                v-html="chevronIcon" />
+                                    </span>
+                                </span>
+                            </slot>
                             <slot name="footer" />
                         </span>
                     </td>
@@ -223,7 +244,7 @@ export default defineComponent({
          */
         empty: {
             type: String,
-            default: 'There\'s no data available'
+            default: 'There\'s no data available.'
         },
 
         /**
@@ -478,13 +499,11 @@ export default defineComponent({
         const sortDirection = (columnName: string): undefined | 'asc' | 'desc' => {
             return sortOrder.value.find(colOrder => colOrder.column === columnName)?.direction;
         };
-        const nextPage = () => {
-            currentPage.value++;
-            ctx.emit('update:page', currentPage.value);
-        };
-        const previousPage = () => {
-            currentPage.value--;
-            ctx.emit('update:page', currentPage.value);
+        const jumpToPage = (input: string | number) => {
+            input = Number(input);
+            if (isNaN(input) || !Number.isInteger(input) || input < 1 || input > pageCount.value) return;
+
+            currentPage.value = input;
         };
 
         watch(
@@ -493,11 +512,14 @@ export default defineComponent({
             { immediate: true }
         );
 
+        watch(() => currentPage.value, val => ctx.emit('update:page', val));
+
         onUpdated(() => {
             if (props.page !== currentPage.value && props.page !== 1) {
                 currentPage.value = props.page;
             }
 
+            // fixme - what if updating currentItemsPerPage
             if (props.itemsPerPage !== currentItemsPerPage.value && props.itemsPerPage !== 10) {
                 currentItemsPerPage.value = props.itemsPerPage;
             }
@@ -520,11 +542,10 @@ export default defineComponent({
             hasNext,
             term,
             sortBy,
-            nextPage,
             getColumn,
             isSelected,
             handleHover,
-            previousPage,
+            jumpToPage,
             sortDirection,
             toggleRowSelection,
             toggleAllRowSelection
@@ -533,10 +554,11 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="scss">
-.content {
-    min-height: 40px;
-    width: 140px;
+<style lang="scss">
+#pageNum {
+    padding: 0;
+    max-width: 30px;
+    text-align: center;
 }
 
 @screen sm {

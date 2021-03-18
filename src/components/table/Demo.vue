@@ -1,5 +1,5 @@
 <template>
-    <UIPanel closed class="bg-white mb-4">
+    <UIPanel class="bg-white mb-4">
         <template #header>
             Table with slots
         </template>
@@ -11,7 +11,7 @@
                 slotted {{ slotProps.header.rowProperty }}
             </template>
             <template #name="slotProps">
-                slotted change of {{ slotProps.row.name }}
+                slotted {{ slotProps.row.name }}
             </template>
             <template #action>
                 <UIButton type="brand">
@@ -24,19 +24,19 @@
         </UITable>
     </UIPanel>
 
-    Searchable
-    <UITable :headers="headers"
-             :rows="rows"
-             search
-             disable-sorting />
+<!--    Searchable-->
+<!--    <UITable :headers="headers"-->
+<!--             :rows="rows"-->
+<!--             search-->
+<!--             disable-sorting />-->
 
-    With Selection
-    <UITable v-model="selectedRows"
-             :headers="headers"
-             :rows="rows"
-             selectable
-             :items-per-page="Number(2)"
-             disable-sorting />
+<!--    With Selection-->
+<!--    <UITable v-model="selectedRows"-->
+<!--             :headers="headers"-->
+<!--             :rows="rows"-->
+<!--             selectable-->
+<!--             :items-per-page="Number(2)"-->
+<!--             disable-sorting />-->
 </template>
 
 <script lang="ts">
