@@ -11,7 +11,7 @@
                 slotted change of {{ slotProps.row.name }}
             </template>
             <template #action>
-                <UIButton type="brand">
+                <UIButton category="brand">
                     CTA
                 </UIButton>
             </template>
