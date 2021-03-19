@@ -3,22 +3,24 @@
         <UIButton v-for="(option, index) in options"
                   :key="option.label"
                   :aria-checked="checked = isEqual(option.value, modelValue)"
-                  :type="secondary ? 'default' : 'primary'"
-                  :secondary="!checked"
+                  :category="secondary ? 'default' : 'primary'"
+                  :outline="!checked"
                   :disabled="disabled"
                   class="border"
                   :class="{
                       'border-gray-600': secondary,
                       'hover:border-gray-400 hover:bg-gray-400 hover:text-gray-900': secondary && !disabled,
                       'border-blue-600': !secondary,
-                      'hover:border-blue-400': !secondary && !disabled,
+                      'hover:border-blue-400': !secondary && !disabled && !checked,
+                      'hover:border-blue-700': !secondary && !disabled && checked,
                       'text-blue-600': !checked && !secondary,
                       'hover:white-text': !checked && !secondary && !disabled,
                       'white-text bg-gray-600 disabled:bg-gray-600': checked && secondary,
                       'border-l-0': index > 0
                   }"
                   role="switch"
-                  @click="model = option.value">
+                  @click="model = option.value"
+                  @keydown.space="model = option.value">
             <slot v-if="option.slot" :name="option.slot" :option="option" />
             <template v-else>
                 {{ option.label }}

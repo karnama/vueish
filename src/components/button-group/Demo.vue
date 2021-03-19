@@ -1,12 +1,12 @@
 <template>
     <UIButtonGroup>
-        <UIButton type="primary">
+        <UIButton category="primary">
             Places
         </UIButton>
-        <UIButton type="primary">
+        <UIButton category="primary">
             List
         </UIButton>
-        <UIButton type="primary">
+        <UIButton category="primary">
             Map
         </UIButton>
     </UIButtonGroup>

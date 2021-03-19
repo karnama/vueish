@@ -9,12 +9,18 @@
                 class="mb-6" />
 
     <p>Prop options</p>
-    <UIButtonToggle v-model="selected" :options="options" :secondary="secondary" :disabled="disabled" />
+    <UIButtonToggle v-model="selected"
+                    :options="options"
+                    :secondary="secondary"
+                    :disabled="disabled" />
 
     <p class="mt-4">
         Slotted option
     </p>
-    <UIButtonToggle v-model="selected" :options="slottedOptions" :secondary="secondary" :disabled="disabled">
+    <UIButtonToggle v-model="selected"
+                    :options="slottedOptions"
+                    :secondary="secondary"
+                    :disabled="disabled">
         <template #places="slotProps">
             slotted {{ slotProps.option.label }}
         </template>
