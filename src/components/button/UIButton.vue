@@ -29,7 +29,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 import type { StyleType } from '@/types';
-import { type, large } from '@composables/style';
+import { category, large } from '@composables/style';
 import { label, disabled } from '@composables/input';
 import UISpinnerLoader from '@components/loader-spinner/UISpinnerLoader.vue';
 
@@ -59,7 +59,7 @@ export default defineComponent({
         disabled,
         large,
         label,
-        type
+        category
     },
 
     setup(props) {
@@ -99,15 +99,15 @@ export default defineComponent({
         }));
 
         const classes = computed(() => {
-            const type = props.type as StyleType;
+            const category = props.category as StyleType;
             let classes: string;
 
             if (props.outline) {
-                classes = outlineTypeClasses.value[type];
+                classes = outlineTypeClasses.value[category];
             } else if (props.minimal) {
-                classes = minimalTypeClasses.value[type];
+                classes = minimalTypeClasses.value[category];
             } else {
-                classes = primaryTypeClasses.value[type];
+                classes = primaryTypeClasses.value[category];
             }
 
             classes += props.large ? ' px-7 py-3.5' : ' px-3.5 py-2';
@@ -125,7 +125,7 @@ export default defineComponent({
 
             let color: string;
 
-            switch (props.type) {
+            switch (props.category) {
                 case 'primary':
                     color = 'text-blue-600';
                     break;
@@ -165,7 +165,12 @@ export default defineComponent({
     left: 50%;
     transform: translate(-50%, -50%);
 }
+button {
+    transition: filter 100ms ease;
+    filter: invert(0%);
+}
 button:active {
+    transition: filter 100ms ease;
     filter: invert(5%);
 }
 </style>

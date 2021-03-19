@@ -6,7 +6,7 @@
              header="Non-Collapsible Panel"
              class="group bg-white">
         <template #actions>
-            <UIButton type="brand" class="opacity-0 group-hover:opacity-100 transition-all">
+            <UIButton category="brand" class="opacity-0 group-hover:opacity-100 transition-all">
                 Edit
             </UIButton>
         </template>
@@ -30,7 +30,7 @@
         </template>
 
         <template #actions>
-            <UIButton type="brand">
+            <UIButton category="brand">
                 Edit
             </UIButton>
         </template>
