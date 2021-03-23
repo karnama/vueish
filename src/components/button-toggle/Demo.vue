@@ -7,10 +7,25 @@
                 label="Disabled"
                 name="disabled"
                 class="mb-6" />
+    <UICheckbox v-model="large"
+                label="Large"
+                name="large"
+                class="mb-6" />
+    <UICheckbox v-model="multi"
+                label="Multi select"
+                name="multi"
+                class="mb-6" />
+    <UICheckbox v-model="clearable"
+                label="Clearable"
+                name="multi"
+                class="mb-6" />
 
     <p>Prop options</p>
     <UIButtonToggle v-model="selected"
                     :options="options"
+                    :large="large"
+                    :multi="multi"
+                    :clearable="clearable"
                     :secondary="secondary"
                     :disabled="disabled" />
 
@@ -19,6 +34,8 @@
     </p>
     <UIButtonToggle v-model="selected"
                     :options="slottedOptions"
+                    :large="large"
+                    :multi="multi"
                     :secondary="secondary"
                     :disabled="disabled">
         <template #places="slotProps">
@@ -35,8 +52,8 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UIButtonToggle from '@components/button-toggle/UIButtonToggle.vue';
-import { Option } from '@components/button-toggle/UIButtonToggleTypes';
+import UIButtonToggle from './UIButtonToggle.vue';
+import type { Option } from './UIButtonToggle.vue';
 import UICheckbox from '@components/checkbox/UICheckbox.vue';
 
 export default defineComponent({
@@ -55,16 +72,22 @@ export default defineComponent({
             { label: 'List', value: 'list', slot: 'list' },
             { label: 'Map', value: 'map', slot: 'map' }
         ];
-        const selected = ref('');
+        const selected = ref(null);
         const secondary = ref(false);
         const disabled = ref(false);
+        const large = ref(false);
+        const multi = ref(false);
+        const clearable = ref(false);
 
         return {
             options,
             slottedOptions,
             selected,
             secondary,
-            disabled
+            disabled,
+            large,
+            multi,
+            clearable
         };
     }
 });

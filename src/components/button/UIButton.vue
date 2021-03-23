@@ -41,16 +41,25 @@ export default defineComponent({
     components: { UISpinnerLoader },
 
     props: {
+        /**
+         * Indication whether button is currently loading or not.
+         */
         loading: {
             type: Boolean,
             default: false
         },
 
+        /**
+         * Use the outline (/secondary) styles.
+         */
         outline: {
             type: Boolean,
             default: false
         },
 
+        /**
+         * Use the minimal (/ternary) styles.
+         */
         minimal: {
             type: Boolean,
             default: false

@@ -77,14 +77,6 @@ export const value = {
 };
 
 /**
- * Generic two-way value binding.
- */
-export const modelValue = {
-    type: [String, Boolean, Array, Object, Number],
-    required: true
-};
-
-/**
  * Make the prop 2-way reactive.
  * You may only replace this value.
  * Interact with it like `.push()` will cause unexpected errors.
