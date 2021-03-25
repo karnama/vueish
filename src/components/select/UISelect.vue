@@ -88,7 +88,7 @@
 
                             <div v-if="currentlySelected && (!noClear && !multi)
                                      || multi && !noClear && currentlySelected
-                                     || multi && currentlySelected && Array.isArray(selected) && selected.length>1"
+                                     || multi && currentlySelected && Array.isArray(selected) && selected.length > 1"
                                  class="flex items-center justify-between p-2 px-3">
                                 <span class="clear-icon h-5 w-5 cursor-pointer text-gray-500"
                                       @click.stop="clearSelection(option)"
