@@ -40,7 +40,10 @@ describe('UISelect', () => {
     describe('display', () => {
         it('should display the given options when open', async () => {
             const wrapper  = mount(UISelect, {
-                props: { options }
+                props: {
+                    options,
+                    modelValue: null
+                }
             });
 
             expect(getList()).toBeNull();
@@ -234,13 +237,13 @@ describe('UISelect', () => {
             });
 
             await wrapper.find(selectorMap.currentSelection).trigger('click');
-            const htmlOptions = getList()!.findAll(selectorMap.options);
 
-            await htmlOptions[0].trigger('click');
+            await getList()!.get(selectorMap.options).trigger('click');
             expect(wrapper.lastEventValue()).toStrictEqual([options[0]]);
 
-            await htmlOptions[0].find(selectorMap.optionClear).trigger('click');
-            expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
+            await wrapper.find(selectorMap.currentSelection).trigger('click');
+
+            expect(getList()!.find(selectorMap.optionClear).exists()).toBe(false);
             wrapper.unmount();
         });
 
@@ -282,6 +285,7 @@ describe('UISelect', () => {
             const list = getList()!;
             await list.get(selectorMap.options).trigger('click');
             expect(list.html()).not.toContain('clear-icon');
+            wrapper.unmount();
         });
 
         it('should only display the clear icon on multiselect when more than one option selected', async () => {
@@ -303,6 +307,7 @@ describe('UISelect', () => {
             expect(list.html()).not.toContain('clear-icon');
             await selectOptions[1]!.trigger('click');
             expect(list.html()).toContain('clear-icon');
+            wrapper.unmount();
         });
     });
 
