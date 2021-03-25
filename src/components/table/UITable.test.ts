@@ -494,29 +494,57 @@ describe('UITable', () => {
     });
 
     describe('pagination', () => {
+        const availableRows: Readonly<Row[]> = [
+            {
+                letter: 'a',
+                number: 1
+            },
+            {
+                letter: 'b',
+                number: 2
+            },
+            {
+                letter: 'c',
+                number: 3
+            },
+            {
+                letter: 'd',
+                number: 4
+            },
+            {
+                letter: 'e',
+                number: 5
+            },
+            {
+                letter: 'f',
+                number: 6
+            }
+        ] as const;
+
         it('should show the correct number of rows', () => {
             const wrapper = mount(UITable, {
                 props: {
-                    rows,
+                    rows: availableRows,
                     headers,
-                    itemsPerPage: 1
+                    itemsPerPage: 5
                 }
             });
 
-            expect(wrapper.findAll(selectorMap.rows)).toHaveLength(1);
+            expect(wrapper.findAll(selectorMap.rows)).toHaveLength(5);
         });
 
         it('should disable pagination given the prop', () => {
             const wrapper = mount(UITable, {
                 props: {
-                    rows,
+                    rows: availableRows,
                     headers,
-                    itemsPerPage: 1,
+                    itemsPerPage: 5,
                     disablePagination: true
                 }
             });
 
-            expect(wrapper.findAll(selectorMap.rows)).toHaveLength(rows.length);
+            // if disabled, we're showing all rows
+            expect(wrapper.findAll(selectorMap.rows)).toHaveLength(availableRows.length);
             expect(wrapper.find(selectorMap.previousPageBtn).exists()).toBe(false);
             expect(wrapper.find(selectorMap.nextPageBtn).exists()).toBe(false);
         });
@@ -524,9 +552,9 @@ describe('UITable', () => {
         it('should only display the navigation button if the next/previous page exists', async () => {
             const wrapper = mount(UITable, {
                 props: {
-                    rows,
+                    rows: availableRows,
                     headers,
-                    itemsPerPage: 2
+                    itemsPerPage: 5
                 }
             });
 
@@ -542,24 +570,24 @@ describe('UITable', () => {
         it('should display the next/previous page on navigation to the next page', async () => {
             const wrapper = mount(UITable, {
                 props: {
-                    rows,
+                    rows: availableRows,
                     headers,
-                    itemsPerPage: 1
+                    itemsPerPage: 5
                 }
             });
 
-            expect(wrapper.text()).toContain(rows[0].number);
-            expect(wrapper.text()).not.toContain(rows[1].number);
+            expect(wrapper.text()).toContain(availableRows[0].number);
+            expect(wrapper.text()).not.toContain(availableRows[5].number);
 
             await wrapper.find(selectorMap.nextPageBtn).trigger('click');
 
-            expect(wrapper.text()).not.toContain(rows[0].number);
-            expect(wrapper.text()).toContain(rows[1].number);
+            expect(wrapper.text()).not.toContain(availableRows[0].number);
+            expect(wrapper.text()).toContain(availableRows[5].number);
 
             await wrapper.find(selectorMap.previousPageBtn).trigger('click');
 
-            expect(wrapper.text()).toContain(rows[0].number);
-            expect(wrapper.text()).not.toContain(rows[1].number);
+            expect(wrapper.text()).toContain(availableRows[0].number);
+            expect(wrapper.text()).not.toContain(availableRows[5].number);
         });
     });
 });

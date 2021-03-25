@@ -6,7 +6,7 @@
         <UITable :headers="headers"
                  :rows="rows"
                  hover-highlight
-                 :items-per-page="Number(2)">
+                 :items-per-page="Number(5)">
             <template #header="slotProps">
                 slotted {{ slotProps.header.rowProperty }}
             </template>
@@ -140,6 +140,14 @@ export default defineComponent({
                 carbs: 65,
                 protein: 7,
                 iron: '6'
+            },
+            {
+                name: 'Bounty',
+                calories: 497,
+                fat: 29.0,
+                carbs: 72,
+                protein: 12,
+                iron: '3'
             }
         ]);
         const selectedRows = ref<Row[]>();

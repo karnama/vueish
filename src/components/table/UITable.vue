@@ -153,6 +153,23 @@
                                       jumpToPage
                                   }">
                                 <span class="flex items-center justify-end">
+                                    <span class="flex items-center">
+                                        <span class="mr-2">Items per page</span>
+<!--                                        <select @input="updateCurrentItemPerPage">-->
+<!--                                            <option v-for="count in [5, 10, 25, 50, 100]" :key="count" :value="count">-->
+<!--                                                {{ count }}-->
+<!--                                            </option>-->
+<!--                                        </select>-->
+                                        <UISelect :model-value="{ name: currentItemsPerPage, id: currentItemsPerPage }"
+                                                  :options="itemPerPageOptions"
+                                                  class="mr-2"
+                                                  style="min-width: 50px"
+                                                  no-search
+                                                  no-clear
+                                                  label="Items per page"
+                                                  header=""
+                                                  @update:model-value="updateCurrentItemPerPage" />
+                                    </span>
                                     <UIInput :model-value="currentPage"
                                              name="pageNum"
                                              type="number"
@@ -191,21 +208,23 @@ import { useVModel } from '@composables/input';
 import type { MaybeArray } from '@/types';
 import { getIcon } from '@/helpers';
 import { debouncedRef } from '@composables/reactivity';
+import UISelect from '@components/select/UISelect.vue';
 
 // todo - features planned/would be nice to have
-// - pagination: add jump to page
 // - dropdown extra info
 // - grouping
+// - dense styling on prop
 // - virtualized - https://www.npmjs.com/package/vue3-virtual-scroller
 
 export default defineComponent({
     name: 'UITable',
 
-    components: { UIInput, UICheckbox },
+    components: { UISelect, UIInput, UICheckbox },
 
     props: {
         modelValue: {
-            type: [Array, Object] as PropType<MaybeArray<Row>>
+            type: [Array, Object] as PropType<MaybeArray<Row>>,
+            default: []
         },
 
         /**
@@ -283,10 +302,10 @@ export default defineComponent({
         /**
          * The number of rows on the page.
          */
-        itemsPerPage: {
+        itemsPerPage: { // todo allow string
             type: Number,
             default: 10,
-            validator: (val: number) => val > 0
+            validator: (val: number) => [5, 10, 25, 50, 100].includes(val)
         },
 
         /**
@@ -303,6 +322,13 @@ export default defineComponent({
     setup(props, ctx) {
         const chevronIcon = getIcon('chevron');
         let styleTagId = '';
+        const itemPerPageOptions = [
+            { name: 5, id: 5 },
+            { name: 10, id: 10 },
+            { name: 25, id: 25 },
+            { name: 50, id: 50 },
+            { name: 100, id: 100 }
+        ];
 
         const normalisedHeaders = computed<Required<Column>[]>(() => {
             return props.headers.map((col: Column) => {
@@ -359,8 +385,8 @@ export default defineComponent({
             return sortedRows(normalisedRows.value.filter(row => search(row, term.value)));
         });
 
-        const currentPage = ref<number>(props.page);
-        const currentItemsPerPage = ref<number>(props.itemsPerPage);
+        const currentPage = useVModel<number>(props, 'page');
+        const currentItemsPerPage = useVModel<number>(props, 'itemsPerPage');
         const pageRows = computed(() => {
             if (props.disablePagination) {
                 return filteredRows.value;
@@ -505,6 +531,11 @@ export default defineComponent({
 
             currentPage.value = input;
         };
+        const updateCurrentItemPerPage = (ev: InputEvent) => {
+            // @ts-expect-error
+            // currentItemsPerPage.value = Number(ev.target.value);
+            currentItemsPerPage.value = ev.id;
+        };
 
         watch(
             [() => normalisedHeaders.value, () => props.hoverHighlight],
@@ -512,21 +543,9 @@ export default defineComponent({
             { immediate: true }
         );
 
-        watch(() => currentPage.value, val => ctx.emit('update:page', val));
-
-        onUpdated(() => {
-            if (props.page !== currentPage.value && props.page !== 1) {
-                currentPage.value = props.page;
-            }
-
-            // fixme - what if updating currentItemsPerPage
-            if (props.itemsPerPage !== currentItemsPerPage.value && props.itemsPerPage !== 10) {
-                currentItemsPerPage.value = props.itemsPerPage;
-            }
-        });
-
         return {
             currentItemsPerPage,
+            itemPerPageOptions,
             normalisedHeaders,
             normalisedRows,
             selectableRows,
@@ -538,6 +557,7 @@ export default defineComponent({
             hoverClass,
             pageCount,
             selected,
+            updateCurrentItemPerPage,
             pageRows,
             hasNext,
             term,
