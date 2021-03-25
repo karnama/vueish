@@ -108,7 +108,7 @@ export default defineComponent({
 
                 model.value = optionIndex === -1
                     ? [ ...(model.value as Option[]), option]
-                    : (model.value as Option[]).filter((option, index) => index !== optionIndex)
+                    : (model.value as Option[]).filter((option, index) => index !== optionIndex);
                 return;
             }
 

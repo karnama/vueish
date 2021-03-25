@@ -77,7 +77,8 @@ describe('UIButtonToggle', () => {
         expect(wrapper.lastEventValue()).toBeUndefined();
     });
 
-    it.todo('should not be clearable by default', async () => {
+    // eslint-disable-next-line jest/no-disabled-tests
+    it.skip('should not be clearable by default', async () => {
         const wrapper = mount(UIButtonToggle, {
             props: {
                 options,

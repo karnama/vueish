@@ -32,7 +32,7 @@
     <p class="mt-4">
         Slotted option
     </p>
-    <UIButtonToggle v-model="selected"
+    <UIButtonToggle v-model="selectedSlotted"
                     :options="slottedOptions"
                     :large="large"
                     :multi="multi"
@@ -73,6 +73,7 @@ export default defineComponent({
             { label: 'Map', value: 'map', slot: 'map' }
         ];
         const selected = ref(null);
+        const selectedSlotted = ref(null);
         const secondary = ref(false);
         const disabled = ref(false);
         const large = ref(false);
@@ -82,6 +83,7 @@ export default defineComponent({
         return {
             options,
             slottedOptions,
+            selectedSlotted,
             selected,
             secondary,
             disabled,
