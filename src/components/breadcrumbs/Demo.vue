@@ -1,6 +1,7 @@
 <template>
     <UIBreadcrumbs />
 
+    <br>
     With Slots
     <UIBreadcrumbs>
         <template #separator="slotProps">

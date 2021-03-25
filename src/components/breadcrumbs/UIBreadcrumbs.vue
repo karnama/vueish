@@ -1,8 +1,6 @@
 <template>
-    <template v-if="$slots.default">
-        <slot />
-    </template>
-    <ul v-else class="flex items-center flex-wrap">
+    <slot />
+    <ul v-if="!$slots.default" class="flex items-center flex-wrap" :class="{ 'flex-col': vertical }">
         <li v-for="(crumb, index) in routeCrumbs" :key="crumb.path">
             <slot :name="crumb.path" :route="crumb">
                 <router-link v-if="$router.currentRoute.path !== crumb.path" :to="crumb">
@@ -26,19 +24,31 @@ import { computed, defineComponent, getCurrentInstance } from 'vue';
 import type { PropType } from 'vue';
 import type { Router, RouteLocation } from 'vue-router';
 
-// todo - vertical
-
 export default defineComponent({
     name: 'UIBreadcrumbs',
 
     props: {
+        /**
+         * The separator character to be used.
+         */
         separator: {
             type: String,
             default: '/'
         },
 
+        /**
+         * The crumbs to display.
+         */
         crumbs: {
             type: Array as PropType<string[]>
+        },
+
+        /**
+         * Set the orientation to vertical.
+         */
+        vertical: {
+            type: Boolean,
+            default: false
         }
     },
 
