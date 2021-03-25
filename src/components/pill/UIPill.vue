@@ -9,10 +9,10 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 import { label } from '@composables/input';
-import { type } from '@composables/style';
+import { category } from '@composables/style';
 import { StyleType } from '@/types';
 
-const typeClasses = {
+const categoryClasses = {
     default: 'text-gray-700 bg-gray-200',
     primary: 'text-blue-600 bg-blue-100',
     info: 'text-blue-700 bg-blue-200',
@@ -26,12 +26,12 @@ export default defineComponent({
     name: 'UIBadge',
 
     props: {
-        type,
+        category,
         label
     },
 
     setup(props) {
-        const classes = computed(() => typeClasses[props.type as StyleType]);
+        const classes = computed(() => categoryClasses[props.category as StyleType]);
 
         return { classes };
     }
