@@ -4,6 +4,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import './assets/styles/main.scss';
 import defaultSettings from '@/defaultSettings';
 import tooltip from '@/directives/tooltip';
+import outerHtml from '@/directives/outer-html';
 
 const componentDemos = import.meta.globEager('./components/**/Demo.vue') as {
     [path: string]: { default: Record<string, any>};
@@ -27,6 +28,7 @@ const router = createRouter({ history: createWebHistory(), routes });
 
 const app = createApp(Demo)
     .directive('tooltip', tooltip)
+    .directive('outer-html', outerHtml)
     .use(router);
 
 app.config.globalProperties.Vueish = defaultSettings;
