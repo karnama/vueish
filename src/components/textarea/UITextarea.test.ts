@@ -59,6 +59,21 @@ describe('UITextarea', () => {
         expect(input.element.style.resize).toBe('none');
     });
 
+    it('should prevent resize when the autoSize prop is given', async () => {
+        const wrapper = mount(UITextarea, {
+            props: {
+                modelValue: '',
+                name: 'input'
+            }
+        });
+
+        const input = wrapper.get('textarea');
+
+        expect(input.element.style.resize).toBe('');
+        await wrapper.setProps({ autoSize: true });
+        expect(input.element.style.resize).toBe('none');
+    });
+
     it('should correctly assign the name prop', () => {
         const name = 'input';
 
