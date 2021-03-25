@@ -106,10 +106,9 @@ export default defineComponent({
             if (props.multi) {
                 if (!props.clearable && optionIndex !== -1 && values.length === 1) return;
 
-                optionIndex === -1
-                    ? (model.value as Option[]).push(option)
-                    : (model.value as Option[]).splice(optionIndex, 1);
-
+                model.value = optionIndex === -1
+                    ? [ ...(model.value as Option[]), option]
+                    : (model.value as Option[]).filter((option, index) => index !== optionIndex)
                 return;
             }
 
