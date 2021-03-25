@@ -8,17 +8,17 @@
     </div>
 
     <div class="flex flex-wrap justify-between space-x-1">
-        <UIButton v-for="(type, index) in styleTypes"
-                  :key="type"
-                  :type="type"
+        <UIButton v-for="(category, index) in styleTypes"
+                  :key="category"
+                  :category="category"
                   class="my-2 capitalize"
                   :outline="outline"
                   :minimal="minimal"
                   :large="large"
                   :loading="loading"
-                  :label="type"
+                  :label="category"
                   :disabled="disabled"
-                  @click="stuff(type)">
+                  @click="clicked = category">
             <template v-if="index % 2 === 0" #loader>
                 Loading...
             </template>
@@ -47,16 +47,12 @@ export default defineComponent({
         const minimal = ref(false);
         const large = ref(false);
         const clicked = ref('');
-        const stuff = (type: string) => {
-            clicked.value = type;
-        };
 
         return {
             styleTypes,
             disabled,
             loading,
             clicked,
-            stuff,
             outline,
             minimal,
             large
