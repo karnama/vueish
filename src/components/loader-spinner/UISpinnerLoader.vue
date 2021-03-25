@@ -1,7 +1,7 @@
 <template>
     <transition name="progress-spinner" appear>
-        <div class="ui-spinner-loader text-brand-400"
-             :class="{ 'indeterminate': !determinate }"
+        <div class="ui-spinner-loader"
+             :class="{ 'indeterminate': !determinate, 'text-brand-400': !inheritColor }"
              role="progressbar"
              v-bind="$attrs">
             <svg ref="spinnerDraw"
@@ -25,9 +25,10 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, watch, onMounted } from 'vue';
+import { inheritColor } from '@composables/style';
 
 export default defineComponent({
-    name: 'SpinnerLoader',
+    name: 'UISpinnerLoader',
 
     inheritAttrs: false,
 
@@ -38,6 +39,7 @@ export default defineComponent({
          */
         progress: {
             type: Number,
+            // todo - add steps prop
             validator: (value: number) => value >= 0 && value <= 100
         },
 
@@ -64,7 +66,9 @@ export default defineComponent({
         stroke: {
             type: Number,
             default: 6
-        }
+        },
+
+        inheritColor
     },
 
     setup(props) {

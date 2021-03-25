@@ -6,7 +6,7 @@
              header="Non-Collapsible Panel"
              class="group bg-white">
         <template #actions>
-            <UIButton type="brand" class="opacity-0 group-hover:opacity-100 transition-all">
+            <UIButton category="brand" class="opacity-0 group-hover:opacity-100 transition-all">
                 Edit
             </UIButton>
         </template>
@@ -30,7 +30,7 @@
         </template>
 
         <template #actions>
-            <UIButton type="brand">
+            <UIButton category="brand">
                 Edit
             </UIButton>
         </template>
@@ -51,27 +51,30 @@
 
     <UIPanel class="mt-10 bg-white"
              closed
+             blocking-loader
              :no-collapse="false"
              :loading="loading">
         <p>Without header -> cannot be collapsed regardless of props</p>
         <p>Without footer</p>
+        <b>Using blocking loader</b>
     </UIPanel>
 
-    <label>
-        loading
-        <input v-model="loading" type="checkbox">
-    </label>
+    <UICheckbox v-model="loading"
+                label="Loading"
+                class="mt-6"
+                name="loading" />
 </template>
 
 <script lang="ts">
 import UIPanel from './UIPanel.vue';
 import { defineComponent, ref } from 'vue';
 import UIButton from '../button/UIButton.vue';
+import UICheckbox from '@components/checkbox/UICheckbox.vue';
 
 export default defineComponent({
     name: 'Panel',
 
-    components: { UIButton, UIPanel },
+    components: { UICheckbox, UIButton, UIPanel },
 
     setup() {
         const loading = ref(false);

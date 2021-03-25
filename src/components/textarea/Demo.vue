@@ -5,8 +5,10 @@
 
     <div class="py-10 space-y-10">
         <div class="space-y-10">
-            <UITextarea v-model="text"
+            <UITextarea v-model="customText"
+                        placeholder="Write your bio here"
                         name="ui-text"
+                        clearable
                         label="Standard" />
 
             <UITextarea v-model="text"
@@ -35,14 +37,16 @@ export default defineComponent({
     components: { UITextarea },
 
     setup() {
-        const text = ref('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi assumenda at ' +
-            'atque consequatur consequuntur culpa deleniti, doloribusdaaseeeff eligendi excepturi expedita fugit id ' +
-            'incidunt laborum neque nulla quos reprehenderit sit tempora.');
-        const disabled = ref('Canny touch this!');
+        const text = ref('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque cum dignissimos eius ' +
+            'nihil nulla quia similique tempore temporibus voluptatum? Commodi est et itaque maxime molestiae ' +
+            'nesciunt omnis reprehenderit tempore? Repudiandae?');
+        const customText = ref('');
+        const disabled = ref('Can\'t touch this!');
 
         return {
             text,
-            disabled
+            disabled,
+            customText
         };
     }
 });
