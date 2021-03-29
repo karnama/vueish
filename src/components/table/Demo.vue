@@ -1,5 +1,5 @@
 <template>
-    <UIPanel class="bg-white mb-4">
+    <UIPanel closed class="bg-white mb-4">
         <template #header>
             Table with slots
         </template>
@@ -19,24 +19,30 @@
                 </UIButton>
             </template>
             <template #footer>
-                <span class="font-bold text-gray-700">Slotted footer</span>
+                <span class="font-bold text-gray-700">
+                    My wildly
+                    long slotted footer content that I have to
+                    make up words for such as
+                    fubershlung (the act of drinking a beer after a devastating loss)
+                    and shmelolia (a rare type of tulip's petals)
+                </span>
             </template>
         </UITable>
     </UIPanel>
 
-<!--    Searchable-->
-<!--    <UITable :headers="headers"-->
-<!--             :rows="rows"-->
-<!--             search-->
-<!--             disable-sorting />-->
+    Searchable
+    <UITable :headers="headers"
+             :rows="rows"
+             search
+             disable-sorting />
 
-<!--    With Selection-->
-<!--    <UITable v-model="selectedRows"-->
-<!--             :headers="headers"-->
-<!--             :rows="rows"-->
-<!--             selectable-->
-<!--             :items-per-page="Number(2)"-->
-<!--             disable-sorting />-->
+    With Selection
+    <UITable v-model="selectedRows"
+             :headers="headers"
+             :rows="rows"
+             selectable
+             disable-pagination
+             disable-sorting />
 </template>
 
 <script lang="ts">

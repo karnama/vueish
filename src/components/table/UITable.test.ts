@@ -549,7 +549,7 @@ describe('UITable', () => {
             expect(wrapper.find(selectorMap.nextPageBtn).exists()).toBe(false);
         });
 
-        it('should only display the navigation button if the next/previous page exists', async () => {
+        it('should disable the pagination button if no nxt page exists', async () => {
             const wrapper = mount(UITable, {
                 props: {
                     rows: availableRows,
@@ -558,13 +558,13 @@ describe('UITable', () => {
                 }
             });
 
-            expect(wrapper.find(selectorMap.previousPageBtn).exists()).toBe(false);
-            expect(wrapper.find(selectorMap.nextPageBtn).exists()).toBe(true);
+            expect(wrapper.find(selectorMap.previousPageBtn).attributes('disabled')).toBe(true);
+            expect(wrapper.find(selectorMap.nextPageBtn).attributes('disabled')).toBe(false);
 
             await wrapper.find(selectorMap.nextPageBtn).trigger('click');
 
-            expect(wrapper.find(selectorMap.previousPageBtn).exists()).toBe(true);
-            expect(wrapper.find(selectorMap.nextPageBtn).exists()).toBe(false);
+            expect(wrapper.find(selectorMap.previousPageBtn).attributes('disabled')).toBe(false);
+            expect(wrapper.find(selectorMap.nextPageBtn).attributes('disabled')).toBe(true);
         });
 
         it('should display the next/previous page on navigation to the next page', async () => {

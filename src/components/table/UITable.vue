@@ -1,5 +1,5 @@
 <template>
-    <section class="shadow-md text-gray-700 bg-white relative">
+    <section class="shadow-md text-gray-700 bg-white relative sm:overflow-x-scroll">
         <table class="flex sm:table flex-col border-collapse border-gray-200
                       w-full table-auto rounded relative"
                :class="[hoverClass]"
@@ -7,7 +7,8 @@
                @mouseleave="handleHover">
             <thead class="sticky top-0 shadow z-10">
                 <tr v-if="!!search" class="bg-white block sm:table-row">
-                    <th :colspan=" normalisedHeaders.length" class="px-4 py-8 block sm:table-cell">
+                    <th :colspan=" normalisedHeaders.length + ($slots.action ? 1 : 0) + (selectable ? 1 : 0)"
+                        class="px-4 py-8 block sm:table-cell">
                         <span class="block">
                             <UIInput v-model="term" name="search" placeholder="Search..." />
                         </span>
@@ -54,7 +55,7 @@
                 </tr>
             </thead>
 
-            <tbody class="space-y-5 sm:space-y-0 divide-y">
+            <tbody class="space-y-5 sm:space-y-0 shadow divide-y">
                 <template v-if="pageRows.length">
                     <tr v-for="(row, index) in pageRows"
                         :key="index"
@@ -127,14 +128,16 @@
             <tfoot v-if="$slots.footer
                        || selectable && !singleSelect
                        || filteredRows.length > itemsPerPage && !disablePagination"
-                   class="border-t border-gray-300 sticky bg-white bottom-0 sm:relative">
+                   class="border-t border-gray-300 sticky bg-white bottom-0 sm:relative shadow-up">
                 <tr class="w-full flex sm:table-row">
                     <td class="block flex-grow sm:table-cell"
                         :colspan="normalisedHeaders.length + ($slots.action ? 1 : 0) + (selectable ? 1 : 0)">
-                        <span class="block px-4 py-6">
+                        <span class="flex flex-col sm:flex-row items-center justify-between
+                                     flex-wrap break-words px-4 py-6">
+                            <slot name="footer" />
                             <span v-if="selectable && !singleSelect" class="block sm:hidden">
                                 <UICheckbox name="selectAll"
-                                            class="justify-center"
+                                            class="my-2"
                                             label="Select All"
                                             :indeterminate="Array.isArray(selected)
                                                 ? selected.length !== selectableRows.length
@@ -152,14 +155,9 @@
                                       hasPrevious,
                                       jumpToPage
                                   }">
-                                <span class="flex items-center justify-end">
+                                <span class="flex items-center justify-end space-x-2 my-2 flex-grow">
                                     <span class="flex items-center">
                                         <span class="mr-2">Items per page</span>
-<!--                                        <select @input="updateCurrentItemPerPage">-->
-<!--                                            <option v-for="count in [5, 10, 25, 50, 100]" :key="count" :value="count">-->
-<!--                                                {{ count }}-->
-<!--                                            </option>-->
-<!--                                        </select>-->
                                         <UISelect :model-value="{ name: currentItemsPerPage, id: currentItemsPerPage }"
                                                   :options="itemPerPageOptions"
                                                   class="mr-2"
@@ -170,25 +168,20 @@
                                                   header=""
                                                   @update:model-value="updateCurrentItemPerPage" />
                                     </span>
-                                    <UIInput :model-value="currentPage"
-                                             name="pageNum"
-                                             type="number"
-                                             min="1"
-                                             :max="pageCount"
-                                             @update:model-value="jumpToPage" />
                                     <span class="flex justify-end items-center space-x-2">
-                                        <button v-if="hasPrevious"
-                                                class="p-2 hover:bg-gray-200 rounded transition transform rotate-90"
-                                                @click="currentPage--"
-                                                v-html="chevronIcon" />
-                                        <button v-if="hasNext"
-                                                class="p-2 hover:bg-gray-200 rounded transition transform rotate-270"
-                                                @click="currentPage++"
-                                                v-html="chevronIcon" />
+                                        <UIButton :disabled="!hasPrevious"
+                                                  minimal
+                                                  class="transform rotate-90"
+                                                  @click="currentPage--"
+                                                  v-html="chevronIcon" />
+                                        <UIButton :disabled="!hasNext"
+                                                  minimal
+                                                  class="transform rotate-270"
+                                                  @click="currentPage++"
+                                                  v-html="chevronIcon" />
                                     </span>
                                 </span>
                             </slot>
-                            <slot name="footer" />
                         </span>
                     </td>
                 </tr>
@@ -198,7 +191,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch, onUpdated } from 'vue';
+import { computed, defineComponent, ref, watch } from 'vue';
 import type { PropType } from 'vue';
 import type { Column, Row, SortOrder } from '@/types/public';
 import { snakeCase, uniqueId, isEqual, orderBy, cloneDeep } from 'lodash-es';
@@ -209,17 +202,20 @@ import type { MaybeArray } from '@/types';
 import { getIcon } from '@/helpers';
 import { debouncedRef } from '@composables/reactivity';
 import UISelect from '@components/select/UISelect.vue';
+import UIButton from '@components/button/UIButton.vue';
 
 // todo - features planned/would be nice to have
-// - dropdown extra info
+// - dropdown extra info (as in new row)
 // - grouping
 // - dense styling on prop
-// - virtualized - https://www.npmjs.com/package/vue3-virtual-scroller
+// - virtualized
+
+// fixme - multi select on desktop shows footer of not single select
 
 export default defineComponent({
     name: 'UITable',
 
-    components: { UISelect, UIInput, UICheckbox },
+    components: { UIButton, UISelect, UIInput, UICheckbox },
 
     props: {
         modelValue: {
@@ -319,7 +315,7 @@ export default defineComponent({
 
     emits: ['update:modelValue', 'update:page', 'update:itemsPerPage'],
 
-    setup(props, ctx) {
+    setup(props) {
         const chevronIcon = getIcon('chevron');
         let styleTagId = '';
         const itemPerPageOptions = [
@@ -575,10 +571,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-#pageNum {
-    padding: 0;
-    max-width: 30px;
-    text-align: center;
+.shadow {
+    --tw-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-up {
+    box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.06);
 }
 
 @screen sm {

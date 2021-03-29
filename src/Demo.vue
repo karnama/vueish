@@ -29,7 +29,6 @@
                     </template>
                 </div>
             </div>
-
             <UIApp>
                 <div class="flex-1 min-h-screen h-full bg-gray-100 dark:bg-gray-700 transition w-full p-10">
                     <UIButton v-if="!isOpen"

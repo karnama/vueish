@@ -307,6 +307,7 @@ export default defineComponent({
                 return {};
             }
 
+            // todo - should it consider whether the content fits?
             style.value = {
                 width: String(rectangle.width) + 'px',
                 top: String(rectangle.y + rectangle.height + 5) + 'px',
