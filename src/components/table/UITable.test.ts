@@ -1,4 +1,4 @@
-import type { Column, Row } from '@components/table/UITableTypes';
+import type { Column, Row } from '@/types/public';
 import { mount, VueWrapper } from '@vue/test-utils';
 import UITable from '@components/table/UITable.vue';
 import { snakeCase } from 'lodash-es';
