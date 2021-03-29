@@ -31,15 +31,8 @@ import { large, category } from '@composables/style';
 import { useVModel, disabled, clearable } from '@composables/input';
 import UIButton from '@components/button/UIButton.vue';
 import { isEqual, uniq } from 'lodash-es';
-import { MaybeArray } from '@/types';
+import type { MaybeArray, Option } from '@/types';
 import { wrap } from '@/helpers';
-
-export type Option = {
-    label?: string; // label to use if no slot set
-    value: any;
-    slot?: string; // name of the slot to use for this option
-    category?: string;
-};
 
 export default defineComponent({
     name: 'UIButtonToggle',

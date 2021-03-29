@@ -1,5 +1,5 @@
 <template>
-    <div class="button-group" :class="{ vertical, spread }" role="group">
+    <div class="button-group" :class="{ spread, vertical }" role="group">
         <slot />
     </div>
 </template>
@@ -8,11 +8,17 @@
 import { defineComponent } from 'vue';
 
 export const props = {
+    /**
+     * Display the buttons in a vertical order.
+     */
     vertical: {
         type: Boolean,
         default: false
     },
 
+    /**
+     * Set the width evenly to screen size.
+     */
     spread: {
         type: Boolean,
         default: false
@@ -40,7 +46,10 @@ export default defineComponent({
     }
 }
 .vertical {
-    @apply flex-col items-start;
+    @apply flex-col items-start w-max;
+    & > button {
+        @apply flex-1 w-full;
+    }
     & > button:last-child {
         @apply rounded-b rounded-r-none;
     }
@@ -49,6 +58,7 @@ export default defineComponent({
     }
 }
 .spread {
+    @apply w-full;
     & > button {
         @apply flex-1 w-full;
     }

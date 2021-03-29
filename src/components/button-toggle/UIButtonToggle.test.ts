@@ -1,11 +1,12 @@
 import { mount } from '@vue/test-utils';
 import UIButtonToggle from './UIButtonToggle.vue';
+import type { Option } from '@/types';
 
 const options: Record<string, any>[] = [
     { label: 'Places', value: 'places' },
     { label: 'List', value: 'list' },
     { label: 'Map', value: 'map' }
-];
+] as Option[];
 
 describe('UIButtonToggle', () => {
     it('should be able to select options', async () => {
