@@ -22,6 +22,18 @@
             Map
         </UIButton>
     </UIButtonGroup>
+
+    <UIButtonGroup class="mt-10" vertical>
+        <UIButton outline category="info">
+            Places
+        </UIButton>
+        <UIButton outline category="info">
+            List
+        </UIButton>
+        <UIButton category="primary" outline>
+            Map
+        </UIButton>
+    </UIButtonGroup>
 </template>
 
 <script lang="ts">
