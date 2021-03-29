@@ -1,8 +1,4 @@
 <template>
-    <UICheckbox v-model="secondary"
-                label="Secondary"
-                name="secondary"
-                class="mb-6" />
     <UICheckbox v-model="disabled"
                 label="Disabled"
                 name="disabled"
@@ -25,8 +21,8 @@
                     :options="options"
                     :large="large"
                     :multi="multi"
+                    category="primary"
                     :clearable="clearable"
-                    :secondary="secondary"
                     :disabled="disabled" />
 
     <p class="mt-4">
@@ -36,7 +32,7 @@
                     :options="slottedOptions"
                     :large="large"
                     :multi="multi"
-                    :secondary="secondary"
+                    category="primary"
                     :disabled="disabled">
         <template #places="slotProps">
             slotted {{ slotProps.option.label }}
@@ -62,7 +58,7 @@ export default defineComponent({
 
     setup() {
         const options: Option[] = [
-            { label: 'Places', value: 'places' },
+            { label: 'Places', value: 'places', category: 'brand' },
             { label: 'List', value: 'list' },
             { label: 'Map', value: 'map' }
         ];
@@ -74,7 +70,6 @@ export default defineComponent({
         ];
         const selected = ref(null);
         const selectedSlotted = ref(null);
-        const secondary = ref(false);
         const disabled = ref(false);
         const large = ref(false);
         const multi = ref(false);
@@ -85,7 +80,6 @@ export default defineComponent({
             slottedOptions,
             selectedSlotted,
             selected,
-            secondary,
             disabled,
             large,
             multi,
