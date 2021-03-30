@@ -44,8 +44,8 @@ const selectorMap = {
     checkboxes: 'tbody > tr > td.px-2 input',
     topCheckbox: 'thead > tr.hidden.bg-gray-100 > th.py-6.px-2 > span.mx-auto input',
     bottomCheckbox: 'tfoot > tr > td > span > span input',
-    previousPageBtn: 'span > button.p-2.rounded.transform.rotate-90',
-    nextPageBtn: 'span > button.p-2.rounded.transform.rotate-270'
+    previousPageBtn: 'tfoot button:first-child',
+    nextPageBtn: 'tfoot button:last-child'
 } as const;
 
 function titleCase(str: string): string {
@@ -558,13 +558,13 @@ describe('UITable', () => {
                 }
             });
 
-            expect(wrapper.find(selectorMap.previousPageBtn).attributes('disabled')).toBe(true);
-            expect(wrapper.find(selectorMap.nextPageBtn).attributes('disabled')).toBe(false);
+            expect(wrapper.find(selectorMap.previousPageBtn).attributes()).toHaveProperty('disabled');
+            expect(wrapper.find(selectorMap.nextPageBtn).attributes()).not.toHaveProperty('disabled');
 
             await wrapper.find(selectorMap.nextPageBtn).trigger('click');
 
-            expect(wrapper.find(selectorMap.previousPageBtn).attributes('disabled')).toBe(false);
-            expect(wrapper.find(selectorMap.nextPageBtn).attributes('disabled')).toBe(true);
+            expect(wrapper.find(selectorMap.previousPageBtn).attributes()).not.toHaveProperty('disabled');
+            expect(wrapper.find(selectorMap.nextPageBtn).attributes()).toHaveProperty('disabled');
         });
 
         it('should display the next/previous page on navigation to the next page', async () => {
