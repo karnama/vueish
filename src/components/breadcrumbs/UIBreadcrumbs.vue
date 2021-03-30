@@ -1,8 +1,7 @@
 <template>
-    <slot />
-    <ul v-if="!$slots.default" class="flex items-center flex-wrap" :class="{ 'flex-col': vertical }">
+    <ul class="flex items-center flex-wrap" :class="{ 'flex-col': vertical }">
         <li v-for="(crumb, index) in routeCrumbs" :key="crumb.path">
-            <slot :name="crumb.path" :route="crumb">
+            <slot :name="crumb.path.startsWith('/') ? crumb.path.slice(1) : crumb.path" :route="crumb">
                 <router-link v-if="$router.currentRoute.path !== crumb.path" :to="crumb">
                     {{ crumb?.meta?.label ?? crumb.path.slice(1) }}
                 </router-link>
@@ -13,7 +12,7 @@
             <slot name="separator"
                   :previous="crumb"
                   :next="routeCrumbs[index + 1]">
-                {{ routeCrumbs[index + 1] ? separator : '' }}
+                {{ routeCrumbs[index + 1] ? '&nbsp;' + separator + '&nbsp;' : '' }}
             </slot>
         </li>
     </ul>
@@ -22,7 +21,7 @@
 <script lang="ts">
 import { computed, defineComponent, getCurrentInstance } from 'vue';
 import type { PropType } from 'vue';
-import type { Router, RouteLocation } from 'vue-router';
+import type { Router, RouteLocationRaw, RouteLocation } from 'vue-router';
 
 export default defineComponent({
     name: 'UIBreadcrumbs',
@@ -37,10 +36,10 @@ export default defineComponent({
         },
 
         /**
-         * The crumbs to display.
+         * The path to display.
          */
-        crumbs: {
-            type: Array as PropType<string[]>
+        path: {
+            type: [Object, String] as PropType<RouteLocationRaw>
         },
 
         /**
@@ -52,21 +51,20 @@ export default defineComponent({
         }
     },
 
-    setup() {
-        const routeCrumbs = computed<boolean | RouteLocation[]>(() => {
-            const instance = getCurrentInstance();
-            if (!instance) {
-                return false;
-            }
+    setup(props) {
+        const instance = getCurrentInstance()!;
 
-            const router = getCurrentInstance()!.appContext.config.globalProperties.$router as Router;
+        const routeCrumbs = computed<RouteLocation[]>(() => {
+            const router = instance.appContext.config.globalProperties.$router as Router;
             const routes: RouteLocation[] = [];
-            router.currentRoute.value.path.split('/').reduce((previous, next) => {
-                if (next) {
-                    routes.push(router.resolve(next));
-                    return '/' + next;
-                }
-            }, '');
+            const currentRoute = props.path && router.resolve(props.path).matched.length
+                ? router.resolve(props.path).path
+                : router.currentRoute.value.path;
+
+            currentRoute
+                .split('/')
+                .splice(1)
+                .forEach(crumb => routes.push(router.resolve(crumb)));
 
             return routes;
         });
