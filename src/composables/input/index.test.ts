@@ -1,6 +1,6 @@
 import { useVModel } from '@composables/input/index';
 import { mount } from '@vue/test-utils';
-import { defineComponent, h, PropType } from 'vue';
+import { defineComponent, h } from 'vue';
 import { disableConsoleWarn, enableConsoleWarn } from '@helpers/test';
 
 describe('index', () => {
