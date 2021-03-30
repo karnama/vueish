@@ -1,4 +1,4 @@
-import {computed, onMounted, getCurrentInstance, capitalize, ref, unref, watch} from 'vue';
+import { computed, onMounted, getCurrentInstance, capitalize, ref, unref, watch } from 'vue';
 import type { Ref } from 'vue';
 
 /**
@@ -69,16 +69,7 @@ export const clearable = {
 };
 
 /**
- * Generic one-way value binding.
- */
-export const value = {
-    type: [String, Boolean, Array, Object, Number],
-    required: true
-};
-
-/**
  * Make the prop 2-way reactive.
- * You may only replace this value.
  *
  * Mutating object literals and array will not trigger an emit
  * therefore, you should always replace the value.
