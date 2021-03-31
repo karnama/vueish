@@ -5,8 +5,8 @@
         </slot>
         <teleport to="body">
             <span ref="labelElement"
-                  class="range-value opacity-100 transition-opacity px-2 py-1
-                             bg-red-400 rounded text-center absolute"
+                  class="range-value opacity-0 transition-opacity px-2 py-1
+                             bg-brand-400 rounded text-center text-white absolute"
                   :class="{ 'opacity-100': showLabel }"
                   :style="position">
                 {{ model }}
@@ -23,10 +23,10 @@
                :disabled="disabled"
                :min="min"
                :max="max"
-               @touchstart="openLabel"
-               @mousedown="openLabel"
-               @touchend="closeLabel"
-               @mouseup="closeLabel">
+               @touchstart="showLabel = true"
+               @mouseover="showLabel = true"
+               @touchend="showLabel = false"
+               @mouseout="showLabel = false">
     </label>
 </template>
 
@@ -34,8 +34,6 @@
 import { computed, defineComponent, ref, watch } from 'vue';
 import { useVModel } from '@composables/input';
 import { disabled, name, label } from '@composables/input';
-
-let timeoutId: any;
 
 export default defineComponent({
     name: 'UIRangeSlider',
@@ -72,6 +70,14 @@ export default defineComponent({
             default: 1
         },
 
+        /**
+         * Display the floating label while using
+         */
+        withMarker: {
+            type: Boolean,
+            default: false
+        },
+
         label,
         disabled,
         name
@@ -104,20 +110,14 @@ export default defineComponent({
             (val: number) => {
                 const rangeRect = range.value?.getBoundingClientRect();
                 const labelRect = labelElement.value?.getBoundingClientRect();
+                const rangeHandleSize = 25;
 
                 if (!rangeRect || !labelRect) return;
 
-                position.value.top = `calc(${rangeRect.y}px - ${labelRect.height}px - 12.5px - 5px)`;
-                position.value.left = `calc(${rangeRect.left}px + ${rangeRect.width / 100 * val}px - ${25 / 100 * val}px)`;
+                position.value.top = `calc(${rangeRect.y}px - ${labelRect.height}px - ${rangeHandleSize / 2}px - 5px)`;
+                position.value.left = `calc(${rangeRect.left}px + ${rangeRect.width / 100 * val}px - ${rangeHandleSize / 100 * val}px)`;
             });
 
-        const closeLabel = () => {
-            timeoutId = setTimeout(() => showLabel.value = false, 750);
-        };
-        const openLabel = () => {
-            clearTimeout(timeoutId);
-            showLabel.value = true;
-        };
 
         return {
             model,
@@ -125,9 +125,7 @@ export default defineComponent({
             bgColor,
             position,
             range,
-            labelElement,
-            closeLabel,
-            openLabel
+            labelElement
         };
     }
 });
