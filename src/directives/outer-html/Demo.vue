@@ -1,14 +1,12 @@
 <template>
-    <div v-outer-html="html">
-        Origin div
-    </div>
-    <span>This is after the inserted html</span>
+<!--    <div v-outer-html="html">-->
+<!--        Origin div-->
+<!--    </div>-->
+<!--    <span>This is after the inserted html</span>-->
 
-    <hr class="my-4">
+<!--    <hr class="my-4">-->
 
-    <template v-outer-html="templateHtml">
-        Origin template
-    </template>
+    <template v-outer-html="templateHtml" />
 
     <UIButton label="Change html" @click="change" />
 </template>
@@ -21,13 +19,12 @@ export default defineComponent({
     name: 'OuterHtml',
     components: { UIButton },
     setup() {
-        const html = ref('<h1>This is the next sibling of the origin</h1>');
-        const templateHtml = ref('<h1>This has replaced the &lt;template&gt; tag</h1>');
+        const html = ref('<p>This is the next sibling of the origin</p>');
+        const templateHtml = ref('<p>This has replaced the &lt;template&gt; tag</p>');
 
         const change = () => {
-            html.value += 'updated';
-            templateHtml.value += 'updated';
-            console.log(html.value);
+            html.value += '<p>updated</p>';
+            templateHtml.value = templateHtml.value + '<p>updated</p>';
         };
 
         return {
