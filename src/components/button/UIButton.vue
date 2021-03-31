@@ -8,6 +8,7 @@
               :class="{ 'opacity-1': loading, 'opacity-0': !loading }">
             <slot name="loader">
                 <UISpinnerLoader
+                    v-if="loading"
                     inherit-color
                     :class="loaderColor"
                     :stroke="2"
@@ -40,16 +41,25 @@ export default defineComponent({
     components: { UISpinnerLoader },
 
     props: {
+        /**
+         * Indication whether button is currently loading or not.
+         */
         loading: {
             type: Boolean,
             default: false
         },
 
+        /**
+         * Use the outline (/secondary) styles.
+         */
         outline: {
             type: Boolean,
             default: false
         },
 
+        /**
+         * Use the minimal (/ternary) styles.
+         */
         minimal: {
             type: Boolean,
             default: false
@@ -63,29 +73,30 @@ export default defineComponent({
 
     setup(props) {
         const primaryTypeClasses = computed<{ [key in StyleType]: string; }>(() => ({
-            default: 'text-gray-900 bg-gray-300 disabled:bg-gray-300' + (props.disabled ? '' : ' hover:bg-gray-400'),
-            primary: 'text-white bg-blue-600' + (props.disabled ? '' : ' hover:bg-blue-700'),
-            info: 'text-white bg-blue-400' + (props.disabled ? '' : ' hover:bg-blue-500'),
-            success: 'text-white bg-green-400' + (props.disabled ? '' : ' hover:bg-green-500'),
-            warning: 'bg-yellow-400' + (props.disabled ? '' : ' hover:bg-yellow-500'),
-            danger: 'text-white bg-red-400' + (props.disabled ? '' : ' hover:bg-red-500'),
-            brand: 'text-white bg-brand-400' + (props.disabled ? '' : ' hover:bg-brand-500')
+            default: 'border border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300' +
+                (props.disabled ? '' : ' hover:bg-gray-400'),
+            primary: 'border border-blue-600 text-white bg-blue-600' + (props.disabled ? '' : ' hover:bg-blue-700'),
+            info: 'border border-blue-400 text-white bg-blue-400' + (props.disabled ? '' : ' hover:bg-blue-500'),
+            success: 'border border-green-400 text-white bg-green-400' + (props.disabled ? '' : ' hover:bg-green-500'),
+            warning: 'border border-yellow-400 bg-yellow-400' + (props.disabled ? '' : ' hover:bg-yellow-500'),
+            danger: 'border border-red-400 text-white bg-red-400' + (props.disabled ? '' : ' hover:bg-red-500'),
+            brand: 'border border-brand-400 text-white bg-brand-400' + (props.disabled ? '' : ' hover:bg-brand-500')
         }));
-        const outlineTypeClasses = computed<{ [key in StyleType]: string; }>(() =>({
-            default: 'border shadow-sm border-gray-300 disabled:bg-gray-300 disabled:shadow-none'
-                + (props.disabled ? '' : ' hover:bg-gray-200'),
-            primary: 'border shadow-sm border-blue-400 disabled:bg-gray-200 disabled:shadow-none'
-                + (props.disabled ? '' : ' hover:bg-blue-400 hover:border-blue-400'),
-            info: 'border shadow-sm border-blue-200 disabled:bg-gray-200 disabled:shadow-none'
-                + (props.disabled ? '' : ' hover:bg-blue-200 hover:border-blue-200'),
-            success: 'border shadow-sm border-green-300 disabled:bg-gray-200 disabled:shadow-none'
-                + (props.disabled ? '' : ' hover:bg-green-300 hover:border-green-300'),
-            warning: 'border shadow-sm border-yellow-300 disabled:bg-gray-200 disabled:shadow-none'
-                + (props.disabled ? '' : ' hover:bg-yellow-300 hover:border-yellow-300'),
-            danger: 'border shadow-sm border-red-300 disabled:bg-gray-200 disabled:shadow-none'
-                + (props.disabled ? '' : ' hover:bg-red-300 hover:border-red-300'),
-            brand: 'border shadow-sm border-brand-300 disabled:bg-gray-200 disabled:shadow-none'
-                + (props.disabled ? '' : ' hover:bg-brand-300 hover:border-brand-300')
+        const outlineTypeClasses = computed<{ [key in StyleType]: string; }>(() => ({
+            default: 'text-gray-600 border shadow-sm border-gray-400 disabled:bg-gray-300 disabled:shadow-none'
+                + (props.disabled ? '' : ' hover:text-white hover:bg-gray-400'),
+            primary: 'text-blue-600 border shadow-sm border-blue-500 disabled:bg-gray-200 disabled:shadow-none'
+                + (props.disabled ? '' : ' hover:text-white hover:bg-blue-500 hover:border-blue-500'),
+            info: 'text-blue-300 border shadow-sm border-blue-300 disabled:bg-gray-200 disabled:shadow-none'
+                + (props.disabled ? '' : ' hover:text-white hover:bg-blue-300 hover:border-blue-300'),
+            success: 'text-green-600 border shadow-sm border-green-400 disabled:bg-gray-200 disabled:shadow-none'
+                + (props.disabled ? '' : ' hover:text-white hover:bg-green-400 hover:border-green-400'),
+            warning: 'text-yellow-500 border shadow-sm border-yellow-300 disabled:bg-gray-200 disabled:shadow-none'
+                + (props.disabled ? '' : ' hover:text-white hover:bg-yellow-300 hover:border-yellow-300'),
+            danger: 'text-red-600 border shadow-sm border-red-400 disabled:bg-gray-200 disabled:shadow-none'
+                + (props.disabled ? '' : ' hover:text-white hover:bg-red-400 hover:border-red-400'),
+            brand: 'text-brand-600 border shadow-sm border-brand-400 disabled:bg-gray-200 disabled:shadow-none'
+                + (props.disabled ? '' : ' hover:text-white hover:bg-brand-400 hover:border-brand-400')
         }));
         const minimalTypeClasses = computed<{ [key in StyleType]: string; }>(() => ({
             default: 'text-gray-600 disabled:bg-gray-300' + (props.disabled ? '' : ' hover:bg-gray-200'),
@@ -164,12 +175,14 @@ export default defineComponent({
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
 button {
     transition: filter 100ms ease;
     filter: invert(0%);
 }
+
 button:active {
     transition: filter 100ms ease;
-    filter: invert(5%);
+    filter: invert(10%);
 }
 </style>
