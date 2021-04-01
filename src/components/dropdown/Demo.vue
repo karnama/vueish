@@ -2,7 +2,7 @@
     <UICheckbox v-model="atMousePosition" label="Positioned on the mouse" name="at_mouse_position" />
 
     <p class="mt-10">Left click</p>
-    <UIDropdown ref="contextMenu" :at-mouse-position="atMousePosition">
+    <UIDropdown :at-mouse-position="atMousePosition">
         <template #trigger="{toggle}">
             <UIButton type="primary" @click.stop="toggle">
                 Toggle
