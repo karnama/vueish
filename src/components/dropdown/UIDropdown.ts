@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import UIDropdown from '@components/drop-down/UIDropdown.vue';
+import UIDropdown from '@components/dropdown/UIDropdown.vue';
 import { h, nextTick } from 'vue';
 
 describe('UIDropdown', () => {

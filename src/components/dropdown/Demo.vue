@@ -19,7 +19,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import UIButton from '@components/button/UIButton.vue';
-import UIDropdown from '@components/drop-down/UIDropdown.vue';
+import UIDropdown from '@components/dropdown/UIDropdown.vue';
 import { range } from 'lodash-es';
 
 export default defineComponent({
