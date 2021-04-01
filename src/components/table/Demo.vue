@@ -46,7 +46,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import UITable from '@components/table/UITable.vue';
-import { Column, Row } from '@components/table/UITableTypes';
+import type { Column, Row } from '@/types/public';
 import UIPanel from '@components/panel/UIPanel.vue';
 import UIButton from '@components/button/UIButton.vue';
 
