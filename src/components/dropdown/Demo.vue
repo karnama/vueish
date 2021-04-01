@@ -19,7 +19,7 @@
     </UIDropdown>
 
     <p class="mt-10">Right click (context menu)</p>
-    <UIDropdown ref="contextMenu" :at-mouse-position="atMousePosition">
+    <UIDropdown :at-mouse-position="atMousePosition">
         <template #trigger="{toggle}">
             <img src="https://source.unsplash.com/random/400x300" alt="Clickable Image" @contextmenu.prevent="toggle">
         </template>
