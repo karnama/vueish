@@ -311,7 +311,8 @@ export default defineComponent({
             style.value = {
                 width: String(rectangle.width) + 'px',
                 top: String(rectangle.y + rectangle.height + 5) + 'px',
-                left: String(rectangle.x) + 'px'
+                left: String(rectangle.x) + 'px',
+                zIndex: 9999
             };
         };
 
