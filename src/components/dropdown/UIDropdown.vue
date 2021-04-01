@@ -1,24 +1,28 @@
 <template>
-    <div ref="uiContextMenu"
+    <div ref="uiDropdown"
          aria-haspopup="true"
-         class="w-max relative">
-        <slot />
+         class="ui-dropdown w-max relative">
+        <slot name="trigger"
+              :toggle="toggle"
+              :show="show"
+              :hide="hide" />
+
         <div v-if="isOpen"
              v-bind="$attrs"
-             ref="menu"
-             class="menu absolute flex flex-col items-stretch shadow-lg bg-white rounded z-50 overflow-scroll"
-             :style="menuStyle"
+             ref="dropdown"
+             v-click-away="hide"
+             class="dropdown absolute flex flex-col items-stretch shadow-lg bg-white rounded z-50 overflow-scroll"
+             :style="dropdownStyle"
              role="group"
              @click.stop>
-            <slot name="menu" />
+            <slot />
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, nextTick, onMounted, onUpdated, ref, watch } from 'vue';
+import { computed, defineComponent, ref, reactive } from 'vue';
 import type { PropType } from 'vue';
-import { removeClickAway, addClickAway, createClickAwayListener } from '@composables/interactivity/clickAway';
 import { clickAway } from '@composables/interactivity';
 import { getPxValue } from '@composables/style';
 
@@ -31,7 +35,7 @@ export default defineComponent({
 
     props: {
         /**
-         * The horizontal position of the menu.
+         * The horizontal position of the dropdown.
          */
         horizontal: {
             type: String as PropType<'right' | 'left'>,
@@ -40,7 +44,7 @@ export default defineComponent({
         },
 
         /**
-         * The vertical position of the menu.
+         * The vertical position of the dropdown.
          */
         vertical: {
             type: String as PropType<'top' | 'bottom'>,
@@ -49,7 +53,7 @@ export default defineComponent({
         },
 
         /**
-         * The max height of the menu with px or vh notation.
+         * The max height of the dropdown with px or vh notation.
          */
         maxHeight: {
             type: String,
@@ -57,7 +61,7 @@ export default defineComponent({
         },
 
         /**
-         * The width of the menu with px or vw notation.
+         * The width of the dropdown with px or vw notation.
          */
         width: {
             type: String,
@@ -76,39 +80,43 @@ export default defineComponent({
 
     setup(props) {
         const isOpen = ref(false);
-        const uiContextMenu = ref<HTMLDivElement>();
-        const menu = ref<HTMLDivElement>();
-        const mousePos = ref<{ x: number; y: number } | undefined>();
+        const uiDropdown = ref<HTMLDivElement>();
+        const dropdown = ref<HTMLDivElement>();
+        const mousePos = reactive({
+            x: 0,
+            y: 0
+        });
 
-        const menuStyle = computed(() => {
+        const dropdownStyle = computed(() => {
             const style: Partial<CSSStyleDeclaration> = {};
-            if (!uiContextMenu.value || !isOpen.value) {
+
+            if (!uiDropdown.value || !isOpen.value) {
                 return style;
             }
 
-            const contentParameters: DOMRect = uiContextMenu.value.getBoundingClientRect();
-            const menuParameters = menu.value?.getBoundingClientRect();
+            const contentParameters: DOMRect = uiDropdown.value.getBoundingClientRect();
+            const dropdownParameters = dropdown.value?.getBoundingClientRect();
 
             style.maxHeight = props.maxHeight;
             style.width = props.width;
 
-            if (props.atMousePosition && mousePos.value) {
+            if (props.atMousePosition) {
                 // convert viewport values to px
                 const width = getPxValue(props.width);
                 const maxHeight = getPxValue(props.width);
 
                 // doesn't fit on the right
-                if (document.documentElement.clientWidth - (contentParameters.x + mousePos.value.x) <= width) {
-                    style.left = `${mousePos.value.x - width}px`;
+                if (document.documentElement.clientWidth - (contentParameters.x + mousePos.x) <= width) {
+                    style.left = `${mousePos.x - width}px`;
                 } else {
-                    style.left = `${mousePos.value.x}px`;
+                    style.left = `${mousePos.x}px`;
                 }
 
                 // doesn't fit on the bottom
-                if (document.documentElement.clientHeight - (contentParameters.y + mousePos.value.y) <= maxHeight) {
-                    style.top = `${mousePos.value.y - (menuParameters ? menuParameters.height : maxHeight)}px`;
+                if (document.documentElement.clientHeight - (contentParameters.y + mousePos.y) <= maxHeight) {
+                    style.top = `${mousePos.y - (dropdownParameters ? dropdownParameters.height : maxHeight)}px`;
                 } else {
-                    style.top = `${mousePos.value.y}px`;
+                    style.top = `${mousePos.y}px`;
                 }
 
                 return style;
@@ -129,56 +137,44 @@ export default defineComponent({
             return style;
         });
 
-        const toggle = (opened?: boolean) => {
-            const bool = typeof opened === 'boolean' ? opened : !isOpen.value;
-
-            if (bool === isOpen.value) return;
-
-            if (!bool) {
-                mousePos.value = undefined;
+        const show = (event: MouseEvent) => {
+            if (props.atMousePosition) {
+                mousePos.x = event.offsetX;
+                mousePos.y = event.offsetY;
             }
 
-            isOpen.value = bool;
-        };
-        const contextMenuClick = (event: MouseEvent) => {
-            event.preventDefault();
-            mousePos.value = { x: event.offsetX, y: event.offsetY };
-            toggle(true);
+            isOpen.value = true;
         };
 
-        onMounted(() => {
-            if (props.atMousePosition) {
-                uiContextMenu.value!.addEventListener('contextmenu', contextMenuClick);
+        const hide = () => {
+            isOpen.value = false;
+        };
+
+        const toggle = (event: MouseEvent) => {
+            // If the dropdown is showing via contextmenu event, and the user has triggered
+            // another contextmenu event then reshow the dropdown at the new mouse
+            // position.
+            const reshow = isOpen.value && props.atMousePosition && event.type === 'contextmenu';
+
+            if (isOpen.value) {
+                hide();
+            } else {
+                show(event);
             }
 
-            createClickAwayListener(menu.value, { value: () => toggle(false), modifiers: {} });
-        });
-        onUpdated(() => {
-            if (props.atMousePosition) {
-                uiContextMenu.value!.removeEventListener('contextmenu', contextMenuClick);
-                uiContextMenu.value!.addEventListener('contextmenu', contextMenuClick);
-            } else {
-                uiContextMenu.value!.removeEventListener('contextmenu', contextMenuClick);
+            if (reshow) {
+                show(event);
             }
-        });
-
-        watch(() => isOpen.value, async val => {
-            if (val) {
-                addClickAway();
-                await nextTick();
-                menu.value!.addEventListener('contextmenu', e => e.stopPropagation());
-            } else {
-                menu.value!.removeEventListener('contextmenu', e => e.stopPropagation());
-                removeClickAway();
-            }
-        });
+        };
 
         return {
             isOpen,
             toggle,
-            uiContextMenu,
-            menu,
-            menuStyle
+            show,
+            hide,
+            uiDropdown,
+            dropdown,
+            dropdownStyle
         };
     }
 });
