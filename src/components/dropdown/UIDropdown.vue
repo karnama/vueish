@@ -137,8 +137,8 @@ export default defineComponent({
             return style;
         });
 
-        const show = (event: MouseEvent) => {
-            if (props.atMousePosition) {
+        const show = (event?: MouseEvent) => {
+            if (event && props.atMousePosition) {
                 mousePos.x = event.offsetX;
                 mousePos.y = event.offsetY;
             }
