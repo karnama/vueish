@@ -181,7 +181,7 @@ button {
     filter: invert(0%);
 }
 
-button:active {
+button:active:not(:disabled) {
     transition: filter 100ms ease;
     filter: invert(10%);
 }

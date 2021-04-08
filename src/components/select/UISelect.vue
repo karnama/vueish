@@ -45,14 +45,14 @@
                  :style="style"
                  @keydown.esc="closeList">
                 <!--Header to display instructions-->
-                <div class="px-2 py-1 text-sm bg-dark border-b select-none">
+                <div v-if="header || $slots.header" class="px-2 py-1 text-sm bg-dark border-b select-none">
                     <slot name="header">
                         {{ header }}
                     </slot>
                 </div>
 
                 <!--Search input to filter the list-->
-                <div class="p-2 bg-dark">
+                <div v-if="!noSearch" class="p-2 bg-dark">
                     <input ref="searchInput"
                            v-model="search"
                            tabindex="-1"
@@ -66,12 +66,15 @@
                     <li v-for="(option, index) in filteredOptions"
                         :key="option[optionLabel] + '-' + index"
                         :ref="el => { if (el) listElements[index] = el }"
-                        class="option border-t cursor-pointer bg-default hover:bg-gray-100 relative
+                        :aria-selected="currentlySelected = isSelected(option)"
+                        class="option cursor-pointer bg-default hover:bg-gray-100 relative
                                justify-center focus:bg-brand-200 outline-none"
-                        :class="{'selected-option bg-gray-200': isSelected(option)}"
+                        :class="{
+                            'selected-option bg-gray-200': currentlySelected,
+                            'border-t': index > 0 || !noSearch && index === 0
+                        }"
                         role="option"
                         tabindex="0"
-                        :aria-selected="isSelected(option)"
                         @keydown.up="listElements[index-1]?.focus()"
                         @keydown.down="listElements[index+1]?.focus()"
                         @keydown.enter="select(option)"
@@ -83,9 +86,11 @@
                                 </slot>
                             </div>
 
-                            <div class="flex items-center justify-between p-2 px-3">
-                                <span v-if="isSelected(option)"
-                                      class="clear-icon h-5 w-5 cursor-pointer text-gray-500"
+                            <div v-if="currentlySelected && (!noClear && !multi)
+                                     || multi && !noClear && currentlySelected
+                                     || multi && currentlySelected && Array.isArray(selected) && selected.length > 1"
+                                 class="flex items-center justify-between p-2 px-3">
+                                <span class="clear-icon h-5 w-5 cursor-pointer text-gray-500"
                                       @click.stop="clearSelection(option)"
                                       v-html="clearIcon" />
                             </div>
@@ -156,6 +161,14 @@ export default defineComponent({
         header: {
             type: String,
             default: 'Select an option'
+        },
+
+        /**
+         * Disable the searching feature.
+         */
+        noSearch: {
+            type: Boolean,
+            default: false
         },
 
         /**
@@ -294,10 +307,12 @@ export default defineComponent({
                 return {};
             }
 
+            // todo - should it consider whether the content fits?
             style.value = {
                 width: String(rectangle.width) + 'px',
                 top: String(rectangle.y + rectangle.height + 5) + 'px',
-                left: String(rectangle.x) + 'px'
+                left: String(rectangle.x) + 'px',
+                zIndex: 9999
             };
         };
 
