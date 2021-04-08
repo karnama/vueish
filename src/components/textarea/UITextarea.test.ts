@@ -184,7 +184,7 @@ describe('UITextarea', () => {
         });
 
         expect(wrapper.text()).not.toContain(value.length);
-        await wrapper.setProps({ countChars: true });
+        await wrapper.setProps({ counter: true });
         expect(wrapper.text()).toContain(value.length);
 
         await wrapper.get('textarea').setValue(value + ' + 1');

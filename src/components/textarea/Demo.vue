@@ -8,7 +8,7 @@
             <UITextarea v-model="customText"
                         placeholder="Write your bio here"
                         name="ui-text"
-                        count-chars
+                        counter
                         clearable
                         auto-size
                         label="Standard" />

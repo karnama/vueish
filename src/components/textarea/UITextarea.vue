@@ -1,5 +1,5 @@
 <template>
-    <div class="ui-textarea">
+    <div class="ui-textarea relative">
         <label :for="$attrs.id ?? name" class="font-medium text-gray-700">
             {{ label }}
         </label>
@@ -17,7 +17,7 @@
                           :aria-placeholder="$attrs.placeholder"
                           class="flex-1 p-3 appearance-none bg-transparent outline-none
                                  disabled:cursor-not-allowed disabled:text-gray-400"
-                          :style="[disabled || fixed || autoSize ? 'resize: none' : '', countChars ? 'min-height: 5rem' : '']" />
+                          :style="[disabled || fixed || autoSize ? 'resize: none' : '', counter ? 'min-height: 5rem' : '']" />
 
                 <div class="flex flex-col justify-between" :class="{ 'text-gray-400 cursor-not-allowed': disabled }">
                     <span v-if="disabled"
@@ -30,14 +30,13 @@
                             aria-roledescription="clear"
                             @click="model = ''"
                             v-html="clearIcon" />
-
-                    <span v-if="countChars && modelValue"
-                          class="text-sm px-1 text-center h-5">
-                        {{ modelValue.length }}
-                    </span>
                 </div>
             </div>
         </div>
+        <span v-if="counter && modelValue"
+              class="text-sm px-1 text-center h-5 -bottom-5 right-0 absolute text-gray-500">
+            {{ modelValue.length }}
+        </span>
     </div>
 </template>
 
@@ -77,7 +76,7 @@ export default defineComponent({
         /**
          * Display a count of the characters currently in the textarea.
          */
-        countChars: {
+        counter: {
             type: Boolean,
             default: false
         },
