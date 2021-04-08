@@ -45,14 +45,27 @@ describe('UIRadio', () => {
 });
 
 describe('UIRadioGroup', () => {
+    it('should display correctly', () => {
+        const wrapper = mount({
+            template: `
+                <UIRadioGroup label="my-label" name="name">
+                <UIRadio value="foo"/>
+                <UIRadio value="bar"/>
+                </UIRadioGroup>`,
+            components: { UIRadioGroup, UIRadio }
+        });
+
+        expect(wrapper.element).toMatchSnapshot();
+    });
+
     it('should display the label when passed as a prop', () => {
         const label = 'text';
 
         const wrapper = mount({
             template: `
                 <UIRadioGroup label="${label}" name="name">
-                <UIRadio value="foo" />
-                <UIRadio value="bar" />
+                  <UIRadio value="foo" />
+                  <UIRadio value="bar" />
                 </UIRadioGroup>`,
             components: { UIRadioGroup, UIRadio }
         });
@@ -67,8 +80,8 @@ describe('UIRadioGroup', () => {
             template: `
                 <UIRadioGroup name="name">
                 <template #label>${label}</template>
-                <UIRadio value="foo" />
-                <UIRadio value="bar" />
+                <UIRadio value="foo"/>
+                <UIRadio value="bar"/>
                 </UIRadioGroup>`,
             components: { UIRadioGroup, UIRadio }
         });
@@ -80,8 +93,8 @@ describe('UIRadioGroup', () => {
         const wrapper = mount({
             template: `
                 <UIRadioGroup name="name">
-                <UIRadio value="foo" />
-                <UIRadio value="bar" />
+                <UIRadio value="foo"/>
+                <UIRadio value="bar"/>
                 </UIRadioGroup>`,
             components: { UIRadioGroup, UIRadio }
         });
@@ -93,8 +106,8 @@ describe('UIRadioGroup', () => {
         const wrapper = mount({
             template: `
                 <UIRadioGroup horizontal name="name">
-                <UIRadio value="foo" />
-                <UIRadio value="bar" />
+                <UIRadio value="foo"/>
+                <UIRadio value="bar"/>
                 </UIRadioGroup>`,
             components: { UIRadioGroup, UIRadio }
         });
@@ -107,8 +120,8 @@ describe('UIRadioGroup', () => {
         const wrapper = mount({
             template: `
                 <UIRadioGroup name="input">
-                <UIRadio value="foo" />
-                <UIRadio value="bar" />
+                <UIRadio value="foo"/>
+                <UIRadio value="bar"/>
                 </UIRadioGroup>`,
             components: { UIRadioGroup, UIRadio }
         });
@@ -121,8 +134,8 @@ describe('UIRadioGroup', () => {
         const wrapper = mount({
             template: `
                 <UIRadioGroup name="name">
-                <UIRadio value="foo" />
-                <UIRadio value="bar" />
+                <UIRadio value="foo"/>
+                <UIRadio value="bar"/>
                 </UIRadioGroup>`,
             components: { UIRadioGroup, UIRadio }
         });
@@ -138,8 +151,8 @@ describe('UIRadioGroup', () => {
         const wrapper = mount({
             template: `
                 <UIRadioGroup name="name">
-                <UIRadio value="foo" />
-                <UIRadio value="bar" />
+                <UIRadio value="foo"/>
+                <UIRadio value="bar"/>
                 </UIRadioGroup>`,
             components: { UIRadioGroup, UIRadio }
         });
@@ -155,8 +168,8 @@ describe('UIRadioGroup', () => {
         const wrapper = mount({
             template: `
                     <UIRadioGroup>
-                    <UIRadio value="foo" />
-                    <UIRadio value="bar" />
+                    <UIRadio value="foo"/>
+                    <UIRadio value="bar"/>
                     </UIRadioGroup>`,
             components: { UIRadioGroup, UIRadio }
         },
@@ -180,8 +193,8 @@ describe('UIRadioGroup', () => {
         const wrapper = mount({
             template: `
                     <UIRadioGroup>
-                    <UIRadio value="foo" />
-                    <UIRadio value="bar" />
+                    <UIRadio value="foo"/>
+                    <UIRadio value="bar"/>
                     </UIRadioGroup>`,
             components: { UIRadioGroup, UIRadio }
         },

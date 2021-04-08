@@ -64,6 +64,17 @@ function getLastEventValue(wrapper: VueWrapper<ComponentPublicInstance>) {
 }
 
 describe('UITable', () => {
+    it('should display correctly', () => {
+        const wrapper = mount(UITable, {
+            props: {
+                rows,
+                headers
+            }
+        });
+
+        expect(wrapper.element).toMatchSnapshot();
+    });
+
     it('should display the given headers and rows', () => {
         const wrapper = mount(UITable, {
             props: {

@@ -2,6 +2,11 @@ import { mount } from '@vue/test-utils';
 import UIAvatar from '@components/avatar/UIAvatar.vue';
 
 describe('UIAvatar', () => {
+    it('should correctly display', () => {
+        const wrapper = mount(UIAvatar);
+        expect(wrapper.element).toMatchSnapshot();
+    });
+
     it('should display the given default content if no src given', () => {
         const wrapper = mount(UIAvatar, {
             slots: {

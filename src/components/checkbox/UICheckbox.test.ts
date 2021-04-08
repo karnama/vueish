@@ -2,15 +2,13 @@ import UICheckbox from './UICheckbox.vue';
 import { mount } from '@vue/test-utils';
 
 describe('UICheckbox', () => {
-    it('should render', () => {
+    it('should correctly display', () => {
         const wrapper = mount(UICheckbox, {
             props: {
-                name: 'inputName'
+                name: 'name'
             }
         });
-
-        expect(wrapper).toBeDefined();
-        expect(wrapper.exists()).toBe(true);
+        expect(wrapper.element).toMatchSnapshot();
     });
 
     it('should toggle array value when v-model is array', async () => {

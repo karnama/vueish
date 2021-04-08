@@ -8,6 +8,15 @@ Install:
 
 # Contribution
 
+error like
+```text
+failed to load config from /Users/my-user/Web/vueish/vite.config.ts
+error when starting dev server:
+Error: The service was stopped
+```
+
+can be fixed by running `node node_modules/esbuild/install`
+
 ### Testing
 
 #### snapshot testing

@@ -1,6 +1,5 @@
 import { mount } from '@vue/test-utils';
 import UIButton from './UIButton.vue';
-import {nextTick} from "vue";
 
 describe('UIButton', () => {
     it('should render correctly', () => {
