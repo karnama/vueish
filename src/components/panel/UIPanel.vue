@@ -175,7 +175,6 @@ export default defineComponent({
 }
 .no-blur {
     filter: blur(0);
-    transition: filter 100ms ease;
 }
 .blur {
     filter: blur(1px);

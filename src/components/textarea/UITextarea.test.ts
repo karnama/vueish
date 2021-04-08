@@ -59,6 +59,21 @@ describe('UITextarea', () => {
         expect(input.element.style.resize).toBe('none');
     });
 
+    it('should prevent resize when the autoSize prop is given', async () => {
+        const wrapper = mount(UITextarea, {
+            props: {
+                modelValue: '',
+                name: 'input'
+            }
+        });
+
+        const input = wrapper.get('textarea');
+
+        expect(input.element.style.resize).toBe('');
+        await wrapper.setProps({ autoSize: true });
+        expect(input.element.style.resize).toBe('none');
+    });
+
     it('should correctly assign the name prop', () => {
         const name = 'input';
 
@@ -157,5 +172,23 @@ describe('UITextarea', () => {
         await wrapper.get('.clear-icon').trigger('click');
         expect(wrapper.emitted()).toHaveProperty('update:modelValue');
         expect(wrapper.emitted('update:modelValue')![0]).toStrictEqual(['']);
+    });
+
+    it('should display the character count given the prop', async () => {
+        const value = 'Hello World';
+        const wrapper = mount(UITextarea, {
+            props: {
+                name: 'input',
+                modelValue: value
+            }
+        });
+
+        expect(wrapper.text()).not.toContain(value.length);
+        await wrapper.setProps({ counter: true });
+        expect(wrapper.text()).toContain(value.length);
+
+        await wrapper.get('textarea').setValue(value + ' + 1');
+        await wrapper.trigger('input');
+        expect(wrapper.text()).toContain((value + ' + 1').length);
     });
 });

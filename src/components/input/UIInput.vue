@@ -87,6 +87,13 @@ import { large } from '@composables/style';
 import { getIcon, getPrecision } from '@/helpers';
 import { omit } from 'lodash-es';
 
+// fixme - scenario:
+// max = 5
+// min = 1
+// manually type 13
+// try to decrement (it will not do so as it figures the next value is 0)
+// if value is 23 it will decrement to 1, on 33 to 2 etc
+// same with increment
 export default defineComponent({
     name: 'UIInput',
 
