@@ -204,12 +204,6 @@ import { debouncedRef } from '@composables/reactivity';
 import UISelect from '@components/select/UISelect.vue';
 import UIButton from '@components/button/UIButton.vue';
 
-// todo - features planned/would be nice to have
-// - dropdown extra info (as in new row)
-// - grouping
-// - dense styling on prop
-// - virtualized
-
 // fixme - multi select on desktop shows footer of not single select
 
 export default defineComponent({
@@ -298,7 +292,7 @@ export default defineComponent({
         /**
          * The number of rows on the page.
          */
-        itemsPerPage: { // todo allow string
+        itemsPerPage: {
             type: Number,
             default: 10,
             validator: (val: number) => [5, 10, 25, 50, 100].includes(val)
@@ -440,7 +434,6 @@ export default defineComponent({
             }
 
             headers.forEach(header => {
-                // todo - get the resolved sm value from tailwind
                 style.sheet!.insertRule(
                     '@media (min-width: 640px) {'
                     + `table.hover-cell-${header.rowProperty}:hover td.hover-cell-${header.rowProperty} `
