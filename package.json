@@ -57,8 +57,5 @@
         "vue-loader": "^16.1.2",
         "vue-router": "^4.0.5",
         "vue-template-compiler": "^2.6.12"
-    },
-    "dependencies": {
-        "vue3-click-away": "^1.1.0"
     }
 }
