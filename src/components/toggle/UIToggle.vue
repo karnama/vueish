@@ -5,12 +5,13 @@
         </label>
         <div class="toggle-wrapper relative flex">
             <input :id="$attrs.id ?? name"
-                   v-model="model"
+                   :checked="model"
                    type="checkbox"
                    v-bind="omit($attrs, ['class', 'style'])"
                    class="w-full h-full cursor-pointer opacity-0 m-0 p-0"
                    :disabled="disabled"
-                   :name="name">
+                   :name="name"
+                   @change="model = !model">
             <div class="handle" />
             <div class="background bg-gray-200 rounded-full w-full h-full absolute top-0 left-0 z-0" />
         </div>
@@ -39,7 +40,14 @@ export default defineComponent({
 
     emits: ['update:modelValue'],
 
-    setup: (props) => ({ model: useVModel(props), omit })
+    setup: (props) => {
+        const model = useVModel(props);
+
+        return {
+            model,
+            omit
+        };
+    }
 });
 </script>
 
@@ -112,7 +120,7 @@ input:disabled {
 input:disabled:checked {
     & ~ .background {
         @apply bg-brand-400;
-        filter: brightness(150%) saturate(70%);
+        filter: brightness(90%) saturate(70%);
     }
 
     & + .handle:before {
