@@ -1,5 +1,5 @@
 <template>
-    <UILinearLoader inherit-color class="text-red-600" :height="height" />
+    <UILinearLoader inherit-color class="text-red-600" :height="Number(height)" />
     <br>
     <UILinearLoader determinate
                     class="text-gray-700"

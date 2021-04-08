@@ -9,9 +9,9 @@ describe('UIToggle', () => {
             }
         });
 
-        await wrapper.find('input').trigger('click');
+        await wrapper.find('input').trigger('change');
         expect(wrapper.emitted('update:modelValue')![0]).toStrictEqual([true]);
-        await wrapper.find('input').trigger('click');
+        await wrapper.find('input').trigger('change');
         expect(wrapper.emitted('update:modelValue')![1]).toStrictEqual([false]);
     });
 
@@ -22,11 +22,11 @@ describe('UIToggle', () => {
             }
         });
 
-        await wrapper.find('input').trigger('click');
+        await wrapper.find('input').trigger('change');
         expect(wrapper.emitted('update:modelValue')![0]).toStrictEqual([true]);
         await wrapper.setProps({ disabled: true });
-        await wrapper.find('input').trigger('click');
-        expect(wrapper.emitted('update:modelValue')![1]).toBeUndefined();
+        await wrapper.find('input').trigger('change');
+        expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
     });
 
     it('should display the label when given as a prop', () => {

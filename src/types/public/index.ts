@@ -1,4 +1,4 @@
-export type Icon = 'clear' | 'tick' | 'dash' | 'lock' | 'chevron';
+export type Icon = 'clear' | 'tick' | 'dash' | 'lock' | 'chevron' | 'person';
 
 export type Settings = {
     icons: Record<Icon, string>;
