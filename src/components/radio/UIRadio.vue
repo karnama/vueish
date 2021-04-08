@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { label, value, disabled } from '@composables/input';
+import { label, disabled } from '@composables/input';
 
 export default defineComponent({
     name: 'UIRadio',
@@ -26,8 +26,12 @@ export default defineComponent({
     inheritAttrs: false,
 
     props: {
+        value: {
+            type: [String, Boolean, Array, Object, Number],
+            required: true
+        },
+
         label,
-        value,
         disabled
     }
 });

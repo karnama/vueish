@@ -11,6 +11,9 @@ export default defineConfig({
             '@composables': path.resolve(__dirname, 'src/composables')
         }
     },
+    server: {
+        open: true
+    },
     build: {
         lib: {
             entry: path.resolve(__dirname, 'src/main.ts'),
