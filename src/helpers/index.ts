@@ -21,8 +21,6 @@ export function getIcon(icon: Icon): string {
  * Get the number of float digits.
  *
  * @param {number} num
- *
- * @return {number}
  */
 export function getPrecision(num: number): number {
     if (Number.isInteger(num)) {
@@ -40,16 +38,14 @@ export function getPrecision(num: number): number {
  * Ensure the given value is an array.
  *
  * @param {any} value
- *
- * @return {array};
  */
 export function wrap<T>(value?: T | T[]): T[] {
-    if (value === undefined) {
+    if (!arguments.length) {
         return [];
     }
 
     if (!Array.isArray(value)) {
-        value = [value];
+        value = [value] as T[];
     }
 
     return value;

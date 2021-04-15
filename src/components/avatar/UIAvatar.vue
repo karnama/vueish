@@ -25,7 +25,6 @@
 import { defineComponent, ref } from 'vue';
 import { getIcon } from '@/helpers';
 
-// todo - use img component?
 export default defineComponent({
     name: 'UIAvatar',
 
