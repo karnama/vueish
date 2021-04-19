@@ -307,7 +307,6 @@ export default defineComponent({
 
             const offset = 5;
             // const fitsOnTheBottom = listRect.height >= innerHeight - selectRect.y + selectRect.height + offset;
-            // todo - should it consider whether the content fits?
             style.value = {
                 width: `${selectRect.width}px`,
                 left: `${selectRect.x}px`,
