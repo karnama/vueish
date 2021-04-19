@@ -37,14 +37,6 @@ exports[`UIButton should display the loading correctly 1`] = `
       </transition-stub>
       
     </span>
-    <span
-      aria-hidden="true"
-      class="label transition-opacity duration-200 opacity-0"
-    >
-      
-      
-      
-    </span>
     
   </transition-stub>
 </button>
@@ -57,10 +49,8 @@ exports[`UIButton should render correctly 1`] = `
 >
   <transition-stub>
     
-    <!--v-if-->
     <span
-      aria-hidden="false"
-      class="label transition-opacity duration-200 opacity-1"
+      class="label transition-opacity duration-200"
     >
       
       click me!
