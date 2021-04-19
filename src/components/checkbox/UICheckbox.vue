@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { label, disabled, name, value } from '@composables/input';
+import { label, disabled, name } from '@composables/input';
 import { isEqual, omit } from 'lodash-es';
 import { getIcon } from '@/helpers';
 
@@ -45,12 +45,18 @@ export default defineComponent({
             default: false
         },
 
+        /**
+         * The checkbox when checked uses indeterminate styling.
+         */
         indeterminate: {
             type: Boolean,
             default: false
         },
 
-        value,
+        value: {
+            type: [String, Boolean, Array, Object, Number]
+        },
+
         label,
         disabled,
         name
@@ -60,7 +66,7 @@ export default defineComponent({
 
     setup(props, ctx) {
         if (Array.isArray(props.modelValue) && !props.value) {
-            throw new Error('\'value\' is required if the v-model  value is an array.');
+            throw new Error('\'value\' is required if the v-model value is an array.');
         }
 
         const dashIcon = getIcon('dash');

@@ -1,18 +1,28 @@
 <template>
-    <UIToggle name="toggle" label="Toggle" class="mb-8" />
-    <UIToggle name="disabled-toggle" disabled>
+    <UIToggle v-model="value"
+              name="toggle"
+              label="Toggle"
+              class="mb-8" />
+
+    <UIToggle v-model="value" name="disabled-toggle" disabled>
         <template #label>
             Disabled Toggle
         </template>
     </UIToggle>
+
+    is {{ value ? '' : 'not' }} toggled
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import UIToggle from '@components/toggle/UIToggle.vue';
 
 export default defineComponent({
     name: 'Toggle',
-    components: { UIToggle }
+
+    components: { UIToggle },
+
+    setup: () => ({ value: ref(false) })
+
 });
 </script>

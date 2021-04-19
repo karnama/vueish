@@ -2,9 +2,9 @@
     <div ref="defaultSlot" class="ui-badge relative">
         <slot />
         <span :style="positioningStyle"
-              class="rounded bg-brand-400 text-white px-2"
+              class="rounded bg-brand-400 text-white px-2 absolute"
               v-bind="$attrs"
-              :role="$attrs.role ?? 'status'">
+              role="status">
             <slot name="content">
                 {{ content }}
             </slot>
@@ -24,7 +24,7 @@ export default defineComponent({
 
     props: {
         /**
-         * The horizontal position of the badge
+         * The horizontal position of the badge.
          */
         horizontal: {
             type: String as PropType<typeof horizontal[number]>,
@@ -33,7 +33,7 @@ export default defineComponent({
         },
 
         /**
-         * The vertical position of the badge
+         * The vertical position of the badge.
          */
         vertical: {
             type: String as PropType<typeof vertical[number]>,
@@ -50,7 +50,6 @@ export default defineComponent({
         const defaultSlot = ref<HTMLDivElement>();
         const positioningStyle = computed(() => {
             const style: Partial<CSSStyleDeclaration> = {};
-            style.position = 'absolute';
 
             const slotParameters = defaultSlot.value?.firstElementChild?.getBoundingClientRect();
             const badgeParameters = defaultSlot.value?.lastElementChild?.getBoundingClientRect();
