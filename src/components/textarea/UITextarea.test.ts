@@ -2,6 +2,17 @@ import { mount } from '@vue/test-utils';
 import UITextarea from './UITextarea.vue';
 
 describe('UITextarea', () => {
+    it('should display correctlt', () => {
+        const wrapper = mount(UITextarea, {
+            props: {
+                modelValue: '',
+                name: 'input'
+            }
+        });
+
+        expect(wrapper.element).toMatchSnapshot();
+    });
+
     it('should handle model-binding correctly', async () => {
         const wrapper = mount(UITextarea, {
             props: {

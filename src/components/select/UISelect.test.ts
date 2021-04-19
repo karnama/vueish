@@ -38,6 +38,19 @@ const selectorMap = {
 
 describe('UISelect', () => {
     describe('display', () => {
+        it('should display correctly', async () => {
+            const wrapper  = mount(UISelect, {
+                props: {
+                    options,
+                    modelValue: null
+                }
+            });
+
+            await wrapper.find(selectorMap.currentSelection).trigger('click');
+            expect(getList()!.element).toMatchSnapshot();
+            wrapper.unmount();
+        });
+
         it('should display the given options when open', async () => {
             const wrapper  = mount(UISelect, {
                 props: {

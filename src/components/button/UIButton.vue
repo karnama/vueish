@@ -16,9 +16,9 @@
             </slot>
         </span>
 
-        <span class="label opacity-1 transition-opacity duration-200"
+        <span class="label transition-opacity duration-200"
               :aria-hidden="loading"
-              :class="{ 'opacity-0': loading }">
+              :class="[ loading ? 'opacity-0': 'opacity-1' ]">
             <slot>
                 {{ label }}
             </slot>

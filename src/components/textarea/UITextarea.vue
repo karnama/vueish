@@ -17,7 +17,9 @@
                           :aria-placeholder="$attrs.placeholder"
                           class="flex-1 p-3 appearance-none bg-transparent outline-none
                                  disabled:cursor-not-allowed disabled:text-gray-400"
-                          :style="[disabled || fixed || autoSize ? 'resize: none' : '', counter ? 'min-height: 5rem' : '']" />
+                          :style="[
+                              disabled || fixed || autoSize ? 'resize: none' : '',
+                              counter ? 'min-height: 5rem' : '']" />
 
                 <div class="flex flex-col justify-between" :class="{ 'text-gray-400 cursor-not-allowed': disabled }">
                     <span v-if="disabled"
