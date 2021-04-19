@@ -16,13 +16,14 @@
                 </slot>
             </span>
 
-        <span class="label transition-opacity duration-200"
-              :aria-hidden="loading"
-              :class="[ loading ? 'opacity-0': 'opacity-1' ]">
-            <slot>
-                {{ label }}
-            </slot>
-        </span>
+            <span class="label transition-opacity duration-200"
+                  :aria-hidden="loading"
+                  :class="[ loading ? 'opacity-0': 'opacity-1' ]">
+                <slot>
+                    {{ label }}
+                </slot>
+            </span>
+        </UIFadeTransition>
     </button>
 </template>
 

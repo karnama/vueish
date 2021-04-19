@@ -19,7 +19,7 @@ exports[`UISpinner should render correctly 1`] = `
         cy="50%"
         r="32.5"
         stroke-width="10px"
-        style="stroke-dashoffset: 126.60618393966867px; stroke-dasharray: 204.20352248333654px; --spinner-start-value: 193.9933463591697; --spinner-end-value: 40.840704496667314;"
+        style="stroke-dashoffset: 102.10176124166827px; stroke-dasharray: 204.20352248333654px; --spinner-start-value: 193.9933463591697; --spinner-end-value: 40.840704496667314;"
       />
     </svg>
     <!--v-if-->

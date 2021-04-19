@@ -9,78 +9,69 @@ exports[`UIButtonToggle should correctly display 1`] = `
   
   <button
     aria-checked="false"
-    class="text-gray-600 border shadow-sm border-gray-400 disabled:bg-gray-300 disabled:shadow-none hover:text-white hover:bg-gray-400 px-3.5 py-2 ui-button rounded disabled:cursor-not-allowed disabled:opacity-50
-                   transition relative font-bold text-sm border-0 m-0 border"
+    class="text-gray-600 border shadow-sm border-gray-400 disabled:bg-gray-300 disabled:shadow-none hover:text-white hover:bg-gray-400 px-3.5 py-2 ui-button rounded relative font-bold text-sm border-0 m-0 border"
     role="switch"
     type="button"
   >
-    <span
-      class="loader absolute abs-center transition-opacity duration-200 opacity-0"
-    >
+    <transition-stub>
       
       <!--v-if-->
+      <span
+        aria-hidden="false"
+        class="label transition-opacity duration-200 opacity-1"
+      >
+        
+        
+        Places
+        
+        
+      </span>
       
-    </span>
-    <span
-      aria-hidden="false"
-      class="label transition-opacity duration-200 opacity-1"
-    >
-      
-      
-      Places
-      
-      
-    </span>
+    </transition-stub>
   </button>
   <button
     aria-checked="false"
-    class="text-gray-600 border shadow-sm border-gray-400 disabled:bg-gray-300 disabled:shadow-none hover:text-white hover:bg-gray-400 px-3.5 py-2 ui-button rounded disabled:cursor-not-allowed disabled:opacity-50
-                   transition relative font-bold text-sm border-0 m-0 border border-l-0"
+    class="text-gray-600 border shadow-sm border-gray-400 disabled:bg-gray-300 disabled:shadow-none hover:text-white hover:bg-gray-400 px-3.5 py-2 ui-button rounded relative font-bold text-sm border-0 m-0 border border-l-0"
     role="switch"
     type="button"
   >
-    <span
-      class="loader absolute abs-center transition-opacity duration-200 opacity-0"
-    >
+    <transition-stub>
       
       <!--v-if-->
+      <span
+        aria-hidden="false"
+        class="label transition-opacity duration-200 opacity-1"
+      >
+        
+        
+        List
+        
+        
+      </span>
       
-    </span>
-    <span
-      aria-hidden="false"
-      class="label transition-opacity duration-200 opacity-1"
-    >
-      
-      
-      List
-      
-      
-    </span>
+    </transition-stub>
   </button>
   <button
     aria-checked="false"
-    class="text-gray-600 border shadow-sm border-gray-400 disabled:bg-gray-300 disabled:shadow-none hover:text-white hover:bg-gray-400 px-3.5 py-2 ui-button rounded disabled:cursor-not-allowed disabled:opacity-50
-                   transition relative font-bold text-sm border-0 m-0 border border-l-0"
+    class="text-gray-600 border shadow-sm border-gray-400 disabled:bg-gray-300 disabled:shadow-none hover:text-white hover:bg-gray-400 px-3.5 py-2 ui-button rounded relative font-bold text-sm border-0 m-0 border border-l-0"
     role="switch"
     type="button"
   >
-    <span
-      class="loader absolute abs-center transition-opacity duration-200 opacity-0"
-    >
+    <transition-stub>
       
       <!--v-if-->
+      <span
+        aria-hidden="false"
+        class="label transition-opacity duration-200 opacity-1"
+      >
+        
+        
+        Map
+        
+        
+      </span>
       
-    </span>
-    <span
-      aria-hidden="false"
-      class="label transition-opacity duration-200 opacity-1"
-    >
-      
-      
-      Map
-      
-      
-    </span>
+    </transition-stub>
   </button>
   
   

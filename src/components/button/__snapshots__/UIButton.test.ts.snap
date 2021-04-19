@@ -2,71 +2,71 @@
 
 exports[`UIButton should display the loading correctly 1`] = `
 <button
-  class="border border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 hover:bg-gray-400 px-3.5 py-2 pointer-events-none ui-button rounded disabled:cursor-not-allowed disabled:opacity-50
-                   transition relative font-bold text-sm border-0 m-0"
+  class="border border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 hover:bg-gray-400 hover:border-gray-400 px-3.5 py-2 pointer-events-none ui-button rounded relative font-bold text-sm border-0 m-0"
   type="button"
 >
-  <span
-    class="loader absolute abs-center transition-opacity duration-200 opacity-1"
-  >
+  <transition-stub>
     
-    <transition-stub>
-      <div
-        class="ui-spinner-loader indeterminate"
-        role="progressbar"
-      >
-        <svg
-          class="spinner-draw stroke-current"
-          focusable="false"
-          preserveAspectRatio="xMidYMid"
-          style="width: 25px; height: 25px;"
-          viewBox="0 0 25 25"
+    <span
+      class="loader"
+    >
+      
+      <transition-stub>
+        <div
+          class="ui-spinner-loader indeterminate px-4"
+          role="progressbar"
         >
-          <circle
-            class="spinner-circle stroke-current"
-            cx="50%"
-            cy="50%"
-            r="11.5"
-            stroke-width="2px"
-            style="stroke-dashoffset: 72.25663103256524px; stroke-dasharray: 72.25663103256524px; --spinner-start-value: 68.64379948093698; --spinner-end-value: 14.451326206513048;"
-          />
-        </svg>
-        <!--v-if-->
-      </div>
-    </transition-stub>
+          <svg
+            class="spinner-draw stroke-current"
+            focusable="false"
+            preserveAspectRatio="xMidYMid"
+            style="width: 25px; height: 25px;"
+            viewBox="0 0 25 25"
+          >
+            <circle
+              class="spinner-circle stroke-current"
+              cx="50%"
+              cy="50%"
+              r="11.5"
+              stroke-width="2px"
+              style="stroke-dashoffset: 72.25663103256524px; stroke-dasharray: 72.25663103256524px; --spinner-start-value: 68.64379948093698; --spinner-end-value: 14.451326206513048;"
+            />
+          </svg>
+          <!--v-if-->
+        </div>
+      </transition-stub>
+      
+    </span>
+    <span
+      aria-hidden="true"
+      class="label transition-opacity duration-200 opacity-0"
+    >
+      
+      
+      
+    </span>
     
-  </span>
-  <span
-    aria-hidden="true"
-    class="label transition-opacity duration-200 opacity-0"
-  >
-    
-    
-    
-  </span>
+  </transition-stub>
 </button>
 `;
 
 exports[`UIButton should render correctly 1`] = `
 <button
-  class="border border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 hover:bg-gray-400 px-3.5 py-2 ui-button rounded disabled:cursor-not-allowed disabled:opacity-50
-                   transition relative font-bold text-sm border-0 m-0"
+  class="border border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 hover:bg-gray-400 hover:border-gray-400 px-3.5 py-2 ui-button rounded relative font-bold text-sm border-0 m-0"
   type="button"
 >
-  <span
-    class="loader absolute abs-center transition-opacity duration-200 opacity-0"
-  >
+  <transition-stub>
     
     <!--v-if-->
+    <span
+      aria-hidden="false"
+      class="label transition-opacity duration-200 opacity-1"
+    >
+      
+      click me!
+      
+    </span>
     
-  </span>
-  <span
-    aria-hidden="false"
-    class="label transition-opacity duration-200 opacity-1"
-  >
-    
-    click me!
-    
-  </span>
+  </transition-stub>
 </button>
 `;
