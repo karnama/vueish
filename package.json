@@ -1,16 +1,16 @@
 {
     "name": "@karnama/vueish",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "files": [
         "dist"
     ],
-    "main": "./dist/my-lib.umd.js",
-    "module": "./dist/my-lib.es.js",
+    "main": "./dist/vueish.umd.js",
+    "module": "./dist/vueish.es.js",
     "license": "mit",
     "exports": {
         ".": {
-            "import": "./dist/my-lib.es.js",
-            "require": "./dist/my-lib.umd.js"
+            "import": "./dist/vueish.es.js",
+            "require": "./dist/vueish.umd.js"
         }
     },
     "scripts": {
