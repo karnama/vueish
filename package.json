@@ -1,5 +1,5 @@
 {
-    "name": "vueish",
+    "name": "@karnama/vueish",
     "version": "0.1.0",
     "files": [
         "dist"
@@ -58,5 +58,6 @@
         "vue-loader": "^16.1.2",
         "vue-router": "^4.0.5",
         "vue-template-compiler": "^2.6.12"
-    }
+    },
+    "repository": "git@github.com:karnama/vueish.git"
 }
