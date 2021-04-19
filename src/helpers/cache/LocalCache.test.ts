@@ -18,24 +18,12 @@ describe('Cache', () => {
         });
     });
 
-    describe('.namespace', () => {
-        it('should validate when setting the namespace value', () => {
-            // @ts-expect-error
-            const failingFunc = jest.fn(() => cache.namespace = 1);
-
-            expect(failingFunc).toThrow(
-                new Error('Invalid type for namespace. Expected string got number')
-            );
-        });
-    });
-
     describe('get()', () => {
         it('should get the value from localStorage', () => {
             expect(cache.set('item', 1).get('item')).toBe(1);
         });
 
         it('should log an error if localStorage value is corrupted', () => {
-            // eslint-disable-next-line jest/prefer-spy-on
             console.error = jest.fn();
             cache.set('item', {});
             localStorage.setItem(namespace + 'item', '{');

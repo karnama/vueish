@@ -197,7 +197,8 @@ module.exports = {
                     {
                         "ignore": ["describe"]
                     }
-                ]
+                ],
+                "jest/no-disabled-tests": "warn"
             }
         }
     ]

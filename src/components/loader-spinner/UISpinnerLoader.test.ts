@@ -3,6 +3,7 @@ import { mount } from '@vue/test-utils';
 
 const props = {
     progress: 38,
+    steps: 76,
     stroke: 10,
     diameter: 75,
     determinate: true
@@ -58,17 +59,19 @@ describe('UISpinner', () => {
     });
 
     it('should dynamically update the progress', async () => {
-        const getStrokeOffsetStyle = (progress: number) => {
+        const getStrokeOffsetStyle = (progress?: number) => {
+            progress = progress ?? props.progress;
             const radius = (props.diameter - props.stroke) / 2;
             const circumference = Math.PI * 2 * radius;
+            const step = circumference / Number(props.steps);
 
-            return `stroke-dashoffset: ${circumference * (100 - progress) / 100}px`;
+            return `stroke-dashoffset: ${circumference - step * progress}px`;
         };
 
         const wrapper = mount(UISpinnerLoader, { props });
         const circle = wrapper.find('circle');
 
-        expect(circle.attributes()['style']).toContain(getStrokeOffsetStyle(props.progress));
+        expect(circle.attributes()['style']).toContain(getStrokeOffsetStyle());
         await wrapper.setProps({ progress: 99 });
         expect(circle.attributes()['style']).toContain(getStrokeOffsetStyle(99));
     });

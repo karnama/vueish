@@ -47,7 +47,7 @@ export default defineComponent({
          */
         avatars: {
             type: Array as PropType<Avatar[]>,
-            default: []
+            default: () => []
         },
 
         /**

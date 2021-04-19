@@ -76,7 +76,7 @@ export default defineComponent({
         const model = useVModel<MaybeArray<Option> | null>(props);
 
         const toggleOption = (option: Option): void => {
-            const values = Array.isArray(model.value)
+            const values: Option[] = Array.isArray(model.value)
                 ? model.value
                 : model.value ? [model.value] : [];
 
@@ -114,7 +114,7 @@ export default defineComponent({
             () => props.multi,
             val => {
                 if (val) {
-                    model.value = wrap(model.value).filter(v => !!v);
+                    model.value = wrap(model.value).filter(v => !!v) as Option[];
                     return;
                 }
 

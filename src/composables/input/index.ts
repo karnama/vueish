@@ -1,4 +1,4 @@
-import { computed, onMounted, getCurrentInstance, capitalize, ref } from 'vue';
+import { computed, onMounted, getCurrentInstance, capitalize, ref, watch } from 'vue';
 import type { Ref } from 'vue';
 
 /**
@@ -54,12 +54,6 @@ export const suffix = {
     type: String
 };
 
-// todo - remove when updating the select
-export const noClear = {
-    type: Boolean,
-    default: false
-};
-
 /**
  * Whether the component is clearable or not.
  */
@@ -95,7 +89,11 @@ export function useVModel<T>(props: Record<string, any>, name = 'modelValue'): R
 
     const internal = ref(propIsDefined.value ? props[name] : instance.vnode.component!.props[name]) as Ref<T>;
 
-    // todo - attempt the watch approach for object like
+    watch(
+        () => internal.value,
+        value => instance.emit(`update:${name}`, value),
+        { deep: true }
+    );
 
     return computed<T>({
         get() {
@@ -103,7 +101,6 @@ export function useVModel<T>(props: Record<string, any>, name = 'modelValue'): R
         },
         set(value: T) {
             internal.value = value;
-            instance.emit(`update:${name}`, value);
         }
     });
 }
