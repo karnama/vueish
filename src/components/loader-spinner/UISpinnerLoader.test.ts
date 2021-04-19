@@ -10,11 +10,21 @@ const props = {
 };
 
 describe('UISpinner', () => {
-    it('should render', () => {
-        const wrapper = mount(UISpinnerLoader);
+    it('should render correctly', () => {
+        const wrapper = mount(UISpinnerLoader, { props });
 
-        expect(wrapper).toBeDefined();
-        expect(wrapper.exists()).toBe(true);
+        expect(wrapper.element).toMatchSnapshot();
+    });
+
+    it('should render correctly when set to determinate', () => {
+        const wrapper = mount(UISpinnerLoader, {
+            props: {
+                ...props,
+                determinate: false
+            }
+        });
+
+        expect(wrapper.element).toMatchSnapshot();
     });
 
     it('should be display the given slot', () => {

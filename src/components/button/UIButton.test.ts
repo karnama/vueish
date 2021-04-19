@@ -2,6 +2,15 @@ import { mount } from '@vue/test-utils';
 import UIButton from './UIButton.vue';
 
 describe('UIButton', () => {
+    it('should render correctly', () => {
+        const wrapper = mount(UIButton, {
+            props: {
+                label: 'click me!'
+            }
+        });
+        expect(wrapper.element).toMatchSnapshot();
+    });
+
     it('should be enabled by default', () => {
         const wrapper = mount(UIButton);
 
@@ -82,8 +91,8 @@ describe('UIButton', () => {
             }
         });
 
-        expect(wrapper.find('.label').exists()).toBe(false);
-        expect(wrapper.find('.loader').exists()).toBe(true);
+        expect(wrapper.get('.loader').isVisible()).toBe(true);
+        expect(wrapper.get('.label').isVisible()).toBe(false);
     });
 
     it('should display the given loading slot', () => {
@@ -98,5 +107,14 @@ describe('UIButton', () => {
         });
 
         expect(wrapper.html()).toContain('loading..');
+    });
+
+    it('should display the loading correctly', () => {
+        const wrapper = mount(UIButton, {
+            props: {
+                loading: true
+            }
+        });
+        expect(wrapper.element).toMatchSnapshot();
     });
 });

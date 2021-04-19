@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UIButtonToggle should correctly display 1`] = `
+<div
+  class="button-group"
+  role="group"
+>
+  
+  
+  <button
+    aria-checked="false"
+    class="text-gray-600 border shadow-sm border-gray-400 disabled:bg-gray-300 disabled:shadow-none hover:text-white hover:bg-gray-400 px-3.5 py-2 ui-button rounded disabled:cursor-not-allowed disabled:opacity-50
+                   transition relative font-bold text-sm border-0 m-0 border"
+    role="switch"
+    type="button"
+  >
+    <span
+      class="loader absolute abs-center transition-opacity duration-200 opacity-0"
+    >
+      
+      <!--v-if-->
+      
+    </span>
+    <span
+      aria-hidden="false"
+      class="label transition-opacity duration-200 opacity-1"
+    >
+      
+      
+      Places
+      
+      
+    </span>
+  </button>
+  <button
+    aria-checked="false"
+    class="text-gray-600 border shadow-sm border-gray-400 disabled:bg-gray-300 disabled:shadow-none hover:text-white hover:bg-gray-400 px-3.5 py-2 ui-button rounded disabled:cursor-not-allowed disabled:opacity-50
+                   transition relative font-bold text-sm border-0 m-0 border border-l-0"
+    role="switch"
+    type="button"
+  >
+    <span
+      class="loader absolute abs-center transition-opacity duration-200 opacity-0"
+    >
+      
+      <!--v-if-->
+      
+    </span>
+    <span
+      aria-hidden="false"
+      class="label transition-opacity duration-200 opacity-1"
+    >
+      
+      
+      List
+      
+      
+    </span>
+  </button>
+  <button
+    aria-checked="false"
+    class="text-gray-600 border shadow-sm border-gray-400 disabled:bg-gray-300 disabled:shadow-none hover:text-white hover:bg-gray-400 px-3.5 py-2 ui-button rounded disabled:cursor-not-allowed disabled:opacity-50
+                   transition relative font-bold text-sm border-0 m-0 border border-l-0"
+    role="switch"
+    type="button"
+  >
+    <span
+      class="loader absolute abs-center transition-opacity duration-200 opacity-0"
+    >
+      
+      <!--v-if-->
+      
+    </span>
+    <span
+      aria-hidden="false"
+      class="label transition-opacity duration-200 opacity-1"
+    >
+      
+      
+      Map
+      
+      
+    </span>
+  </button>
+  
+  
+</div>
+`;

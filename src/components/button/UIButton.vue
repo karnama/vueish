@@ -16,12 +16,13 @@
                 </slot>
             </span>
 
-            <span v-else class="label">
-                <slot>
-                    {{ label }}
-                </slot>
-            </span>
-        </UIFadeTransition>
+        <span class="label transition-opacity duration-200"
+              :aria-hidden="loading"
+              :class="[ loading ? 'opacity-0': 'opacity-1' ]">
+            <slot>
+                {{ label }}
+            </slot>
+        </span>
     </button>
 </template>
 
