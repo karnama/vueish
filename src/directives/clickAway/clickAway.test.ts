@@ -1,5 +1,5 @@
 import { DOMWrapper, mount } from '@vue/test-utils';
-import clickAway from './clickAway';
+import clickAway from './index';
 import { computed, ref } from 'vue';
 
 describe('clickAway', () => {
