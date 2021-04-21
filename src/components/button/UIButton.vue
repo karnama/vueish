@@ -2,7 +2,7 @@
     <button type="button"
             :class="classes"
             :disabled="disabled"
-            class="ui-button rounded relative font-bold text-sm border-0 m-0">
+            class="ui-button rounded relative font-bold text-sm m-0">
         <UIFadeTransition>
             <span v-if="loading" class="loader">
                 <slot name="loader">
@@ -87,19 +87,19 @@ export default defineComponent({
                 + (props.disabled ? '' : ' hover:bg-brand-500 hover:border-brand-500')
         }));
         const outlineTypeClasses = computed<{ [key in StyleType]: string; }>(() => ({
-            default: 'text-gray-600 !border shadow-sm border-gray-400 disabled:bg-gray-300 disabled:shadow-none'
+            default: 'text-gray-600 border shadow-sm border-gray-400 disabled:bg-gray-300 disabled:shadow-none'
                 + (props.disabled ? '' : ' hover:text-white hover:bg-gray-400'),
-            primary: 'text-blue-600 !border shadow-sm border-blue-500 disabled:bg-gray-200 disabled:shadow-none'
+            primary: 'text-blue-600 border shadow-sm border-blue-500 disabled:bg-gray-200 disabled:shadow-none'
                 + (props.disabled ? '' : ' hover:text-white hover:bg-blue-500 hover:border-blue-500'),
-            info: 'text-blue-300 !border shadow-sm border-blue-300 disabled:bg-gray-200 disabled:shadow-none'
+            info: 'text-blue-300 border shadow-sm border-blue-300 disabled:bg-gray-200 disabled:shadow-none'
                 + (props.disabled ? '' : ' hover:text-white hover:bg-blue-300 hover:border-blue-300'),
-            success: 'text-green-600 !border shadow-sm border-green-400 disabled:bg-gray-200 disabled:shadow-none'
+            success: 'text-green-600 border shadow-sm border-green-400 disabled:bg-gray-200 disabled:shadow-none'
                 + (props.disabled ? '' : ' hover:text-white hover:bg-green-400 hover:border-green-400'),
-            warning: 'text-yellow-500 !border shadow-sm border-yellow-300 disabled:bg-gray-200 disabled:shadow-none'
+            warning: 'text-yellow-500 border shadow-sm border-yellow-300 disabled:bg-gray-200 disabled:shadow-none'
                 + (props.disabled ? '' : ' hover:text-white hover:bg-yellow-300 hover:border-yellow-300'),
-            danger: 'text-red-600 !border shadow-sm border-red-400 disabled:bg-gray-200 disabled:shadow-none'
+            danger: 'text-red-600 border shadow-sm border-red-400 disabled:bg-gray-200 disabled:shadow-none'
                 + (props.disabled ? '' : ' hover:text-white hover:bg-red-400 hover:border-red-400'),
-            brand: 'text-brand-600 !border shadow-sm border-brand-400 disabled:bg-gray-200 disabled:shadow-none'
+            brand: 'text-brand-600 border shadow-sm border-brand-400 disabled:bg-gray-200 disabled:shadow-none'
                 + (props.disabled ? '' : ' hover:text-white hover:bg-brand-400 hover:border-brand-400')
         }));
         const minimalTypeClasses = computed<{ [key in StyleType]: string; }>(() => ({
