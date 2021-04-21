@@ -17,8 +17,6 @@ const setUpObserver: DirectiveHook = (
         unbindObserver(el);
     }
 
-    // todo - multiple thresholds with once?
-
     if (typeof binding.value === 'function') {
         el._intersectionObserver = {
             initiated: false,
@@ -41,6 +39,10 @@ const setUpObserver: DirectiveHook = (
         const idle = binding.value.hasOwnProperty('idle') ? !!binding.value.idle : binding.modifiers.idle;
         const once = binding.value.hasOwnProperty('once') ? !!binding.value.once : binding.modifiers.once;
         const { callback, threshold, root, rootMargin } = binding.value;
+
+        if (Array.isArray(threshold) && once) {
+            throw new Error('Specifying multiple \'threshold\' values with the \'once\' option enabled, is invalid.');
+        }
 
         el._intersectionObserver = {
             initiated: false,
