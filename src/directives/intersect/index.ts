@@ -2,7 +2,7 @@ import type { Directive, DirectiveBinding, DirectiveHook } from 'vue';
 import { IntersectArgument, IntersectCallback } from '@/types';
 
 interface ElementToObserve extends Element {
-    _observer?: {
+    _intersectionObserver?: {
         initiated: boolean;
         observer: IntersectionObserver;
     };
@@ -13,39 +13,48 @@ const setUpObserver: DirectiveHook = (
     binding: DirectiveBinding<IntersectArgument>
 ) => {
     // remove if already exists
-    if ('_observer' in el) {
+    if ('_intersectionObserver' in el) {
         unbindObserver(el);
     }
 
-    // requestIdleCallback?
-    if (typeof binding.value === 'function') {
-        const once = binding.modifiers.hasOwnProperty('once') ? binding.modifiers.once : false;
+    // todo - multiple thresholds with once?
 
-        el._observer = {
+    if (typeof binding.value === 'function') {
+        el._intersectionObserver = {
             initiated: false,
             observer: new IntersectionObserver((entries) => {
-                (binding.value as IntersectCallback)(!!entries.find(e => e.isIntersecting));
+                const entry = entries.find(e => e.isIntersecting);
+
+                binding.modifiers.idle
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+                    ? requestIdleCallback(() => (binding.value as IntersectCallback)(!!entry, entry))
+                    : (binding.value as IntersectCallback)(!!entry, entry);
                 // callback runs on setup so push to the next event cycle
                 initiate(el);
 
-                if (once && el._observer?.initiated) {
+                if (binding.modifiers.once && el._intersectionObserver?.initiated) {
                     unbindObserver(el);
                 }
             })
         };
     } else {
-        const once = binding.value.hasOwnProperty('once')
-            ? !!binding.value.once
-            : binding.modifiers.hasOwnProperty('once') ? binding.modifiers.once : false;
+        const idle = binding.value.hasOwnProperty('idle') ? !!binding.value.idle : binding.modifiers.idle;
+        const once = binding.value.hasOwnProperty('once') ? !!binding.value.once : binding.modifiers.once;
         const { callback, threshold, root, rootMargin } = binding.value;
 
-        el._observer = {
+        el._intersectionObserver = {
             initiated: false,
             observer: new IntersectionObserver((entries) => {
-                callback(!!entries.find(e => e.isIntersecting));
+                const entry = entries.find(e => e.isIntersecting);
+
+                idle
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+                    ? requestIdleCallback(() => callback(!!entry, entry))
+                    : callback(!!entry, entry);
+                // callback runs on setup so push to the next event cycle
                 initiate(el);
 
-                if (once && el._observer && el._observer?.initiated) {
+                if (once && el._intersectionObserver && el._intersectionObserver?.initiated) {
                     unbindObserver(el);
                 }
             }, {
@@ -56,7 +65,7 @@ const setUpObserver: DirectiveHook = (
         };
     }
 
-    el._observer.observer.observe(el);
+    el._intersectionObserver.observer.observe(el);
 };
 
 /**
@@ -66,8 +75,8 @@ const setUpObserver: DirectiveHook = (
  */
 const initiate = (el: ElementToObserve) => {
     setTimeout(() => {
-        if (el._observer) {
-            el._observer.initiated = true;
+        if (el._intersectionObserver) {
+            el._intersectionObserver.initiated = true;
         } else {
             initiate(el);
         }
@@ -75,8 +84,8 @@ const initiate = (el: ElementToObserve) => {
 };
 
 const unbindObserver = (el: ElementToObserve) => {
-    el._observer?.observer.unobserve(el);
-    delete el._observer;
+    el._intersectionObserver?.observer.unobserve(el);
+    delete el._intersectionObserver;
 };
 
 export default {

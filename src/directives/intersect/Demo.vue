@@ -5,7 +5,7 @@
     <div class="rounded-full h-6 w-6 sticky top-6 right-6 opacity-75 float-right"
          :class="[ onScreen ? 'bg-green-600' : 'bg-red-600' ]" />
     <div class="h-screen" />
-    <div v-intersect="onIntersect" class="py-2 px-4 bg-brand-600 text-white rounded shadow">
+    <div v-intersect.idle="onIntersect" class="py-2 px-4 bg-brand-600 text-white rounded shadow">
         Observed
     </div>
     <div class="h-screen" />
@@ -20,7 +20,7 @@ export default defineComponent({
     directives: { intersect },
     setup: () => {
         const onScreen = ref(false);
-        const onIntersect = (isIntersecting) => {
+        const onIntersect = (isIntersecting: boolean) => {
             onScreen.value = isIntersecting;
         };
 
