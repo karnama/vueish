@@ -80,18 +80,18 @@ export default defineComponent({
          * Re-calculate the svg styles.
          */
         const attachSvgStyles = (): void => {
-            spinnerDraw.value.style.width = `${props.diameter}px`;
-            spinnerDraw.value.style.height = `${props.diameter}px`;
+            spinnerDraw.value!.style.width = `${props.diameter}px`;
+            spinnerDraw.value!.style.height = `${props.diameter}px`;
         };
 
         /**
          * Re-calculate the circle shape styles.
          */
         const attachCircleStyles = (): void => {
-            spinnerCircle.value.style.strokeDashoffset = strokeDashOffset.value;
-            spinnerCircle.value.style.strokeDasharray = `${circumference.value}px`;
-            spinnerCircle.value.style.setProperty('--spinner-start-value', String(0.95 * circumference.value));
-            spinnerCircle.value.style.setProperty('--spinner-end-value', String(0.2 * circumference.value));
+            spinnerCircle.value!.style.strokeDashoffset = strokeDashOffset.value;
+            spinnerCircle.value!.style.strokeDasharray = `${circumference.value}px`;
+            spinnerCircle.value!.style.setProperty('--spinner-start-value', String(0.95 * circumference.value));
+            spinnerCircle.value!.style.setProperty('--spinner-end-value', String(0.2 * circumference.value));
         };
 
         watchers.push(

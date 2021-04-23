@@ -43,7 +43,7 @@ export default defineComponent({
                     'UILinearLoader - The prop is set to finite loading without giving a number of steps'
                 );
             }
-            if (props.progress > Number(props.steps)) {
+            if (props.progress! > Number(props.steps)) {
                 throw new Error('UILinearLoader  - The progress cannot be higher that the steps');
             }
         }
@@ -53,7 +53,7 @@ export default defineComponent({
                 return '100%';
             }
 
-            return String(100 / Number(props.steps) * props.progress) + '%';
+            return String(100 / Number(props.steps) * props.progress!) + '%';
         });
         const ariaAttributes = computed(() => {
             if (!props.determinate) {
