@@ -2,7 +2,7 @@
     <button type="button"
             :class="classes"
             :disabled="disabled"
-            class="ui-button rounded relative font-bold text-sm border-0 m-0">
+            class="ui-button rounded relative font-bold text-sm m-0">
         <UIFadeTransition>
             <span v-if="loading" class="loader">
                 <slot name="loader">
@@ -16,9 +16,7 @@
                 </slot>
             </span>
 
-            <span class="label transition-opacity duration-200"
-                  :aria-hidden="loading"
-                  :class="[ loading ? 'opacity-0': 'opacity-1' ]">
+            <span v-else class="label transition-opacity duration-200">
                 <slot>
                     {{ label }}
                 </slot>

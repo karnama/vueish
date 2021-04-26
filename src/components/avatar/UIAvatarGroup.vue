@@ -78,7 +78,7 @@ export default defineComponent({
                 return [];
             }
 
-            return ctx.slots.default();
+            return ctx.slots.default!();
         });
 
         return {

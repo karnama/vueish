@@ -2,7 +2,7 @@
 
 exports[`UIButton should display the loading correctly 1`] = `
 <button
-  class="border border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 hover:bg-gray-400 hover:border-gray-400 px-3.5 py-2 pointer-events-none ui-button rounded relative font-bold text-sm border-0 m-0"
+  class="border border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 hover:bg-gray-400 hover:border-gray-400 px-3.5 py-2 pointer-events-none ui-button rounded relative font-bold text-sm m-0"
   type="button"
 >
   <transition-stub>
@@ -37,14 +37,6 @@ exports[`UIButton should display the loading correctly 1`] = `
       </transition-stub>
       
     </span>
-    <span
-      aria-hidden="true"
-      class="label transition-opacity duration-200 opacity-0"
-    >
-      
-      
-      
-    </span>
     
   </transition-stub>
 </button>
@@ -52,15 +44,13 @@ exports[`UIButton should display the loading correctly 1`] = `
 
 exports[`UIButton should render correctly 1`] = `
 <button
-  class="border border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 hover:bg-gray-400 hover:border-gray-400 px-3.5 py-2 ui-button rounded relative font-bold text-sm border-0 m-0"
+  class="border border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 hover:bg-gray-400 hover:border-gray-400 px-3.5 py-2 ui-button rounded relative font-bold text-sm m-0"
   type="button"
 >
   <transition-stub>
     
-    <!--v-if-->
     <span
-      aria-hidden="false"
-      class="label transition-opacity duration-200 opacity-1"
+      class="label transition-opacity duration-200"
     >
       
       click me!

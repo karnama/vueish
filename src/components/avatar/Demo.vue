@@ -10,12 +10,12 @@
     Default
     <UIAvatar>OP</UIAvatar>
     Large sizing with tw classes
-    <UIAvatar src="https://picsum.photos/50?random=1" class="h-12 w-12" />
+    <UIAvatar src="https://picsum.photos/50?random=1" class="!h-12 !w-12" />
 
     <div class="mt-12">
         Avatar group
     </div>
-    <UIAvatarGroup class="h-12 w-12 bg-green-700">
+    <UIAvatarGroup class="!h-12 !w-12 bg-green-700">
         <UIAvatar alt="smt" />
         <UIAvatar src="https://picsum.photos/50?random=3" />
         <UIAvatar src="https://picsum.photos/50?random=4" />
@@ -27,7 +27,7 @@
     <div class="mt-12">
         Avatar group (reverse stacking)
     </div>
-    <UIAvatarGroup class="h-12 w-12" reverse-stacking>
+    <UIAvatarGroup class="!h-12 !w-12" reverse-stacking>
         <UIAvatar alt="smt" />
         <UIAvatar src="https://picsum.photos/50?random=5" />
         <UIAvatar src="https://picsum.photos/50?random=6" />
@@ -39,7 +39,7 @@
     <div class="mt-12">
         Avatar group (with avatars as prop)
     </div>
-    <UIAvatarGroup :avatars="avatars" class="h-10 w-10" />
+    <UIAvatarGroup :avatars="avatars" class="!h-10 !w-10" />
 </template>
 
 <script lang="ts">

@@ -109,7 +109,7 @@ import type { PropType } from 'vue';
 import { placeholder, autofocus, clearable, disabled, useVModel, label } from '@composables/input';
 import { getIcon, wrap } from '@/helpers';
 import { MaybeArray } from '@/types';
-import clickAway from '@composables/interactivity/clickAway';
+import clickAway from '@/directives/clickAway';
 
 type Option = Record<string, any>;
 

@@ -40,7 +40,7 @@ export default defineComponent({
         src: String,
 
         /**
-         * The content of .
+         * The content of the avatar.
          */
         content: String,
 
