@@ -174,12 +174,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.abs-center {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
 button {
     transition: all 150ms ease;
     filter: invert(0%);
