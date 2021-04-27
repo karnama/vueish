@@ -2,7 +2,7 @@
     "name": "@karnama/vueish",
     "version": "0.2.2",
     "files": [
-        "dist/*",
+        "dist",
         "types"
     ],
     "main": "./dist/vueish.umd.js",
