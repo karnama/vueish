@@ -2,6 +2,15 @@ import { mount } from '@vue/test-utils';
 import UIButton from './UIButton.vue';
 
 describe('UIButton', () => {
+    it('should render correctly', () => {
+        const wrapper = mount(UIButton, {
+            props: {
+                label: 'click me!'
+            }
+        });
+        expect(wrapper.element).toMatchSnapshot();
+    });
+
     it('should be enabled by default', () => {
         const wrapper = mount(UIButton);
 
@@ -74,9 +83,7 @@ describe('UIButton', () => {
         expect(wrapper.attributes('class')).toContain('pointer-events-none');
     });
 
-    // todo uncomment when https://github.com/vuejs/vue-test-utils-next/pull/454 is merged
-    // eslint-disable-next-line jest/no-disabled-tests
-    it.skip('should not show the button default slot when loading', () => {
+    it('should not show the button default slot when loading', () => {
         const wrapper = mount(UIButton, {
             props: {
                 label: 'hi',
@@ -84,8 +91,8 @@ describe('UIButton', () => {
             }
         });
 
-        expect(wrapper.get('.label').isVisible()).toBe(false);
-        expect(wrapper.get('.loader').isVisible()).toBe(true);
+        expect(wrapper.find('.loader').isVisible()).toBe(true);
+        expect(wrapper.find('.label').exists()).toBe(false);
     });
 
     it('should display the given loading slot', () => {
@@ -100,5 +107,14 @@ describe('UIButton', () => {
         });
 
         expect(wrapper.html()).toContain('loading..');
+    });
+
+    it('should display the loading correctly', () => {
+        const wrapper = mount(UIButton, {
+            props: {
+                loading: true
+            }
+        });
+        expect(wrapper.element).toMatchSnapshot();
     });
 });

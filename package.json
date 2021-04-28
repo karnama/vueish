@@ -1,64 +1,70 @@
 {
-    "name": "vueish",
-    "version": "0.1.0",
+    "name": "@karnama/vueish",
+    "version": "0.2.1",
     "files": [
         "dist"
     ],
-    "main": "./dist/my-lib.umd.js",
-    "module": "./dist/my-lib.es.js",
+    "main": "./dist/vueish.umd.js",
+    "module": "./dist/vueish.es.js",
     "license": "mit",
     "exports": {
         ".": {
-            "import": "./dist/my-lib.es.js",
-            "require": "./dist/my-lib.umd.js"
+            "import": "./dist/vueish.es.js",
+            "require": "./dist/vueish.umd.js"
         }
     },
     "scripts": {
         "dev": "vite",
         "build": "vite build",
         "test": "jest",
-        "lint": "eslint . --fix --ext .ts,.vue,.tsx"
+        "lint": "eslint . --fix --ext .ts,.vue,.tsx",
+        "prepare": "husky install"
     },
     "peerDependencies": {
         "vue": "^3.0.0"
     },
     "devDependencies": {
-        "@babel/core": "^7.12.10",
-        "@types/jest": "^26.0.20",
+        "@babel/core": "^7.13.10",
+        "@types/jest": "^26.0.21",
         "@types/lodash-es": "^4.17.4",
-        "@types/node": "^14.14.25",
-        "@types/tailwindcss": "^2.0.0",
-        "@typescript-eslint/eslint-plugin": "^4.14.1",
-        "@typescript-eslint/parser": "^4.14.1",
-        "@vitejs/plugin-vue": "1.0.4",
-        "@vue/compiler-sfc": "3.0.5",
+        "@types/node": "^14.14.35",
+        "@types/requestidlecallback": "^0.3.1",
+        "@types/tailwindcss": "^2.0.2",
+        "@typescript-eslint/eslint-plugin": "^4.19.0",
+        "@typescript-eslint/parser": "^4.19.0",
+        "@vitejs/plugin-vue": "^1.0.4",
+        "@vue/compiler-sfc": "^3.0.5",
         "@vue/eslint-config-typescript": "^7.0.0",
-        "@vue/test-utils": "^2.0.0-rc.2",
+        "@vue/test-utils": "2.0.0-rc.4",
         "@vuedx/typecheck": "^0.6.3",
         "@vuedx/typescript-plugin-vue": "^0.6.3",
         "autoprefixer": "^10.2.3",
         "babel-jest": "^26.6.3",
         "babel-loader": "^8.2.2",
-        "eslint": "^7.16.0",
+        "eslint": "^7.22.0",
         "eslint-plugin-import": "^2.22.1",
-        "eslint-plugin-jest": "^24.1.3",
-        "eslint-plugin-vue": "^7.3.0",
+        "eslint-plugin-jest": "^24.3.2",
+        "eslint-plugin-vue": "^7.8.0",
+        "husky": "^6.0.0",
         "jest": "^26.6.3",
+        "jest-serializer-vue": "^2.0.2",
+        "lint-staged": "^10.5.4",
         "lodash-es": "^4.17.20",
-        "postcss": "^8.2.4",
+        "postcss": "^8.2.8",
         "sass": "^1.32.5",
-        "tailwindcss": "^2.0.2",
-        "ts-jest": "^26.4.4",
+        "tailwindcss": "^2.1.1",
+        "ts-jest": "^26.5.4",
         "ts-node": "^9.1.1",
         "typescript": "^4.1.3",
-        "vite": "^2.0.0-beta.12",
+        "vite": "^2.1.2",
         "vue": "^3.0.5",
         "vue-jest": "^5.0.0-alpha.7",
         "vue-loader": "^16.1.2",
-        "vue-router": "^4.0.3",
+        "vue-router": "^4.0.5",
         "vue-template-compiler": "^2.6.12"
     },
-    "dependencies": {
-        "vue3-click-away": "^1.1.0"
+    "repository": "git@github.com:karnama/vueish.git",
+    "lint-staged": {
+        "*.{ts,vue,tsx}": "eslint --cache --fix"
     }
 }

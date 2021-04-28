@@ -2,15 +2,13 @@ import UICheckbox from './UICheckbox.vue';
 import { mount } from '@vue/test-utils';
 
 describe('UICheckbox', () => {
-    it('should render', () => {
+    it('should correctly display', () => {
         const wrapper = mount(UICheckbox, {
             props: {
-                name: 'inputName'
+                name: 'name'
             }
         });
-
-        expect(wrapper).toBeDefined();
-        expect(wrapper.exists()).toBe(true);
+        expect(wrapper.element).toMatchSnapshot();
     });
 
     it('should toggle array value when v-model is array', async () => {
@@ -24,9 +22,9 @@ describe('UICheckbox', () => {
 
         await wrapper.find('#inputName').trigger('click');
 
-        expect(wrapper.emitted()['update:modelValue'][0]).toHaveLength(1);
+        expect(wrapper.emitted('update:modelValue')![0]).toHaveLength(1);
         // @ts-expect-error
-        expect(wrapper.emitted()['update:modelValue'][0][0]).toStrictEqual(['value']);
+        expect(wrapper.emitted('update:modelValue')[0][0]).toStrictEqual(['value']);
     });
 
     it('should throw error on invalid prop logic', () => {
@@ -38,7 +36,7 @@ describe('UICheckbox', () => {
             }
         }));
 
-        expect(failingFunc).toThrow(new Error('\'value\' is required if the v-model  value is an array.'));
+        expect(failingFunc).toThrow(new Error('\'value\' is required if the v-model value is an array.'));
         consoleErrorMock.mockRestore();
     });
 

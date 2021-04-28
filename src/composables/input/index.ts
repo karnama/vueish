@@ -1,4 +1,4 @@
-import { computed, ref, onMounted, getCurrentInstance } from 'vue';
+import { computed, onMounted, getCurrentInstance, capitalize, ref, watch } from 'vue';
 import type { Ref } from 'vue';
 
 /**
@@ -54,12 +54,6 @@ export const suffix = {
     type: String
 };
 
-// todo - remove when updating the select
-export const noClear = {
-    type: Boolean,
-    default: false
-};
-
 /**
  * Whether the component is clearable or not.
  */
@@ -69,17 +63,10 @@ export const clearable = {
 };
 
 /**
- * Generic one-way value binding.
- */
-export const value = {
-    type: [String, Boolean, Array, Object, Number],
-    required: true
-};
-
-/**
  * Make the prop 2-way reactive.
- * You may only replace this value.
- * Interact with it like `.push()` will cause unexpected errors.
+ *
+ * Mutating object literals and array will not trigger an emit
+ * therefore, you should always replace the value.
  *
  * @param {object} props
  * @param {string} name - the string to append to the emitted event eg.: 'option' will be used for v-model:option=""
@@ -87,15 +74,33 @@ export const value = {
 export function useVModel<T>(props: Record<string, any>, name = 'modelValue'): Ref<T> {
     const instance = getCurrentInstance();
     if (!instance) {
-        return ref() as Ref<T>;
+        throw new Error('useVModel must be called from the setup or lifecycle hook methods.');
     }
+
+    const propIsDefined = computed(() => {
+        return typeof props[name] !== 'undefined' &&
+            (instance.vnode.props?.hasOwnProperty(name) || instance.vnode.props?.hasOwnProperty(capitalize(name)));
+    });
+    const hasDefaultValue = computed(() => instance.vnode.component?.props.hasOwnProperty(name));
+
+    if (!propIsDefined.value && !hasDefaultValue.value) {
+        throw new Error('Attempted to use useVModel without value.');
+    }
+
+    const internal = ref(propIsDefined.value ? props[name] : instance.vnode.component!.props[name]) as Ref<T>;
+
+    watch(
+        () => internal.value,
+        value => instance.emit(`update:${name}`, value),
+        { deep: true }
+    );
 
     return computed<T>({
         get() {
-            return props[name];
+            return propIsDefined.value ? props[name]: internal.value;
         },
         set(value: T) {
-            instance.emit(`update:${name}`, value);
+            internal.value = value;
         }
     });
 }

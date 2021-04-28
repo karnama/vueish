@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UIPanel should render correctly 1`] = `
+<section
+  aria-expanded="true"
+  class="ui-panel rounded shadow-md bg-default relative transition-all"
+>
+  <transition-stub>
+    
+    
+  </transition-stub>
+  <header
+    class="w-full flex items-center px-12 relative transition-all no-blur"
+  >
+    <h1
+      class="select-none flex-grow py-8 cursor-pointer"
+    >
+      
+      header text
+      
+    </h1>
+    <div
+      class="my-2"
+    >
+      
+      
+    </div>
+  </header>
+  <transition-stub>
+    
+    <div
+      class="no-blur"
+    >
+      <main
+        class="w-full px-12 py-6 text-gray-700"
+      >
+        
+        default slot text
+        
+      </main>
+      <!--v-if-->
+    </div>
+    
+  </transition-stub>
+  <transition-stub>
+    
+    
+  </transition-stub>
+</section>
+`;

@@ -6,11 +6,19 @@ describe('UIModal', () => {
         document.body.innerHTML = '';
     });
 
-    it('should render', () => {
-        const wrapper = mount(UIModal);
-        expect(wrapper).toBeDefined();
-        expect(wrapper.exists()).toBe(true);
-        wrapper.unmount();
+    it('should render correctly', async () => {
+        const wrapper = mount(UIModal, {
+            slots: {
+                default: 'Default slot content',
+                actions: 'Actions slot content',
+                header: 'Header slot content'
+            }
+        });
+
+        // @ts-expect-error
+        await wrapper.vm.open();
+
+        expect(document.querySelector('.wrapper')).toMatchSnapshot();
     });
 
     it('should display the actions slot content', async () => {

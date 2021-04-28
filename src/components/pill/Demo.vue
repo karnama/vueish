@@ -1,10 +1,10 @@
 <template>
     <div class="flex justify-evenly flex-wrap">
-        <UIPill v-for="type in styleTypes"
-                :key="type"
-                :type="type"
+        <UIPill v-for="category in styleTypes"
+                :key="category"
+                :category="category"
                 class="m-2">
-            {{ type.charAt(0).toUpperCase() + type.slice(1) }}
+            {{ category.charAt(0).toUpperCase() + category.slice(1) }}
         </UIPill>
     </div>
 </template>

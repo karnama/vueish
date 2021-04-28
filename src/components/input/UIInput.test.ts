@@ -2,6 +2,16 @@ import { mount } from '@vue/test-utils';
 import UIInput from './UIInput.vue';
 
 describe('UIInput', () => {
+    it('should correctly display', () => {
+        const wrapper = mount(UIInput, {
+            props: {
+                modelValue: '',
+                name: 'input'
+            }
+        });
+
+        expect(wrapper.element).toMatchSnapshot();
+    });
     it('should handle model-binding correctly', async () => {
         const wrapper = mount(UIInput, {
             props: {

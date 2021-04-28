@@ -41,7 +41,7 @@
                         <UIButton class="ui-modal-close ml-auto mr-2" @click="close('cancel')">
                             {{ closeButtonLabel }}
                         </UIButton>
-                        <UIButton type="primary" class="ui-modal-accept" @click="close('accept')">
+                        <UIButton category="primary" class="ui-modal-accept" @click="close('accept')">
                             {{ acceptButtonLabel }}
                         </UIButton>
                     </slot>
@@ -125,7 +125,6 @@ export default defineComponent({
                 resolve();
             }, 100));
         };
-
         const close = async (event: 'accept' | 'cancel' = 'cancel'): Promise<void> => {
             // filter out events if user doesn't define the argument
             event = ['accept', 'cancel'].includes(event) ? event : 'cancel';

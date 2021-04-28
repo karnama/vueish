@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UIButtonToggle should correctly display 1`] = `
+<div
+  class="button-group"
+  role="group"
+>
+  
+  
+  <button
+    aria-checked="false"
+    class="text-gray-600 border shadow-sm border-gray-400 disabled:bg-gray-300 disabled:shadow-none hover:text-white hover:bg-gray-400 px-3.5 py-2 ui-button rounded relative font-bold text-sm m-0 border"
+    role="switch"
+    type="button"
+  >
+    <transition-stub>
+      
+      <span
+        class="label transition-opacity duration-200"
+      >
+        
+        
+        Places
+        
+        
+      </span>
+      
+    </transition-stub>
+  </button>
+  <button
+    aria-checked="false"
+    class="text-gray-600 border shadow-sm border-gray-400 disabled:bg-gray-300 disabled:shadow-none hover:text-white hover:bg-gray-400 px-3.5 py-2 ui-button rounded relative font-bold text-sm m-0 border border-l-0"
+    role="switch"
+    type="button"
+  >
+    <transition-stub>
+      
+      <span
+        class="label transition-opacity duration-200"
+      >
+        
+        
+        List
+        
+        
+      </span>
+      
+    </transition-stub>
+  </button>
+  <button
+    aria-checked="false"
+    class="text-gray-600 border shadow-sm border-gray-400 disabled:bg-gray-300 disabled:shadow-none hover:text-white hover:bg-gray-400 px-3.5 py-2 ui-button rounded relative font-bold text-sm m-0 border border-l-0"
+    role="switch"
+    type="button"
+  >
+    <transition-stub>
+      
+      <span
+        class="label transition-opacity duration-200"
+      >
+        
+        
+        Map
+        
+        
+      </span>
+      
+    </transition-stub>
+  </button>
+  
+  
+</div>
+`;

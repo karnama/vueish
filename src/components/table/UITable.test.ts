@@ -1,4 +1,4 @@
-import type { Column, Row } from '@components/table/UITableTypes';
+import type { Column, Row } from '@/types/public';
 import { mount, VueWrapper } from '@vue/test-utils';
 import UITable from '@components/table/UITable.vue';
 import { snakeCase } from 'lodash-es';
@@ -20,7 +20,7 @@ const headers: Readonly<Column[]> = [
         sortable: true,
         suffix: '%'
     }
-];
+] as const;
 const rows: Readonly<Row[]> = [
     {
         letter: 'b',
@@ -35,14 +35,17 @@ const rows: Readonly<Row[]> = [
         letter: 'a',
         number: 1
     }
-];
+] as const;
 
 const selectorMap = {
     search: '#search',
     rows: 'tbody > tr',
     headers: 'thead > tr.hidden.bg-gray-100 > th.py-6.text-left.px-4.uppercase',
     checkboxes: 'tbody > tr > td.px-2 input',
-    topCheckbox: 'thead > tr.hidden.bg-gray-100 > th.py-6.px-2 > span.mx-auto input'
+    topCheckbox: 'thead > tr.hidden.bg-gray-100 > th.py-6.px-2 > span.mx-auto input',
+    bottomCheckbox: 'tfoot > tr > td > span > span input',
+    previousPageBtn: 'tfoot button:first-child',
+    nextPageBtn: 'tfoot button:last-child'
 } as const;
 
 function titleCase(str: string): string {
@@ -52,7 +55,7 @@ function titleCase(str: string): string {
             previous + ' ' + next.charAt(0).toUpperCase() + next.slice(1));
 }
 
-function getLastEventValue(wrapper: VueWrapper<ComponentPublicInstance>) {
+function getLastEventValue(wrapper: VueWrapper<ComponentPublicInstance>): Row[] {
     // filter out the checkbox events
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const events = (wrapper.emitted('update:modelValue') as unknown[][])
@@ -61,6 +64,17 @@ function getLastEventValue(wrapper: VueWrapper<ComponentPublicInstance>) {
 }
 
 describe('UITable', () => {
+    it('should display correctly', () => {
+        const wrapper = mount(UITable, {
+            props: {
+                rows,
+                headers
+            }
+        });
+
+        expect(wrapper.element).toMatchSnapshot();
+    });
+
     it('should display the given headers and rows', () => {
         const wrapper = mount(UITable, {
             props: {
@@ -279,7 +293,7 @@ describe('UITable', () => {
                 props: {
                     rows,
                     headers,
-                    noSort: true
+                    disableSorting: true
                 }
             });
 
@@ -394,14 +408,14 @@ describe('UITable', () => {
                 }
             });
 
+            // click the first
             await wrapper.find(selectorMap.checkboxes).trigger('click');
-
             expect(getLastEventValue(wrapper)[0]).toHaveLength(1);
-            await wrapper.find(selectorMap.topCheckbox).trigger('click');
 
+            await wrapper.find(selectorMap.topCheckbox).trigger('click');
             expect(getLastEventValue(wrapper)[0]).toHaveLength(0);
-            await wrapper.find(selectorMap.topCheckbox).trigger('click');
 
+            await wrapper.find(selectorMap.topCheckbox).trigger('click');
             expect(getLastEventValue(wrapper)[0]).toHaveLength(
                 rows.filter(row => typeof row.isSelectable === 'boolean' ? row.isSelectable : true).length
             );
@@ -487,6 +501,104 @@ describe('UITable', () => {
                 expect(JSON.stringify(rows)).toContain(rowWrapper.text());
             });
             wrapper.unmount();
+        });
+    });
+
+    describe('pagination', () => {
+        const availableRows: Readonly<Row[]> = [
+            {
+                letter: 'a',
+                number: 1
+            },
+            {
+                letter: 'b',
+                number: 2
+            },
+            {
+                letter: 'c',
+                number: 3
+            },
+            {
+                letter: 'd',
+                number: 4
+            },
+            {
+                letter: 'e',
+                number: 5
+            },
+            {
+                letter: 'f',
+                number: 6
+            }
+        ] as const;
+
+        it('should show the correct number of rows', () => {
+            const wrapper = mount(UITable, {
+                props: {
+                    rows: availableRows,
+                    headers,
+                    itemsPerPage: 5
+                }
+            });
+
+            expect(wrapper.findAll(selectorMap.rows)).toHaveLength(5);
+        });
+
+        it('should disable pagination given the prop', () => {
+            const wrapper = mount(UITable, {
+                props: {
+                    rows: availableRows,
+                    headers,
+                    itemsPerPage: 5,
+                    disablePagination: true
+                }
+            });
+
+            // if disabled, we're showing all rows
+            expect(wrapper.findAll(selectorMap.rows)).toHaveLength(availableRows.length);
+            expect(wrapper.find(selectorMap.previousPageBtn).exists()).toBe(false);
+            expect(wrapper.find(selectorMap.nextPageBtn).exists()).toBe(false);
+        });
+
+        it('should disable the pagination button if no nxt page exists', async () => {
+            const wrapper = mount(UITable, {
+                props: {
+                    rows: availableRows,
+                    headers,
+                    itemsPerPage: 5
+                }
+            });
+
+            expect(wrapper.find(selectorMap.previousPageBtn).attributes()).toHaveProperty('disabled');
+            expect(wrapper.find(selectorMap.nextPageBtn).attributes()).not.toHaveProperty('disabled');
+
+            await wrapper.find(selectorMap.nextPageBtn).trigger('click');
+
+            expect(wrapper.find(selectorMap.previousPageBtn).attributes()).not.toHaveProperty('disabled');
+            expect(wrapper.find(selectorMap.nextPageBtn).attributes()).toHaveProperty('disabled');
+        });
+
+        it('should display the next/previous page on navigation to the next page', async () => {
+            const wrapper = mount(UITable, {
+                props: {
+                    rows: availableRows,
+                    headers,
+                    itemsPerPage: 5
+                }
+            });
+
+            expect(wrapper.text()).toContain(availableRows[0].number);
+            expect(wrapper.text()).not.toContain(availableRows[5].number);
+
+            await wrapper.find(selectorMap.nextPageBtn).trigger('click');
+
+            expect(wrapper.text()).not.toContain(availableRows[0].number);
+            expect(wrapper.text()).toContain(availableRows[5].number);
+
+            await wrapper.find(selectorMap.previousPageBtn).trigger('click');
+
+            expect(wrapper.text()).toContain(availableRows[0].number);
+            expect(wrapper.text()).not.toContain(availableRows[5].number);
         });
     });
 });

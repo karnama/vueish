@@ -3,50 +3,53 @@
         <template #header>
             Table with slots
         </template>
-        <UITable :headers="headers" :rows="rows" hover-highlight>
+        <UITable :headers="headers"
+                 :rows="rows"
+                 hover-highlight
+                 :items-per-page="Number(5)">
             <template #header="slotProps">
                 slotted {{ slotProps.header.rowProperty }}
             </template>
             <template #name="slotProps">
-                slotted change of {{ slotProps.row.name }}
+                slotted {{ slotProps.row.name }}
             </template>
             <template #action>
-                <UIButton type="brand">
+                <UIButton category="brand">
                     CTA
                 </UIButton>
             </template>
             <template #footer>
-                <span class="font-bold text-gray-700">Slotted footer</span>
+                <span class="font-bold text-gray-700">
+                    My wildly
+                    long slotted footer content that I have to
+                    make up words for such as
+                    fubershlung (the act of drinking a beer after a devastating loss)
+                    and shmelolia (a rare type of tulip's petals)
+                </span>
             </template>
         </UITable>
     </UIPanel>
 
-    <UIPanel closed class="bg-white mb-4">
-        <template #header>
-            Searchable
-        </template>
-        <UITable :headers="headers"
-                 :rows="rows"
-                 search
-                 no-sort />
-    </UIPanel>
+    Searchable
+    <UITable :headers="headers"
+             :rows="rows"
+             search
+             class="my-12"
+             disable-sorting />
 
-    <UIPanel class="bg-white mb-4">
-        <template #header>
-            With Selection
-        </template>
-        <UITable v-model="selectedRows"
-                 :headers="headers"
-                 :rows="rows"
-                 selectable
-                 no-sort />
-    </UIPanel>
+    With Selection
+    <UITable v-model="selectedRows"
+             :headers="headers"
+             :rows="rows"
+             selectable
+             disable-pagination
+             disable-sorting />
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import UITable from '@components/table/UITable.vue';
-import { Column, Row } from '@components/table/UITableTypes';
+import type { Column, Row } from '@/types/public';
 import UIPanel from '@components/panel/UIPanel.vue';
 import UIButton from '@components/button/UIButton.vue';
 
@@ -144,14 +147,26 @@ export default defineComponent({
                 carbs: 65,
                 protein: 7,
                 iron: '6'
+            },
+            {
+                name: 'Bounty',
+                calories: 497,
+                fat: 29.0,
+                carbs: 72,
+                protein: 12,
+                iron: '3'
             }
         ]);
-        const selectedRows = ref<Row[]>(null);
+        const selectedRows = ref<Row[]>();
+        const page = ref(1);
+        const itemsPerPage = ref(2);
 
         return {
             headers,
             rows,
-            selectedRows
+            selectedRows,
+            page,
+            itemsPerPage
         };
     }
 });

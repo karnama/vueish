@@ -13,7 +13,7 @@ export default {
     moduleFileExtensions: ['vue', 'js', 'json', 'jsx', 'ts', 'tsx', 'node'],
     setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
     preset: 'ts-jest',
-    testEnvironment: 'jsdom',
+    snapshotSerializers: ['jest-serializer-vue'],
     transform: {
         '^.+\\.vue$': 'vue-jest',
         '^.+\\ts$': 'ts-jest'

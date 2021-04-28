@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UIModal should render correctly 1`] = `
+<div
+  class="h-full w-full z-40 fixed top-0 left-0 wrapper visible"
+>
+  <!--Modal overlay-->
+  <div
+    class="overlay absolute h-screen w-screen"
+  />
+  <!--Main modal dialog-->
+  <section
+    aria-expanded="true"
+    aria-modal="true"
+    class="ui-panel rounded shadow-md bg-default relative transition-all modal top-0 w-full overflow-y-scroll
+                            relative bg-default m-auto shadow-xl rounded bg-white opacity-0 translate-y-0"
+    role="dialog"
+  >
+    <transition-stub>
+      
+      
+    </transition-stub>
+    <header
+      class="w-full flex items-center px-12 relative transition-all no-blur"
+    >
+      <h1
+        class="select-none flex-grow py-8"
+      >
+        
+        
+        Header slot content
+        
+        
+      </h1>
+      <div
+        class="my-2"
+      >
+        
+        
+        Actions slot content
+        
+        
+      </div>
+    </header>
+    <transition-stub>
+      
+      <div
+        class="no-blur"
+      >
+        <main
+          class="w-full px-12 py-6 text-gray-700"
+        >
+          
+          
+          Default slot content
+          
+          
+        </main>
+        <footer
+          class="py-8 px-12 flex items-center"
+        >
+          
+          
+          <button
+            class="border border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 hover:bg-gray-400 hover:border-gray-400 px-3.5 py-2 ui-button rounded relative font-bold text-sm m-0 ui-modal-close ml-auto mr-2"
+            type="button"
+          >
+            <transition-stub>
+              
+              <span
+                class="label transition-opacity duration-200"
+              >
+                
+                Cancel
+                
+              </span>
+              
+            </transition-stub>
+          </button>
+          <button
+            class="border border-blue-600 text-white bg-blue-600 hover:bg-blue-700 hover:border-blue-700 px-3.5 py-2 ui-button rounded relative font-bold text-sm m-0 ui-modal-accept"
+            type="button"
+          >
+            <transition-stub>
+              
+              <span
+                class="label transition-opacity duration-200"
+              >
+                
+                Confirm
+                
+              </span>
+              
+            </transition-stub>
+          </button>
+          
+          
+        </footer>
+      </div>
+      
+    </transition-stub>
+    <transition-stub>
+      
+      
+    </transition-stub>
+  </section>
+</div>
+`;
