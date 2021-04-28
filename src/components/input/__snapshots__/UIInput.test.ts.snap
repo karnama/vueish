@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UIInput should correctly display 1`] = `
+<div
+  class="ui-text"
+>
+  <label
+    class="font-medium text-gray-700"
+    for="input"
+  />
+  <div
+    class="relative group shadow-sm border border-gray-300 rounded
+                    bg-white transition focus-within:border-blue-400"
+  >
+    <div
+      class="flex items-center"
+    >
+      <!--v-if-->
+      <input
+        class="flex-1 p-3.5 appearance-none bg-transparent outline-none
+                              disabled:cursor-not-allowed disabled:text-gray-400"
+        id="input"
+        name="input"
+      />
+      <!--v-if-->
+      <!--v-if-->
+      <!--v-if-->
+    </div>
+  </div>
+</div>
+`;

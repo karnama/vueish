@@ -26,6 +26,33 @@ export const large: Prop<boolean, false> = {
 };
 
 /**
+ * Flag indicating that the loader will run
+ * until it's set to false.
+ */
+export const determinate: Prop<boolean, false> = {
+    type: Boolean,
+    default: false
+};
+
+/**
+ * The value indicating where the
+ * progress is at currently.
+ */
+export const progress: Prop<number, 0> = {
+    type: Number,
+    default: 0,
+    validator: (value: number) => value >= 0
+};
+
+/**
+ * The number of steps to complete from 0 to completion.
+ */
+export const steps: Prop<number|string> = {
+    type: [Number, String],
+    validator: (value: number) => Number(value) >= 2
+};
+
+/**
  * Convert numbers and vh/vw values to px values.
  */
 export const getPxValue = (value: string | number): number => {

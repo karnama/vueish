@@ -23,6 +23,8 @@ const brandColors = (levels) => {
  */
 module.exports = {
     purge: ['./index.html', './src/**/*.{vue,ts,tsx}'],
+    darkMode: 'class',
+    mode: 'jit',
     theme: {
         borderColor: theme => ({
             ...theme('colors'),

@@ -55,7 +55,7 @@ function titleCase(str: string): string {
             previous + ' ' + next.charAt(0).toUpperCase() + next.slice(1));
 }
 
-function getLastEventValue(wrapper: VueWrapper<ComponentPublicInstance>) {
+function getLastEventValue(wrapper: VueWrapper<ComponentPublicInstance>): Row[] {
     // filter out the checkbox events
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const events = (wrapper.emitted('update:modelValue') as unknown[][])
@@ -64,6 +64,17 @@ function getLastEventValue(wrapper: VueWrapper<ComponentPublicInstance>) {
 }
 
 describe('UITable', () => {
+    it('should display correctly', () => {
+        const wrapper = mount(UITable, {
+            props: {
+                rows,
+                headers
+            }
+        });
+
+        expect(wrapper.element).toMatchSnapshot();
+    });
+
     it('should display the given headers and rows', () => {
         const wrapper = mount(UITable, {
             props: {
@@ -397,14 +408,14 @@ describe('UITable', () => {
                 }
             });
 
+            // click the first
             await wrapper.find(selectorMap.checkboxes).trigger('click');
-
             expect(getLastEventValue(wrapper)[0]).toHaveLength(1);
-            await wrapper.find(selectorMap.topCheckbox).trigger('click');
 
+            await wrapper.find(selectorMap.topCheckbox).trigger('click');
             expect(getLastEventValue(wrapper)[0]).toHaveLength(0);
-            await wrapper.find(selectorMap.topCheckbox).trigger('click');
 
+            await wrapper.find(selectorMap.topCheckbox).trigger('click');
             expect(getLastEventValue(wrapper)[0]).toHaveLength(
                 rows.filter(row => typeof row.isSelectable === 'boolean' ? row.isSelectable : true).length
             );

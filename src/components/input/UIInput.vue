@@ -87,13 +87,6 @@ import { large } from '@composables/style';
 import { getIcon, getPrecision } from '@/helpers';
 import { omit } from 'lodash-es';
 
-// fixme - scenario:
-// max = 5
-// min = 1
-// manually type 13
-// try to decrement (it will not do so as it figures the next value is 0)
-// if value is 23 it will decrement to 1, on 33 to 2 etc
-// same with increment
 export default defineComponent({
     name: 'UIInput',
 
@@ -126,7 +119,7 @@ export default defineComponent({
         const model = useVModel<string | number>(props);
         const handleKeydown = (event: KeyboardEvent) => {
             if (isNumber.value) {
-                switch (event.key) {
+                switch (event.code) {
                     case 'ArrowUp':
                         increment();
                         event.preventDefault();
@@ -186,7 +179,7 @@ export default defineComponent({
             }
 
             if (isNaN(Number(model.value))) {
-                model.value = min > 0 ? min : -step;
+                model.value = min ?? 0 - step;
                 return;
             }
 

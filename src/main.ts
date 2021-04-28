@@ -1,4 +1,4 @@
-import type { App } from '@vue/runtime-core';
+import type { App, Plugin } from '@vue/runtime-core';
 import type { DefineComponent } from 'vue';
 import type { Settings, DeepPartial } from '@/types';
 import { merge } from 'lodash-es';
@@ -21,4 +21,4 @@ export default {
             app.directive(name, directives[name]);
         });
     }
-};
+} as Plugin;

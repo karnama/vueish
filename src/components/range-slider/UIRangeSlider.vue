@@ -85,7 +85,9 @@ export default defineComponent({
     setup(props) {
         const showLabel = ref(false);
         const model = useVModel<number>(props);
-        const progress = computed(() => Number((model.value - props.min) * 100 / (props.max - props.min)));
+        const progress = computed(() => {
+            return Number(model.value) - Number(props.min) * 100 / Number(props.max) - Number(props.min);
+        });
 
         const bgColor = computed<Partial<CSSStyleDeclaration>>(() => {
             return {

@@ -23,7 +23,7 @@ const categoryClasses = {
 } as { [key in StyleType]: string; };
 
 export default defineComponent({
-    name: 'UIBadge',
+    name: 'UIPill',
 
     props: {
         category,

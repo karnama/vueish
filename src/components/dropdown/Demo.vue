@@ -1,7 +1,9 @@
 <template>
     <UICheckbox v-model="atMousePosition" label="Positioned on the mouse" name="at_mouse_position" />
 
-    <p class="mt-10">Left click</p>
+    <p class="mt-10">
+        Left click
+    </p>
     <UIDropdown :at-mouse-position="atMousePosition">
         <template #trigger="{toggle}">
             <UIButton type="primary" @click.stop="toggle">
@@ -18,7 +20,9 @@
         </div>
     </UIDropdown>
 
-    <p class="mt-10">Right click (context menu)</p>
+    <p class="mt-10">
+        Right click (context menu)
+    </p>
     <UIDropdown :at-mouse-position="atMousePosition">
         <template #trigger="{toggle}">
             <img src="https://source.unsplash.com/random/400x300" alt="Clickable Image" @contextmenu.prevent="toggle">

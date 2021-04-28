@@ -9,6 +9,16 @@ const options: Record<string, any>[] = [
 ] as Option[];
 
 describe('UIButtonToggle', () => {
+    it('should correctly display', () => {
+        const wrapper = mount(UIButtonToggle, {
+            props: {
+                options,
+                modelValue: null
+            }
+        });
+        expect(wrapper.element).toMatchSnapshot();
+    });
+
     it('should be able to select options', async () => {
         const wrapper = mount(UIButtonToggle, {
             props: {
@@ -93,8 +103,10 @@ describe('UIButtonToggle', () => {
         await button.trigger('click'); // not emitting if already selected
         expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
 
+        // eslint-disable-next-line no-console
         console.log(wrapper.vm.model);
         await wrapper.setProps({ clearable: true });
+        // eslint-disable-next-line no-console
         console.log(wrapper.vm.model);
         await button.trigger('click');
         expect(wrapper.emitted('update:modelValue')).toHaveLength(2);

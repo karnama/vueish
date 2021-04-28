@@ -1,6 +1,6 @@
 import { DOMWrapper, mount } from '@vue/test-utils';
-import clickAway from './clickAway';
-import { ref } from 'vue';
+import clickAway from './index';
+import { computed, ref } from 'vue';
 
 describe('clickAway', () => {
     it('should trigger the given method on clicking outside', async () => {
@@ -50,18 +50,21 @@ describe('clickAway', () => {
         document.ontouchstart = null;
     });
 
-    // todo - update when a scenario can be implemented when the callback changes
-    // eslint-disable-next-line jest/no-disabled-tests
-    it.skip('should be reactive to the value change', async () => {
+    it('should be reactive to the value change', async () => {
         let count = 0;
         jest.useFakeTimers();
         const mockFn = ref(jest.fn(() => count++));
         document.body.innerHTML = '<div id="outside" /> ';
 
         mount({
-            template: '<div id="inside" v-click-away="mockFn"><span id="content" /></div> ',
+            template: '<div id="inside" v-click-away="func"><span id="content" /></div> ',
             directives: { clickAway },
-            setup: () => ({ mockFn: mockFn.value }),
+            setup: () => {
+                const func = computed(() => mockFn.value);
+                return {
+                    func
+                };
+            },
             attachTo: '#outside'
         });
         jest.runAllTimers();

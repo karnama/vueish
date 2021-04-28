@@ -125,7 +125,6 @@ export default defineComponent({
                 resolve();
             }, 100));
         };
-
         const close = async (event: 'accept' | 'cancel' = 'cancel'): Promise<void> => {
             // filter out events if user doesn't define the argument
             event = ['accept', 'cancel'].includes(event) ? event : 'cancel';

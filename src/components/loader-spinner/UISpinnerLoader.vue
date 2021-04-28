@@ -24,8 +24,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch, onMounted } from 'vue';
-import { inheritColor } from '@composables/style';
+import { computed, defineComponent, ref, watch, onMounted, onUnmounted } from 'vue';
+import { inheritColor, determinate, steps, progress } from '@composables/style';
 
 export default defineComponent({
     name: 'UISpinnerLoader',
@@ -34,29 +34,10 @@ export default defineComponent({
 
     props: {
         /**
-         * The value indicating where the
-         * progress is at currently.
-         */
-        progress: {
-            type: Number,
-            // todo - add steps prop
-            validator: (value: number) => value >= 0 && value <= 100
-        },
-
-        /**
-         * Flag indicating that the loader will run
-         * until it's set to false.
-         */
-        determinate: {
-            type: Boolean,
-            default: false
-        },
-
-        /**
          * The diameter of the circle in pixels.
          */
         diameter: {
-            type: Number,
+            type: [Number, String],
             default: 60
         },
 
@@ -64,53 +45,75 @@ export default defineComponent({
          * The width of the stroke in pixels.
          */
         stroke: {
-            type: Number,
+            type: [Number, String],
             default: 6
         },
 
-        inheritColor
+        inheritColor,
+        determinate,
+        steps,
+        progress
     },
 
     setup(props) {
-        const radius = computed(() => (props.diameter - props.stroke) / 2);
+        const watchers: ReturnType<typeof watch>[] = [];
+        const radius = computed(() => (Number(props.diameter) - Number(props.stroke)) / 2);
         const circumference = computed(() => Math.PI * 2 * radius.value);
-        const strokeDashOffset = computed(() => {
+        const strokeDashOffset = computed<string>(() => {
             if (!props.determinate) {
-                return String(circumference.value) + 'px';
+                return `${circumference.value}px`;
             }
+
             if (props.progress) {
-                return String(circumference.value * (100 - props.progress) / 100) + 'px';
+                const step = circumference.value / Number(props.steps);
+
+                return `${circumference.value - step * Number(props.progress)}px`;
             }
-            return String(circumference.value) + 'px';
+
+            return `${circumference.value}px`;
         });
 
-        const spinnerDraw = ref<SVGElementTagNameMap['svg']>(null!);
-        const spinnerCircle = ref<SVGCircleElement>(null!);
+        const spinnerDraw = ref<SVGElementTagNameMap['svg']>();
+        const spinnerCircle = ref<SVGCircleElement>();
 
         /**
          * Re-calculate the svg styles.
          */
         const attachSvgStyles = (): void => {
-            spinnerDraw.value.style.width = `${props.diameter}px`;
-            spinnerDraw.value.style.height = `${props.diameter}px`;
+            spinnerDraw.value!.style.width = `${props.diameter}px`;
+            spinnerDraw.value!.style.height = `${props.diameter}px`;
         };
 
         /**
          * Re-calculate the circle shape styles.
          */
         const attachCircleStyles = (): void => {
-            spinnerCircle.value.style.strokeDashoffset = strokeDashOffset.value;
-            spinnerCircle.value.style.strokeDasharray = String(circumference.value) + 'px';
-            spinnerCircle.value.style.setProperty('--spinner-start-value', String(0.95 * circumference.value));
-            spinnerCircle.value.style.setProperty('--spinner-end-value', String(0.2 * circumference.value));
+            spinnerCircle.value!.style.strokeDashoffset = strokeDashOffset.value;
+            spinnerCircle.value!.style.strokeDasharray = `${circumference.value}px`;
+            spinnerCircle.value!.style.setProperty('--spinner-start-value', String(0.95 * circumference.value));
+            spinnerCircle.value!.style.setProperty('--spinner-end-value', String(0.2 * circumference.value));
         };
 
-        watch([() => props.diameter, () => props.stroke, () => props.progress], attachCircleStyles);
-        watch(() => props.diameter, attachSvgStyles);
+        watchers.push(
+            watch(
+                [
+                    () => props.diameter,
+                    () => props.stroke,
+                    () => props.progress,
+                    () => props.steps,
+                    () => props.determinate
+                ],
+                attachCircleStyles
+            ),
+            watch(() => props.diameter, attachSvgStyles)
+        );
 
         onMounted(() => {
             attachSvgStyles();
             attachCircleStyles();
+        });
+        onUnmounted(() => {
+            watchers.forEach(stop => stop());
         });
 
         return {

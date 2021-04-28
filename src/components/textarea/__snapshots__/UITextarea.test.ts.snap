@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UITextarea should display correctlt 1`] = `
+<div
+  class="ui-textarea relative"
+>
+  <label
+    class="font-medium text-gray-700"
+    for="input"
+  />
+  <div
+    class="group relative shadow border border-gray-300 rounded bg-white
+                    transition focus-within:border-blue-400"
+  >
+    <div
+      class="flex items-center items-stretch"
+    >
+      <textarea
+        class="flex-1 p-3 appearance-none bg-transparent outline-none
+                                 disabled:cursor-not-allowed disabled:text-gray-400"
+        id="input"
+        name="input"
+      />
+      <div
+        class="flex flex-col justify-between"
+      >
+        <!--v-if-->
+      </div>
+    </div>
+  </div>
+  <!--v-if-->
+</div>
+`;

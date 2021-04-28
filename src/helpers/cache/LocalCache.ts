@@ -30,7 +30,8 @@ export default class LocalCache {
      *
      * @return {*}
      */
-    public get<T extends any>(key: string, defaultValue?: T): T | undefined {
+    public get<T>(key: string, defaultValue?: T): T
+    public get(key: string, defaultValue?: unknown): undefined {
         try {
             let value = JSON.parse(localStorage.getItem(this.prefix + key) as string);
 
@@ -129,10 +130,6 @@ export default class LocalCache {
      * @param namespace
      */
     public set namespace(namespace: string) {
-        if (typeof namespace !== 'string') {
-            throw new Error('Invalid type for namespace. Expected string got ' + typeof namespace);
-        }
-
-        this.prefix = namespace + '_';
+        this.prefix = String(namespace) + '_';
     }
 }

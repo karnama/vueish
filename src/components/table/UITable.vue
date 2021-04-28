@@ -204,8 +204,6 @@ import { debouncedRef } from '@composables/reactivity';
 import UISelect from '@components/select/UISelect.vue';
 import UIButton from '@components/button/UIButton.vue';
 
-// fixme - multi select on desktop shows footer of not single select
-
 export default defineComponent({
     name: 'UITable',
 
@@ -214,7 +212,7 @@ export default defineComponent({
     props: {
         modelValue: {
             type: [Array, Object] as PropType<MaybeArray<Row>>,
-            default: []
+            default: () => []
         },
 
         /**

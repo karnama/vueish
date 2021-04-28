@@ -34,6 +34,7 @@
     <UITable :headers="headers"
              :rows="rows"
              search
+             class="my-12"
              disable-sorting />
 
     With Selection

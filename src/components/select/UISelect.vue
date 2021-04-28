@@ -28,7 +28,7 @@
                   class="h-5 w-5 text-gray-400"
                   v-html="lockIcon" />
 
-            <span v-else-if="!noClear && selectionDisplay"
+            <span v-else-if="clearable && selectionDisplay"
                   class="opacity-0 clear-icon h-5 w-5 cursor-pointer right-0 top-1 group-hover:opacity-100
                          transition-opacity text-gray-500 relative -mr-5 group-hover:mr-0 -mt-1 transition-spacing"
                   aria-controls=""
@@ -86,8 +86,8 @@
                                 </slot>
                             </div>
 
-                            <div v-if="currentlySelected && (!noClear && !multi)
-                                     || multi && !noClear && currentlySelected
+                            <div v-if="currentlySelected && (clearable && !multi)
+                                     || multi && clearable && currentlySelected
                                      || multi && currentlySelected && Array.isArray(selected) && selected.length > 1"
                                  class="flex items-center justify-between p-2 px-3">
                                 <span class="clear-icon h-5 w-5 cursor-pointer text-gray-500"
@@ -106,10 +106,10 @@
 import { computed, defineComponent, onMounted, ref, onUnmounted, nextTick, onBeforeUpdate } from 'vue';
 import { isEqual as _isEqual, cloneDeep } from 'lodash-es';
 import type { PropType } from 'vue';
-import { placeholder, autofocus, noClear, disabled, useVModel, label } from '@composables/input';
+import { placeholder, autofocus, clearable, disabled, useVModel, label } from '@composables/input';
 import { getIcon, wrap } from '@/helpers';
 import { MaybeArray } from '@/types';
-import clickAway from '@composables/interactivity/clickAway';
+import clickAway from '@/directives/clickAway';
 
 type Option = Record<string, any>;
 
@@ -185,7 +185,7 @@ export default defineComponent({
 
         label,
         placeholder,
-        noClear,
+        clearable,
         autofocus,
         disabled
     },
@@ -232,7 +232,7 @@ export default defineComponent({
             return options;
         });
         const style = ref<Partial<CSSStyleDeclaration>>({});
-        const listElements = ref<HTMLLIElement[]>({});
+        const listElements = ref<HTMLLIElement[]>([]);
 
         const closeList = async () => {
             await nextTick();
@@ -254,9 +254,9 @@ export default defineComponent({
                 // nothing to clear
                 !selected.value || Array.isArray(selected.value) && selected.value.length === 0
                 // or not clearable single select
-                || props.noClear && !props.multi
+                || !props.clearable && !props.multi
                 // or not clearable multi-select with only one value
-                || props.noClear && props.multi && (selected.value as Option[]).length === 1
+                || !props.clearable && props.multi && (selected.value as Option[]).length === 1
             ) {
                 return;
             }
@@ -298,18 +298,20 @@ export default defineComponent({
             selected.value = [...selected.value, option];
         };
         const setPosition = () => {
-            const rectangle = selectComp.value?.getBoundingClientRect();
+            const selectRect = selectComp.value!.getBoundingClientRect();
+            const listRect = list.value!.getBoundingClientRect();
 
-            if (!rectangle) {
+            if (!selectRect || !listRect) {
                 return {};
             }
 
-            // todo - should it consider whether the content fits?
+            const offset = 5;
+            // const fitsOnTheBottom = listRect.height >= innerHeight - selectRect.y + selectRect.height + offset;
             style.value = {
-                width: String(rectangle.width) + 'px',
-                top: String(rectangle.y + rectangle.height + 5) + 'px',
-                left: String(rectangle.x) + 'px',
-                zIndex: 9999
+                width: `${selectRect.width}px`,
+                left: `${selectRect.x}px`,
+                zIndex: '9999',
+                top: `${selectRect.y + selectRect.height + offset}px`
             };
         };
 
