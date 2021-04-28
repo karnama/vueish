@@ -2,11 +2,15 @@ import { mount } from '@vue/test-utils';
 import UIPanel from './UIPanel.vue';
 
 describe('UIPanel', () => {
-    it('should render', () => {
-        const wrapper = mount(UIPanel);
+    it('should render correctly', () => {
+        const wrapper = mount(UIPanel, {
+            slots: {
+                default: 'default slot text',
+                header: 'header text'
+            }
+        });
 
-        expect(wrapper).toBeDefined();
-        expect(wrapper.exists()).toBe(true);
+        expect(wrapper.element).toMatchSnapshot();
     });
 
     it('should display the actions slot when action content when given', () => {

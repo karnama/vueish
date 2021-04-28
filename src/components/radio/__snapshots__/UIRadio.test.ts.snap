@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UIRadioGroup should display correctly 1`] = `
+<div
+  class="ui-radio-group"
+>
+  <span
+    class="label text-sm text-gray-500"
+  >
+    
+    my-label
+    
+  </span>
+  <div
+    class="slot flex pt-2 flex-col space-y-4"
+    role="radiogroup"
+  >
+    
+    <div
+      class="flex ui-radio"
+    >
+      <label
+        class="relative flex items-center outline-none"
+        tabindex="0"
+      >
+        <input
+          class="hidden"
+          name="name"
+          tabindex="-1"
+          type="radio"
+          value="foo"
+        />
+        <span
+          class="ui-radio-btn relative float-left mr-2 h-5 w-5 border-2 rounded-full outline-none"
+          role="radio"
+        />
+        
+        
+        
+      </label>
+    </div>
+    <div
+      class="flex ui-radio"
+    >
+      <label
+        class="relative flex items-center outline-none"
+        tabindex="0"
+      >
+        <input
+          class="hidden"
+          name="name"
+          tabindex="-1"
+          type="radio"
+          value="bar"
+        />
+        <span
+          class="ui-radio-btn relative float-left mr-2 h-5 w-5 border-2 rounded-full outline-none"
+          role="radio"
+        />
+        
+        
+        
+      </label>
+    </div>
+    
+  </div>
+</div>
+`;

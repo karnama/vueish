@@ -33,6 +33,7 @@
                     :large="large"
                     :multi="multi"
                     category="primary"
+                    :clearable="clearable"
                     :disabled="disabled">
         <template #places="slotProps">
             slotted {{ slotProps.option.label }}

@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UIDropdown should correctly display 1`] = `
+<div
+  aria-haspopup="true"
+  class="ui-dropdown w-max relative"
+>
+  
+  <div
+    id="trigger"
+  />
+  
+  <div
+    class="dropdown absolute flex flex-col items-stretch shadow-lg bg-white rounded z-50 overflow-scroll"
+    role="group"
+    style="max-height: 35vh; width: 250px; right: 0px; top: 0px;"
+  >
+    
+    <div
+      id="content"
+    />
+    
+  </div>
+</div>
+`;

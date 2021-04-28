@@ -70,7 +70,7 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 'warn',
         '@typescript-eslint/no-useless-constructor': 'warn',
         '@typescript-eslint/no-explicit-any': 'off',
-        '@typescript-eslint/ban-ts-comment': 'off',
+        '@typescript-eslint/ban-ts-comment': 'warn',
         '@typescript-eslint/no-unsafe-return': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/explicit-module-boundary-types': ['error', {
@@ -197,7 +197,8 @@ module.exports = {
                     {
                         "ignore": ["describe"]
                     }
-                ]
+                ],
+                "jest/no-disabled-tests": "warn"
             }
         }
     ]

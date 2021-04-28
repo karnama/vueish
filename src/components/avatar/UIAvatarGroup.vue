@@ -47,7 +47,7 @@ export default defineComponent({
          */
         avatars: {
             type: Array as PropType<Avatar[]>,
-            default: []
+            default: () => []
         },
 
         /**
@@ -78,7 +78,7 @@ export default defineComponent({
                 return [];
             }
 
-            return ctx.slots.default();
+            return ctx.slots.default!();
         });
 
         return {

@@ -119,7 +119,7 @@ export default defineComponent({
         const model = useVModel<string | number>(props);
         const handleKeydown = (event: KeyboardEvent) => {
             if (isNumber.value) {
-                switch (event.key) {
+                switch (event.code) {
                     case 'ArrowUp':
                         increment();
                         event.preventDefault();
@@ -179,7 +179,7 @@ export default defineComponent({
             }
 
             if (isNaN(Number(model.value))) {
-                model.value = min > 0 ? min : -step;
+                model.value = min ?? 0 - step;
                 return;
             }
 
