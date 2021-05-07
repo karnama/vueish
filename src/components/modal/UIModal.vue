@@ -90,7 +90,7 @@ export default defineComponent({
          * Callback to execute on modal cancel.
          */
         closeCallback: {
-            type: Function as PropType<(callback: () => Promise<void>) => Promise<void>>
+            type: Function as PropType<(callback: () => Promise<void>, accepted: boolean) => Promise<void>>
         },
 
         /**
@@ -120,18 +120,22 @@ export default defineComponent({
 
         const open = async (): Promise<void> => {
             isOpen.value = true;
+
             return new Promise(resolve => setTimeout(() => {
                 isVisible.value = true;
                 resolve();
             }, 100));
         };
+
         const close = async (event: 'accept' | 'cancel' = 'cancel'): Promise<void> => {
-            // filter out events if user doesn't define the argument
+            // filter out events if user doesn't define the argument.
             event = ['accept', 'cancel'].includes(event) ? event : 'cancel';
 
+            // Callback to close the modal.
             const closeModal = async (): Promise<void> => {
                 isVisible.value = false;
                 ctx.emit(event);
+
                 return new Promise(resolve => setTimeout(() => {
                     isOpen.value = false;
                     resolve();
@@ -139,7 +143,7 @@ export default defineComponent({
             };
 
             if (typeof props.closeCallback === 'function') {
-                return props.closeCallback(closeModal);
+                return props.closeCallback(closeModal, event === 'accept');
             }
 
             return closeModal();
