@@ -16,9 +16,8 @@ export default {
 
         components.forEach(component => app.component(component.name, component));
 
-        Object.keys(directives).forEach(name => {
-            // @ts-expect-error - directives' type seems to get lost at the import
-            app.directive(name, directives[name]);
+        Object.keys(directives.default).forEach(name => {
+            app.directive(name, directives.default[name]);
         });
     }
 } as Plugin;
