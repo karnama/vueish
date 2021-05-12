@@ -1,11 +1,13 @@
 {
     "name": "@karnama/vueish",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "files": [
-        "dist"
+        "dist",
+        "types"
     ],
     "main": "./dist/vueish.umd.js",
     "module": "./dist/vueish.es.js",
+    "types": "./types/index.d.ts",
     "license": "mit",
     "exports": {
         ".": {
@@ -16,6 +18,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
+        "watch": "vite build --watch",
         "test": "jest",
         "lint": "eslint . --fix --ext .ts,.vue,.tsx",
         "prepare": "husky install"
