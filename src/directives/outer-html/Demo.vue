@@ -11,7 +11,7 @@
     <br>
 
     <small class="bg-red-600 shadow rounded text-white p-2">
-        Dynamic values are not viable as it is uncertain hom many nodes has been created before
+        Dynamic values are not viable as it is uncertain how many nodes has been created before
     </small>
 </template>
 

@@ -2,6 +2,7 @@ import { mount } from '@vue/test-utils';
 import outerHtml from './index';
 
 describe('outer-html', () => {
+    // skipped for now as vtu retains the template tag
     it.skip('should replace the template tag', () => {
         const wrapper = mount({
             directives: {
@@ -26,7 +27,8 @@ describe('outer-html', () => {
         expect(wrapper.html()).toBe('<div>origin<span>after</span></div><div>test</div>');
     });
 
-    it.todo('should be reactive', () => {
+    // skipped in case in the future a way is devised to make this reactive
+    it.skip('should be reactive', () => {
         const wrapper = mount({
             directives: {
                 outerHtml
