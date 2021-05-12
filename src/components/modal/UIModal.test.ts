@@ -205,7 +205,13 @@ describe('UIModal', () => {
         // @ts-expect-error
         await wrapper.vm.open();
         document.querySelector<HTMLButtonElement>('.ui-modal-close')?.click();
-        expect(mockFn).toHaveBeenCalled();
+        expect(mockFn).toHaveBeenCalledWith(expect.any(Function), false);
+
+        // @ts-expect-error
+        await wrapper.vm.open();
+        document.querySelector<HTMLButtonElement>('.ui-modal-accept')?.click();
+        expect(mockFn).toHaveBeenCalledWith(expect.any(Function), true);
+
         wrapper.unmount();
     });
 });
