@@ -3,7 +3,9 @@ import type { DefineComponent } from 'vue';
 import type { Settings, DeepPartial } from '@/types';
 import { merge } from 'lodash-es';
 import defaultSettings from './defaultSettings';
-import * as directives from './directives';
+import tooltip from './directives/tooltip';
+import intersect from './directives/intersect';
+import clickAway from './directives/clickAway';
 
 const componentModules = import.meta.globEager('./**/UI*.vue');
 const components: DefineComponent[] = Object.keys(componentModules)
@@ -16,9 +18,8 @@ export default {
 
         components.forEach(component => app.component(component.name, component));
 
-        Object.keys(directives).forEach(name => {
-            // @ts-expect-error
-            app.directive(name, directives[name]);
-        });
+        app.directive('tooltip', tooltip);
+        app.directive('intersect', intersect);
+        app.directive('clickAway', clickAway);
     }
 } as Plugin;
