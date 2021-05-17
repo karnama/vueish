@@ -27,7 +27,7 @@
         "vue": "^3.0.0"
     },
     "devDependencies": {
-        "@babel/core": "^7.14.0",
+        "@babel/core": "^7.14.2",
         "@types/jest": "^26.0.23",
         "@types/lodash-es": "^4.17.4",
         "@types/node": "^15.0.2",
