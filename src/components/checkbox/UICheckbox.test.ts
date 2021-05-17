@@ -23,8 +23,7 @@ describe('UICheckbox', () => {
         await wrapper.find('#inputName').trigger('click');
 
         expect(wrapper.emitted('update:modelValue')![0]).toHaveLength(1);
-        // @ts-expect-error
-        expect(wrapper.emitted('update:modelValue')[0][0]).toStrictEqual(['value']);
+        expect(wrapper.lastEventValue<string[]>()![0]).toStrictEqual(['value']);
     });
 
     it('should throw error on invalid prop logic', () => {
