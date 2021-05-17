@@ -20,6 +20,7 @@
         "build": "vite build",
         "watch": "vite build --watch",
         "test": "jest",
+        "test:update-snapshots": "npm run test -- --updateSnapshot",
         "lint": "eslint . --fix --ext .ts,.vue,.tsx",
         "prepare": "husky install"
     },
