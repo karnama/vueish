@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, watch } from 'vue';
 import { getIcon } from '@/helpers';
 
 export default defineComponent({
@@ -50,9 +50,11 @@ export default defineComponent({
         squared: Boolean
     },
 
-    setup() {
-        const loaded = ref(false);
+    setup(props) {
+        const loaded = ref(true);
         const personIcon = getIcon('person');
+
+        watch(() => props.src, () => loaded.value = true);
 
         return {
             loaded,

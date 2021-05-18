@@ -42,4 +42,14 @@ describe('UIAvatar', () => {
         expect(wrapper.html()).not.toContain('rounded-full');
         expect(wrapper.html()).toContain('rounded');
     });
+
+    it('should react to changes of the src prop', async () => {
+        const wrapper = mount(UIAvatar);
+
+        expect(wrapper.find('img').isVisible()).toBe(false);
+        await wrapper.setProps({
+            src: 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
+        });
+        expect(wrapper.find('img').isVisible()).toBe(true);
+    });
 });
