@@ -15,7 +15,7 @@ describe('UIModal', () => {
             }
         });
 
-        // @ts-expect-error
+        // @ts-expect-error - ts reckons this has the type never
         await wrapper.vm.open();
 
         expect(document.querySelector('.wrapper')).toMatchSnapshot();
@@ -28,7 +28,7 @@ describe('UIModal', () => {
             }
         });
 
-        // @ts-expect-error
+        // @ts-expect-error - ts reckons this has the type never
         await wrapper.vm.open();
 
         expect(document.getElementById('test-actions')).not.toBeNull();
@@ -38,7 +38,7 @@ describe('UIModal', () => {
     it('should emit closed on click outside', async () => {
         const wrapper = mount(UIModal);
 
-        // @ts-expect-error
+        // @ts-expect-error - ts reckons this has the type never
         await wrapper.vm.open();
         document.querySelector<HTMLDivElement>('.overlay')?.click();
 
@@ -49,7 +49,7 @@ describe('UIModal', () => {
     it('should emit closed on cancel click', async () => {
         const wrapper = mount(UIModal);
 
-        // @ts-expect-error
+        // @ts-expect-error - ts reckons this has the type never
         await wrapper.vm.open();
         document.querySelector<HTMLButtonElement>('.ui-modal-close')?.click();
 
@@ -64,7 +64,7 @@ describe('UIModal', () => {
             }
         });
 
-        // @ts-expect-error
+        // @ts-expect-error - ts reckons this has the type never
         await wrapper.vm.open();
         let button: HTMLButtonElement | undefined;
         document.querySelectorAll('button').forEach(btn => {
@@ -91,7 +91,7 @@ describe('UIModal', () => {
             }
         });
 
-        // @ts-expect-error
+        // @ts-expect-error - ts reckons this has the type never
         await wrapper.vm.open();
         let count = 0;
         document.querySelectorAll('button').forEach(button => {
@@ -110,7 +110,7 @@ describe('UIModal', () => {
             }
         });
 
-        // @ts-expect-error
+        // @ts-expect-error - ts reckons this has the type never
         await wrapper.vm.open();
         expect(document.getElementById('header-content')).not.toBeNull();
         wrapper.unmount();
@@ -123,7 +123,7 @@ describe('UIModal', () => {
             }
         });
 
-        // @ts-expect-error
+        // @ts-expect-error - ts reckons this has the type never
         await wrapper.vm.open();
         expect(document.getElementById('footer-content')).not.toBeNull();
         wrapper.unmount();
@@ -136,7 +136,7 @@ describe('UIModal', () => {
             }
         });
 
-        // @ts-expect-error
+        // @ts-expect-error - ts reckons this has the type never
         await wrapper.vm.open();
         expect(document.querySelector('.modal')?.innerHTML).toContain('header-content');
         wrapper.unmount();
@@ -149,7 +149,7 @@ describe('UIModal', () => {
             }
         });
 
-        // @ts-expect-error
+        // @ts-expect-error - ts reckons this has the type never
         await wrapper.vm.open();
         expect(document.getElementById('default-content')).not.toBeNull();
         wrapper.unmount();
@@ -163,11 +163,11 @@ describe('UIModal', () => {
         });
 
         expect(document.getElementById('default-content')).toBeNull();
-        // @ts-expect-error
+        // @ts-expect-error - ts reckons this has the type never
         await wrapper.vm.open();
         expect(document.getElementById('default-content')).not.toBeNull();
 
-        // @ts-expect-error
+        // @ts-expect-error - ts reckons this has the type never
         await wrapper.vm.close();
         expect(document.getElementById('default-content')).toBeNull();
         wrapper.unmount();
@@ -183,7 +183,7 @@ describe('UIModal', () => {
             }
         });
 
-        // @ts-expect-error
+        // @ts-expect-error - ts reckons this has the type never
         await wrapper.vm.open();
         expect(document.querySelector('#default-content')).not.toBeNull();
         document.querySelector<HTMLButtonElement>('.ui-modal-close')?.click();
@@ -202,12 +202,12 @@ describe('UIModal', () => {
             }
         });
 
-        // @ts-expect-error
+        // @ts-expect-error - ts reckons this has the type never
         await wrapper.vm.open();
         document.querySelector<HTMLButtonElement>('.ui-modal-close')?.click();
         expect(mockFn).toHaveBeenCalledWith(expect.any(Function), false);
 
-        // @ts-expect-error
+        // @ts-expect-error - ts reckons this has the type never
         await wrapper.vm.open();
         document.querySelector<HTMLButtonElement>('.ui-modal-accept')?.click();
         expect(mockFn).toHaveBeenCalledWith(expect.any(Function), true);
