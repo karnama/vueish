@@ -12,6 +12,7 @@ const components: DefineComponent[] = Object.keys(componentModules)
     .map(modulePath => componentModules[modulePath].default)
     .flat(1);
 
+
 export default {
     install: (app: App, setting: DeepPartial<Settings> = {}): void => {
         app.config.globalProperties.Vueish = merge(defaultSettings, setting);
