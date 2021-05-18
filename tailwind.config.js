@@ -10,6 +10,7 @@ const brandColor = (level) => {
     };
 };
 
+
 const brandColors = (levels) => {
     const colors = {};
 
