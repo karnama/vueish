@@ -158,15 +158,16 @@
                                 <span class="flex items-center justify-end space-x-2 my-2 flex-grow">
                                     <span class="flex items-center">
                                         <span class="mr-2">Items per page</span>
-                                        <UISelect :model-value="{ name: currentItemsPerPage, id: currentItemsPerPage }"
+                                        <UISelect :model-value="{ id: currentItemsPerPage }"
                                                   :options="itemPerPageOptions"
+                                                  option-label="id"
                                                   class="mr-2"
                                                   style="min-width: 50px"
                                                   no-search
                                                   no-clear
                                                   label="Items per page"
                                                   header=""
-                                                  @update:model-value="updateCurrentItemPerPage" />
+                                                  @update:model-value="(o) => currentItemsPerPage = o.id" />
                                     </span>
                                     <span class="flex justify-end items-center space-x-2">
                                         <UIButton :disabled="!hasPrevious"
@@ -518,11 +519,6 @@ export default defineComponent({
 
             currentPage.value = input;
         };
-        const updateCurrentItemPerPage = (ev: InputEvent) => {
-            // @ts-expect-error
-            // currentItemsPerPage.value = Number(ev.target.value);
-            currentItemsPerPage.value = ev.id;
-        };
 
         watch(
             [() => normalisedHeaders.value, () => props.hoverHighlight],
@@ -544,15 +540,14 @@ export default defineComponent({
             hoverClass,
             pageCount,
             selected,
-            updateCurrentItemPerPage,
             pageRows,
             hasNext,
             term,
             sortBy,
             getColumn,
             isSelected,
-            handleHover,
             jumpToPage,
+            handleHover,
             sortDirection,
             toggleRowSelection,
             toggleAllRowSelection
