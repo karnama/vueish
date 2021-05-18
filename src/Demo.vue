@@ -1,8 +1,7 @@
 <template>
     <main class="h-full transition-colors bg-gray-100 dark:bg-gray-700 relative">
         <div class="flex">
-            <div class="menu px-12 shadow-xl dark:bg-gray-600 dark:text-gray-300 transition-all
-                        transition-colors z-30 bg-white"
+            <div class="menu px-12 shadow-xl dark:bg-gray-600 dark:text-gray-300 z-30 bg-white"
                  :class="[ isOpen ? 'open' : 'closed' ]">
                 <div class="sticky top-0">
                     <div class="flex items-center justify-between">
@@ -31,7 +30,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex-1 min-h-screen h-full transition w-full p-10">
+            <div class="flex-1 min-h-screen h-full w-full p-10">
                 <UIButton v-if="!isOpen"
                           class="dark:text-gray-200 mb-4"
                           minimal
