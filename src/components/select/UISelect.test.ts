@@ -388,25 +388,27 @@ describe('UISelect', () => {
         });
 
         // elements don't have event listeners only tabindexes
-        it.skip('should focus the next element on tab', async () => {
-            const wrapper = mount(UISelect, {
-                props: {
-                    options,
-                    modelValue: [],
-                    multi: true
-                }
-            });
-
-            await wrapper.get(selectorMap.currentSelection).trigger('click');
-
-            const search = getList()!.get(selectorMap.search);
-            expect(search.element.isSameNode(document.activeElement)).toBe(true);
-            const htmlOption = getList()!.get(selectorMap.options);
-            await search.trigger('keydown', { keyCode: 9, key: 'Tab', code: 'Tab' });
-
-            expect(document.activeElement?.outerHTML).toBe(htmlOption.html());
-            wrapper.unmount();
-        });
+        it.todo('should focus the next element on tab'
+        //     , async () => {
+        //     const wrapper = mount(UISelect, {
+        //         props: {
+        //             options,
+        //             modelValue: [],
+        //             multi: true
+        //         }
+        //     });
+        //
+        //     await wrapper.get(selectorMap.currentSelection).trigger('click');
+        //
+        //     const search = getList()!.get(selectorMap.search);
+        //     expect(search.element.isSameNode(document.activeElement)).toBe(true);
+        //     const htmlOption = getList()!.get(selectorMap.options);
+        //     await search.trigger('keydown', { keyCode: 9, key: 'Tab', code: 'Tab' });
+        //
+        //     expect(document.activeElement?.outerHTML).toBe(htmlOption.html());
+        //     wrapper.unmount();
+        // }
+        );
 
         it('should focus the previous element on key up if possible', async () => {
             const wrapper = mount(UISelect, {

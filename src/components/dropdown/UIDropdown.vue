@@ -145,16 +145,14 @@ export default defineComponent({
 
             isOpen.value = true;
         };
-
         const hide = () => {
             isOpen.value = false;
         };
-
-        const toggle = (event: MouseEvent) => {
+        const toggle = (event?: MouseEvent) => {
             // If the dropdown is showing via contextmenu event, and the user has triggered
             // another contextmenu event then reshow the dropdown at the new mouse
             // position.
-            const reshow = isOpen.value && props.atMousePosition && event.type === 'contextmenu';
+            const reshow = isOpen.value && props.atMousePosition && event?.type === 'contextmenu';
 
             if (isOpen.value) {
                 hide();
