@@ -14,7 +14,11 @@ exports[`UIFile should display correctly 1`] = `
       <img
         style="display: none;"
       />
-      <!--v-if-->
+      
+      
+      txt
+      
+      
     </div>
     <p
       class="file-name"
