@@ -8,7 +8,7 @@
              :aria-hidden="src && loaded"
              @load="loaded = true"
              @error="loaded = false">
-        <template v-if="!loaded">
+        <template v-if="!(src && loaded)">
             <slot v-if="$slots.default" />
             <template v-else-if="content">
                 {{ content }}
