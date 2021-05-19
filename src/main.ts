@@ -5,7 +5,9 @@ import { merge } from 'lodash-es';
 import defaultSettings from './defaultSettings';
 import tooltip from './directives/tooltip';
 import intersect from './directives/intersect';
+import outerHtml from './directives/outer-html';
 import clickAway from './directives/clickAway';
+import './assets/styles/main.scss';
 
 const componentModules = import.meta.globEager('./**/UI*.vue');
 const components: DefineComponent[] = Object.keys(componentModules)
@@ -21,5 +23,6 @@ export default {
         app.directive('tooltip', tooltip);
         app.directive('intersect', intersect);
         app.directive('clickAway', clickAway);
+        app.directive('outer-html', outerHtml);
     }
 } as Plugin;
