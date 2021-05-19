@@ -51,6 +51,7 @@ import { getIcon } from '@/helpers';
 import UIButton from '@components/button/UIButton.vue';
 import { FileError } from '@/types';
 
+// todo - add undo (time out) for removed files
 export default defineComponent({
     name: 'UIFileUploader',
 
