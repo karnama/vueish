@@ -1,8 +1,11 @@
 <template>
     <div :class="{ 'active': isDraggedOver }"
          aria-label="File Upload"
-         class="rounded-lg shadow drop-zone flex flex-wrap items-stretch dark:text-white"
+         class="rounded-lg shadow drop-zone border border-transparent focus:border-brand-400 transition-colors
+                flex flex-wrap items-stretch dark:text-white"
+         tabindex="0"
          @dragover.prevent="isDraggedOver = true"
+         @keydown.enter="$refs.fileInput.click()"
          @dragleave="isDraggedOver = false"
          @drop.prevent="addFiles">
         <input ref="fileInput"
@@ -24,7 +27,8 @@
         </div>
         <div v-show="files.length"
              class="w-full sm:w-1/2 flex flex-col py-6 px-2
-                    justify-between bg-gray-200 dark:bg-gray-600 items-center">
+                    justify-between bg-gray-200 dark:bg-gray-600 items-center"
+             @keydown.enter.stop>
             <div class="overflow-y-scroll max-h-64 pl-6 mr-2 pr-4 file-list space-y-2 w-full">
                 <UIFile v-for="(file, index) in files"
                         :key="index"
@@ -36,6 +40,7 @@
             <UIButton v-if="!uploadAsap"
                       category="brand"
                       class="mt-4"
+                      tabindex="0"
                       @click="upload(files)">
                 Upload
             </UIButton>

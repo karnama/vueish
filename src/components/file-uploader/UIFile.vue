@@ -47,7 +47,7 @@ export default defineComponent({
         const src = ref<string | ArrayBuffer | null>();
 
         const isImage = computed(() => RegExp(/[/.](gif|jp(e)?g|png)$/).exec(props.file.name.toLowerCase()));
-        const extension = computed(() => RegExp(/(?:\.([^.]+))?$/).exec(props.file.name.toLowerCase())[1]);
+        const extension = computed(() => RegExp(/(?:\.([^.]+))?$/).exec(props.file.name.toLowerCase())[1]!);
         const size = computed(() => {
             const sizeInMb = props.file.size / 1024 / 1024;
 
