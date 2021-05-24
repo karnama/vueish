@@ -1,7 +1,7 @@
 <template>
     <div :class="{ 'active': isDraggedOver }"
          aria-label="File Upload"
-         class="rounded-lg shadow drop-zone border border-transparent focus:border-brand-400 transition-colors
+         class="rounded-lg shadow drop-zone border-0 border-brand-400 transition-colors
                 flex flex-wrap items-stretch dark:text-white"
          tabindex="0"
          @dragover.prevent="isDraggedOver = true"
@@ -205,7 +205,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .active {
-    @apply shadow-xl;
+    @apply shadow-xl border;
     background: rgba(0, 0, 0, .1);
     filter: blur(2px);
 
