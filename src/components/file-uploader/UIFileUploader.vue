@@ -100,16 +100,16 @@ export default defineComponent({
          * note: This function is responsible for handling any loading state.
          */
         upload: {
-            type: Function as PropType<(files: File|File[]) => Promise<void>>,
+            type: Function as PropType<(files: File[]) => Promise<void>>,
             required: true
         },
 
         /**
-         * The function that removes the uploaded file.
+         * The function that removes the uploaded file(s).
          * note: This function is responsible for handling any loading state.
          */
         remove: {
-            type: Function as PropType<(files: File) => Promise<void>>,
+            type: Function as PropType<(files: File[]) => Promise<void>>,
             required: true
         }
     },
@@ -176,7 +176,7 @@ export default defineComponent({
             files.value.push(...filteredList);
         };
         const removeFile = async (file: File) => {
-            await props.remove(file).then(() => files.value.splice(findFileIndex(file), 1));
+            await props.remove([file]).then(() => files.value.splice(findFileIndex(file), 1));
         };
         const openFileBrowser = () => {
             if (typeof props.maxFiles === 'number' && files.value.length === props.maxFiles) {
