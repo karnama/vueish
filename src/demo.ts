@@ -11,7 +11,6 @@ const componentDemos = import.meta.globEager('./components/**/Demo.vue') as {
 const directiveDemos = import.meta.globEager('./directives/**/Demo.vue');
 
 const demos = Object.assign(componentDemos, directiveDemos);
-
 const routes = Object.keys(demos)
     .map(path => ({
         path: '/' + String(demos[path].default.name),
