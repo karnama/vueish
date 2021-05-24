@@ -5,7 +5,7 @@
                 flex flex-wrap items-stretch dark:text-white"
          tabindex="0"
          @dragover.prevent="isDraggedOver = true"
-         @keydown.enter="$refs.fileInput.click()"
+         @keydown.enter="openFileBrowser"
          @dragleave="isDraggedOver = false"
          @drop.prevent="addFiles">
         <input ref="fileInput"
@@ -21,7 +21,7 @@
                 Drag and Drop file
             </p>
             or
-            <UIButton category="brand" class="mt-2" @click="$refs.fileInput.click()">
+            <UIButton category="brand" class="mt-2" @click="openFileBrowser">
                 Browse
             </UIButton>
         </div>
@@ -122,7 +122,6 @@ export default defineComponent({
     setup: (props, ctx) => {
         const uploadIcon = getIcon('upload');
 
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const fileInput = ref<HTMLInputElement>();
         const isDraggedOver = ref(false);
         const files = ref<File[]>([]);
@@ -179,13 +178,26 @@ export default defineComponent({
         const removeFile = async (file: File) => {
             await props.remove(file).then(() => files.value.splice(findFileIndex(file), 1));
         };
+        const openFileBrowser = () => {
+            if (typeof props.maxFiles === 'number' && files.value.length === props.maxFiles) {
+                ctx.emit('validationError', {
+                    message: 'Maximum number of files already been added.',
+                    files: []
+                } as FileError);
+                return;
+            }
+
+            fileInput.value!.click();
+        };
 
         return {
+            fileInput,
             isDraggedOver,
             files,
             uploadIcon,
             addFiles,
-            removeFile
+            removeFile,
+            openFileBrowser
         };
     }
 });
