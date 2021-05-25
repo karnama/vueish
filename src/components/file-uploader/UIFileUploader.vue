@@ -15,13 +15,14 @@
                :accept="acceptedMimes.join(',')"
                @change.prevent="addFiles">
 
-        <div class="flex-grow flex flex-col items-center justify-center py-24 px-2 text-center">
+        <div class="flex-grow flex flex-col items-center justify-center py-24 px-2 text-center cursor-pointer"
+             @click="openFileBrowser">
             <p class="mb-4 text-brand-600" v-html="uploadIcon" />
             <p class="text-lg">
                 Drag and Drop file
             </p>
             or
-            <UIButton category="brand" class="mt-2" @click="openFileBrowser">
+            <UIButton category="brand" class="mt-2">
                 Browse
             </UIButton>
         </div>
@@ -213,6 +214,7 @@ export default defineComponent({
         pointer-events: none;
     }
 }
+
 .drop-zone {
     overflow: clip;
 }

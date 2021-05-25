@@ -1,6 +1,5 @@
 import { mount } from '@vue/test-utils';
 import UIFile from '@components/file-uploader/UIFile.vue';
-import { nextTick } from 'vue';
 
 describe('UIFile', () => {
     const file = new File(['foo'], 'foo.txt', {

@@ -3,7 +3,9 @@
 exports[`UIFileUploader should display correctly 1`] = `
 <div
   aria-label="File Upload"
-  class="rounded-lg shadow drop-zone flex flex-wrap items-stretch dark:text-white"
+  class="rounded-lg shadow drop-zone border-0 border-brand-400 transition-colors
+                flex flex-wrap items-stretch dark:text-white"
+  tabindex="0"
 >
   <input
     accept="*"
@@ -63,6 +65,7 @@ exports[`UIFileUploader should display correctly 1`] = `
     </div>
     <button
       class="border border-brand-400 text-white bg-brand-400 hover:bg-brand-500 hover:border-brand-500 px-3.5 py-2 ui-button rounded relative font-bold text-sm m-0 mt-4"
+      tabindex="0"
       type="button"
     >
       <transition-stub>
