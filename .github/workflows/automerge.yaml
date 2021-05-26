@@ -1,11 +1,13 @@
 name: Auto Merge Dependency Updates
 
 on:
-  check_suite:
+  workflow_run:
+    workflows:
+      - Test
     types:
       - completed
-    workflows:
-      - 'Test'
+    branches:
+      - main
 
 jobs:
   merge-me:
