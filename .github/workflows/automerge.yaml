@@ -1,11 +1,13 @@
 name: Auto Merge Dependency Updates
 
 on:
-  check_suite:
+  workflow_run:
+    workflows:
+      - Test
     types:
       - completed
-    workflows:
-      - 'Test'
+    branches:
+      - main
 
 jobs:
   merge-me:
@@ -17,4 +19,4 @@ jobs:
         uses: ridedott/merge-me-action@v2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PRESET: DEPENDABOT_PATCH
+          PRESET: DEPENDABOT_MINOR
