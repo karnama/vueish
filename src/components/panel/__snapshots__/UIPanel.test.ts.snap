@@ -19,9 +19,7 @@ exports[`UIPanel should render correctly 1`] = `
       header text
       
     </h1>
-    <div
-      class="my-2"
-    >
+    <div>
       
       
     </div>
