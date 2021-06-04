@@ -131,15 +131,17 @@ export default defineComponent({
         };
         const addFiles = (event: DragEvent | InputEvent) => {
             isDraggedOver.value = false;
-            const fileList: FileList = event instanceof DragEvent ? event.dataTransfer.files : event.target.files;
+            const fileList: FileList = event instanceof DragEvent
+                ? event.dataTransfer!.files
+                : (event.target as HTMLInputElement).files!;
             // filter out duplicates
-            let filteredList: File[] = [...fileList].filter(file => findFileIndex(file) === -1);
+            let filteredList: File[] = Array.from(fileList).filter(file => findFileIndex(file) === -1);
 
             if (fileList.length !== filteredList.length) {
                 ctx.emit('validationError',
                     {
                         message: 'Duplicate files not allowed.',
-                        files: [...fileList].filter(file => findFileIndex(file) !== -1)
+                        files: Array.from(fileList).filter(file => findFileIndex(file) !== -1)
                     } as FileError
                 );
 
@@ -147,7 +149,7 @@ export default defineComponent({
             }
 
             if (typeof props.maxSize === 'number') {
-                const tooBigFiles = filteredList.filter(file => file.size > props.maxSize);
+                const tooBigFiles = filteredList.filter(file => file.size > props.maxSize!);
 
                 if (filteredList.length && tooBigFiles.length) {
                     ctx.emit('validationError', {
@@ -155,7 +157,7 @@ export default defineComponent({
                         files: tooBigFiles
                     } as FileError);
 
-                    filteredList = filteredList.filter(file => file.size <= props.maxSize);
+                    filteredList = filteredList.filter(file => file.size <= props.maxSize!);
                 }
             }
 
