@@ -14,7 +14,7 @@ exports[`UIFileUploader should display correctly 1`] = `
     type="file"
   />
   <div
-    class="flex-grow flex flex-col items-center justify-center py-24 px-2 text-center"
+    class="flex-grow flex flex-col items-center justify-center py-24 px-2 text-center cursor-pointer"
   >
     <p
       class="mb-4 text-brand-600"
