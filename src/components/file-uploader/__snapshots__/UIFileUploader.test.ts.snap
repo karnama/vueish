@@ -4,7 +4,7 @@ exports[`UIFileUploader should display correctly 1`] = `
 <div
   aria-label="File Upload"
   class="rounded-lg shadow drop-zone border-0 border-brand-400 transition-colors
-                flex flex-wrap items-stretch dark:text-white"
+                flex flex-wrap items-stretch dark:text-white relative"
   tabindex="0"
 >
   <input
@@ -81,5 +81,9 @@ exports[`UIFileUploader should display correctly 1`] = `
       </transition-stub>
     </button>
   </div>
+  <transition-stub>
+    
+    
+  </transition-stub>
 </div>
 `;

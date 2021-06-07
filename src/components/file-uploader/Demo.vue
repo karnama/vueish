@@ -15,7 +15,7 @@ export default defineComponent({
 
     setup: () => {
         const upload = async (files: File | File[]) => {
-            await new Promise(resolve => setTimeout(resolve, 200));
+            await new Promise(resolve => setTimeout(resolve, 5000));
             const names = (Array.isArray(files) ? files : [files]).map(file => '- ' + file.name).join('\n');
             console.info('Uploaded:\n' + names);
         };

@@ -1,8 +1,8 @@
 <template>
-    <div :class="{ 'active': isDraggedOver }"
+    <div :class="{ 'active': isDraggedOver && !isLoading, 'pointer-events-none': isLoading }"
          aria-label="File Upload"
          class="rounded-lg shadow drop-zone border-0 border-brand-400 transition-colors
-                flex flex-wrap items-stretch dark:text-white"
+                flex flex-wrap items-stretch dark:text-white relative"
          tabindex="0"
          @dragover.prevent="isDraggedOver = true"
          @keydown.enter="openFileBrowser"
@@ -40,12 +40,17 @@
             </div>
             <UIButton v-if="!uploadAsap"
                       category="brand"
+                      :loading="isLoading"
                       class="mt-4"
                       tabindex="0"
-                      @click="upload(files)">
+                      @click="uploadFiles">
                 Upload
             </UIButton>
         </div>
+
+        <UIFadeTransition>
+            <div v-if="isLoading" class="absolute top-0 bottom-0 right-0 left-0 bg-gray-400 bg-opacity-50" />
+        </UIFadeTransition>
     </div>
 </template>
 
@@ -56,11 +61,12 @@ import UIFile from './UIFile.vue';
 import { getIcon } from '@/helpers';
 import UIButton from '@components/button/UIButton.vue';
 import { FileError } from '@/types';
+import UIFadeTransition from '@components/transitions/UIFadeTransition.vue';
 
 export default defineComponent({
     name: 'UIFileUploader',
 
-    components: { UIFile, UIButton },
+    components: { UIFadeTransition, UIFile, UIButton },
 
     props: {
         /**
@@ -125,11 +131,14 @@ export default defineComponent({
         const fileInput = ref<HTMLInputElement>();
         const isDraggedOver = ref(false);
         const files = ref<File[]>([]);
+        const isLoading = ref(false);
 
         const findFileIndex = (file: File) => {
             return files.value.findIndex(iFile => file.size === iFile.size && file.name === iFile.name);
         };
         const addFiles = (event: DragEvent | InputEvent) => {
+            if (isLoading.value) return;
+
             isDraggedOver.value = false;
             const fileList: FileList = event instanceof DragEvent
                 ? event.dataTransfer!.files
@@ -181,6 +190,8 @@ export default defineComponent({
             await props.remove([file]).then(() => files.value.splice(findFileIndex(file), 1));
         };
         const openFileBrowser = () => {
+            if (isLoading.value) return;
+
             if (typeof props.maxFiles === 'number' && files.value.length === props.maxFiles) {
                 ctx.emit('validationError', {
                     message: 'Maximum number of files already been added.',
@@ -191,15 +202,24 @@ export default defineComponent({
 
             fileInput.value!.click();
         };
+        const uploadFiles = async () => {
+            isLoading.value = true;
+            await props.upload(files.value)
+                .finally(() => {
+                    isLoading.value = false;
+                });
+        };
 
         return {
             fileInput,
             isDraggedOver,
             files,
             uploadIcon,
+            isLoading,
             addFiles,
             removeFile,
-            openFileBrowser
+            openFileBrowser,
+            uploadFiles
         };
     }
 });
