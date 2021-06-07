@@ -1,14 +1,27 @@
 import { mount } from '@vue/test-utils';
 import UIButton from './UIButton.vue';
+import { styleTypes } from '@/types';
 
 describe('UIButton', () => {
-    it('should render correctly', () => {
+    it('should render correctly', async () => {
         const wrapper = mount(UIButton, {
             props: {
                 label: 'click me!'
             }
         });
-        expect(wrapper.element).toMatchSnapshot();
+
+        const stylePromises = styleTypes.map(async type => {
+            await wrapper.setProps({ category: type, outline: false, minimal: false });
+            expect(wrapper.element).toMatchSnapshot();
+
+            await wrapper.setProps({ outline: true });
+            expect(wrapper.element).toMatchSnapshot();
+
+            await wrapper.setProps({ outline: false, minimal: true });
+            expect(wrapper.element).toMatchSnapshot();
+        });
+
+        await Promise.all(stylePromises);
     });
 
     it('should be enabled by default', () => {
