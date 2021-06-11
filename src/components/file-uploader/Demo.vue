@@ -1,7 +1,5 @@
 <template>
-    <UIFileUploader endpoint="something"
-                    :upload="upload"
-                    :remove="remove"
+    <UIFileUploader :upload="upload"
                     @validation-error="logError" />
 </template>
 
@@ -19,17 +17,12 @@ export default defineComponent({
             const names = (Array.isArray(files) ? files : [files]).map(file => '- ' + file.name).join('\n');
             console.info('Uploaded:\n' + names);
         };
-        const remove = async (file: File) => {
-            await new Promise(resolve => setTimeout(resolve, 200));
-            console.info('Removed: ' + file.name);
-        };
         const logError = (payload: any) => {
             console.error(payload);
         };
 
         return {
             upload,
-            remove,
             logError
         };
     }
