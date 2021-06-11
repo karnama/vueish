@@ -13,7 +13,7 @@ exports[`UIModal should render correctly 1`] = `
     aria-expanded="true"
     aria-modal="true"
     class="ui-panel rounded shadow-md bg-default relative transition-all modal top-0 w-full overflow-y-scroll
-                            relative bg-default m-auto shadow-xl rounded bg-white opacity-0 translate-y-0"
+                            relative bg-default mx-auto shadow-xl rounded bg-white opacity-0 translate-y-0"
     role="dialog"
   >
     <transition-stub>
@@ -32,9 +32,7 @@ exports[`UIModal should render correctly 1`] = `
         
         
       </h1>
-      <div
-        class="my-2"
-      >
+      <div>
         
         
         Actions slot content

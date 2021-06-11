@@ -8,7 +8,7 @@
 
             <!--Main modal dialog-->
             <UIPanel class="modal top-0 w-full overflow-y-scroll
-                            relative bg-default m-auto shadow-xl rounded bg-white opacity-0 translate-y-0"
+                            relative bg-default mx-auto shadow-xl rounded bg-white opacity-0 translate-y-0"
                      role="dialog"
                      aria-modal="true"
                      :aria-label="header"
@@ -24,9 +24,10 @@
                 <!--Modal Close Icon-->
                 <template #actions>
                     <slot name="actions">
-                        <i class="fa fa-times cursor-pointer text-muted
-                    hover:text-default transition-text-color show-on-hover"
-                           @click="close('cancel')">close</i>
+                        <button class="clear-icon p-1 m-1 text-gray-500"
+                                aria-roledescription="clear"
+                                @click="close('cancel')"
+                                v-html="clearIcon" />
                     </slot>
                 </template>
 
@@ -56,6 +57,7 @@ import { defineComponent, ref } from 'vue';
 import UIButton from '@components/button/UIButton.vue';
 import UIPanel from '@components/panel/UIPanel.vue';
 import type { PropType } from 'vue';
+import { getIcon } from '@/helpers';
 
 export default defineComponent({
     name: 'UIModal',
@@ -115,6 +117,8 @@ export default defineComponent({
     emits: ['cancel', 'accept'],
 
     setup(props, ctx) {
+        const clearIcon = getIcon('clear');
+
         const isOpen = ref(false);
         const isVisible = ref(false);
 
@@ -150,6 +154,7 @@ export default defineComponent({
         };
 
         return {
+            clearIcon,
             isOpen,
             isVisible,
             open,
