@@ -5,9 +5,6 @@ exports[`UIAvatar should correctly display 1`] = `
   class="ui-avatar text-lg overflow-hidden h-8 w-8
                 text-white bg-brand-300 flex flex-col justify-center items-center rounded-full"
 >
-  <img
-    style="display: none;"
-  />
   
   <span>
     <svg

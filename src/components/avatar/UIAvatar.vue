@@ -2,13 +2,11 @@
     <div class="ui-avatar text-lg overflow-hidden h-8 w-8
                 text-white bg-brand-300 flex flex-col justify-center items-center"
          :class="[ squared ? 'rounded' : 'rounded-full' ]">
-        <img v-show="src && loaded"
+        <img v-if="src && loaded"
              :src="src"
              :alt="alt"
-             :aria-hidden="src && loaded"
-             @load="loaded = true"
              @error="loaded = false">
-        <template v-if="!(src && loaded)">
+        <template v-else>
             <slot v-if="$slots.default" />
             <template v-else-if="content">
                 {{ content }}

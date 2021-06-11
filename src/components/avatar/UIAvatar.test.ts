@@ -46,10 +46,10 @@ describe('UIAvatar', () => {
     it('should react to changes of the src prop', async () => {
         const wrapper = mount(UIAvatar);
 
-        expect(wrapper.find('img').isVisible()).toBe(false);
+        expect(wrapper.find('img').exists()).toBe(false);
         await wrapper.setProps({
             src: 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
         });
-        expect(wrapper.find('img').isVisible()).toBe(true);
+        expect(wrapper.find('img').exists()).toBe(true);
     });
 });

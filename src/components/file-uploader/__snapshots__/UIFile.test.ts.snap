@@ -11,9 +11,6 @@ exports[`UIFile should display correctly 1`] = `
       class="ui-avatar text-lg overflow-hidden h-8 w-8
                 text-white bg-brand-300 flex flex-col justify-center items-center rounded-full mr-4 avatar text-sm"
     >
-      <img
-        style="display: none;"
-      />
       
       
       txt

@@ -15,9 +15,6 @@ exports[`UIAvatarGroup should correctly display 1`] = `
                 text-white bg-brand-300 flex flex-col justify-center items-center rounded-full"
       style="z-index: 50;"
     >
-      <img
-        style="display: none;"
-      />
       
       <span>
         <svg
@@ -44,10 +41,6 @@ exports[`UIAvatarGroup should correctly display 1`] = `
                 text-white bg-brand-300 flex flex-col justify-center items-center rounded-full"
       style="z-index: 40;"
     >
-      <img
-        alt="name"
-        style="display: none;"
-      />
       
       
       N
@@ -59,9 +52,6 @@ exports[`UIAvatarGroup should correctly display 1`] = `
                 text-white bg-brand-300 flex flex-col justify-center items-center rounded-full"
       style="z-index: 30;"
     >
-      <img
-        style="display: none;"
-      />
       
       
       something
@@ -74,19 +64,14 @@ exports[`UIAvatarGroup should correctly display 1`] = `
       style="z-index: 20;"
     >
       <img
-        aria-hidden="true"
         src="imgSource"
       />
-      <!--v-if-->
     </div>
     <div
       class="ui-avatar text-lg overflow-hidden h-8 w-8
                 text-white bg-brand-300 flex flex-col justify-center items-center rounded"
       style="z-index: 10;"
     >
-      <img
-        style="display: none;"
-      />
       
       <span>
         <svg
