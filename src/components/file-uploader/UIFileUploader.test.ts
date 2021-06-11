@@ -15,6 +15,7 @@ describe('UIFileUploader', () => {
         expect(wrapper.element).toMatchSnapshot();
     });
 
+    // jsdom has no FileList interface implemented
     describe.skip('file validation', () => {
         const file = new File(['foo'], 'foo.txt', {
             type: 'text/plain'

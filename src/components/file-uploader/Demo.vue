@@ -1,6 +1,5 @@
 <template>
-    <UIFileUploader :upload="upload"
-                    @validation-error="logError" />
+    <UIFileUploader :upload="upload" @validation-error="logError" />
 </template>
 
 <script lang="ts">
