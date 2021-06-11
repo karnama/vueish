@@ -102,8 +102,7 @@ export default defineComponent({
         },
 
         /**
-         * The function that uploads the file(s).
-         * note: This function is responsible for handling any loading state.
+         * The function that uploads the files.
          */
         upload: {
             type: Function as PropType<(files: File[]) => Promise<void>>,

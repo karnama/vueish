@@ -8,7 +8,8 @@
                 <small>{{ size }}</small>
             </p>
         </div>
-        <button class="ml-2 p-1 transition hover:text-white hover:bg-red-600 rounded"
+        <button v-if="!uploadOnMounted"
+                class="ml-2 p-1 transition hover:text-white hover:bg-red-600 rounded"
                 @click="$emit('removed', file)"
                 v-html="clearIcon" />
     </div>
@@ -23,16 +24,25 @@ export default defineComponent({
     name: 'UIFile',
     components: { UIAvatar },
     props: {
+        /**
+         * The file that is being handled.
+         */
         file: {
             type: File,
             required: true
         },
 
+        /**
+         * Upload as soon as it's mounted.
+         */
         uploadOnMounted: {
             type: Boolean,
             default: false
         },
 
+        /**
+         * The function that uploads the files.
+         */
         upload: {
             type: Function as PropType<(files: File|File[]) => Promise<void>>,
             required: true
