@@ -20,7 +20,7 @@
                 </slot>
             </h1>
 
-            <div v-if="open" class="my-2">
+            <div v-if="open">
                 <slot name="actions" />
             </div>
         </header>

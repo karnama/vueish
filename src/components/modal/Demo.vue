@@ -1,6 +1,10 @@
 <template>
-    <UIModal ref="modal"
-             header="header">
+    <UIModal ref="modal">
+        <template #header>
+            <h2 class="font-bold text-lg">
+                My Header
+            </h2>
+        </template>
         <div>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi blanditiis cumque, deserunt enim illo iste
             obcaecati pariatur quam. Aut blanditiis delectus dolores eius hic nesciunt perspiciatis possimus reiciendis

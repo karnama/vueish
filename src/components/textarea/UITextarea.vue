@@ -21,13 +21,13 @@
                               disabled || fixed || autoSize ? 'resize: none' : '',
                               counter ? 'min-height: 5rem' : '']" />
 
-                <div class="flex flex-col justify-between" :class="{ 'text-gray-400 cursor-not-allowed': disabled }">
+                <div class="flex flex-col justify-center" :class="{ 'text-gray-400 cursor-not-allowed': disabled }">
                     <span v-if="disabled"
                           class="h-5 w-5 mx-2 text-gray-400 flex-grow align-middle flex flex-col justify-center"
                           v-html="lockIcon" />
 
                     <button v-else-if="clearable && model"
-                            class="clear-icon h-5 w-5 cursor-pointer mx-2 text-gray-500 flex-grow"
+                            class="clear-icon h-5 w-5 mx-2 text-gray-500"
                             :aria-controls="$attrs.id ?? name"
                             aria-roledescription="clear"
                             @click="model = ''"
