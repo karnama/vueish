@@ -87,6 +87,6 @@ describe('UIFile', () => {
             }
         });
 
-        expect(upload).toHaveBeenCalledWith(file);
+        expect(upload).toHaveBeenCalledWith([file]);
     });
 });

@@ -74,7 +74,7 @@ export default defineComponent({
         onMounted(async () => {
             if (!props.uploadOnMounted) return;
 
-            await props.upload(props.file);
+            await props.upload([props.file]);
         });
 
         return {
