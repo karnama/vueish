@@ -11,9 +11,9 @@ export default defineComponent({
     components: { UIFileUploader },
 
     setup: () => {
-        const upload = async (files: File | File[]) => {
+        const upload = async (files: File[]) => {
             await new Promise(resolve => setTimeout(resolve, 5000));
-            const names = (Array.isArray(files) ? files : [files]).map(file => '- ' + file.name).join('\n');
+            const names = files.map(file => '- ' + file.name).join('\n');
             console.info('Uploaded:\n' + names);
         };
         const logError = (payload: any) => {
