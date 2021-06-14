@@ -3,8 +3,8 @@
 exports[`UIFileUploader should display correctly 1`] = `
 <div
   aria-label="File Upload"
-  class="rounded-lg shadow drop-zone border-0 border-brand-400 transition-colors
-                flex flex-wrap items-stretch dark:text-white relative"
+  class="rounded-lg drop-zone border-2 transition-colors flex flex-wrap items-stretch
+                dark:text-white relative"
   tabindex="0"
 >
   <input
