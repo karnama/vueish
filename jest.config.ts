@@ -1,5 +1,6 @@
 import { pathsToModuleNameMapper } from 'ts-jest/utils';
 import { compilerOptions } from './tsconfig.json';
+import type { Config } from '@jest/types';
 
 export default {
     clearMocks: true,
@@ -19,4 +20,4 @@ export default {
         '^.+\\ts$': 'ts-jest'
     },
     testMatch: ['**/src/**/*.test.ts']
-};
+} as Config.InitialOptions;

@@ -3,11 +3,8 @@
 exports[`UIAvatar should correctly display 1`] = `
 <div
   class="ui-avatar text-lg overflow-hidden h-8 w-8
-                text-white bg-red-500 flex flex-col justify-center items-center rounded-full"
+                text-white bg-brand-300 flex flex-col justify-center items-center rounded-full"
 >
-  <img
-    style="display: none;"
-  />
   
   <span>
     <svg

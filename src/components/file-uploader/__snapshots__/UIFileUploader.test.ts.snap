@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UIFileUploader should display correctly 1`] = `
+<div
+  aria-label="File Upload"
+  class="rounded-lg drop-zone border-2 transition-colors flex flex-wrap items-stretch
+                dark:text-white relative"
+  tabindex="0"
+>
+  <input
+    accept="*"
+    hidden=""
+    multiple=""
+    type="file"
+  />
+  <div
+    class="flex-grow flex flex-col items-center justify-center py-24 px-2 text-center cursor-pointer"
+  >
+    <p
+      class="mb-4 text-brand-600"
+    >
+      <svg
+        style="width:35px;height:35px"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M19.35,10.04C18.67,6.59 15.64,4 12,4C9.11,4 6.6,5.64 5.35,8.04C2.34,8.36 0,10.91 0,14A6,6 0 0,0 6,20H19A5,5 0 0,0 24,15C24,12.36 21.95,10.22 19.35,10.04M19,18H6A4,4 0 0,1 2,14C2,11.95 3.53,10.24 5.56,10.03L6.63,9.92L7.13,8.97C8.08,7.14 9.94,6 12,6C14.62,6 16.88,7.86 17.39,10.43L17.69,11.93L19.22,12.04C20.78,12.14 22,13.45 22,15A3,3 0 0,1 19,18M8,13H10.55V16H13.45V13H16L12,9L8,13Z"
+          fill="currentColor"
+        />
+      </svg>
+    </p>
+    <p
+      class="text-lg"
+    >
+       Drag and Drop file 
+    </p>
+     or 
+    <button
+      class="border-brand-400 text-white bg-brand-400 ring-brand-700 hover:bg-brand-500 hover:border-brand-500 border px-3.5 py-2 ui-button rounded relative font-bold text-sm m-0 focus:outline-none ring-0 focus:ring-2 mt-2"
+      type="button"
+    >
+      <transition-stub>
+        
+        <span
+          class="label transition-opacity duration-200"
+        >
+          
+           Browse 
+          
+        </span>
+        
+      </transition-stub>
+    </button>
+  </div>
+  <div
+    class="w-full sm:w-1/2 flex flex-col py-6 px-2
+                    justify-between bg-gray-200 dark:bg-gray-600 items-center"
+    style="display: none;"
+  >
+    <div
+      class="overflow-y-scroll max-h-64 pl-6 mr-2 pr-4 file-list space-y-2 w-full"
+    >
+      
+      
+    </div>
+    <button
+      class="border-brand-400 text-white bg-brand-400 ring-brand-700 hover:bg-brand-500 hover:border-brand-500 border px-3.5 py-2 ui-button rounded relative font-bold text-sm m-0 focus:outline-none ring-0 focus:ring-2 mt-4"
+      tabindex="0"
+      type="button"
+    >
+      <transition-stub>
+        
+        <span
+          class="label transition-opacity duration-200"
+        >
+          
+           Upload 
+          
+        </span>
+        
+      </transition-stub>
+    </button>
+  </div>
+  <transition-stub>
+    
+    
+  </transition-stub>
+</div>
+`;

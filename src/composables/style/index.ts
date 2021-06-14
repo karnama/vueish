@@ -53,7 +53,7 @@ export const steps: Prop<number|string> = {
 };
 
 /**
- * Convert numbers and vh/vw values to px values.
+ * Convert numbers and vh/vw/rem values to px values.
  */
 export const getPxValue = (value: string | number): number => {
     if (typeof value === 'number') {
@@ -74,6 +74,10 @@ export const getPxValue = (value: string | number): number => {
 
     if (value.endsWith('vh')) {
         return document.documentElement.clientHeight / 100 * Number(value.slice(0, -2));
+    }
+
+    if (value.endsWith('rem')) {
+        return Number(value.slice(0, -3)) * parseFloat(getComputedStyle(document.documentElement).fontSize);
     }
 
     throw new TypeError('Unexpected argument given.');
