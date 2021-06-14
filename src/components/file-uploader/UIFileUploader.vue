@@ -1,8 +1,8 @@
 <template>
     <div :class="{ 'active': isDraggedOver && !isLoading, 'pointer-events-none': isLoading }"
          aria-label="File Upload"
-         class="rounded-lg shadow drop-zone border-0 border-brand-400 transition-colors
-                flex flex-wrap items-stretch dark:text-white relative"
+         class="rounded-lg drop-zone border-2 transition-colors flex flex-wrap items-stretch
+                dark:text-white relative"
          tabindex="0"
          @dragover.prevent="isDraggedOver = true"
          @keydown.enter="openFileBrowser"
@@ -218,17 +218,20 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.active {
-    @apply shadow-xl border;
+.drop-zone.active {
     background: rgba(0, 0, 0, .1);
-    filter: blur(2px);
 
     & .file-list {
         pointer-events: none;
     }
 }
 
+.drop-zone:not(.active) {
+    @apply border-gray-300;
+}
+
 .drop-zone {
     overflow: clip;
+    border-style: dashed;
 }
 </style>
