@@ -6,6 +6,7 @@
 
     <hr class="my-4">
 
+    <!-- eslint-disable-next-line vue/no-lone-template -->
     <template v-outer-html="templateHtml" />
 
     <br>

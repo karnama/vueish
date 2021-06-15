@@ -14,8 +14,8 @@ import { StyleType } from '@/types';
 
 const categoryClasses = {
     default: 'text-gray-700 bg-gray-200',
-    primary: 'text-blue-600 bg-blue-100',
-    info: 'text-blue-700 bg-blue-200',
+    primary: 'text-blue-700 bg-blue-200',
+    info: 'text-blue-500 bg-blue-100',
     success: 'text-green-700 bg-green-200',
     warning: 'text-yellow-700 bg-yellow-200',
     danger: 'text-red-700 bg-red-200',
