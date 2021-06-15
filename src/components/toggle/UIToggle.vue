@@ -13,7 +13,7 @@
                    :name="name"
                    @change="model = !model">
             <div class="handle" />
-            <div class="background bg-gray-200 rounded-full w-full h-full absolute top-0 left-0 z-0" />
+            <div class="background rounded-full w-full h-full absolute top-0 left-0 z-0" />
         </div>
     </div>
 </template>
@@ -55,6 +55,7 @@ export default defineComponent({
 $handleSize: 25;
 $width: 53;
 $border: 1px solid #E5E5E5;
+$borderDark: 1px solid #9e9e9e;
 $transition: 250ms ease all;
 
 .toggle-wrapper {
@@ -77,6 +78,7 @@ input {
     pointer-events: none;
     border: $border;
     transition: $transition;
+    @apply bg-gray-200;
 }
 
 .handle:before {
@@ -125,8 +127,22 @@ input:disabled:checked {
 
     & + .handle:before {
         @apply bg-gray-200;
-        box-shadow: none;
-        border: $border;
+    }
+}
+
+.dark {
+    & .background {
+        @apply bg-gray-500;
+        border: $borderDark;
+    }
+
+    & input:disabled {
+        & ~ .background {
+            @apply bg-gray-300;
+        }
+        & + .handle:before {
+            border: $borderDark;
+        }
     }
 }
 </style>
