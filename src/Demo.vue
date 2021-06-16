@@ -49,6 +49,9 @@
                     </svg>
                 </UIButton>
                 <div class="mx-auto" style="max-width: 1000px">
+                    <h1 class="text-2xl mb-2 text-center text-color">
+                        {{ $route.meta.label }}
+                    </h1>
                     <router-view />
                 </div>
             </div>
