@@ -1,16 +1,16 @@
 <template>
     <div class="ui-text" :class="$attrs.class">
-        <label :for="$attrs.id ?? name" class="font-medium text-gray-700">
+        <label :for="$attrs.id ?? name" class="font-medium text-color">
             {{ label }}
         </label>
 
-        <div class="relative group shadow-sm border border-gray-300 rounded
-                    bg-white transition focus-within:border-blue-400"
-             :class="{ 'bg-gray-100': disabled }"
+        <div class="group relative shadow-sm dark:shadow-md border border-gray-300 dark:border-gray-500 rounded
+                    bg-white dark:bg-gray-600 transition focus-within:border-blue-400 dark:focus-within:border-blue-500"
+             :class="{ 'bg-gray-200 dark:!bg-gray-700': disabled }"
              :style="$attrs.style">
             <div class="flex items-center">
                 <span v-if="prefix ?? $slots.prefix"
-                      class="prefix ml-3 -mr-1 select-none"
+                      class="prefix ml-3 -mr-1 select-none text-color-muted"
                       :class="{ 'ml-5 -mr-4': large }">
                     <slot name="prefix">
                         {{ prefix }}
@@ -24,26 +24,26 @@
                        :name="name"
                        :aria-placeholder="$attrs.placeholder"
                        class="flex-1 p-3.5 appearance-none bg-transparent outline-none
-                              disabled:cursor-not-allowed disabled:text-gray-400"
+                              disabled:cursor-not-allowed text-color disabled:text-gray-400"
                        :disabled="disabled"
                        :class="{ 'px-7 py-5': large }"
                        @keydown="handleKeydown">
 
                 <span v-if="suffix ?? $slots.suffix"
                       :class="{ 'mr-5': large }"
-                      class="suffix mr-3 select-none">
+                      class="suffix mr-3 select-none text-color-muted">
                     <slot name="suffix">
                         {{ suffix }}
                     </slot>
                 </span>
 
                 <span v-if="disabled"
-                      class="h-5 w-5 mr-3 text-gray-400"
+                      class="h-5 w-5 mr-3 text-color-muted"
                       :class="{ 'mr-5': large }"
                       v-html="lockIcon" />
 
                 <button v-else-if="clearable && model"
-                        class="clear-icon h-5 w-5 cursor-pointer mr-3 text-gray-500"
+                        class="clear-icon h-5 w-5 cursor-pointer mr-3 text-color-muted"
                         :class="{ 'mr-5': large }"
                         :aria-controls="$attrs.id ?? name"
                         aria-roledescription="clear"
@@ -54,14 +54,15 @@
                     <button :aria-controls="$attrs.id ?? name"
                             aria-roledescription="increment"
                             tabindex="-1"
-                            class="px-2 bg-gray-50 h-full transition hover:bg-gray-200 cursor-pointer
+                            class="px-2 bg-gray-50 dark:bg-gray-400 h-full transition hover:bg-gray-200 dark:hover:bg-gray-300 cursor-pointer
                                    rounded-bl transform rotate-180"
                             @click="increment"
                             v-html="chevronIcon" />
                     <button :aria-controls="$attrs.id ?? name"
                             aria-roledescription="decrement"
                             tabindex="-1"
-                            class="px-2 bg-gray-50 h-full transition hover:bg-gray-200 cursor-pointer rounded-br"
+                            class="px-2 bg-gray-50 dark:bg-gray-400 h-full transition hover:bg-gray-200 dark:hover:bg-gray-300 cursor-pointer
+                                   rounded-br"
                             @click="decrement"
                             v-html="chevronIcon" />
                 </div>
