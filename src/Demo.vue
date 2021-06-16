@@ -32,7 +32,7 @@
                 </div>
             </div>
 
-            <div class="flex-1 min-h-screen h-full w-full p-10 dark:text-gray-200">
+            <div class="flex-1 min-h-screen h-full w-full p-10">
                 <UIButton v-if="!isOpen"
                           class="dark:text-gray-200 dark:hover:text-gray-700 mb-4"
                           minimal
