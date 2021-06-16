@@ -1,6 +1,6 @@
 <template>
     <div class="flex ui-radio">
-        <label class="relative flex items-center outline-none">
+        <label class="relative flex items-center outline-none text-color">
             <input v-bind="$attrs"
                    type="radio"
                    :value="value"

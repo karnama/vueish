@@ -14,7 +14,7 @@
         <div class="divide-y">
             <div v-for="index in range(10)"
                  :key="index"
-                 class="px-4 py-2 text-gray-600 hover:bg-gray-700 transition hover:text-white">
+                 class="px-4 py-2 text-color transition-colors select-none hover:bg-gray-700">
                 custom content and stuff plus things {{ index }}
             </div>
         </div>
@@ -31,7 +31,7 @@
         <div class="divide-y">
             <div v-for="index in range(10)"
                  :key="index"
-                 class="px-4 py-2 text-gray-600 hover:bg-gray-700 transition hover:text-white">
+                 class="px-4 py-2 text-color hover:bg-gray-700 transition-colors">
                 custom content and stuff plus things {{ index }}
             </div>
         </div>

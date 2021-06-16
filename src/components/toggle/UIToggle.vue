@@ -1,6 +1,6 @@
 <template>
     <div :class="$attrs.class" :style="$attrs.style">
-        <label :for="$attrs.id ?? name" class="cursor-pointer pb-2">
+        <label :for="$attrs.id ?? name" class="cursor-pointer pb-2 text-color">
             <slot name="label">{{ label }}</slot>
         </label>
         <div class="toggle-wrapper relative flex">

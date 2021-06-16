@@ -1,7 +1,7 @@
 <template>
     <section :id="id"
              class="ui-panel rounded shadow-md relative transition-all
-                    bg-white dark:bg-gray-600 text-gray-700 dark:text-gray-200"
+                    bg-white dark:bg-gray-600 text-color"
              :aria-expanded="open"
              :class="{ 'hover:shadow-lg': !open, 'pointer-events-none select-none': loading && blockingLoader }">
         <UIFadeTransition>
