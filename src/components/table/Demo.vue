@@ -30,14 +30,17 @@
         </UITable>
     </UIPanel>
 
-    Searchable
+    <p class="text-color mt-12">
+        Searchable
+    </p>
     <UITable :headers="headers"
              :rows="rows"
              search
-             class="my-12"
              disable-sorting />
 
-    With Selection
+    <p class="text-color mt-12">
+        With Selection
+    </p>
     <UITable v-model="selectedRows"
              :headers="headers"
              :rows="rows"

@@ -16,7 +16,9 @@
                 name="multi"
                 class="mb-6" />
 
-    <p>Prop options</p>
+    <p class="text-color">
+        Prop options
+    </p>
     <UIButtonToggle v-model="selected"
                     :options="options"
                     :large="large"
@@ -25,7 +27,7 @@
                     :clearable="clearable"
                     :disabled="disabled" />
 
-    <p class="mt-4">
+    <p class="mt-4 text-color">
         Slotted option
     </p>
     <UIButtonToggle v-model="selectedSlotted"

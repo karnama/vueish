@@ -1,7 +1,7 @@
 <template>
     <UICheckbox v-model="atMousePosition" label="Positioned on the mouse" name="at_mouse_position" />
 
-    <p class="mt-10">
+    <p class="mt-10 text-color">
         Left click
     </p>
     <UIDropdown :at-mouse-position="atMousePosition">
@@ -20,7 +20,7 @@
         </div>
     </UIDropdown>
 
-    <p class="mt-10">
+    <p class="mt-10 text-color">
         Right click (context menu)
     </p>
     <UIDropdown :at-mouse-position="atMousePosition">

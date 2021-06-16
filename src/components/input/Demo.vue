@@ -18,7 +18,7 @@
                      label="Standard"
                      :large="large"
                      no-clear />
-            <small>Output: {{ text }}</small>
+            <small class="text-color">Output: {{ text }}</small>
         </div>
 
         <UIInput v-model="number"
