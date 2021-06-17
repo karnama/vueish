@@ -20,7 +20,7 @@ exports[`UIRadioGroup should display correctly 1`] = `
       class="flex ui-radio"
     >
       <label
-        class="relative flex items-center outline-none"
+        class="relative flex items-center outline-none text-color"
         tabindex="0"
       >
         <input
@@ -43,7 +43,7 @@ exports[`UIRadioGroup should display correctly 1`] = `
       class="flex ui-radio"
     >
       <label
-        class="relative flex items-center outline-none"
+        class="relative flex items-center outline-none text-color"
         tabindex="0"
       >
         <input
