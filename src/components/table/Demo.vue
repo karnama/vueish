@@ -1,5 +1,5 @@
 <template>
-    <UIPanel closed class="bg-white mb-4">
+    <UIPanel closed class="mb-4">
         <template #header>
             Table with slots
         </template>
@@ -19,7 +19,7 @@
                 </UIButton>
             </template>
             <template #footer>
-                <span class="font-bold text-gray-700">
+                <span class="font-bold text-color">
                     My wildly
                     long slotted footer content that I have to
                     make up words for such as
