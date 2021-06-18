@@ -144,5 +144,16 @@ input:disabled:checked {
             border: $borderDark;
         }
     }
+
+    & input:disabled:checked {
+        & ~ .background {
+            @apply bg-brand-400;
+            filter: brightness(90%) saturate(70%);
+        }
+
+        & + .handle:before {
+            @apply bg-gray-300;
+        }
+    }
 }
 </style>
