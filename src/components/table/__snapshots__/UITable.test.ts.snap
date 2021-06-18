@@ -2,24 +2,24 @@
 
 exports[`UITable should display correctly 1`] = `
 <section
-  class="shadow-md text-gray-700 bg-white relative sm:overflow-x-scroll"
+  class="shadow-md dark:shadow-lg text-color bg-white dark:bg-gray-600 relative sm:overflow-x-scroll"
 >
   <table
     class="flex sm:table flex-col border-collapse border-gray-200
                       w-full table-auto rounded relative"
   >
     <thead
-      class="sticky top-0 shadow z-10"
+      class="sticky top-0 bg-white dark:bg-gray-700 shadow dark:shadow-lg z-10"
     >
       <!--v-if-->
       <tr
-        class="hidden sm:table-row bg-gray-100"
+        class="hidden sm:table-row bg-gray-100 dark:bg-gray-700"
       >
         <!--v-if-->
         
         <th
-          class="cursor-pointer hover:bg-gray-300 py-6 text-left px-4 uppercase font-light
-                               text-gray-500 text-sm select-none group transition"
+          class="cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-500 py-6 text-left px-4 uppercase font-light text-color-muted text-sm
+                               select-none group transition"
         >
           <span
             class="flex items-center justify-between"
@@ -47,8 +47,8 @@ exports[`UITable should display correctly 1`] = `
           </span>
         </th>
         <th
-          class="cursor-pointer hover:bg-gray-300 py-6 text-left px-4 uppercase font-light
-                               text-gray-500 text-sm select-none group transition"
+          class="cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-500 py-6 text-left px-4 uppercase font-light text-color-muted text-sm
+                               select-none group transition"
         >
           <span
             class="flex items-center justify-between"
@@ -84,7 +84,7 @@ exports[`UITable should display correctly 1`] = `
     >
       
       <tr
-        class="flex flex-col flex-no-wrap sm:table-row border-gray-200"
+        class="flex flex-col flex-no-wrap sm:table-row border-gray-200 dark:border-gray-500"
       >
         <!--v-if-->
         
@@ -172,7 +172,7 @@ exports[`UITable should display correctly 1`] = `
         <!--v-if-->
       </tr>
       <tr
-        class="flex flex-col flex-no-wrap sm:table-row border-gray-200"
+        class="flex flex-col flex-no-wrap sm:table-row border-gray-200 dark:border-gray-500"
       >
         <!--v-if-->
         
@@ -260,7 +260,7 @@ exports[`UITable should display correctly 1`] = `
         <!--v-if-->
       </tr>
       <tr
-        class="flex flex-col flex-no-wrap sm:table-row border-gray-200"
+        class="flex flex-col flex-no-wrap sm:table-row border-gray-200 dark:border-gray-500"
       >
         <!--v-if-->
         
