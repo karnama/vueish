@@ -95,8 +95,7 @@ export default defineComponent({
 
     props: {
         modelValue: {
-            type: [String, Number],
-            required: true
+            type: [String, Number]
         },
 
         large,
@@ -118,6 +117,9 @@ export default defineComponent({
         const clearIcon = getIcon('clear');
         const chevronIcon = getIcon('chevron');
         const model = useVModel<string | number>(props);
+
+        autofocusElement(props.autofocus, input);
+
         const handleKeydown = (event: KeyboardEvent) => {
             if (isNumber.value) {
                 switch (event.code) {
@@ -134,7 +136,6 @@ export default defineComponent({
                 }
             }
         };
-        autofocusElement(props.autofocus, input);
         const increment = () => {
             const step = Number(ctx.attrs.step) || 1;
             const max = Number(ctx.attrs.max);
