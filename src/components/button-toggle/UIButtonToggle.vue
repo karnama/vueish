@@ -134,11 +134,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="scss">
-@variants hover {
-    // specificity hack
-    .white-text {
-        @apply text-white;
-    }
-}
-</style>
