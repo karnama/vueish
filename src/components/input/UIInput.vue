@@ -68,6 +68,11 @@
                 </div>
             </div>
         </div>
+        <UIExpandTransition>
+            <p v-if="getErrorsFor(name).length" class="text-red-700 dark:text-red-600 text-sm">
+                {{ getErrorsFor(name).join() }}
+            </p>
+        </UIExpandTransition>
     </div>
 </template>
 
@@ -82,14 +87,19 @@ import {
     autofocusElement,
     clearable,
     disabled,
-    useVModel
+    useVModel,
+    rules
 } from '@composables/input';
 import { large } from '@composables/style';
 import { getIcon, getPrecision } from '@/helpers';
 import { omit } from 'lodash-es';
+import { useValidator } from '@composables/input/validator';
+import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
 
 export default defineComponent({
     name: 'UIInput',
+
+    components: { UIExpandTransition },
 
     inheritAttrs: false,
 
@@ -105,7 +115,8 @@ export default defineComponent({
         autofocus,
         clearable,
         name,
-        disabled
+        disabled,
+        rules
     },
 
     emits: ['update:modelValue'],
@@ -193,6 +204,13 @@ export default defineComponent({
             model.value = min;
         };
 
+        const { hasErrors, getErrorsFor } = useValidator({
+            [props.name]: {
+                $value: model,
+                rules: props.rules
+            }
+        });
+
         return {
             model,
             input,
@@ -203,7 +221,9 @@ export default defineComponent({
             chevronIcon,
             omit,
             increment,
-            decrement
+            decrement,
+            hasErrors,
+            getErrorsFor
         };
     }
 });

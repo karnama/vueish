@@ -9,17 +9,18 @@
                  clearable
                  name="ui-text"
                  :large="large"
+                 :rules="['required']"
                  placeholder="Some instructions..."
                  label="Field Label" />
 
-        <div>
-            <UIInput v-model="text"
-                     name="ui-text"
-                     label="Standard"
-                     :large="large"
-                     no-clear />
-            <small class="text-color">Output: {{ text }}</small>
-        </div>
+        <!--        <div>-->
+        <!--            <UIInput v-model="text"-->
+        <!--                     name="ui-text"-->
+        <!--                     label="Standard"-->
+        <!--                     :large="large"-->
+        <!--                     no-clear />-->
+        <!--            <small class="text-color">Output: {{ text }}</small>-->
+        <!--        </div>-->
 
         <UIInput v-model="number"
                  name="ui-text4"
