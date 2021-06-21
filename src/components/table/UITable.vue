@@ -30,7 +30,8 @@
                     <th v-for="column in normalisedHeaders"
                         :key="column.rowProperty"
                         :class="{
-                            'cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-500': !disableSorting && column.sortable,
+                            'cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-500':
+                                !disableSorting && column.sortable,
                             'bg-gray-200 dark:bg-gray-600': !!sortDirection(column.rowProperty)
                         }"
                         class="py-6 text-left px-4 uppercase font-light text-color-muted text-sm

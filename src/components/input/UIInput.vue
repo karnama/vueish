@@ -54,15 +54,15 @@
                     <button :aria-controls="$attrs.id ?? name"
                             aria-roledescription="increment"
                             tabindex="-1"
-                            class="px-2 bg-gray-50 dark:bg-gray-400 h-full transition hover:bg-gray-200 dark:hover:bg-gray-300 cursor-pointer
-                                   rounded-bl transform rotate-180"
+                            class="px-2 bg-gray-50 dark:bg-gray-400 h-full transition hover:bg-gray-200
+                                   dark:hover:bg-gray-300 cursor-pointer rounded-bl transform rotate-180"
                             @click="increment"
                             v-html="chevronIcon" />
                     <button :aria-controls="$attrs.id ?? name"
                             aria-roledescription="decrement"
                             tabindex="-1"
-                            class="px-2 bg-gray-50 dark:bg-gray-400 h-full transition hover:bg-gray-200 dark:hover:bg-gray-300 cursor-pointer
-                                   rounded-br"
+                            class="px-2 bg-gray-50 dark:bg-gray-400 h-full transition hover:bg-gray-200
+                                   dark:hover:bg-gray-300 cursor-pointer rounded-br"
                             @click="decrement"
                             v-html="chevronIcon" />
                 </div>
