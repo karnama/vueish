@@ -43,7 +43,6 @@
 </template>
 
 <script lang="ts">
-// absolute bottom-3 right-2
 import { defineComponent, ref, onMounted, onUpdated, onBeforeUnmount } from 'vue';
 import {
     autofocus,
@@ -63,8 +62,7 @@ export default defineComponent({
 
     props: {
         modelValue: {
-            type: String,
-            required: true
+            type: String
         },
 
         /**
