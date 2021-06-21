@@ -12,7 +12,7 @@ exports[`UIAvatarGroup should correctly display 1`] = `
     
     <div
       class="ui-avatar text-lg overflow-hidden h-8 w-8
-                text-white bg-brand-300 flex flex-col justify-center items-center rounded-full"
+                text-white bg-brand-400 flex flex-col justify-center items-center rounded-full"
       style="z-index: 50;"
     >
       
@@ -38,7 +38,7 @@ exports[`UIAvatarGroup should correctly display 1`] = `
     </div>
     <div
       class="ui-avatar text-lg overflow-hidden h-8 w-8
-                text-white bg-brand-300 flex flex-col justify-center items-center rounded-full"
+                text-white bg-brand-400 flex flex-col justify-center items-center rounded-full"
       style="z-index: 40;"
     >
       
@@ -49,7 +49,7 @@ exports[`UIAvatarGroup should correctly display 1`] = `
     </div>
     <div
       class="ui-avatar text-lg overflow-hidden h-8 w-8
-                text-white bg-brand-300 flex flex-col justify-center items-center rounded-full"
+                text-white bg-brand-400 flex flex-col justify-center items-center rounded-full"
       style="z-index: 30;"
     >
       
@@ -60,7 +60,7 @@ exports[`UIAvatarGroup should correctly display 1`] = `
     </div>
     <div
       class="ui-avatar text-lg overflow-hidden h-8 w-8
-                text-white bg-brand-300 flex flex-col justify-center items-center rounded-full"
+                text-white bg-brand-400 flex flex-col justify-center items-center rounded-full"
       style="z-index: 20;"
     >
       <img
@@ -69,7 +69,7 @@ exports[`UIAvatarGroup should correctly display 1`] = `
     </div>
     <div
       class="ui-avatar text-lg overflow-hidden h-8 w-8
-                text-white bg-brand-300 flex flex-col justify-center items-center rounded"
+                text-white bg-brand-400 flex flex-col justify-center items-center rounded"
       style="z-index: 10;"
     >
       

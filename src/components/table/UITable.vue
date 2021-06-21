@@ -1,12 +1,12 @@
 <template>
-    <section class="shadow-md text-gray-700 bg-white relative sm:overflow-x-scroll">
+    <section class="shadow-md dark:shadow-lg text-color bg-white dark:bg-gray-600 relative sm:overflow-x-scroll">
         <table class="flex sm:table flex-col border-collapse border-gray-200
                       w-full table-auto rounded relative"
                :class="[hoverClass]"
                @mouseover="handleHover"
                @mouseleave="handleHover">
-            <thead class="sticky top-0 shadow z-10">
-                <tr v-if="!!search" class="bg-white block sm:table-row">
+            <thead class="sticky top-0 bg-white dark:bg-gray-700 shadow dark:shadow-lg z-10">
+                <tr v-if="!!search" class="block sm:table-row">
                     <th :colspan=" normalisedHeaders.length + ($slots.action ? 1 : 0) + (selectable ? 1 : 0)"
                         class="px-4 py-8 block sm:table-cell">
                         <span class="block">
@@ -15,7 +15,7 @@
                     </th>
                 </tr>
 
-                <tr class="hidden sm:table-row bg-gray-100">
+                <tr class="hidden sm:table-row bg-gray-100 dark:bg-gray-700">
                     <th v-if="selectable" class="py-6 px-2">
                         <span v-if="!singleSelect" class="mx-auto">
                             <UICheckbox name="selectAll"
@@ -30,11 +30,11 @@
                     <th v-for="column in normalisedHeaders"
                         :key="column.rowProperty"
                         :class="{
-                            'cursor-pointer hover:bg-gray-300': !disableSorting && column.sortable,
-                            'bg-gray-200': !!sortDirection(column.rowProperty)
+                            'cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-500': !disableSorting && column.sortable,
+                            'bg-gray-200 dark:bg-gray-600': !!sortDirection(column.rowProperty)
                         }"
-                        class="py-6 text-left px-4 uppercase font-light
-                               text-gray-500 text-sm select-none group transition"
+                        class="py-6 text-left px-4 uppercase font-light text-color-muted text-sm
+                               select-none group transition"
                         @click="sortBy(column.rowProperty)">
                         <span class="flex items-center justify-between">
                             <slot name="header" :header="column">
@@ -60,7 +60,7 @@
                     <tr v-for="(row, index) in pageRows"
                         :key="index"
                         :class="{ 'row-highlight': hoverHighlight }"
-                        class="flex flex-col flex-no-wrap sm:table-row border-gray-200">
+                        class="flex flex-col flex-no-wrap sm:table-row border-gray-200 dark:border-gray-500">
                         <td v-if="selectable" class="px-2 py-2 sm:py-0">
                             <UICheckbox v-if="row.isSelectable"
                                         :name="String(index)"
@@ -128,7 +128,8 @@
             <tfoot v-if="$slots.footer
                        || selectable && !singleSelect
                        || filteredRows.length > itemsPerPage && !disablePagination"
-                   class="border-t border-gray-300 sticky bg-white bottom-0 sm:relative shadow-up">
+                   class="border-t border-gray-300 dark:border-gray-500 sticky
+                          bg-white dark:bg-gray-700 bottom-0 sm:relative shadow-up">
                 <tr class="w-full flex sm:table-row">
                     <td class="block flex-grow sm:table-cell"
                         :colspan="normalisedHeaders.length + ($slots.action ? 1 : 0) + (selectable ? 1 : 0)">
@@ -241,7 +242,7 @@ export default defineComponent({
         },
 
         /**
-         * Boolean flag or callback used on the row.
+         * Boolean flag to enable or callback that os used for searching.
          */
         search: {
             type: [Boolean, Function] as PropType<boolean | ((row: Row, searchTerm: string) => boolean)>
@@ -434,9 +435,15 @@ export default defineComponent({
 
             headers.forEach(header => {
                 style.sheet!.insertRule(
-                    '@media (min-width: 640px) {'
-                    + `table.hover-cell-${header.rowProperty}:hover td.hover-cell-${header.rowProperty} `
-                    + '{ background-color: rgba(var(--color-brand-50), var(--tw-bg-opacity, 1)); }}'
+                    `@media (min-width: 640px) {
+                        table.hover-cell-${header.rowProperty}:hover td.hover-cell-${header.rowProperty} {
+                            background-color: rgba(var(--color-brand-50), var(--tw-bg-opacity, 1));
+                        }
+
+                        .dark table.hover-cell-${header.rowProperty}:hover td.hover-cell-${header.rowProperty} {
+                            background-color: rgba(var(--color-brand-400), var(--tw-bg-opacity, 1));
+                        }
+                    }`
                 );
             });
         };
@@ -572,6 +579,16 @@ export default defineComponent({
 
     .cell-highlight:hover {
         background-color: rgba(var(--color-brand-200), var(--tw-bg-opacity, 1)) !important;
+    }
+
+    .dark {
+        & .row-highlight:hover {
+            @apply bg-brand-400;
+        }
+
+        & .cell-highlight:hover {
+            background-color: rgba(var(--color-brand-600), var(--tw-bg-opacity, 1)) !important;
+        }
     }
 }
 </style>

@@ -18,7 +18,7 @@
             <span class="transition-all opacity-0 scale-0 text-white" v-html="indeterminate ? dashIcon : tickIcon" />
         </span>
         <label v-if="label || $slots.default" class="items-center" :for="$attrs.id ?? name">
-            <span class="select-none ml-3 cursor-pointer"
+            <span class="select-none ml-3 cursor-pointer text-color"
                   :class="{ 'cursor-not-allowed': disabled }">
                 <slot>
                     {{ label }}

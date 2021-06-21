@@ -12,7 +12,8 @@ exports[`UIModal should render correctly 1`] = `
   <section
     aria-expanded="true"
     aria-modal="true"
-    class="ui-panel rounded shadow-md bg-default relative transition-all modal top-0 w-full overflow-y-scroll
+    class="ui-panel rounded shadow-md relative transition-all
+                    bg-white dark:bg-gray-600 text-color modal top-0 w-full overflow-y-scroll
                             relative bg-default mx-auto shadow-xl rounded bg-white opacity-0 translate-y-0"
     role="dialog"
   >
@@ -46,7 +47,7 @@ exports[`UIModal should render correctly 1`] = `
         class="no-blur"
       >
         <main
-          class="w-full px-12 py-6 text-gray-700"
+          class="w-full px-12 py-6"
         >
           
           

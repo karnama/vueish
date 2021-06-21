@@ -4,14 +4,16 @@
                 label="I accept the terms and agreement" />
 
     <div class="mt-4 space-y-2">
-        <h3>Checkboxes with array</h3>
+        <h3 class="text-color">
+            Checkboxes with array
+        </h3>
         <UICheckbox v-model="values" name="name1" value="john">
             John
         </UICheckbox>
         <UICheckbox v-model="values" name="name2" value="bruce">
             Bruce
         </UICheckbox>
-        <p>
+        <p class="text-color">
             modelValue:
             {{ names }}
         </p>

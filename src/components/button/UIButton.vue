@@ -87,15 +87,18 @@ export default defineComponent({
                 + (props.disabled ? '' : ' hover:bg-brand-500 hover:border-brand-500')
         }));
         const outlineTypeClasses = computed<{ [key in StyleType]: string; }>(() => ({
-            default: 'text-gray-600 shadow-sm border-gray-400 disabled:bg-gray-300 disabled:shadow-none ring-gray-600'
-                + (props.disabled ? '' : ' hover:text-white hover:bg-gray-400'),
+            default: 'text-gray-600 dark:text-gray-400 shadow-sm border-gray-400 disabled:bg-gray-300' +
+                'disabled:shadow-none ring-gray-600'
+                + (props.disabled ? '' : ' hover:text-white dark:hover:text-white hover:bg-gray-400'),
             primary: 'text-blue-600 shadow-sm border-blue-500 disabled:bg-gray-200 disabled:shadow-none ring-blue-600'
                 + (props.disabled ? '' : ' hover:text-white hover:bg-blue-500 hover:border-blue-500'),
             info: 'text-blue-300 shadow-sm border-blue-300 disabled:bg-gray-200 disabled:shadow-none ring-blue-300'
                 + (props.disabled ? '' : ' hover:text-white hover:bg-blue-300 hover:border-blue-300'),
-            success: 'text-green-600 shadow-sm border-green-400 disabled:bg-gray-200 disabled:shadow-none ring-green-400'
+            success: 'text-green-600 shadow-sm border-green-400 disabled:bg-gray-200 disabled:shadow-none' +
+                'ring-green-400'
                 + (props.disabled ? '' : ' hover:text-white hover:bg-green-400 hover:border-green-400'),
-            warning: 'text-yellow-500 shadow-sm border-yellow-300 disabled:bg-gray-200 disabled:shadow-none ring-yellow-400'
+            warning: 'text-yellow-500 shadow-sm border-yellow-300 disabled:bg-gray-200 disabled:shadow-none' +
+                'ring-yellow-400'
                 + (props.disabled ? '' : ' hover:text-white hover:bg-yellow-300 hover:border-yellow-300'),
             danger: 'text-red-600 shadow-sm border-red-400 disabled:bg-gray-200 disabled:shadow-none ring-red-400'
                 + (props.disabled ? '' : ' hover:text-white hover:bg-red-400 hover:border-red-400'),
@@ -103,7 +106,8 @@ export default defineComponent({
                 + (props.disabled ? '' : ' hover:text-white hover:bg-brand-400 hover:border-brand-400')
         }));
         const minimalTypeClasses = computed<{ [key in StyleType]: string; }>(() => ({
-            default: 'text-gray-600 disabled:bg-gray-300 ring-gray-300' + (props.disabled ? '' : ' hover:bg-gray-200'),
+            default: 'text-gray-600 dark:text-gray-500 disabled:bg-gray-300 ring-gray-300'
+                + (props.disabled ? '' : ' dark:hover:text-gray-600 hover:bg-gray-200'),
             primary: 'text-blue-600 disabled:bg-gray-300 ring-blue-400' + (props.disabled ? '' : ' hover:bg-blue-200'),
             info: 'text-blue-400 disabled:bg-gray-300 ring-blue-300' + (props.disabled ? '' : ' hover:bg-blue-200'),
             success: 'text-green-600 disabled:bg-gray-300 ring-green-300'

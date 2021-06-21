@@ -1,6 +1,6 @@
 <template>
     <div class="ui-avatar text-lg overflow-hidden h-8 w-8
-                text-white bg-brand-300 flex flex-col justify-center items-center"
+                text-white bg-brand-400 flex flex-col justify-center items-center"
          :class="[ squared ? 'rounded' : 'rounded-full' ]">
         <img v-if="src && loaded"
              :src="src"

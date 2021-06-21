@@ -10,7 +10,9 @@
         </template>
     </UIToggle>
 
-    is {{ value ? '' : 'not' }} toggled
+    <p class="text-color mt-8">
+        toggles are {{ value ? '' : 'not' }} toggled
+    </p>
 </template>
 
 <script lang="ts">

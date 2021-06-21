@@ -7,7 +7,7 @@
                     :progress="Number(progress)"
                     :height="Number(height)" />
     <br>
-    <div class="space-y-2">
+    <div class="space-y-2 text-color">
         <label class="flex">
             steps
             <input v-model="steps"

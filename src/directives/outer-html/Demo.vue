@@ -1,11 +1,12 @@
 <template>
-    <div v-outer-html="html">
+    <div v-outer-html="html" class="text-color">
         Origin div
     </div>
-    <span>This is after the inserted html</span>
+    <span class="text-color">This is after the inserted html</span>
 
-    <hr class="my-4">
+    <hr class="my-4 text-color">
 
+    <!-- eslint-disable-next-line vue/no-lone-template -->
     <template v-outer-html="templateHtml" />
 
     <br>
@@ -23,8 +24,8 @@ export default defineComponent({
     name: 'OuterHtml',
     directives: { outerHtml },
     setup() {
-        const html = ref('<p>This is the next sibling of the origin</p>');
-        const templateHtml = ref('<p>This has replaced the &lt;template&gt; tag</p>');
+        const html = ref('<p class="text-color">This is the next sibling of the origin</p>');
+        const templateHtml = ref('<p class="text-color">This has replaced the &lt;template&gt; tag</p>');
 
         return {
             html,

@@ -1,6 +1,7 @@
 <template>
     <section :id="id"
-             class="ui-panel rounded shadow-md bg-default relative transition-all"
+             class="ui-panel rounded shadow-md relative transition-all
+                    bg-white dark:bg-gray-600 text-color"
              :aria-expanded="open"
              :class="{ 'hover:shadow-lg': !open, 'pointer-events-none select-none': loading && blockingLoader }">
         <UIFadeTransition>
@@ -31,7 +32,7 @@
                      v-if="open"
                      class="no-blur"
                      :class="{ 'blur': loading && blockingLoader }">
-                    <main class="w-full px-12 py-6 text-gray-700">
+                    <main class="w-full px-12 py-6">
                         <slot />
                     </main>
 

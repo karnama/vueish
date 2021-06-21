@@ -1,6 +1,7 @@
 <template>
     <main class="h-full transition-colors bg-gray-100 dark:bg-gray-700 relative">
         <div class="flex">
+            <!-- Menu -->
             <div class="menu px-12 shadow-xl dark:bg-gray-600 dark:text-gray-300 z-30 bg-white"
                  :class="[ isOpen ? 'open' : 'closed' ]">
                 <div class="sticky top-0">
@@ -9,7 +10,7 @@
                             Vueish UI
                         </h1>
                         <UIButton minimal
-                                  class="dark:text-gray-200"
+                                  class="dark:text-gray-200 dark:hover:text-gray-700"
                                   @click="isOpen = false"
                                   v-html="clearIcon" />
                     </div>
@@ -30,9 +31,10 @@
                     </div>
                 </div>
             </div>
+
             <div class="flex-1 min-h-screen h-full w-full p-10">
                 <UIButton v-if="!isOpen"
-                          class="dark:text-gray-200 mb-4"
+                          class="dark:text-gray-200 dark:hover:text-gray-700 mb-4"
                           minimal
                           @click="isOpen = true">
                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -47,6 +49,9 @@
                     </svg>
                 </UIButton>
                 <div class="mx-auto" style="max-width: 1000px">
+                    <h1 class="text-2xl mb-2 text-center text-color">
+                        {{ $route.meta.label }}
+                    </h1>
                     <router-view />
                 </div>
             </div>

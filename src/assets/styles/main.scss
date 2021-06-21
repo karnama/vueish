@@ -16,3 +16,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.text-color {
+    @apply text-gray-800;
+}
+
+.dark .text-color {
+    @apply text-gray-200;
+}
+
+.text-color-muted {
+    @apply text-gray-500;
+}
+
+.dark .text-color-muted {
+    @apply text-gray-400;
+}

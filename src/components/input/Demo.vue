@@ -1,7 +1,4 @@
 <template>
-    <h1 class="text-2xl mb-12 text-center">
-        UIInput
-    </h1>
     <UICheckbox v-model="large"
                 name="large"
                 label="Large Style"
@@ -21,7 +18,7 @@
                      label="Standard"
                      :large="large"
                      no-clear />
-            <small>Output: {{ text }}</small>
+            <small class="text-color">Output: {{ text }}</small>
         </div>
 
         <UIInput v-model="number"

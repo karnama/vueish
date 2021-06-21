@@ -17,9 +17,9 @@ describe('UIFileUploader', () => {
 
     // jsdom has no FileList interface implemented
     describe.skip('file validation', () => {
-        const file = new File(['foo'], 'foo.txt', {
-            type: 'text/plain'
-        });
+        // const file = new File(['foo'], 'foo.txt', {
+        //     type: 'text/plain'
+        // });
 
         // const jsdomUtils = require('jsdom/lib/jsdom/living/generated/utils');
         // const jsdomFileList = require('jsdom/lib/jsdom/living/generated/FileList');

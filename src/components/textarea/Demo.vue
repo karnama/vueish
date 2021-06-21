@@ -1,8 +1,4 @@
 <template>
-    <h1 class="text-2xl mb-2 text-center">
-        UITextarea
-    </h1>
-
     <div class="py-10 space-y-10">
         <div class="space-y-10">
             <UITextarea v-model="customText"
