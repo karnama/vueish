@@ -28,12 +28,12 @@
                 <div class="flex flex-col justify-center" :class="{ 'text-gray-400 cursor-not-allowed': disabled }">
                     <span v-if="disabled"
                           class="h-5 w-5 mx-2 text-color-muted flex-grow align-middle flex flex-col justify-center"
-                          :class="{ '!text-red-700 dark:!text-red-600': error || $slots.error }"
+                          :class="{ 'text-color-error': error || $slots.error }"
                           v-html="lockIcon" />
 
                     <button v-else-if="clearable && model"
                             class="clear-icon h-5 w-5 mx-2 text-color-muted"
-                            :class="{ '!text-red-700 dark:!text-red-600': error || $slots.error }"
+                            :class="{ 'text-color-error': error || $slots.error }"
                             :aria-controls="$attrs.id ?? name"
                             aria-roledescription="clear"
                             @click="model = ''"
@@ -53,7 +53,7 @@
             </UIExpandTransition>
             <span v-if="counter && modelValue"
                   class="text-sm px-1 text-color-muted"
-                  :class="{ '!text-red-700 dark:!text-red-600': error || $slots.error }">
+                  :class="{ 'text-color-error': error || $slots.error }">
                 {{ modelValue.length }}
             </span>
         </div>

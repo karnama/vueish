@@ -2,7 +2,7 @@
     <div class="ui-text" :class="$attrs.class">
         <label :for="$attrs.id ?? name"
                class="font-medium text-color"
-               :class="{ '!text-red-700 dark:!text-red-600': error || $slots.error }">
+               :class="{ 'text-color-error': error || $slots.error }">
             {{ label }}
         </label>
 
@@ -19,7 +19,7 @@
                       class="prefix ml-3 -mr-1 select-none text-color-muted"
                       :class="{
                           'ml-5 -mr-4': large,
-                          '!text-red-700 dark:!text-red-600': error || $slots.error
+                          'text-color-error': error || $slots.error
                       }">
                     <slot name="prefix">
                         {{ prefix }}
@@ -41,7 +41,7 @@
                 <span v-if="suffix ?? $slots.suffix"
                       :class="{
                           'mr-5': large,
-                          '!text-red-700 dark:!text-red-600': error || $slots.error
+                          'text-color-error': error || $slots.error
                       }"
                       class="suffix mr-3 select-none text-color-muted">
                     <slot name="suffix">
@@ -53,7 +53,7 @@
                       class="h-5 w-5 mr-3 text-color-muted"
                       :class="{
                           'mr-5': large,
-                          '!text-red-700 dark:!text-red-600': error || $slots.error
+                          'text-color-error': error || $slots.error
                       }"
                       v-html="lockIcon" />
 
@@ -61,7 +61,7 @@
                         class="clear-icon h-5 w-5 cursor-pointer mr-3 text-color-muted"
                         :class="{
                             'mr-5': large,
-                            '!text-red-700 dark:!text-red-600': error || $slots.error
+                            'text-color-error': error || $slots.error
                         }"
                         :aria-controls="$attrs.id ?? name"
                         aria-roledescription="clear"
@@ -92,7 +92,7 @@
         </div>
         <UIExpandTransition>
             <slot v-if="error || $slots.error" name="error">
-                <p class="text-red-700 dark:text-red-600 text-sm">
+                <p class="text-color-error text-sm">
                     {{ error }}
                 </p>
             </slot>
