@@ -1,17 +1,26 @@
 <template>
     <div class="ui-text" :class="$attrs.class">
-        <label :for="$attrs.id ?? name" class="font-medium text-color">
+        <label :for="$attrs.id ?? name"
+               class="font-medium text-color"
+               :class="{ '!text-red-700 dark:!text-red-600': hasError }">
             {{ label }}
         </label>
 
         <div class="group relative shadow-sm dark:shadow-md border border-gray-300 dark:border-gray-500 rounded
-                    bg-white dark:bg-gray-600 transition focus-within:border-blue-400 dark:focus-within:border-blue-500"
-             :class="{ 'bg-gray-200 dark:!bg-gray-700': disabled }"
+                    bg-white dark:bg-gray-600 transition"
+             :class="{
+                 'bg-gray-200 dark:!bg-gray-700': disabled,
+                 'focus-within:border-blue-400 dark:focus-within:border-blue-500': !hasError,
+                 'border-red-700 dark:border-red-600': hasError
+             }"
              :style="$attrs.style">
             <div class="flex items-center">
                 <span v-if="prefix ?? $slots.prefix"
                       class="prefix ml-3 -mr-1 select-none text-color-muted"
-                      :class="{ 'ml-5 -mr-4': large }">
+                      :class="{
+                          'ml-5 -mr-4': large,
+                          '!text-red-700 dark:!text-red-600': hasError
+                      }">
                     <slot name="prefix">
                         {{ prefix }}
                     </slot>
@@ -30,7 +39,10 @@
                        @keydown="handleKeydown">
 
                 <span v-if="suffix ?? $slots.suffix"
-                      :class="{ 'mr-5': large }"
+                      :class="{
+                          'mr-5': large,
+                          '!text-red-700 dark:!text-red-600': hasError
+                      }"
                       class="suffix mr-3 select-none text-color-muted">
                     <slot name="suffix">
                         {{ suffix }}
@@ -39,12 +51,18 @@
 
                 <span v-if="disabled"
                       class="h-5 w-5 mr-3 text-color-muted"
-                      :class="{ 'mr-5': large }"
+                      :class="{
+                          'mr-5': large,
+                          '!text-red-700 dark:!text-red-600': hasError
+                      }"
                       v-html="lockIcon" />
 
                 <button v-else-if="clearable && model"
                         class="clear-icon h-5 w-5 cursor-pointer mr-3 text-color-muted"
-                        :class="{ 'mr-5': large }"
+                        :class="{
+                            'mr-5': large,
+                            '!text-red-700 dark:!text-red-600': hasError
+                        }"
                         :aria-controls="$attrs.id ?? name"
                         aria-roledescription="clear"
                         @click="model = ''"
@@ -54,24 +72,30 @@
                     <button :aria-controls="$attrs.id ?? name"
                             aria-roledescription="increment"
                             tabindex="-1"
-                            class="px-2 bg-gray-50 dark:bg-gray-400 h-full transition hover:bg-gray-200
-                                   dark:hover:bg-gray-300 cursor-pointer rounded-bl transform rotate-180"
+                            class="px-2 transition h-full cursor-pointer rounded-bl transform rotate-180
+                                   bg-gray-50 hover:bg-gray-200
+                                   dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400"
+                            :class="{ 'text-red-700 dark:text-red-500': hasError }"
                             @click="increment"
                             v-html="chevronIcon" />
                     <button :aria-controls="$attrs.id ?? name"
                             aria-roledescription="decrement"
                             tabindex="-1"
-                            class="px-2 bg-gray-50 dark:bg-gray-400 h-full transition hover:bg-gray-200
-                                   dark:hover:bg-gray-300 cursor-pointer rounded-br"
+                            class="px-2 transition h-full cursor-pointer rounded-br
+                                   bg-gray-50 hover:bg-gray-200
+                                   dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400"
+                            :class="{ 'text-red-700 dark:text-red-500': hasError }"
                             @click="decrement"
                             v-html="chevronIcon" />
                 </div>
             </div>
         </div>
         <UIExpandTransition>
-            <p v-if="getErrorsFor(name).length" class="text-red-700 dark:text-red-600 text-sm">
-                {{ getErrorsFor(name).join() }}
-            </p>
+            <slot v-if="hasError" name="error">
+                <p class="text-red-700 dark:text-red-600 text-sm">
+                    {{ error }}
+                </p>
+            </slot>
         </UIExpandTransition>
     </div>
 </template>
@@ -88,12 +112,11 @@ import {
     clearable,
     disabled,
     useVModel,
-    rules
+    error
 } from '@composables/input';
 import { large } from '@composables/style';
 import { getIcon, getPrecision } from '@/helpers';
 import { omit } from 'lodash-es';
-import { useValidator } from '@composables/input/validator';
 import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
 
 export default defineComponent({
@@ -116,7 +139,7 @@ export default defineComponent({
         clearable,
         name,
         disabled,
-        rules
+        error
     },
 
     emits: ['update:modelValue'],
@@ -128,6 +151,7 @@ export default defineComponent({
         const clearIcon = getIcon('clear');
         const chevronIcon = getIcon('chevron');
         const model = useVModel<string | number>(props);
+        const hasError = computed<boolean>(() => props.error || ctx.slots.error);
 
         autofocusElement(props.autofocus, input);
 
@@ -204,13 +228,6 @@ export default defineComponent({
             model.value = min;
         };
 
-        const { hasErrors, getErrorsFor } = useValidator({
-            [props.name]: {
-                $value: model,
-                rules: props.rules
-            }
-        });
-
         return {
             model,
             input,
@@ -222,8 +239,7 @@ export default defineComponent({
             omit,
             increment,
             decrement,
-            hasErrors,
-            getErrorsFor
+            hasError
         };
     }
 });

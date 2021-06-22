@@ -1,6 +1,5 @@
 import { computed, onMounted, getCurrentInstance, capitalize, ref, watch } from 'vue';
-import type { Ref, PropType } from 'vue';
-import type { RuleName } from '@composables/input/validator';
+import type { Ref } from 'vue';
 
 /**
  * The input label.
@@ -64,11 +63,11 @@ export const clearable = {
 };
 
 /**
- * The rules to apply to the input value.
+ * Error to display to the user.
  */
-export const rules = {
-    type: Array as PropType<RuleName[]>,
-    default: (): RuleName[] => []
+export const error = {
+    type: String,
+    default: ''
 };
 
 /**

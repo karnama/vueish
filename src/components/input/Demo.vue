@@ -1,26 +1,32 @@
 <template>
-    <UICheckbox v-model="large"
-                name="large"
-                label="Large Style"
-                class="mb-6" />
+    <div class="flex justify-evenly mb-6">
+        <UICheckbox v-model="large"
+                    name="large"
+                    label="Large Style" />
+
+        <UIButton category="danger" @click="error ? error = '' : error = 'Error message.'">
+            {{ error ? 'Remove' : 'Set' }} Error state
+        </UIButton>
+    </div>
 
     <div class="space-y-10">
         <UIInput v-model="text"
                  clearable
                  name="ui-text"
                  :large="large"
-                 :rules="['required']"
+                 :error="error"
                  placeholder="Some instructions..."
                  label="Field Label" />
 
-        <!--        <div>-->
-        <!--            <UIInput v-model="text"-->
-        <!--                     name="ui-text"-->
-        <!--                     label="Standard"-->
-        <!--                     :large="large"-->
-        <!--                     no-clear />-->
-        <!--            <small class="text-color">Output: {{ text }}</small>-->
-        <!--        </div>-->
+        <div>
+            <UIInput v-model="text"
+                     name="ui-text"
+                     label="Standard"
+                     :large="large"
+                     :error="error"
+                     no-clear />
+            <small class="text-color">Output: {{ text }}</small>
+        </div>
 
         <UIInput v-model="number"
                  name="ui-text4"
@@ -29,6 +35,7 @@
                  :large="large"
                  min="10"
                  max="100"
+                 :error="error"
                  step="0.01"
                  placeholder=""
                  label="Number" />
@@ -37,6 +44,7 @@
                  name="ui-text9"
                  type="password"
                  clearable
+                 :error="error"
                  :large="large"
                  label="Password" />
 
@@ -44,17 +52,20 @@
                  name="ui-text3"
                  label="Disabled"
                  :large="large"
+                 :error="error"
                  disabled />
 
         <UIInput v-model="prefixProp"
                  name="ui-text5"
                  :large="large"
+                 :error="error"
                  label="Prefix (Using prop)"
                  prefix="Reason:" />
 
         <UIInput v-model="prefixSlot"
                  name="ui-text6"
                  :large="large"
+                 :error="error"
                  label="Prefix (Using slot)">
             <template #prefix>
                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -73,6 +84,7 @@
         <UIInput v-model="suffixProp"
                  name="ui-text6"
                  :large="large"
+                 :error="error"
                  label="Suffix (Using prop)"
                  suffix="kg" />
 
@@ -80,6 +92,7 @@
                  name="ui-text7"
                  class="mt-10"
                  :large="large"
+                 :error="error"
                  label="Suffix (Using slot)">
             <template #suffix>
                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -102,11 +115,12 @@
 import { defineComponent, ref } from 'vue';
 import UIInput from './UIInput.vue';
 import UICheckbox from '@components/checkbox/UICheckbox.vue';
+import UIButton from '@components/button/UIButton.vue';
 
 export default defineComponent({
     // eslint-disable-next-line vue/no-reserved-component-names
     name: 'Input',
-    components: { UICheckbox, UIInput },
+    components: { UIButton, UICheckbox, UIInput },
     setup() {
         const text = ref('I\'m a input input!');
         const disabled = ref('Can\'t touch this!');
@@ -117,6 +131,7 @@ export default defineComponent({
         const suffixProp = ref('100');
         const suffixSlot = ref('Feather-weight');
         const large = ref(false);
+        const error = ref('');
 
         return {
             text,
@@ -127,7 +142,8 @@ export default defineComponent({
             prefixSlot,
             suffixProp,
             suffixSlot,
-            large
+            large,
+            error
         };
     }
 });
