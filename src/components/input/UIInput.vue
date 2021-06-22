@@ -2,7 +2,7 @@
     <div class="ui-text" :class="$attrs.class">
         <label :for="$attrs.id ?? name"
                class="font-medium text-color"
-               :class="{ '!text-red-700 dark:!text-red-600': hasError }">
+               :class="{ '!text-red-700 dark:!text-red-600': error || $slots.error }">
             {{ label }}
         </label>
 
@@ -10,8 +10,8 @@
                     bg-white dark:bg-gray-600 transition"
              :class="{
                  'bg-gray-200 dark:!bg-gray-700': disabled,
-                 'focus-within:border-blue-400 dark:focus-within:border-blue-500': !hasError,
-                 'border-red-700 dark:border-red-600': hasError
+                 'focus-within:border-blue-400 dark:focus-within:border-blue-500': !error || $slots.error,
+                 'border-red-700 dark:border-red-600': error || $slots.error
              }"
              :style="$attrs.style">
             <div class="flex items-center">
@@ -19,7 +19,7 @@
                       class="prefix ml-3 -mr-1 select-none text-color-muted"
                       :class="{
                           'ml-5 -mr-4': large,
-                          '!text-red-700 dark:!text-red-600': hasError
+                          '!text-red-700 dark:!text-red-600': error || $slots.error
                       }">
                     <slot name="prefix">
                         {{ prefix }}
@@ -41,7 +41,7 @@
                 <span v-if="suffix ?? $slots.suffix"
                       :class="{
                           'mr-5': large,
-                          '!text-red-700 dark:!text-red-600': hasError
+                          '!text-red-700 dark:!text-red-600': error || $slots.error
                       }"
                       class="suffix mr-3 select-none text-color-muted">
                     <slot name="suffix">
@@ -53,7 +53,7 @@
                       class="h-5 w-5 mr-3 text-color-muted"
                       :class="{
                           'mr-5': large,
-                          '!text-red-700 dark:!text-red-600': hasError
+                          '!text-red-700 dark:!text-red-600': error || $slots.error
                       }"
                       v-html="lockIcon" />
 
@@ -61,7 +61,7 @@
                         class="clear-icon h-5 w-5 cursor-pointer mr-3 text-color-muted"
                         :class="{
                             'mr-5': large,
-                            '!text-red-700 dark:!text-red-600': hasError
+                            '!text-red-700 dark:!text-red-600': error || $slots.error
                         }"
                         :aria-controls="$attrs.id ?? name"
                         aria-roledescription="clear"
@@ -75,7 +75,7 @@
                             class="px-2 transition h-full cursor-pointer rounded-bl transform rotate-180
                                    bg-gray-50 hover:bg-gray-200
                                    dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400"
-                            :class="{ 'text-red-700 dark:text-red-500': hasError }"
+                            :class="{ 'text-red-700 dark:text-red-500': error || $slots.error }"
                             @click="increment"
                             v-html="chevronIcon" />
                     <button :aria-controls="$attrs.id ?? name"
@@ -84,14 +84,14 @@
                             class="px-2 transition h-full cursor-pointer rounded-br
                                    bg-gray-50 hover:bg-gray-200
                                    dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400"
-                            :class="{ 'text-red-700 dark:text-red-500': hasError }"
+                            :class="{ 'text-red-700 dark:text-red-500': error || $slots.error }"
                             @click="decrement"
                             v-html="chevronIcon" />
                 </div>
             </div>
         </div>
         <UIExpandTransition>
-            <slot v-if="hasError" name="error">
+            <slot v-if="error || $slots.error" name="error">
                 <p class="text-red-700 dark:text-red-600 text-sm">
                     {{ error }}
                 </p>
@@ -151,7 +151,6 @@ export default defineComponent({
         const clearIcon = getIcon('clear');
         const chevronIcon = getIcon('chevron');
         const model = useVModel<string | number>(props);
-        const hasError = computed<boolean>(() => props.error || ctx.slots.error);
 
         autofocusElement(props.autofocus, input);
 
@@ -238,8 +237,7 @@ export default defineComponent({
             chevronIcon,
             omit,
             increment,
-            decrement,
-            hasError
+            decrement
         };
     }
 });
