@@ -21,14 +21,24 @@
     @apply text-gray-800;
 }
 
-.dark .text-color {
-    @apply text-gray-200;
-}
-
 .text-color-muted {
     @apply text-gray-500;
 }
 
-.dark .text-color-muted {
-    @apply text-gray-400;
+.text-color-error {
+    color: theme('colors.red.700') !important;
+}
+
+.dark {
+    & .text-color {
+        @apply text-gray-200;
+    }
+
+    & .text-color-muted {
+        @apply text-gray-400;
+    }
+
+    & .text-color-error {
+        color: theme('colors.red.600') !important;
+    }
 }

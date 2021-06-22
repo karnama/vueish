@@ -8,35 +8,45 @@
                :disabled="disabled"
                :checked="isChecked"
                @click="toggleValue">
-        <span class="ui-checkbox rounded flex justify-center items-center
+        <span class="ui-checkbox rounded flex justify-center items-center flex-shrink-0
                  transition-all text-white border-2 cursor-pointer"
               :class="{
                   'bg-brand-600': isChecked && !indeterminate,
-                  'bg-gray-400': isChecked && indeterminate
+                  'bg-gray-400': isChecked && indeterminate,
+                  '!border-2 border-red-700 dark:border-red-600': error || $slots.error
               }"
               @click="toggleValue">
             <span class="transition-all opacity-0 scale-0 text-white" v-html="indeterminate ? dashIcon : tickIcon" />
         </span>
-        <label v-if="label || $slots.default" class="items-center" :for="$attrs.id ?? name">
-            <span class="select-none ml-3 cursor-pointer text-color"
-                  :class="{ 'cursor-not-allowed': disabled }">
-                <slot>
-                    {{ label }}
-                </slot>
-            </span>
+        <label v-if="label || $slots.default"
+               class="items-center cursor-pointer text-color ml-3"
+               :class="{ 'cursor-not-allowed': disabled }"
+               :for="$attrs.id ?? name">
+            <slot>
+                {{ label }}
+            </slot>
         </label>
     </div>
+    <UIExpandTransition>
+        <slot v-if="error || $slots.error" name="error">
+            <p class="text-color-error text-sm">
+                {{ error }}
+            </p>
+        </slot>
+    </UIExpandTransition>
+    <p />
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { label, disabled, name } from '@composables/input';
+import { label, disabled, name, error } from '@composables/input';
 import { isEqual, omit } from 'lodash-es';
 import { getIcon } from '@/helpers';
+import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
 
 export default defineComponent({
     name: 'UICheckbox',
-
+    components: { UIExpandTransition },
     inheritAttrs: false,
 
     props: {
@@ -59,7 +69,8 @@ export default defineComponent({
 
         label,
         disabled,
-        name
+        name,
+        error
     },
 
     emits: ['update:modelValue'],
@@ -113,6 +124,7 @@ export default defineComponent({
     width: 25px;
 }
 input:checked {
+    /* fixme: target the aria attribute error message or invalid and only set border none if attributes are not there */
     & + .ui-checkbox {
         border: none;
         & > span {
