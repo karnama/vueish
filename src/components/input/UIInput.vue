@@ -10,7 +10,7 @@
                     bg-white dark:bg-gray-600 transition"
              :class="{
                  'bg-gray-200 dark:!bg-gray-700': disabled,
-                 'focus-within:border-blue-400 dark:focus-within:border-blue-500': !error || $slots.error,
+                 'focus-within:border-blue-400 dark:focus-within:border-blue-500': !(error || $slots.error),
                  'border-red-700 dark:border-red-600': error || $slots.error
              }"
              :style="$attrs.style">
