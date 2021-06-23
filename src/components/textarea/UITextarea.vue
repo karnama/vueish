@@ -1,6 +1,8 @@
 <template>
     <div class="ui-textarea relative">
-        <label :for="$attrs.id ?? name" class="font-medium text-color">
+        <label :for="$attrs.id ?? name"
+               class="font-medium text-color"
+               :class="{ 'text-color-error': error || $slots.error }">
             {{ label }}
         </label>
 
