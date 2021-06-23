@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import * as path from 'path';
-import createWebTypes from './src/createWebTypes';
+import createWebTypes from './utils/createWebTypes';
 
 export default defineConfig({
     resolve: {
