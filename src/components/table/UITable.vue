@@ -35,7 +35,7 @@
                             'bg-gray-200 dark:bg-gray-600': !!sortDirection(column.rowProperty)
                         }"
                         class="py-6 text-left px-4 uppercase font-light text-color-muted text-sm
-                               select-none group transition"
+                               select-none group transition-colors"
                         @click="sortBy(column.rowProperty)">
                         <span class="flex items-center justify-between">
                             <slot name="header" :header="column">
@@ -82,7 +82,7 @@
                             class="flex flex-row flex-nowrap items-center p-0 sm:table-cell">
                             <span role="rowheader"
                                   class="flex items-center justify-between sm:hidden content font-bold p-4
-                                         flex-none transition select-none group"
+                                         flex-none transition-colors select-none group"
                                   style="min-height: 40px; width: 140px;"
                                   :class="{
                                       'cursor-pointer hover:bg-gray-300': !disableSorting && col.sortable,

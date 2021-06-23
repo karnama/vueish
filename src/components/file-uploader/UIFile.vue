@@ -9,7 +9,7 @@
             </p>
         </div>
         <button v-if="!uploadOnMounted"
-                class="ml-2 p-1 transition hover:text-white hover:bg-red-600 rounded"
+                class="ml-2 p-1 transition-colors hover:text-white hover:bg-red-600 rounded"
                 @click="$emit('removed', file)"
                 v-html="clearIcon" />
     </div>

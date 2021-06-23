@@ -72,7 +72,7 @@
                     <button :aria-controls="$attrs.id ?? name"
                             aria-roledescription="increment"
                             tabindex="-1"
-                            class="px-2 transition h-full cursor-pointer rounded-bl transform rotate-180
+                            class="px-2 transition-colors h-full cursor-pointer rounded-bl transform rotate-180
                                    bg-gray-50 hover:bg-gray-200
                                    dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400"
                             :class="{ 'text-red-700 dark:text-red-500': error || $slots.error }"
@@ -81,7 +81,7 @@
                     <button :aria-controls="$attrs.id ?? name"
                             aria-roledescription="decrement"
                             tabindex="-1"
-                            class="px-2 transition h-full cursor-pointer rounded-br
+                            class="px-2 transition-colors h-full cursor-pointer rounded-br
                                    bg-gray-50 hover:bg-gray-200
                                    dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400"
                             :class="{ 'text-red-700 dark:text-red-500': error || $slots.error }"
