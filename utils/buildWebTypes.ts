@@ -39,9 +39,6 @@ async function buildTag(fullPath: string): Promise<HtmlTag> {
     });
 
     return {
-        'doc-url': '',
-        'vue-model': undefined,
-        'vue-scoped-slots': null,
         attributes: parsed.props?.map(prop => ({
             name: prop.name,
             required: prop.required,
