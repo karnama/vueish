@@ -8,7 +8,7 @@
                    :disabled="disabled"
                    class="hidden">
             <span class="ui-radio-btn text-brand-500 relative float-left mr-2 h-5 w-5
-                         border-2 rounded-full outline-none"
+                         border-2 rounded-full outline-none transition-colors"
                   role="radio" />
             <slot>
                 {{ label }}
@@ -82,5 +82,12 @@ label:hover input:enabled > .ui-radio-btn:after {
 
 label:focus > input:enabled + .ui-radio-btn {
     border-color: currentColor;
+}
+
+.error .ui-radio-btn {
+    border-color: theme('colors.red.700') !important;
+}
+.dark .error .ui-radio-btn {
+    border-color: theme('colors.red.600') !important;
 }
 </style>
