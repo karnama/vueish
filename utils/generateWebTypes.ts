@@ -5,8 +5,7 @@ const args = minimist(process.argv.slice(2), {
     default: {
         srcGlobPattern: 'src/components/**/UI*.vue',
         dest: './dist',
-        fileName: 'web-types.json',
-        ignore: 'UIFile.vue'
+        fileName: 'web-types.json'
     }
 }) as ParsedArgs & Settings;
 
