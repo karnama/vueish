@@ -83,11 +83,4 @@ label:hover input:enabled > .ui-radio-btn:after {
 label:focus > input:enabled + .ui-radio-btn {
     border-color: currentColor;
 }
-
-.error .ui-radio-btn {
-    border-color: theme('colors.red.700') !important;
-}
-.dark .error .ui-radio-btn {
-    border-color: theme('colors.red.600') !important;
-}
 </style>

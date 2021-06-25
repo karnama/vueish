@@ -1,13 +1,13 @@
 <template>
     <div :class="$attrs.class" :style="$attrs.style">
         <label :for="$attrs.id ?? name"
-               class="cursor-pointer pb-2 text-color"
+               class="cursor-pointer text-color font-medium"
                :class="{ 'text-color-error': error || $slots.error }">
             <slot name="label">{{ label }}</slot>
         </label>
         <div class="toggle-wrapper relative rounded-full
                     flex ring-0 ring-red-700 transition"
-             :class="{ 'ring-2': error || $slots.error }">
+             :class="{ 'ring-2 mt-1': error || $slots.error }">
             <input :id="$attrs.id ?? name"
                    :checked="model"
                    type="checkbox"
@@ -35,6 +35,7 @@ import { name, useVModel, disabled, label, error } from '@composables/input';
 import { omit } from 'lodash-es';
 import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
 
+// todo - update design from design chat (border red on error)
 export default defineComponent({
     name: 'UIToggle',
     components: { UIExpandTransition },

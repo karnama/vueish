@@ -13,7 +13,7 @@
               :class="{
                   'bg-brand-600': isChecked && !indeterminate,
                   'bg-gray-400': isChecked && indeterminate,
-                  '!border-2 border-red-700 dark:border-red-600': error || $slots.error
+                  '!border-2 border-red-700 dark:border-red-500': error || $slots.error
               }"
               @click="toggleValue">
             <span class="transition-all opacity-0 scale-0 text-white" v-html="indeterminate ? dashIcon : tickIcon" />

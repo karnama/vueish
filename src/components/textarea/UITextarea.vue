@@ -11,7 +11,7 @@
              :class="{
                  'bg-gray-200 dark:!bg-gray-700': disabled,
                  'focus-within:border-blue-400 dark:focus-within:border-blue-500': !(error || $slots.error),
-                 'border-red-700 dark:border-red-600': error || $slots.error
+                 'border-red-700 dark:border-red-500': error || $slots.error
              }">
             <div class="flex items-center items-stretch">
                 <textarea :id="$attrs.id ?? name"

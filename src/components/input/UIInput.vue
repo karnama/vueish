@@ -11,15 +11,14 @@
              :class="{
                  'bg-gray-200 dark:!bg-gray-700': disabled,
                  'focus-within:border-blue-400 dark:focus-within:border-blue-500': !(error || $slots.error),
-                 'border-red-700 dark:border-red-600': error || $slots.error
+                 'border-red-700 dark:!border-red-500': error || $slots.error
              }"
              :style="$attrs.style">
             <div class="flex items-center">
                 <span v-if="prefix ?? $slots.prefix"
                       class="prefix ml-3 -mr-1 select-none text-color-muted"
                       :class="{
-                          'ml-5 -mr-4': large,
-                          'text-color-error': error || $slots.error
+                          'ml-5 -mr-4': large
                       }">
                     <slot name="prefix">
                         {{ prefix }}
@@ -40,8 +39,7 @@
 
                 <span v-if="suffix ?? $slots.suffix"
                       :class="{
-                          'mr-5': large,
-                          'text-color-error': error || $slots.error
+                          'mr-5': large
                       }"
                       class="suffix mr-3 select-none text-color-muted">
                     <slot name="suffix">
@@ -52,16 +50,14 @@
                 <span v-if="disabled"
                       class="h-5 w-5 mr-3 text-color-muted"
                       :class="{
-                          'mr-5': large,
-                          'text-color-error': error || $slots.error
+                          'mr-5': large
                       }"
                       v-html="lockIcon" />
 
                 <button v-else-if="clearable && model"
                         class="clear-icon h-5 w-5 cursor-pointer mr-3 text-color-muted"
                         :class="{
-                            'mr-5': large,
-                            'text-color-error': error || $slots.error
+                            'mr-5': large
                         }"
                         :aria-controls="$attrs.id ?? name"
                         aria-roledescription="clear"
@@ -75,7 +71,6 @@
                             class="px-2 transition-colors h-full cursor-pointer rounded-bl transform rotate-180
                                    bg-gray-50 hover:bg-gray-200
                                    dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400"
-                            :class="{ 'text-red-700 dark:text-red-500': error || $slots.error }"
                             @click="increment"
                             v-html="chevronIcon" />
                     <button :aria-controls="$attrs.id ?? name"
@@ -84,7 +79,6 @@
                             class="px-2 transition-colors h-full cursor-pointer rounded-br
                                    bg-gray-50 hover:bg-gray-200
                                    dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400"
-                            :class="{ 'text-red-700 dark:text-red-500': error || $slots.error }"
                             @click="decrement"
                             v-html="chevronIcon" />
                 </div>
