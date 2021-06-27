@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import Demo from './Demo.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import './assets/styles/main.scss';
-import defaultSettings from '@/defaultSettings';
+import Vueish from './main';
 import type { RouteRecordRaw } from 'vue-router';
 
 const componentDemos = import.meta.globEager('./components/**/Demo.vue') as {
@@ -25,12 +25,10 @@ const routes = Object.keys(demos)
 
 const router = createRouter({ history: createWebHistory(), routes });
 
-const app = createApp(Demo)
-    .use(router);
-
-app.config.globalProperties.Vueish = defaultSettings;
-
-app.mount('#app');
+createApp(Demo)
+    .use(Vueish)
+    .use(router)
+    .mount('#app');
 
 declare module 'vue-router' {
     interface RouteMeta {

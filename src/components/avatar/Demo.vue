@@ -56,14 +56,10 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import UIAvatar from './UIAvatar.vue';
-import UIAvatarGroup from './UIAvatarGroup.vue';
 import type { Avatar } from '@/types';
 
 export default defineComponent({
     name: 'Avatar',
-
-    components: { UIAvatarGroup, UIAvatar },
 
     setup() {
         return {

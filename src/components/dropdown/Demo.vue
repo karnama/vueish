@@ -40,15 +40,10 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UIButton from '@components/button/UIButton.vue';
-import UIDropdown from '@components/dropdown/UIDropdown.vue';
 import { range } from 'lodash-es';
-import UICheckbox from '@components/checkbox/UICheckbox.vue';
 
 export default defineComponent({
     name: 'Dropdown',
-
-    components: { UICheckbox, UIDropdown, UIButton },
 
     setup: () => {
         const atMousePosition = ref(false);

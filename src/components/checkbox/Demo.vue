@@ -26,12 +26,11 @@
 </template>
 
 <script lang="ts">
-import UICheckbox from './UICheckbox.vue';
 import { computed, defineComponent, ref } from 'vue';
 
 export default defineComponent({
     name: 'Checkbox',
-    components: { UICheckbox },
+
     setup() {
         const isChecked = ref(true);
         const values = ref<string[]>([]);

@@ -6,25 +6,46 @@
 
     <div class="space-y-10">
         <UIInput v-model="text"
-                 clearable
-                 name="ui-text"
+                 name="ui-text1"
                  :large="large"
                  placeholder="Some instructions..."
-                 label="Field Label" />
+                 label="Default Field" />
 
-        <div>
-            <UIInput v-model="text"
-                     name="ui-text"
-                     label="Standard"
-                     :large="large"
-                     no-clear />
-            <small class="text-color">Output: {{ text }}</small>
-        </div>
+        <UIInput v-model="clearable"
+                 name="ui-text2"
+                 :clearable="isClearable"
+                 :label="(isClearable ? '' : 'Not ') + 'Clearable'"
+                 :large="large"
+                 no-clear />
+
+        <UIInput v-model="search"
+                 name="ui-text3"
+                 :large="large"
+                 type="search"
+                 autofocus
+                 label="Search type" />
+
+        <UIInput v-model="tel"
+                 name="ui-text4"
+                 :large="large"
+                 type="tel"
+                 label="Tel type" />
+
+        <UIInput v-model="url"
+                 name="ui-text5"
+                 :large="large"
+                 type="url"
+                 label="Url type" />
+
+        <UIInput v-model="email"
+                 name="ui-text6"
+                 :large="large"
+                 type="email"
+                 label="Email type" />
 
         <UIInput v-model="number"
-                 name="ui-text4"
+                 name="ui-text7"
                  type="number"
-                 autofocus
                  :large="large"
                  min="10"
                  max="100"
@@ -33,26 +54,26 @@
                  label="Number" />
 
         <UIInput v-model="password"
-                 name="ui-text9"
+                 name="ui-text8"
                  type="password"
                  clearable
                  :large="large"
                  label="Password" />
 
         <UIInput v-model="disabled"
-                 name="ui-text3"
+                 name="ui-text9"
                  label="Disabled"
                  :large="large"
                  disabled />
 
         <UIInput v-model="prefixProp"
-                 name="ui-text5"
+                 name="ui-text10"
                  :large="large"
                  label="Prefix (Using prop)"
                  prefix="Reason:" />
 
         <UIInput v-model="prefixSlot"
-                 name="ui-text6"
+                 name="ui-text11"
                  :large="large"
                  label="Prefix (Using slot)">
             <template #prefix>
@@ -70,13 +91,13 @@
         </UIInput>
 
         <UIInput v-model="suffixProp"
-                 name="ui-text6"
+                 name="ui-text12"
                  :large="large"
                  label="Suffix (Using prop)"
                  suffix="kg" />
 
         <UIInput v-model="suffixSlot"
-                 name="ui-text7"
+                 name="ui-text13"
                  class="mt-10"
                  :large="large"
                  label="Suffix (Using slot)">
@@ -99,17 +120,21 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UIInput from './UIInput.vue';
-import UICheckbox from '@components/checkbox/UICheckbox.vue';
+import { getLibrarySettings } from '@/helpers';
 
 export default defineComponent({
     // eslint-disable-next-line vue/no-reserved-component-names
     name: 'Input',
-    components: { UICheckbox, UIInput },
+
     setup() {
-        const text = ref('I\'m a input input!');
+        const text = ref('I\'m a input!');
         const disabled = ref('Can\'t touch this!');
         const number = ref(50);
+        const url = ref('https://google.com');
+        const email = ref('my@email.com');
+        const search = ref('Search value');
+        const tel = ref('00000000000');
+        const clearable = ref('Clearable');
         const password = ref('password123');
         const prefixProp = ref('Because');
         const prefixSlot = ref('Billions');
@@ -117,8 +142,17 @@ export default defineComponent({
         const suffixSlot = ref('Feather-weight');
         const large = ref(false);
 
+        const clearableByDefault = getLibrarySettings()?.clearableByDefault;
+        const isClearable = ref(!(typeof clearableByDefault === 'boolean' ? clearableByDefault : false));
+
         return {
+            url,
+            email,
+            tel,
+            search,
+            clearable,
             text,
+            isClearable,
             disabled,
             number,
             password,

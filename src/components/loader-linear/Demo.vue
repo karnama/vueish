@@ -33,12 +33,11 @@
 </template>
 
 <script lang="ts">
-import UILinearLoader from './UILinearLoader.vue';
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
     name: 'LinearLoader',
-    components: { UILinearLoader },
+
     setup() {
         const steps = ref(10);
         const height = ref(4);

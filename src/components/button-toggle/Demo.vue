@@ -51,13 +51,10 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UIButtonToggle from './UIButtonToggle.vue';
 import type { Option } from '@/types';
-import UICheckbox from '@components/checkbox/UICheckbox.vue';
 
 export default defineComponent({
     name: 'ButtonToggle',
-    components: { UICheckbox, UIButtonToggle },
 
     setup() {
         const options: Option[] = [

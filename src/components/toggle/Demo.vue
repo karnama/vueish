@@ -17,12 +17,9 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UIToggle from '@components/toggle/UIToggle.vue';
 
 export default defineComponent({
     name: 'Toggle',
-
-    components: { UIToggle },
 
     setup: () => ({ value: ref(false) })
 

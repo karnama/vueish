@@ -51,15 +51,12 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UITable from '@components/table/UITable.vue';
 import type { Column, Row } from '@/types/public';
-import UIPanel from '@components/panel/UIPanel.vue';
-import UIButton from '@components/button/UIButton.vue';
 
 export default defineComponent({
     // eslint-disable-next-line vue/no-reserved-component-names
     name: 'Table',
-    components: { UIButton, UIPanel, UITable },
+
     setup() {
         const headers = ref<Column[]>([
             { header: 'Dessert (100g serving)', rowProperty: 'name' },

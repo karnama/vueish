@@ -31,14 +31,9 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UIButtonGroup from '@components/button-group/UIButtonGroup.vue';
-import UIButton from '@components/button/UIButton.vue';
-import UICheckbox from '@components/checkbox/UICheckbox.vue';
 
 export default defineComponent({
     name: 'ButtonGroup',
-
-    components: { UICheckbox, UIButton, UIButtonGroup },
 
     setup: () => {
         const vertical = ref(true);

@@ -4,11 +4,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import UIFileUploader from './UIFileUploader.vue';
 
 export default defineComponent({
     name: 'FileUploader',
-    components: { UIFileUploader },
 
     setup: () => {
         const upload = async (files: File[]) => {

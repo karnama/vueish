@@ -12,11 +12,10 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UIRangeSlider from './UIRangeSlider.vue';
 
 export default defineComponent({
     name: 'RangeSlider',
-    components: { UIRangeSlider },
+
     setup() {
         const num = ref(50);
 
