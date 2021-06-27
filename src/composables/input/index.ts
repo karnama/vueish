@@ -1,5 +1,6 @@
 import { computed, onMounted, getCurrentInstance, capitalize, ref, watch } from 'vue';
 import type { Ref } from 'vue';
+import { getLibrarySettings } from '@/helpers';
 
 /**
  * The input label.
@@ -59,7 +60,11 @@ export const suffix = {
  */
 export const clearable = {
     type: Boolean,
-    default: false
+    default: (): boolean => {
+        const clearable = getLibrarySettings()?.clearableByDefault;
+
+        return typeof clearable === 'boolean' ? clearable : false;
+    }
 };
 
 /**

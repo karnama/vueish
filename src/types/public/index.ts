@@ -1,6 +1,14 @@
 export type Icon = 'clear' | 'tick' | 'dash' | 'lock' | 'chevron' | 'person' | 'upload';
 
 export type Settings = {
+    /**
+     * Whether the inputs should be clearable by default.
+     */
+    clearableByDefault: boolean;
+
+    /**
+     * The icons to use in the components.
+     */
     icons: Record<Icon, string>;
 };
 
