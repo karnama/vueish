@@ -3,7 +3,15 @@
         <slot />
     </transition-group>
 
-    <transition v-else name="fade" :mode="mode">
+    <transition v-else
+                :appear="appear"
+                :enter-active-class="`transition-opacity ease-in ${durationIn}`"
+                enter-from-class="opacity-0"
+                enter-to-class="opacity-100"
+                :leave-active-class="`transition-opacity ease-out ${durationOut}`"
+                leave-from-class="opacity-100"
+                leave-to-class="opacity-0"
+                :mode="mode">
         <slot />
     </transition>
 </template>
@@ -13,6 +21,14 @@ export default {
     name: 'UIFadeTransition',
 
     props: {
+        /**
+         * Boolean flag indicating to transition on appear.
+         */
+        appear: {
+            type: Boolean,
+            default: false
+        },
+
         /**
          * Boolean flag to indicate whether the transition
          * should operate in group mode or not.
@@ -32,18 +48,25 @@ export default {
         mode: {
             type: String,
             default: 'out-in'
+        },
+
+        /**
+         * A class containing a transition timing function controlling
+         * how long should the transition last when entering.
+         */
+        durationIn: {
+            type: String,
+            default: 'duration-200'
+        },
+
+        /**
+         * A class containing a transition timing function controlling
+         * how long should the transition last when entering.
+         */
+        durationOut: {
+            type: String,
+            default: 'duration-200'
         }
     }
 };
 </script>
-
-<style scoped>
-.fade-enter-active, .fade-leave-active {
-    transition: opacity 200ms ease-in;
-}
-
-.fade-enter-from, .fade-leave-to {
-    opacity: 0;
-    transition: opacity 200ms ease-out;
-}
-</style>
