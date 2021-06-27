@@ -1,11 +1,22 @@
 <template>
     <div class="ui-text" :class="$attrs.class">
-        <label :for="$attrs.id ?? name" class="font-medium text-color">
+        <label :for="$attrs.id ?? name" class="font-medium text-color flex items-center">
             {{ label }}
+            <template v-if="isPasswordInitially && !disablePasswordToggle">
+                <button v-if="inputType === 'password'"
+                        class="ml-2"
+                        @click="inputType = 'text'"
+                        v-html="hideIcon" />
+                <button v-else
+                        class="ml-2"
+                        @click="inputType = 'password'"
+                        v-html="showIcon" />
+            </template>
         </label>
 
         <div class="group relative shadow-sm dark:shadow-md border border-gray-300 dark:border-gray-500 rounded
-                    bg-white dark:bg-gray-600 transition focus-within:border-blue-400 dark:focus-within:border-blue-500"
+                    bg-white dark:bg-gray-600 transition-colors
+                    focus-within:border-blue-400 dark:focus-within:border-blue-500"
              :class="{ 'bg-gray-200 dark:!bg-gray-700': disabled }"
              :style="$attrs.style">
             <div class="flex items-center">
@@ -18,10 +29,14 @@
                 </span>
 
                 <input :id="$attrs.id ?? name"
-                       v-bind="omit($attrs, ['class', 'style'])"
+                       v-bind="omit($attrs, ['class', 'style', 'type', 'min', 'max', 'step'])"
                        ref="input"
                        v-model="model"
+                       :type="inputType"
                        :name="name"
+                       :step="step"
+                       :min="min"
+                       :max="max"
                        :aria-placeholder="$attrs.placeholder"
                        class="flex-1 p-3.5 appearance-none bg-transparent outline-none
                               disabled:cursor-not-allowed text-color disabled:text-gray-400"
@@ -37,20 +52,22 @@
                     </slot>
                 </span>
 
-                <span v-if="disabled"
-                      class="h-5 w-5 mr-3 text-color-muted"
-                      :class="{ 'mr-5': large }"
-                      v-html="lockIcon" />
+                <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
+                    <span v-if="disabled"
+                          class="h-5 w-5 mr-3 text-color-muted"
+                          :class="{ 'mr-5': large }"
+                          v-html="lockIcon" />
 
-                <button v-else-if="clearable && model"
-                        class="clear-icon h-5 w-5 cursor-pointer mr-3 text-color-muted"
-                        :class="{ 'mr-5': large }"
-                        :aria-controls="$attrs.id ?? name"
-                        aria-roledescription="clear"
-                        @click="model = ''"
-                        v-html="clearIcon" />
+                    <button v-else-if="clearable && model"
+                            class="clear-icon h-5 w-5 cursor-pointer mr-3 text-color-muted"
+                            :class="{ 'mr-5': large }"
+                            :aria-controls="$attrs.id ?? name"
+                            aria-roledescription="clear"
+                            @click="model = undefined"
+                            v-html="clearIcon" />
+                </UIFadeTransition>
 
-                <div v-if="isNumber" class="flex flex-col select-none min-h-full self-stretch">
+                <div v-if="inputType === 'number'" class="flex flex-col select-none min-h-full self-stretch">
                     <button :aria-controls="$attrs.id ?? name"
                             aria-roledescription="increment"
                             tabindex="-1"
@@ -86,15 +103,75 @@ import {
 import { large } from '@composables/style';
 import { getIcon, getPrecision } from '@/helpers';
 import { omit } from 'lodash-es';
+import UIFadeTransition from '@components/transitions/UIFadeTransition.vue';
+
+const types = [
+    'text',
+    'tel',
+    'number',
+    'password',
+    'url',
+    'email',
+    'search'
+] as const;
 
 export default defineComponent({
     name: 'UIInput',
+
+    components: { UIFadeTransition },
 
     inheritAttrs: false,
 
     props: {
         modelValue: {
             type: [String, Number]
+        },
+
+        /**
+         * The types the component can handle.
+         */
+        type: {
+            type: String as PropType<typeof types[number]>,
+            default: 'text',
+            validator: (type: string) => types.includes(type.toLowerCase() as typeof types[number])
+        },
+
+        /**
+         * Whether to disable the functionality to show the password in clear text.
+         */
+        disablePasswordToggle: {
+            type: Boolean,
+            default: false
+        },
+
+        /**
+         * The time in milliseconds after the visible password turns back to hidden.
+         * To disable, set the value to 0.
+         */
+        passwordToggleTimeout: {
+            type: Number,
+            default: 4000
+        },
+
+        /**
+         * The minimum value if input is of number type.
+         */
+        min: {
+            type: [Number, String]
+        },
+
+        /**
+         * The maximum value if input is of number type.
+         */
+        max: {
+            type: [Number, String]
+        },
+
+        /**
+         * The value to increment/decrement by if the input is of number type.
+         */
+        step: {
+            type: [Number, String]
         },
 
         large,
@@ -109,12 +186,18 @@ export default defineComponent({
 
     emits: ['update:modelValue'],
 
-    setup(props, ctx) {
+    setup(props) {
         const input = ref<HTMLInputElement>();
-        const isNumber = computed(() => ctx.attrs.type === 'number');
+        const inputType = ref<typeof types[number]>(props.type);
+
         const lockIcon = getIcon('lock');
         const clearIcon = getIcon('clear');
         const chevronIcon = getIcon('chevron');
+        const showIcon = getIcon('show');
+        const hideIcon = getIcon('hide');
+        const isPasswordInitially = inputType.value === 'password';
+        let timeoutId: number;
+
         const model = useVModel<string | number>(props);
 
         if (props.autofocus) {
@@ -124,25 +207,35 @@ export default defineComponent({
         }
 
         const handleKeydown = (event: KeyboardEvent) => {
-            if (isNumber.value) {
+            if (inputType.value === 'number') {
                 switch (event.code) {
                     case 'ArrowUp':
                         increment();
                         event.preventDefault();
-                        break;
+                        return;
                     case 'ArrowDown':
                         decrement();
                         event.preventDefault();
-                        break;
+                        return;
                     default:
                         break;
+                }
+
+                if (event.code === 'Backspace'
+                    || event.code === 'Period' && !String(model.value).includes('.')
+                ) {
+                    return;
+                }
+
+                if (!event.code.includes('Digit')) {
+                    event.preventDefault();
                 }
             }
         };
         const increment = () => {
-            const step = Number(ctx.attrs.step) || 1;
-            const max = Number(ctx.attrs.max);
-            const min = Number(ctx.attrs.min);
+            const step = Number(props.step) || 1;
+            const max = Number(props.max);
+            const min = Number(props.min);
             const nextValue = Number((Number(model.value) + step).toFixed(getPrecision(step)));
 
             if (nextValue < min) {
@@ -168,9 +261,9 @@ export default defineComponent({
             model.value = max;
         };
         const decrement = () => {
-            const step = Number(ctx.attrs.step) || 1;
-            const min = Number(ctx.attrs.min);
-            const max = Number(ctx.attrs.max);
+            const step = Number(props.step) || 1;
+            const min = Number(props.min);
+            const max = Number(props.max);
             const nextValue = Number((Number(model.value) - step).toFixed(getPrecision(step)));
 
             if (nextValue > max) {
@@ -196,31 +289,45 @@ export default defineComponent({
             model.value = min;
         };
 
+        watch(() => props.type, type => {
+            inputType.value = type.toLowerCase() as typeof types[number];
+        });
+        watch(() => inputType.value, newType => {
+            if (isPasswordInitially && props.passwordToggleTimeout) {
+                if (newType === 'text') {
+                    timeoutId = setTimeout(() => inputType.value = 'password', props.passwordToggleTimeout);
+                } else {
+                    clearTimeout(timeoutId);
+                }
+            }
+        });
+
         return {
             model,
             input,
-            handleKeydown,
-            isNumber,
+            inputType,
             lockIcon,
             clearIcon,
             chevronIcon,
+            showIcon,
+            hideIcon,
+            isPasswordInitially,
             omit,
             increment,
-            decrement
+            decrement,
+            handleKeydown
         };
     }
 });
 </script>
 
 <style scoped>
-/*https://stackoverflow.com/a/4298216*/
-input:disabled::-webkit-outer-spin-button,
-input:disabled::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
+input::-webkit-search-cancel-button,
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
-
 
 input[type="number"] {
     -webkit-appearance: textfield;
