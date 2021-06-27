@@ -22,23 +22,27 @@
                               counter ? 'min-height: 5rem' : '']" />
 
                 <div class="flex flex-col justify-center" :class="{ 'text-gray-400 cursor-not-allowed': disabled }">
-                    <span v-if="disabled"
-                          class="h-5 w-5 mx-2 text-color-muted flex-grow align-middle flex flex-col justify-center"
-                          v-html="lockIcon" />
+                    <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
+                        <span v-if="disabled"
+                              class="h-5 w-5 mx-2 text-color-muted flex-grow align-middle flex flex-col justify-center"
+                              v-html="lockIcon" />
 
-                    <button v-else-if="clearable && model"
-                            class="clear-icon h-5 w-5 mx-2 text-color-muted"
-                            :aria-controls="$attrs.id ?? name"
-                            aria-roledescription="clear"
-                            @click="model = ''"
-                            v-html="clearIcon" />
+                        <button v-else-if="clearable && model"
+                                class="clear-icon h-5 w-5 mx-2 text-color-muted"
+                                :aria-controls="$attrs.id ?? name"
+                                aria-roledescription="clear"
+                                @click="model = ''"
+                                v-html="clearIcon" />
+                    </UIFadeTransition>
                 </div>
             </div>
         </div>
-        <span v-if="counter && modelValue"
-              class="text-sm px-1 text-center h-5 -bottom-5 right-0 absolute text-color-muted">
-            {{ modelValue.length }}
-        </span>
+        <UIFadeTransition>
+            <span v-if="counter && modelValue"
+                  class="text-sm px-1 text-center h-5 -bottom-5 right-0 absolute text-color-muted">
+                {{ modelValue.length }}
+            </span>
+        </UIFadeTransition>
     </div>
 </template>
 
@@ -53,9 +57,12 @@ import {
     useVModel
 } from '@composables/input';
 import { getIcon } from '@/helpers';
+import UIFadeTransition from '@components/transitions/UIFadeTransition.vue';
 
 export default defineComponent({
     name: 'UITextArea',
+
+    components: { UIFadeTransition },
 
     inheritAttrs: false,
 
