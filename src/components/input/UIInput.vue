@@ -72,14 +72,13 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
+import { defineComponent, onMounted, PropType, ref, watch, computed } from 'vue';
 import {
     autofocus,
     label,
     prefix,
     suffix,
     name,
-    autofocusElement,
     clearable,
     disabled,
     useVModel
@@ -118,7 +117,11 @@ export default defineComponent({
         const chevronIcon = getIcon('chevron');
         const model = useVModel<string | number>(props);
 
-        autofocusElement(props.autofocus, input);
+        if (props.autofocus) {
+            onMounted(() => {
+                input.value?.focus();
+            });
+        }
 
         const handleKeydown = (event: KeyboardEvent) => {
             if (isNumber.value) {

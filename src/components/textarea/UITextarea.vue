@@ -47,7 +47,6 @@ import { defineComponent, ref, onMounted, onUpdated, onBeforeUnmount } from 'vue
 import {
     autofocus,
     label,
-    autofocusElement,
     clearable,
     name,
     disabled,
@@ -102,11 +101,13 @@ export default defineComponent({
             input.value!.style.height = `${input.value!.scrollHeight}px`;
         };
 
-        autofocusElement(props.autofocus, input);
-
         onMounted(() => {
             if (props.autoSize) {
                 input.value!.addEventListener('input', setHeight);
+            }
+
+            if (props.autofocus) {
+                input.value?.focus();
             }
         });
         onUpdated(() => {
