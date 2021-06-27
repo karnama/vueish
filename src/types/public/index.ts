@@ -1,4 +1,4 @@
-export type Icon = 'clear' | 'tick' | 'dash' | 'lock' | 'chevron' | 'person' | 'upload';
+export type Icon = 'clear' | 'check' | 'dash' | 'lock' | 'chevron' | 'person' | 'upload' | 'show' | 'hide' | 'retry';
 
 export type Settings = {
     /**

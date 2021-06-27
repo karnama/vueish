@@ -15,7 +15,7 @@
                   'bg-gray-400': isChecked && indeterminate
               }"
               @click="toggleValue">
-            <span class="transition-all opacity-0 scale-0 text-white" v-html="indeterminate ? dashIcon : tickIcon" />
+            <span class="transition-all opacity-0 scale-0 text-white" v-html="indeterminate ? dashIcon : checkIcon" />
         </span>
         <label v-if="label || $slots.default" class="items-center" :for="$attrs.id ?? name">
             <span class="select-none ml-3 cursor-pointer text-color"
@@ -70,7 +70,7 @@ export default defineComponent({
         }
 
         const dashIcon = getIcon('dash');
-        const tickIcon = getIcon('tick');
+        const checkIcon = getIcon('check');
 
         const isChecked = computed(() => {
             if (Array.isArray(props.modelValue)) {
@@ -100,7 +100,7 @@ export default defineComponent({
             toggleValue,
             isChecked,
             dashIcon,
-            tickIcon,
+            checkIcon,
             omit
         };
     }
