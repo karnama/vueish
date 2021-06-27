@@ -67,6 +67,15 @@ export const clearable = {
     }
 };
 
+export const positiveOptionalNumber = {
+    type: Number,
+    validator: (val?: number): boolean => {
+        return val
+            ? typeof val === 'number' && val > 0
+            : true;
+    }
+};
+
 /**
  * Make the prop 2-way reactive.
  *

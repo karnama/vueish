@@ -2,7 +2,7 @@
     <div :class="{ 'active': isDraggedOver && !isLoading, 'pointer-events-none': isLoading }"
          aria-label="File Upload"
          class="rounded-lg drop-zone border-2 transition-colors flex flex-wrap items-stretch
-                dark:text-white relative"
+                dark:text-white relative border-current"
          tabindex="0"
          @dragover.prevent="isDraggedOver = true"
          @keydown.enter="openFileBrowser"
@@ -17,11 +17,12 @@
 
         <div class="flex-grow flex flex-col items-center justify-center py-24 px-2 text-center cursor-pointer"
              @click="openFileBrowser">
-            <p class="mb-4 text-brand-600" v-html="uploadIcon" />
-            <p class="text-lg">
+            <p class="mb-4" v-html="uploadIcon" />
+            <p class="text-lg text-color">
                 Drag and Drop file
+                <br>
+                or
             </p>
-            or
             <UIButton category="brand" class="mt-2">
                 Browse
             </UIButton>
@@ -30,10 +31,11 @@
              class="w-full sm:w-1/2 flex flex-col py-6 px-2
                     justify-between bg-gray-200 dark:bg-gray-600 items-center"
              @keydown.enter.stop>
-            <div class="overflow-y-scroll max-h-64 pl-6 mr-2 pr-4 file-list space-y-2 w-full">
+            <div class="max-h-64 pl-6 mr-2 pr-4 file-list w-full divide-y">
                 <UIFile v-for="(file, index) in files"
                         :key="index"
                         :file="file"
+                        class="py-2"
                         :upload="upload"
                         :upload-on-mounted="uploadAsap"
                         @removed="removeFile" />
@@ -62,7 +64,9 @@ import { getIcon } from '@/helpers';
 import UIButton from '@components/button/UIButton.vue';
 import { FileError } from '@/types';
 import UIFadeTransition from '@components/transitions/UIFadeTransition.vue';
+import { positiveOptionalNumber } from '@composables/input';
 
+// todo - UIFile may make the uploader overflow if the side menu is open when using files with long titles
 export default defineComponent({
     name: 'UIFileUploader',
 
@@ -82,16 +86,12 @@ export default defineComponent({
         /**
          * Maximum number of files to allow to be selected.
          */
-        maxFiles: {
-            type: Number
-        },
+        maxFiles: positiveOptionalNumber,
 
         /**
-         * The maximum size allowed for a single file.
+         * The maximum size allowed for a single file in bytes.
          */
-        maxSize: {
-            type: Number
-        },
+        maxSize: positiveOptionalNumber,
 
         /**
          * Upload as soon as the file(s)' selected.
@@ -146,7 +146,7 @@ export default defineComponent({
             }
 
             if (typeof props.maxSize === 'number') {
-                const tooBigFiles = filteredList.filter(file => file.size > props.maxSize!);
+                const tooBigFiles = filteredList.filter(file => file.size > props.maxSize);
 
                 if (filteredList.length && tooBigFiles.length) {
                     ctx.emit('validationError', {
@@ -154,7 +154,7 @@ export default defineComponent({
                         files: tooBigFiles
                     } as FileError);
 
-                    filteredList = filteredList.filter(file => file.size <= props.maxSize!);
+                    filteredList = filteredList.filter(file => file.size <= props.maxSize);
                 }
             }
 

@@ -1,5 +1,5 @@
 <template>
-    <UIFileUploader :upload="upload" class="border-brand-400" @validation-error="logError" />
+    <UIFileUploader :upload="upload" class="text-brand-600" @validation-error="logError" />
 </template>
 
 <script lang="ts">
