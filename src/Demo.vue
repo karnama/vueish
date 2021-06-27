@@ -6,7 +6,7 @@
                  :class="[ isOpen ? 'open' : 'closed' ]">
                 <div class="sticky top-0">
                     <div class="flex items-center justify-between">
-                        <h1 class="text-2xl mt-4 mb-6">
+                        <h1 class="text-2xl mt-4 mb-6 whitespace-nowrap">
                             Vueish UI
                         </h1>
                         <UIButton minimal
