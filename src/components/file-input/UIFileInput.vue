@@ -26,7 +26,7 @@
                    :multiple="multiple"
                    :accept="acceptedMimes"
                    v-bind="omit($attrs, ['class', 'style'])"
-                   @change="updateModel">
+                   @change="addFiles">
             <div class="flex items-center flex-wrap justify-between w-full">
                 <UIButton category="primary"
                           :class="[ large ? 'my-4' : 'my-2']"
@@ -48,7 +48,7 @@
                                 class="clear-icon h-5 w-5 cursor-pointer mx-auto text-color-muted flex-shrink-0"
                                 :aria-controls="$attrs.id ?? name"
                                 aria-roledescription="clear"
-                                @click.stop="updateModel(null)"
+                                @click.stop="$emit('update:modelValue', null)"
                                 v-html="clearIcon" />
                     </UIFadeTransition>
                 </template>
@@ -61,7 +61,6 @@
 // todo: the below
 //  [ ] - menu open style break
 //  [ ] - picture display
-//  [ ] - validation
 import { computed, defineComponent, ref, watch } from 'vue';
 import type { PropType } from 'vue';
 import { createFileList, getSizeString } from '@composables/utils';
@@ -108,6 +107,11 @@ export default defineComponent({
          */
         maxSize: positiveOptionalNumber,
 
+        /**
+         * The maximum number of files allowed if accepting multiple files.
+         */
+        maxFiles: positiveOptionalNumber,
+
         name,
         label,
         clearable,
@@ -118,7 +122,7 @@ export default defineComponent({
 
     emits: {
         /* eslint-disable @typescript-eslint/no-unused-vars */
-        'update:modelValue': (_payload: any) => true,
+        'update:modelValue': (_payload: File | File[] | null) => true,
         validationError: (_payload: FileError) => true
         /* eslint-enable @typescript-eslint/no-unused-vars */
     },
@@ -141,49 +145,53 @@ export default defineComponent({
         });
 
         const size = (file: File) => file ? getSizeString(file) : '';
-        // const addFiles = (event: DragEvent | InputEvent) => {
-        //     isDraggedOver.value = false;
-        //
-        //     const fileList: FileList = event instanceof DragEvent
-        //         ? event.dataTransfer!.files
-        //         : (event.target as HTMLInputElement).files!;
-        //
-        //     let files = Array.from(fileList);
-        //
-        //     if (files.length !== 1 && !props.multiple) {
-        //         ctx.emit('validationError',
-        //             {
-        //                 message: 'Only a single file is allowed.',
-        //                 files
-        //             } as FileError
-        //         );
-        //
-        //         return;
-        //     }
-        //
-        //     if (props.maxSize) {
-        //         const tooBigFiles = files.filter(file => file.size > props.maxSize);
-        //
-        //         ctx.emit('validationError',
-        //             {
-        //                 message: 'Only a single file is allowed.',
-        //                 files: tooBigFiles
-        //             } as FileError
-        //         );
-        //
-        //         files = files.filter(file => file.size <= props.maxSize);
-        //     }
-        //
-        //     if (props.multi && props.maxFiles && files.length > props.maxFiles) {
-        //
-        //     }
-        // };
-        const updateModel = (event?: InputEvent) => {
-            const payload = event ?
-                props.multiple ? Array.from(fileInput.value!.files) : fileInput.value!.files!.item(0)
-                : null;
+        const addFiles = (event: DragEvent | InputEvent) => {
+            isDraggedOver.value = false;
 
-            ctx.emit('update:modelValue', payload);
+            const fileList: FileList = event instanceof DragEvent
+                ? event.dataTransfer!.files
+                : (event.target as HTMLInputElement).files!;
+
+            let files = Array.from(fileList);
+
+            if (files.length !== 1 && !props.multiple) {
+                ctx.emit('validationError',
+                    {
+                        message: 'Only a single file is allowed.',
+                        files
+                    } as FileError
+                );
+
+                return;
+            }
+
+            if (props.maxSize) {
+                const tooBigFiles = files.filter(file => file.size > props.maxSize);
+
+                ctx.emit('validationError',
+                    {
+                        message: 'Only a single file is allowed.',
+                        files: tooBigFiles
+                    } as FileError
+                );
+
+                files = files.filter(file => file.size <= props.maxSize);
+            }
+
+            if (props.multiple && props.maxFiles && files.length > props.maxFiles) {
+                ctx.emit('update:modelValue', files.splice(0, props.maxFiles));
+
+                ctx.emit('validationError',
+                    {
+                        message: 'Only a single file is allowed.',
+                        files: files
+                    } as FileError
+                );
+
+                return;
+            }
+
+            ctx.emit('update:modelValue', props.multiple ? files : files[0]);
         };
 
         watch(() => props.modelValue, newValue => {
@@ -191,7 +199,7 @@ export default defineComponent({
         });
 
         return {
-            updateModel,
+            addFiles,
             isDraggedOver,
             fileInput,
             displayName,

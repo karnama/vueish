@@ -67,12 +67,13 @@ export const clearable = {
     }
 };
 
+/**
+ * Generic validator for optional numbers higher than 0.
+ */
 export const positiveOptionalNumber = {
     type: Number,
-    validator: (val?: number): boolean => {
-        return val
-            ? typeof val === 'number' && val > 0
-            : true;
+    validator: (val: number): boolean => {
+        return typeof val === 'number' ? val > 0 : false;
     }
 };
 
