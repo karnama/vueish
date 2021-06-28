@@ -1,6 +1,6 @@
 {
     "name": "@karnama/vueish",
-    "version": "0.4.2",
+    "version": "0.5.0",
     "files": [
         "dist",
         "types"
@@ -41,7 +41,7 @@
         "@typescript-eslint/eslint-plugin": "^4.22.1",
         "@typescript-eslint/parser": "^4.26.1",
         "@vitejs/plugin-vue": "^1.2.2",
-        "@vue/compiler-sfc": "^3.0.11",
+        "@vue/compiler-sfc": "~3.0.11",
         "@vue/eslint-config-typescript": "^7.0.0",
         "@vue/test-utils": "2.0.0-rc.4",
         "@vuedx/typecheck": "^0.7.4",
@@ -67,7 +67,7 @@
         "ts-node": "^10.0.0",
         "typescript": "^4.3.4",
         "vite": "^2.3.8",
-        "vue": "^3.0.11",
+        "vue": "~3.0.11",
         "vue-docgen-api": "^4.40.0",
         "vue-jest": "^5.0.0-alpha.7",
         "vue-loader": "^16.2.0",

@@ -1,6 +1,13 @@
 <template>
+    <div class="flex justify-evenly mb-6">
+        <UIButton category="danger" @click="error ? error = '' : error = 'Error message.'">
+            {{ error ? 'Remove' : 'Set' }} Error state
+        </UIButton>
+    </div>
+
     <UIRadioGroup v-model="value"
                   name="gender"
+                  :error="error"
                   class="mb-10">
         <template #label>
             Vertical
@@ -16,6 +23,7 @@
     <UIRadioGroup v-model="value2"
                   name="gender2"
                   horizontal
+                  :error="error"
                   label="Horizontal/Disabled"
                   disabled>
         <UIRadio value="male"
@@ -33,17 +41,23 @@
 import { defineComponent, ref } from 'vue';
 import UIRadio from './UIRadio.vue';
 import UIRadioGroup from './UIRadioGroup.vue';
+import UIButton from '@components/button/UIButton.vue';
 
 export default defineComponent({
     name: 'Radio',
 
-    components: { UIRadioGroup, UIRadio },
+    components: { UIButton, UIRadioGroup, UIRadio },
 
     setup() {
         const value = ref();
         const value2 = ref('female');
+        const error = ref('');
 
-        return { value, value2 };
+        return {
+            value,
+            value2,
+            error
+        };
     }
 });
 </script>

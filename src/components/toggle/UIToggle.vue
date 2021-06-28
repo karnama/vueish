@@ -1,9 +1,13 @@
 <template>
     <div :class="$attrs.class" :style="$attrs.style">
-        <label :for="$attrs.id ?? name" class="cursor-pointer pb-2 text-color">
+        <label :for="$attrs.id ?? name"
+               class="cursor-pointer text-color font-medium"
+               :class="{ 'text-color-error': error || $slots.error }">
             <slot name="label">{{ label }}</slot>
         </label>
-        <div class="toggle-wrapper relative flex">
+        <div class="toggle-wrapper relative rounded-full
+                    flex ring-0 ring-red-700 transition"
+             :class="{ 'ring-2 mt-1': error || $slots.error }">
             <input :id="$attrs.id ?? name"
                    :checked="model"
                    type="checkbox"
@@ -15,17 +19,26 @@
             <div class="handle" />
             <div class="background rounded-full w-full h-full absolute top-0 left-0 z-0" />
         </div>
+        <UIExpandTransition>
+            <slot v-if="error || $slots.error" name="error">
+                <p class="text-color-error text-sm">
+                    {{ error }}
+                </p>
+            </slot>
+        </UIExpandTransition>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { name, useVModel, disabled, label } from '@composables/input';
+import { name, useVModel, disabled, label, error } from '@composables/input';
 import { omit } from 'lodash-es';
+import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
 
+// todo - update design from design chat (border red on error)
 export default defineComponent({
     name: 'UIToggle',
-
+    components: { UIExpandTransition },
     inheritAttrs: false,
 
     props: {
@@ -35,7 +48,8 @@ export default defineComponent({
 
         name,
         label,
-        disabled
+        disabled,
+        error
     },
 
     emits: ['update:modelValue'],
@@ -97,7 +111,7 @@ input {
 
 input:checked {
     & + .handle:before {
-        left: calc(#{$width}px - #{$handleSize}px + 2px);
+        left: calc(#{$width}px - #{$handleSize}px);
     }
 
     & ~ .background {

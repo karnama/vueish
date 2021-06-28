@@ -19,7 +19,7 @@ exports[`UITable should display correctly 1`] = `
         
         <th
           class="cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-500 py-6 text-left px-4 uppercase font-light text-color-muted text-sm
-                               select-none group transition"
+                               select-none group transition-colors"
         >
           <span
             class="flex items-center justify-between"
@@ -48,7 +48,7 @@ exports[`UITable should display correctly 1`] = `
         </th>
         <th
           class="cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-500 py-6 text-left px-4 uppercase font-light text-color-muted text-sm
-                               select-none group transition"
+                               select-none group transition-colors"
         >
           <span
             class="flex items-center justify-between"
@@ -95,7 +95,7 @@ exports[`UITable should display correctly 1`] = `
         >
           <span
             class="flex items-center justify-between sm:hidden content font-bold p-4
-                                         flex-none transition select-none group cursor-pointer hover:bg-gray-300"
+                                         flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300"
             role="rowheader"
             style="min-height: 40px; width: 140px;"
           >
@@ -135,7 +135,7 @@ exports[`UITable should display correctly 1`] = `
         >
           <span
             class="flex items-center justify-between sm:hidden content font-bold p-4
-                                         flex-none transition select-none group cursor-pointer hover:bg-gray-300"
+                                         flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300"
             role="rowheader"
             style="min-height: 40px; width: 140px;"
           >
@@ -183,7 +183,7 @@ exports[`UITable should display correctly 1`] = `
         >
           <span
             class="flex items-center justify-between sm:hidden content font-bold p-4
-                                         flex-none transition select-none group cursor-pointer hover:bg-gray-300"
+                                         flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300"
             role="rowheader"
             style="min-height: 40px; width: 140px;"
           >
@@ -223,7 +223,7 @@ exports[`UITable should display correctly 1`] = `
         >
           <span
             class="flex items-center justify-between sm:hidden content font-bold p-4
-                                         flex-none transition select-none group cursor-pointer hover:bg-gray-300"
+                                         flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300"
             role="rowheader"
             style="min-height: 40px; width: 140px;"
           >
@@ -271,7 +271,7 @@ exports[`UITable should display correctly 1`] = `
         >
           <span
             class="flex items-center justify-between sm:hidden content font-bold p-4
-                                         flex-none transition select-none group cursor-pointer hover:bg-gray-300"
+                                         flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300"
             role="rowheader"
             style="min-height: 40px; width: 140px;"
           >
@@ -311,7 +311,7 @@ exports[`UITable should display correctly 1`] = `
         >
           <span
             class="flex items-center justify-between sm:hidden content font-bold p-4
-                                         flex-none transition select-none group cursor-pointer hover:bg-gray-300"
+                                         flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300"
             role="rowheader"
             style="min-height: 40px; width: 140px;"
           >

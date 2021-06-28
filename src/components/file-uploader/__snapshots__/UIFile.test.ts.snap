@@ -29,7 +29,7 @@ exports[`UIFile should display correctly 1`] = `
     </p>
   </div>
   <button
-    class="ml-2 p-1 transition hover:text-white hover:bg-red-600 rounded"
+    class="ml-2 p-1 transition-colors hover:text-white hover:bg-red-600 rounded"
   >
     <svg
       fill="currentColor"

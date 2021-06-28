@@ -1,17 +1,25 @@
 <template>
     <div class="ui-text" :class="$attrs.class">
-        <label :for="$attrs.id ?? name" class="font-medium text-color">
+        <label :for="$attrs.id ?? name"
+               class="font-medium text-color"
+               :class="{ 'text-color-error': error || $slots.error }">
             {{ label }}
         </label>
 
         <div class="group relative shadow-sm dark:shadow-md border border-gray-300 dark:border-gray-500 rounded
-                    bg-white dark:bg-gray-600 transition focus-within:border-blue-400 dark:focus-within:border-blue-500"
-             :class="{ 'bg-gray-200 dark:!bg-gray-700': disabled }"
+                    bg-white dark:bg-gray-600 transition"
+             :class="{
+                 'bg-gray-200 dark:!bg-gray-700': disabled,
+                 'focus-within:border-blue-400 dark:focus-within:border-blue-500': !(error || $slots.error),
+                 'border-red-700 dark:!border-red-500': error || $slots.error
+             }"
              :style="$attrs.style">
             <div class="flex items-center">
                 <span v-if="prefix ?? $slots.prefix"
                       class="prefix ml-3 -mr-1 select-none text-color-muted"
-                      :class="{ 'ml-5 -mr-4': large }">
+                      :class="{
+                          'ml-5 -mr-4': large
+                      }">
                     <slot name="prefix">
                         {{ prefix }}
                     </slot>
@@ -30,7 +38,9 @@
                        @keydown="handleKeydown">
 
                 <span v-if="suffix ?? $slots.suffix"
-                      :class="{ 'mr-5': large }"
+                      :class="{
+                          'mr-5': large
+                      }"
                       class="suffix mr-3 select-none text-color-muted">
                     <slot name="suffix">
                         {{ suffix }}
@@ -39,12 +49,16 @@
 
                 <span v-if="disabled"
                       class="h-5 w-5 mr-3 text-color-muted"
-                      :class="{ 'mr-5': large }"
+                      :class="{
+                          'mr-5': large
+                      }"
                       v-html="lockIcon" />
 
                 <button v-else-if="clearable && model"
                         class="clear-icon h-5 w-5 cursor-pointer mr-3 text-color-muted"
-                        :class="{ 'mr-5': large }"
+                        :class="{
+                            'mr-5': large
+                        }"
                         :aria-controls="$attrs.id ?? name"
                         aria-roledescription="clear"
                         @click="model = ''"
@@ -54,20 +68,29 @@
                     <button :aria-controls="$attrs.id ?? name"
                             aria-roledescription="increment"
                             tabindex="-1"
-                            class="px-2 bg-gray-50 dark:bg-gray-400 h-full transition hover:bg-gray-200 dark:hover:bg-gray-300 cursor-pointer
-                                   rounded-bl transform rotate-180"
+                            class="px-2 transition-colors h-full cursor-pointer rounded-bl transform rotate-180
+                                   bg-gray-50 hover:bg-gray-200
+                                   dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400"
                             @click="increment"
                             v-html="chevronIcon" />
                     <button :aria-controls="$attrs.id ?? name"
                             aria-roledescription="decrement"
                             tabindex="-1"
-                            class="px-2 bg-gray-50 dark:bg-gray-400 h-full transition hover:bg-gray-200 dark:hover:bg-gray-300 cursor-pointer
-                                   rounded-br"
+                            class="px-2 transition-colors h-full cursor-pointer rounded-br
+                                   bg-gray-50 hover:bg-gray-200
+                                   dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400"
                             @click="decrement"
                             v-html="chevronIcon" />
                 </div>
             </div>
         </div>
+        <UIExpandTransition>
+            <slot v-if="error || $slots.error" name="error">
+                <p class="text-color-error text-sm">
+                    {{ error }}
+                </p>
+            </slot>
+        </UIExpandTransition>
     </div>
 </template>
 
@@ -82,14 +105,18 @@ import {
     autofocusElement,
     clearable,
     disabled,
-    useVModel
+    useVModel,
+    error
 } from '@composables/input';
 import { large } from '@composables/style';
 import { getIcon, getPrecision } from '@/helpers';
 import { omit } from 'lodash-es';
+import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
 
 export default defineComponent({
     name: 'UIInput',
+
+    components: { UIExpandTransition },
 
     inheritAttrs: false,
 
@@ -105,7 +132,8 @@ export default defineComponent({
         autofocus,
         clearable,
         name,
-        disabled
+        disabled,
+        error
     },
 
     emits: ['update:modelValue'],

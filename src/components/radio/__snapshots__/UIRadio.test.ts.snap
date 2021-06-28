@@ -5,7 +5,7 @@ exports[`UIRadioGroup should display correctly 1`] = `
   class="ui-radio-group"
 >
   <span
-    class="label text-sm text-gray-500"
+    class="label text-sm text-gray-500 transition-colors"
   >
     
     my-label
@@ -31,7 +31,8 @@ exports[`UIRadioGroup should display correctly 1`] = `
           value="foo"
         />
         <span
-          class="ui-radio-btn relative float-left mr-2 h-5 w-5 border-2 rounded-full outline-none"
+          class="ui-radio-btn text-brand-500 relative float-left mr-2 h-5 w-5
+                         border-2 rounded-full outline-none transition-colors"
           role="radio"
         />
         
@@ -54,7 +55,8 @@ exports[`UIRadioGroup should display correctly 1`] = `
           value="bar"
         />
         <span
-          class="ui-radio-btn relative float-left mr-2 h-5 w-5 border-2 rounded-full outline-none"
+          class="ui-radio-btn text-brand-500 relative float-left mr-2 h-5 w-5
+                         border-2 rounded-full outline-none transition-colors"
           role="radio"
         />
         
@@ -64,5 +66,9 @@ exports[`UIRadioGroup should display correctly 1`] = `
     </div>
     
   </div>
+  <transition-stub>
+    
+    
+  </transition-stub>
 </div>
 `;

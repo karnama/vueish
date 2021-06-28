@@ -1,12 +1,18 @@
 <template>
     <div class="ui-textarea relative">
-        <label :for="$attrs.id ?? name" class="font-medium text-color">
+        <label :for="$attrs.id ?? name"
+               class="font-medium text-color"
+               :class="{ 'text-color-error': error || $slots.error }">
             {{ label }}
         </label>
 
         <div class="group relative shadow-sm dark:shadow-md border border-gray-300 dark:border-gray-500 rounded
-                    bg-white dark:bg-gray-600 transition focus-within:border-blue-400 dark:focus-within:border-blue-500"
-             :class="{ 'bg-gray-200 dark:!bg-gray-700': disabled }">
+                    bg-white dark:bg-gray-600 transition"
+             :class="{
+                 'bg-gray-200 dark:!bg-gray-700': disabled,
+                 'focus-within:border-blue-400 dark:focus-within:border-blue-500': !(error || $slots.error),
+                 'border-red-700 dark:border-red-500': error || $slots.error
+             }">
             <div class="flex items-center items-stretch">
                 <textarea :id="$attrs.id ?? name"
                           v-bind="$attrs"
@@ -24,10 +30,12 @@
                 <div class="flex flex-col justify-center" :class="{ 'text-gray-400 cursor-not-allowed': disabled }">
                     <span v-if="disabled"
                           class="h-5 w-5 mx-2 text-color-muted flex-grow align-middle flex flex-col justify-center"
+                          :class="{ 'text-color-error': error || $slots.error }"
                           v-html="lockIcon" />
 
                     <button v-else-if="clearable && model"
                             class="clear-icon h-5 w-5 mx-2 text-color-muted"
+                            :class="{ 'text-color-error': error || $slots.error }"
                             :aria-controls="$attrs.id ?? name"
                             aria-roledescription="clear"
                             @click="model = ''"
@@ -35,15 +43,29 @@
                 </div>
             </div>
         </div>
-        <span v-if="counter && modelValue"
-              class="text-sm px-1 text-center h-5 -bottom-5 right-0 absolute text-color-muted">
-            {{ modelValue.length }}
-        </span>
+        <div class="flex flex-row justify-end flex-nowrap">
+            <UIExpandTransition>
+                <div v-if="error || $slots.error" class="flex-grow">
+                    <slot name="error">
+                        <p class="text-red-700 dark:text-red-600 text-sm flex-grow">
+                            {{ error }}
+                        </p>
+                    </slot>
+                </div>
+            </UIExpandTransition>
+            <span v-if="counter && modelValue"
+                  class="text-sm px-1 text-color-muted"
+                  :class="{ 'text-color-error': error || $slots.error }">
+                {{ modelValue.length }}
+            </span>
+        </div>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, onUpdated, onBeforeUnmount } from 'vue';
+// todo - add large styles
+// todo - add dark styles for resize handle
 import {
     autofocus,
     label,
@@ -51,12 +73,16 @@ import {
     clearable,
     name,
     disabled,
-    useVModel
+    useVModel,
+    error
 } from '@composables/input';
 import { getIcon } from '@/helpers';
+import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
 
 export default defineComponent({
     name: 'UITextArea',
+
+    components: { UIExpandTransition },
 
     inheritAttrs: false,
 
@@ -86,7 +112,8 @@ export default defineComponent({
         autofocus,
         clearable,
         name,
-        disabled
+        disabled,
+        error
     },
 
     emits: ['update:modelValue'],

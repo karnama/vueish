@@ -25,7 +25,7 @@
         </UIButton>
     </div>
 
-    <p v-show="clicked" class="mt-5">
+    <p v-show="clicked" class="mt-5 text-color-muted">
         Last clicked button: {{ clicked }}
     </p>
 </template>
