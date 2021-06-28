@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import Demo from './Demo.vue';
+import ComponentDashboard from './ComponentDashborad.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import './assets/styles/main.scss';
 import Vueish from './main';
@@ -25,7 +25,7 @@ const routes = Object.keys(demos)
 
 const router = createRouter({ history: createWebHistory(), routes });
 
-createApp(Demo)
+createApp(ComponentDashboard)
     .use(Vueish)
     .use(router)
     .mount('#app');
