@@ -1,6 +1,8 @@
 <template>
     <div class="ui-text" :class="$attrs.class">
-        <label :for="$attrs.id ?? name" class="font-medium text-color flex items-center">
+        <label :for="$attrs.id ?? name"
+               class="font-medium text-color"
+               :class="{ 'text-color-error': error || $slots.error }">
             {{ label }}
             <template v-if="isPasswordInitially && !disablePasswordToggle">
                 <button v-if="inputType === 'password'"
@@ -15,9 +17,12 @@
         </label>
 
         <div class="group relative shadow-sm dark:shadow-md border border-gray-300 dark:border-gray-500 rounded
-                    bg-white dark:bg-gray-600 transition-colors
-                    focus-within:border-blue-400 dark:focus-within:border-blue-500"
-             :class="{ 'bg-gray-200 dark:!bg-gray-700': disabled }"
+                    bg-white dark:bg-gray-600 transition"
+             :class="{
+                 'bg-gray-200 dark:!bg-gray-700': disabled,
+                 'focus-within:border-blue-400 dark:focus-within:border-blue-500': !(error || $slots.error),
+                 'border-red-700 dark:!border-red-500': error || $slots.error
+             }"
              :style="$attrs.style">
             <div class="flex items-center">
                 <span v-if="prefix ?? $slots.prefix"
@@ -63,7 +68,7 @@
                             :class="{ 'mr-5': large }"
                             :aria-controls="$attrs.id ?? name"
                             aria-roledescription="clear"
-                            @click="model = undefined"
+                            @click="model = ''"
                             v-html="clearIcon" />
                 </UIFadeTransition>
 
@@ -71,25 +76,34 @@
                     <button :aria-controls="$attrs.id ?? name"
                             aria-roledescription="increment"
                             tabindex="-1"
-                            class="px-2 bg-gray-50 dark:bg-gray-400 h-full transition hover:bg-gray-200 dark:hover:bg-gray-300 cursor-pointer
-                                   rounded-bl transform rotate-180"
+                            class="px-2 transition-colors h-full rounded-bl transform rotate-180
+                                   bg-gray-50 hover:bg-gray-200
+                                   dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400"
                             @click="increment"
                             v-html="chevronIcon" />
                     <button :aria-controls="$attrs.id ?? name"
                             aria-roledescription="decrement"
                             tabindex="-1"
-                            class="px-2 bg-gray-50 dark:bg-gray-400 h-full transition hover:bg-gray-200 dark:hover:bg-gray-300 cursor-pointer
-                                   rounded-br"
+                            class="px-2 transition-colors h-full rounded-br
+                                   bg-gray-50 hover:bg-gray-200
+                                   dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400"
                             @click="decrement"
                             v-html="chevronIcon" />
                 </div>
             </div>
         </div>
+        <UIExpandTransition>
+            <slot v-if="error || $slots.error" name="error">
+                <p class="text-color-error text-sm">
+                    {{ error }}
+                </p>
+            </slot>
+        </UIExpandTransition>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, PropType, ref, watch, computed } from 'vue';
+import { defineComponent, onMounted, PropType, ref, watch } from 'vue';
 import {
     autofocus,
     label,
@@ -98,12 +112,14 @@ import {
     name,
     clearable,
     disabled,
-    useVModel
+    useVModel,
+    error
 } from '@composables/input';
 import { large } from '@composables/style';
 import { getIcon, getPrecision } from '@/helpers';
 import { omit } from 'lodash-es';
 import UIFadeTransition from '@components/transitions/UIFadeTransition.vue';
+import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
 
 const types = [
     'text',
@@ -118,7 +134,7 @@ const types = [
 export default defineComponent({
     name: 'UIInput',
 
-    components: { UIFadeTransition },
+    components: { UIFadeTransition, UIExpandTransition },
 
     inheritAttrs: false,
 
@@ -181,7 +197,8 @@ export default defineComponent({
         autofocus,
         clearable,
         name,
-        disabled
+        disabled,
+        error
     },
 
     emits: ['update:modelValue'],

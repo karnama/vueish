@@ -26,7 +26,7 @@ describe('UIFile', () => {
             }
         });
 
-        expect(wrapper.html()).toContain('0.0029 KB');
+        expect(wrapper.html()).toContain('3.0 B');
         const newFile = new File([Array(100000).fill('foo').join()], 'foo.txt', {
             type: 'text/plain'
         });

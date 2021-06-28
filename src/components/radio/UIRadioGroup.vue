@@ -1,6 +1,7 @@
 <template>
     <div class="ui-radio-group">
-        <span class="label text-sm text-gray-500">
+        <span class="label text-sm text-gray-500 transition-colors"
+              :class="{ 'text-color-error': error || $slots.error }">
             <slot name="label">
                 {{ label }}
             </slot>
@@ -9,29 +10,45 @@
         <div ref="slot"
              class="slot flex pt-2"
              role="radiogroup"
-             :class="horizontal ? 'space-x-6': 'flex-col space-y-4'">
+             :class="{
+                 'space-x-6': horizontal,
+                 'flex-col space-y-4': !horizontal,
+                 error
+             }">
             <slot />
         </div>
+
+        <UIExpandTransition>
+            <slot v-if="error || $slots.error" name="error">
+                <p class="text-color-error text-sm pt-2">
+                    {{ error }}
+                </p>
+            </slot>
+        </UIExpandTransition>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, onBeforeUpdate, watch } from 'vue';
-import { label, disabled, name } from '@composables/input';
+import { label, disabled, name, error } from '@composables/input';
+import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
 
 export default defineComponent({
     name: 'UIRadioGroup',
+
+    components: { UIExpandTransition },
 
     props: {
         modelValue: {
             type: [String, Boolean, Number, Object, Array]
         },
 
+        horizontal: Boolean,
+        required: Boolean,
         label,
         disabled,
         name,
-        horizontal: Boolean,
-        required: Boolean
+        error
     },
 
     emits: ['update:modelValue'],

@@ -1,58 +1,70 @@
 <template>
-    <div :class="{ 'active': isDraggedOver && !isLoading, 'pointer-events-none': isLoading }"
-         aria-label="File Upload"
-         class="rounded-lg drop-zone border-2 transition-colors flex flex-wrap items-stretch
-                dark:text-white relative border-current"
-         tabindex="0"
-         @dragover.prevent="isDraggedOver = true"
-         @keydown.enter="openFileBrowser"
-         @dragleave="isDraggedOver = false"
-         @drop.prevent="addFiles">
-        <input ref="fileInput"
-               type="file"
-               hidden
-               multiple
-               :accept="acceptedMimes.join(',')"
-               @change.prevent="addFiles">
+    <div>
+        <div :class="{
+                 'active': isDraggedOver && !isLoading,
+                 'pointer-events-none': isLoading,
+                 error
+             }"
+             aria-label="File Upload"
+             class="rounded-lg drop-zone border-2 border-dashed transition-colors flex flex-wrap items-stretch
+                    dark:text-white relative border-current"
+             tabindex="0"
+             v-bind="$attrs"
+             @dragover.prevent="isDraggedOver = true"
+             @keydown.enter="openFileBrowser"
+             @dragleave="isDraggedOver = false"
+             @drop.prevent="addFiles">
+            <input ref="fileInput"
+                   type="file"
+                   hidden
+                   multiple
+                   :accept="acceptedMimes.join(',')"
+                   @change.prevent="addFiles">
 
-        <div class="flex-grow flex flex-col items-center justify-center py-24 px-2 text-center cursor-pointer"
-             @click="openFileBrowser">
-            <p class="mb-4" v-html="uploadIcon" />
-            <p class="text-lg text-color">
-                Drag and Drop file
-                <br>
-                or
-            </p>
-            <UIButton category="brand" class="mt-2">
-                Browse
-            </UIButton>
-        </div>
-        <div v-show="files.length"
-             class="w-full sm:w-1/2 flex flex-col py-6 px-2
-                    justify-between bg-gray-200 dark:bg-gray-600 items-center"
-             @keydown.enter.stop>
-            <div class="max-h-64 pl-6 mr-2 pr-4 file-list w-full divide-y">
-                <UIFile v-for="(file, index) in files"
-                        :key="index"
-                        :file="file"
-                        class="py-2"
-                        :upload="upload"
-                        :upload-on-mounted="uploadAsap"
-                        @removed="removeFile" />
+            <div class="flex-grow flex flex-col items-center justify-center py-24 px-2 text-center cursor-pointer"
+                 @click="openFileBrowser">
+                <p class="mb-4 text-brand-600" v-html="uploadIcon" />
+                <p class="text-lg">
+                    Drag and Drop file
+                    <br>
+                    or
+                </p>
+                <UIButton category="brand" class="mt-2">
+                    Browse
+                </UIButton>
             </div>
-            <UIButton v-if="!uploadAsap"
-                      category="brand"
-                      :loading="isLoading"
-                      class="mt-4"
-                      tabindex="0"
-                      @click="uploadFiles">
-                Upload
-            </UIButton>
-        </div>
+            <div v-show="files.length"
+                 class="w-full sm:w-1/2 flex flex-col py-6 px-2
+                        justify-between bg-gray-200 dark:bg-gray-600 items-center"
+                 @keydown.enter.stop>
+                <div class="max-h-64 pl-6 mr-2 pr-4 file-list w-full divide-y">
+                    <UIFile v-for="(file, index) in files"
+                            :key="index"
+                            :file="file"
+                            class="py-2"
+                            :upload="upload"
+                            :upload-on-mounted="uploadAsap"
+                            @removed="removeFile" />
+                </div>
+                <UIButton v-if="!uploadAsap"
+                          category="brand"
+                          :loading="isLoading"
+                          class="mt-4"
+                          tabindex="0"
+                          @click="uploadFiles">
+                    Upload
+                </UIButton>
+            </div>
 
-        <UIFadeTransition>
-            <div v-if="isLoading" class="absolute top-0 bottom-0 right-0 left-0 bg-gray-400 bg-opacity-50" />
-        </UIFadeTransition>
+            <UIFadeTransition>
+                <div v-if="isLoading" class="absolute top-0 bottom-0 right-0 left-0 bg-gray-400 bg-opacity-50" />
+            </UIFadeTransition>
+        </div>
+        <UIExpandTransition>
+            <p v-if="error" class="text-color-error text-sm pt-2">
+                {{ error }}
+            </p>
+        </UIExpandTransition>
     </div>
 </template>
 
@@ -64,13 +76,17 @@ import { getIcon } from '@/helpers';
 import UIButton from '@components/button/UIButton.vue';
 import { FileError } from '@/types';
 import UIFadeTransition from '@components/transitions/UIFadeTransition.vue';
+import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
+import { error } from '@composables/input';
 import { positiveOptionalNumber } from '@composables/input';
 
 // todo - UIFile may make the uploader overflow if the side menu is open when using files with long titles
 export default defineComponent({
     name: 'UIFileUploader',
 
-    components: { UIFadeTransition, UIFile, UIButton },
+    components: { UIExpandTransition, UIFadeTransition, UIFile, UIButton },
+
+    inheritAttrs: false,
 
     props: {
         /**
@@ -107,7 +123,9 @@ export default defineComponent({
         upload: {
             type: Function as PropType<(files: File[]) => Promise<void>>,
             required: true
-        }
+        },
+
+        error
     },
 
     emits: {
@@ -223,15 +241,20 @@ export default defineComponent({
 
     & .file-list {
         pointer-events: none;
-    }
+}
 }
 
 .drop-zone:not(.active) {
     @apply border-gray-300;
 }
+.error.drop-zone {
+    border-color: theme('colors.red.700') !important;
+}
+.dark .error.drop-zone {
+    border-color: theme('colors.red.600') !important;
+}
 
 .drop-zone {
     overflow: clip;
-    border-style: dashed;
 }
 </style>

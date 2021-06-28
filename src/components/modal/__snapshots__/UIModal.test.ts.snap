@@ -61,7 +61,7 @@ exports[`UIModal should render correctly 1`] = `
           
           
           <button
-            class="border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 ring-gray-600 hover:bg-gray-400 hover:border-gray-400 border px-3.5 py-2 ui-button rounded relative font-bold text-sm m-0 focus:outline-none ring-0 focus:ring-2 ui-modal-close ml-auto mr-2"
+            class="border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 ring-gray-600 hover:bg-gray-400 hover:border-gray-400 border px-3.5 py-2 focus:ring-2 ui-button rounded relative font-bold text-sm m-0 focus:outline-none ring-0 ui-modal-close ml-auto mr-2"
             type="button"
           >
             <transition-stub>
@@ -77,7 +77,7 @@ exports[`UIModal should render correctly 1`] = `
             </transition-stub>
           </button>
           <button
-            class="border-blue-600 text-white bg-blue-600 ring-blue-300 hover:bg-blue-700 hover:border-blue-700 border px-3.5 py-2 ui-button rounded relative font-bold text-sm m-0 focus:outline-none ring-0 focus:ring-2 ui-modal-accept"
+            class="border-blue-600 text-white bg-blue-600 ring-blue-300 hover:bg-blue-700 hover:border-blue-700 border px-3.5 py-2 focus:ring-2 ui-button rounded relative font-bold text-sm m-0 focus:outline-none ring-0 ui-modal-accept"
             type="button"
           >
             <transition-stub>

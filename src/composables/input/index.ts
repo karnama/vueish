@@ -77,6 +77,14 @@ export const positiveOptionalNumber = {
 };
 
 /**
+ * Error to display to the user.
+ */
+export const error = {
+    type: String,
+    default: ''
+};
+
+/**
  * Make the prop 2-way reactive.
  *
  * Mutating object literals and array will not trigger an emit

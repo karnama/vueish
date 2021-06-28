@@ -32,6 +32,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 
+// todo - missing tests
 export default defineComponent({
     name: 'ButtonGroup',
 

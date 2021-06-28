@@ -1,6 +1,7 @@
 import { pathsToModuleNameMapper } from 'ts-jest/utils';
 import { compilerOptions } from './tsconfig.json';
 import type { Config } from '@jest/types';
+import { TsJestGlobalOptions } from 'ts-jest/dist/types';
 
 export default {
     clearMocks: true,
@@ -19,5 +20,10 @@ export default {
         '^.+\\.vue$': 'vue-jest',
         '^.+\\ts$': 'ts-jest'
     },
-    testMatch: ['**/src/**/*.test.ts']
-} as Config.InitialOptions;
+    testMatch: ['**/src/**/*.test.ts'],
+    globals: {
+        'ts-jest': {
+            tsconfig: 'tsconfig.node.json'
+        }
+    } as TsJestGlobalOptions
+} as Config.ConfigGlobals;
