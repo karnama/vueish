@@ -2,47 +2,82 @@
 
 exports[`UIFile should display correctly 1`] = `
 <div
-  class="flex items-center justify-between relative"
+  class="flex items-center justify-between relative dark:text-white"
 >
   <div
     class="flex items-center flex-row overflow-hidden"
   >
-    <div
-      class="ui-avatar text-lg overflow-hidden h-8 w-8
-                text-white bg-brand-400 flex flex-col justify-center items-center rounded-full mr-4 avatar text-sm"
-    >
-      
-      
-      txt
-      
-      
-    </div>
+    <transition-stub>
+      <div
+        class="ui-spinner-loader text-brand-400"
+        role="progressbar"
+      >
+        <svg
+          class="spinner-draw stroke-current"
+          focusable="false"
+          preserveAspectRatio="xMidYMid"
+          style="width: 50px; height: 50px;"
+          viewBox="0 0 50 50"
+        >
+          <circle
+            class="spinner-circle stroke-current"
+            cx="50%"
+            cy="50%"
+            r="24"
+            stroke-width="2px"
+            style="stroke-dashoffset: 150.79644737231007px; stroke-dasharray: 150.79644737231007px; --spinner-start-value: 143.25662500369455; --spinner-end-value: 30.159289474462014;"
+          />
+        </svg>
+        <div
+          class="abs-center"
+        >
+          
+          <div
+            class="ui-avatar text-lg overflow-hidden h-8 w-8
+                text-white bg-brand-400 flex flex-col justify-center items-center rounded-full avatar text-xs"
+          >
+            
+            
+            .txt
+            
+            
+          </div>
+          
+        </div>
+      </div>
+    </transition-stub>
     <p
-      class="file-name"
+      class="ml-4 truncate"
       title="foo.txt"
     >
       foo.txt 
       <br />
       <small>
-        0.0029 KB
+        3.0 B
       </small>
     </p>
   </div>
-  <button
-    class="ml-2 p-1 transition-colors hover:text-white hover:bg-red-600 rounded"
-  >
-    <svg
-      fill="currentColor"
-      viewBox="0 0 20 20"
-      width="20px"
-      xmlns="http://www.w3.org/2000/svg"
+  <transition-stub>
+    
+    
+    <button
+      class="ml-2 p-1 transition-colors hover:text-white hover:bg-red-600 rounded"
     >
-      <path
-        clip-rule="evenodd"
-        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-        fill-rule="evenodd"
-      />
-    </svg>
-  </button>
+      <svg
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        width="20px"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </button>
+    
+    
+  </transition-stub>
 </div>
 `;
