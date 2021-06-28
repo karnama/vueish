@@ -70,6 +70,7 @@ export const clearable = {
 /**
  * Generic validator for optional numbers higher than 0.
  */
+// todo - test in mock component
 export const positiveOptionalNumber = {
     type: Number,
     validator: (val: number): boolean => {

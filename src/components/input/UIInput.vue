@@ -16,7 +16,7 @@
             </template>
         </label>
 
-        <div class="group relative shadow-sm dark:shadow-md border border-gray-300 dark:border-gray-500 rounded
+        <div class="shadow-sm dark:shadow-md border border-gray-300 dark:border-gray-500 rounded
                     bg-white dark:bg-gray-600 transition"
              :class="{
                  'bg-gray-200 dark:!bg-gray-700': disabled,

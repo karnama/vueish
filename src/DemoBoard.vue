@@ -1,5 +1,5 @@
 <template>
-    <main class="h-full transition-colors bg-gray-100 dark:bg-gray-700 relative">
+    <main class="h-full transition-colors bg-gray-100 dark:bg-gray-700">
         <div class="flex">
             <!-- Menu -->
             <div class="menu px-12 shadow-xl dark:bg-gray-600 dark:text-gray-300 z-30 bg-white"

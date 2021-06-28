@@ -2,7 +2,7 @@
 
 exports[`UIFile should display correctly 1`] = `
 <div
-  class="flex items-center justify-between relative dark:text-white"
+  class="flex items-center justify-between dark:text-white"
 >
   <div
     class="flex items-center flex-row overflow-hidden"

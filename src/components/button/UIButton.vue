@@ -2,7 +2,7 @@
     <button type="button"
             :class="classes"
             :disabled="disabled"
-            class="ui-button rounded relative font-bold text-sm m-0 focus:outline-none ring-0">
+            class="ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0">
         <UIFadeTransition>
             <span v-if="loading" class="loader">
                 <slot name="loader">
