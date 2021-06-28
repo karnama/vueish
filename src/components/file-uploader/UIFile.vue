@@ -32,8 +32,9 @@ import UIAvatar from '@components/avatar/UIAvatar.vue';
 import { getIcon } from '@/helpers';
 import UISpinnerLoader from '@components/loader-spinner/UISpinnerLoader.vue';
 import UIFadeTransition from '@components/transitions/UIFadeTransition.vue';
-import { getSizeString } from '@composables/utils';
+import { getSizeString, isImage as fileIsImage, getExtension } from '@composables/utils';
 
+// todo accept a composable (returns a ref for progress) for upload
 export default defineComponent({
     name: 'UIFile',
     components: { UIAvatar, UISpinnerLoader, UIFadeTransition },
@@ -74,8 +75,12 @@ export default defineComponent({
         const src = ref<string | ArrayBuffer | null>();
         const failedToUpload = ref(false);
 
-        const isImage = computed(() => RegExp(/[/.](gif|jp(e)?g|png)$/).exec(props.file.name.toLowerCase()));
-        const extension = computed(() => '.' + RegExp(/(?:\.([^.]+))?$/).exec(props.file.name.toLowerCase())[1]!);
+        const isImage = computed(() => fileIsImage(props.file));
+        const extension = computed(() => {
+            const ext = getExtension(props.file);
+
+            return ext ? '.' + ext : 'file';
+        });
         const size = computed(() => getSizeString(props.file));
 
         const uploadFile = async () => {

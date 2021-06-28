@@ -35,3 +35,19 @@ export const createFileList = (files: File | File[]): FileList => {
         throw new Error('Unsupported browser:\n' + String(e));
     }
 };
+
+/**
+ * Determine whether the given file is an image.
+ */
+export const isImage = (file: File): boolean => {
+    return !!RegExp(/[/.](gif|jp(e)?g|png)$/).exec(file.name.toLowerCase());
+};
+
+/**
+ * Get the extension of the given file.
+ */
+export const getExtension = (file: File): string | null => {
+    const regexpArr = RegExp(/(?:\.([^.]+))?$/).exec(file.name.toLowerCase());
+
+    return regexpArr ? regexpArr[1] : null;
+};
