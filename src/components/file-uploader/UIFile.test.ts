@@ -26,13 +26,13 @@ describe('UIFile', () => {
             }
         });
 
-        expect(wrapper.html()).toContain('3.0 B');
+        expect(wrapper.html()).toContain('3.0B');
         const newFile = new File([Array(100000).fill('foo').join()], 'foo.txt', {
             type: 'text/plain'
         });
 
         await wrapper.setProps({ file: newFile });
-        expect(wrapper.html()).toContain('0.38 MB');
+        expect(wrapper.html()).toContain('0.38MB');
     });
 
     it('should emit an event with the removed file on remove', async () => {
@@ -69,7 +69,7 @@ describe('UIFile', () => {
     });
 
     it('should call the given upload if uploading on mounted', () => {
-        const upload = jest.fn();
+        const upload = jest.fn(async () => {});
         mount(UIFile, {
             props: {
                 file,
