@@ -7,20 +7,20 @@ export const isBoolean = (value: any): value is boolean => typeof value === 'boo
  */
 export const getSizeString = (file: File): string => {
     if (file.size < 1024) {
-        return file.size.toPrecision(2) + ' B';
+        return file.size.toPrecision(2) + 'B';
     }
 
     const sizeInMb = file.size / 1024 / 1024;
 
     if (sizeInMb < 0.1) {
-        return (sizeInMb * 1024).toPrecision(2) + ' KB';
+        return (sizeInMb * 1024).toPrecision(2) + 'KB';
     }
 
     if (sizeInMb < 100) {
-        return sizeInMb.toPrecision(2) + ' MB';
+        return sizeInMb.toPrecision(2) + 'MB';
     }
 
-    return (sizeInMb / 1024).toPrecision(2) + ' GB';
+    return (sizeInMb / 1024).toPrecision(2) + 'GB';
 };
 
 /**

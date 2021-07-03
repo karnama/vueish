@@ -5,11 +5,12 @@
         </label>
 
         <div ref="input"
-             class="rounded flex justify-between flex-nowrap items-center shadow-sm px-3.5 focus:outline-none
+             class="rounded flex justify-between items-center shadow-sm focus:outline-none
                     transition-colors border-gray-300 dark:border-gray-500 bg-white dark:bg-gray-600 border"
              :title="displayName.replaceAll('<br>', '\n')"
              :class="{
-                 'px-7': large,
+                 'px-7 py-4': large,
+                 'px-3.5 py-3': !large,
                  'bg-gray-200 dark:!bg-gray-700 cursor-not-allowed': disabled,
                  'cursor-pointer focus-within:border-blue-400 dark:focus-within:border-blue-500': !disabled
              }"
@@ -27,15 +28,15 @@
                    :accept="acceptedMimes"
                    v-bind="omit($attrs, ['class', 'style'])"
                    @change="addFiles">
-            <div class="flex items-center flex-wrap justify-between w-full">
+            <div class="flex items-center flex-wrap w-full" :class="{ 'justify-center' : displayName }">
                 <UIButton category="primary"
-                          :class="[ large ? 'my-4' : 'my-2']"
+                          title="Choose file"
                           :disabled="disabled">
                     Choose file
                 </UIButton>
 
                 <template v-if="displayName">
-                    <div class="truncate text-color py-2 px-4 flex-1 select-none"
+                    <div class="truncate text-color py-2 px-4 flex-1 select-none break-words value-text"
                          :class="[ large ? 'ml-4' : 'ml-2' ]"
                          v-html="displayName" />
 
@@ -58,9 +59,7 @@
 </template>
 
 <script lang="ts">
-// todo: the below
-//  [ ] - menu open style break
-//  [ ] - picture display
+
 import { computed, defineComponent, ref, watch } from 'vue';
 import type { PropType } from 'vue';
 import { createFileList, getSizeString } from '@composables/utils';
@@ -212,7 +211,12 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.value-text {
+    min-width: 15ch;
+    width: 1px; // hack to force the box into the parent
+}
+
 .ui-file-input.active {
     background: rgba(0, 0, 0, .1);
 

@@ -33,8 +33,7 @@ export default defineComponent({
     name: 'FileInput',
 
     setup: () => {
-        const generatedFile = new File(['content'], 'bfdaksbkabdkjbfljvdgdfflkmfglkmgwpkmskdmfksfm;akmdf;'
-            + 'kamfalkmdsabfjbsljdbvlasbdlkabfslkbaslkdfblkafsdblkabslkbaskjdfaksdfasdfafgafasdfasdf.txt');
+        const generatedFile = new File(['content'], 'my-document.pdf');
         const file = ref(generatedFile);
         const file2 = ref<File[]>([generatedFile]);
         const large = ref(false);
