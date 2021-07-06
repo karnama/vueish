@@ -29,10 +29,3 @@ createApp(DemoBoard)
     .use(Vueish)
     .use(router)
     .mount('#app');
-
-declare module 'vue-router' {
-    interface RouteMeta {
-        label: string;
-        type: 'Directives' | 'Components';
-    }
-}

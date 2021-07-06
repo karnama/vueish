@@ -6,9 +6,13 @@
                  :class="[ isOpen ? 'open' : 'closed' ]">
                 <div class="sticky top-0">
                     <div class="flex items-center justify-between">
-                        <h1 class="text-2xl mt-4 mb-6 whitespace-nowrap">
-                            Vueish UI
-                        </h1>
+                        <div class="mt-4 mb-6">
+                            <h1 class="text-2xl whitespace-nowrap">
+                                Vueish UI
+                            </h1>
+                            <small>v{{ version }}</small>
+                        </div>
+
                         <UIButton minimal
                                   class="dark:text-gray-200 dark:hover:text-gray-700"
                                   @click="isOpen = false"
@@ -71,11 +75,13 @@ const cache = new LocalCache('demo');
 
 export default defineComponent({
     name: 'Demo',
+
     components: { UIButton, UIToggle },
 
     setup() {
         const instance = getCurrentInstance()!;
         const clearIcon = getIcon('clear');
+        const version = __VUEISH_VERSION__;
 
         const darkMode = ref(cache.get<'light' | 'dark'>('theme', 'light') === 'dark');
         const routeMap = computed(() => {
@@ -107,7 +113,8 @@ export default defineComponent({
             darkMode,
             routeMap,
             isOpen,
-            clearIcon
+            clearIcon,
+            version
         };
     }
 });
