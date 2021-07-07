@@ -11,8 +11,8 @@
                     transition-colors border-gray-300 dark:border-gray-500 bg-white dark:bg-gray-600 border"
              :title="displayName.replaceAll('<br>', '\n')"
              :class="{
-                 'px-7 py-4': large,
-                 'px-3.5 py-3': !large,
+                 'px-7 py-3': large,
+                 'px-3.5 py-[0.375rem]': !large,
                  'bg-gray-200 dark:!bg-gray-700 cursor-not-allowed': disabled,
                  'cursor-pointer': !disabled,
                  'focus-within:border-blue-400 dark:focus-within:border-blue-500':!(error || $slots.error) && !disabled,
