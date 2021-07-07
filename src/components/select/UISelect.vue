@@ -115,6 +115,7 @@ import clickAway from '@/directives/click-away';
 
 type Option = Record<string, any>;
 
+// todo - clearIcon no semantic indication of interactivity
 export default defineComponent({
     name: 'UISelect',
 

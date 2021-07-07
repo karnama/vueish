@@ -38,13 +38,13 @@ exports[`UIFileUploader should display correctly 1`] = `
          or 
       </p>
       <button
-        class="border-brand-400 text-white bg-brand-400 ring-brand-700 hover:bg-brand-500 hover:border-brand-500 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 mt-2"
+        class="border-brand-400 text-white bg-brand-400 ring-brand-700 hover:bg-brand-500 hover:border-brand-500 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed mt-2"
         type="button"
       >
         <transition-stub>
           
           <span
-            class="label transition-opacity duration-200"
+            class="label"
           >
             
              Browse 
@@ -66,14 +66,14 @@ exports[`UIFileUploader should display correctly 1`] = `
         
       </div>
       <button
-        class="border-brand-400 text-white bg-brand-400 ring-brand-700 hover:bg-brand-500 hover:border-brand-500 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 mt-4"
+        class="border-brand-400 text-white bg-brand-400 ring-brand-700 hover:bg-brand-500 hover:border-brand-500 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed mt-4"
         tabindex="0"
         type="button"
       >
         <transition-stub>
           
           <span
-            class="label transition-opacity duration-200"
+            class="label"
           >
             
              Upload 

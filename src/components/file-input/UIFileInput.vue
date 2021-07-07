@@ -9,10 +9,8 @@
         <div ref="input"
              class="rounded flex justify-between items-center shadow-sm focus:outline-none
                     transition-colors border-gray-300 dark:border-gray-500 bg-white dark:bg-gray-600 border"
-             :title="displayName.replaceAll('<br>', '\n')"
+             :title="displayList"
              :class="{
-                 'px-7 py-3': large,
-                 'px-3.5 py-[0.375rem]': !large,
                  'bg-gray-200 dark:!bg-gray-700 cursor-not-allowed': disabled,
                  'cursor-pointer': !disabled,
                  'focus-within:border-blue-400 dark:focus-within:border-blue-500':!(error || $slots.error) && !disabled,
@@ -33,11 +31,22 @@
                    v-bind="omit($attrs, ['class', 'style'])"
                    @change="addFiles">
             <div class="flex items-center flex-wrap w-full" :class="{ 'justify-center' : displayName }">
-                <UIButton category="primary"
-                          title="Choose file"
-                          :disabled="disabled">
+                <button title="Choose a file"
+                        :disabled="disabled"
+                        class="focus:outline-none font-bold m-0 text-sm border-none
+                               transition-all rounded-l text-color disabled:cursor-not-allowed
+                               bg-gray-200 dark:bg-gray-700 ring-gray-400 dark:ring-gray-500"
+                        :style="{
+                            'filter': disabled ? 'invert(5%)': 'invert(0%)'
+                        }"
+                        :class="{
+                            'text-color-muted': disabled,
+                            'hover:bg-gray-300 dark:hover:bg-gray-800 focus:ring-1': !disabled,
+                            'py-[1.3125rem] px-6': large,
+                            'px-4 py-[0.938rem]': !large
+                        }">
                     Choose file
-                </UIButton>
+                </button>
 
                 <template v-if="displayName">
                     <div class="truncate text-color py-2 px-4 flex-1 select-none break-words value-text"
@@ -46,11 +55,11 @@
 
                     <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
                         <span v-if="disabled"
-                              class="h-5 w-5 mx-auto text-color-muted flex-shrink-0"
+                              class="h-5 w-5 mr-2 mx-auto text-color-muted flex-shrink-0"
                               v-html="lockIcon" />
 
                         <button v-else-if="clearable && displayName"
-                                class="clear-icon h-5 w-5 cursor-pointer mx-auto text-color-muted flex-shrink-0"
+                                class="clear-icon h-5 w-5 mr-2 cursor-pointer mx-auto text-color-muted flex-shrink-0"
                                 :aria-controls="$attrs.id ?? name"
                                 aria-roledescription="clear"
                                 @click.stop="$emit('update:modelValue', null)"
@@ -156,6 +165,7 @@ export default defineComponent({
             return (Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue])
                 .map(file => file.name + ' - ' + size(file)).join('<br>');
         });
+        const displayList = computed(() => displayName.value.replaceAll('<br>', '\n'));
 
         const size = (file: File) => file ? getSizeString(file) : '';
         const addFiles = (event: DragEvent | InputEvent) => {
@@ -216,6 +226,7 @@ export default defineComponent({
             isDraggedOver,
             fileInput,
             displayName,
+            displayList,
             input,
             omit,
             clearIcon,
