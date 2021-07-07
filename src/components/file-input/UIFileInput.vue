@@ -1,6 +1,8 @@
 <template>
     <div class="ui-file-input" :class="$attrs.class">
-        <label :for="$attrs.id ?? name" class="font-medium text-color flex items-center">
+        <label :for="$attrs.id ?? name"
+               class="font-medium text-color flex items-center"
+               :class="{ 'text-color-error': error || $slots.error }">
             {{ label }}
         </label>
 
@@ -12,7 +14,9 @@
                  'px-7 py-4': large,
                  'px-3.5 py-3': !large,
                  'bg-gray-200 dark:!bg-gray-700 cursor-not-allowed': disabled,
-                 'cursor-pointer focus-within:border-blue-400 dark:focus-within:border-blue-500': !disabled
+                 'cursor-pointer': !disabled,
+                 'focus-within:border-blue-400 dark:focus-within:border-blue-500':!(error || $slots.error) && !disabled,
+                 'border-red-700 dark:!border-red-500': error || $slots.error
              }"
              :tabindex="disabled ? -1 : 0"
              :style="$attrs.style"
@@ -55,6 +59,14 @@
                 </template>
             </div>
         </div>
+
+        <UIExpandTransition>
+            <slot v-if="error || $slots.error" name="error">
+                <p class="text-color-error text-sm">
+                    {{ error }}
+                </p>
+            </slot>
+        </UIExpandTransition>
     </div>
 </template>
 
@@ -63,17 +75,18 @@
 import { computed, defineComponent, ref, watch } from 'vue';
 import type { PropType } from 'vue';
 import { createFileList, getSizeString } from '@composables/utils';
-import { name, label, clearable, autofocus, disabled, positiveOptionalNumber } from '@composables/input';
+import { name, label, clearable, autofocus, disabled, positiveOptionalNumber, error } from '@composables/input';
 import { large } from '@composables/style';
 import { omit } from 'lodash-es';
 import { getIcon } from '@/helpers';
 import UIFadeTransition from '@components/transitions/UIFadeTransition.vue';
+import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
 import { FileError } from '@/types';
 
 export default defineComponent({
     name: 'UIFileInput',
 
-    components: { UIFadeTransition },
+    components: { UIFadeTransition, UIExpandTransition },
 
     inheritAttrs: false,
 
@@ -116,7 +129,8 @@ export default defineComponent({
         clearable,
         autofocus,
         disabled,
-        large
+        large,
+        error
     },
 
     emits: {
@@ -169,7 +183,7 @@ export default defineComponent({
 
                 ctx.emit('validationError',
                     {
-                        message: 'Only a single file is allowed.',
+                        message: 'File size exceeds the specified allowed size.',
                         files: tooBigFiles
                     } as FileError
                 );
@@ -182,7 +196,7 @@ export default defineComponent({
 
                 ctx.emit('validationError',
                     {
-                        message: 'Only a single file is allowed.',
+                        message: 'Maximum number of files already been added.',
                         files: files
                     } as FileError
                 );

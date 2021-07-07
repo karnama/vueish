@@ -168,7 +168,7 @@ export default defineComponent({
 
                 if (filteredList.length && tooBigFiles.length) {
                     ctx.emit('validationError', {
-                        message: 'File size exceeds the specified allowed size',
+                        message: 'File size exceeds the specified allowed size.',
                         files: tooBigFiles
                     } as FileError);
 
