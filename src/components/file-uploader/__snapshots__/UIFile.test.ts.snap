@@ -53,7 +53,7 @@ exports[`UIFile should display correctly 1`] = `
       foo.txt 
       <br />
       <small>
-        3.0B
+        3B
       </small>
     </p>
   </div>
