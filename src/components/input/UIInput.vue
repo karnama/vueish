@@ -1,7 +1,7 @@
 <template>
     <div class="ui-text" :class="$attrs.class">
         <label :for="$attrs.id ?? name"
-               class="font-medium text-color"
+               class="font-medium text-color inline-flex"
                :class="{ 'text-color-error': error || $slots.error }">
             {{ label }}
             <template v-if="isPasswordInitially && !disablePasswordToggle">
@@ -19,7 +19,7 @@
         <div class="shadow-sm dark:shadow-md border border-gray-300 dark:border-gray-500 rounded
                     bg-white dark:bg-gray-600 transition"
              :class="{
-                 'bg-gray-200 dark:!bg-gray-700': disabled,
+                 'bg-gray-200 dark:!bg-gray-700 cursor-not-allowed': disabled,
                  'focus-within:border-blue-400 dark:focus-within:border-blue-500': !(error || $slots.error),
                  'border-red-700 dark:!border-red-500': error || $slots.error
              }"
@@ -44,7 +44,7 @@
                        :max="max"
                        :aria-placeholder="$attrs.placeholder"
                        class="flex-1 p-3.5 appearance-none bg-transparent outline-none
-                              disabled:cursor-not-allowed text-color disabled:text-gray-400"
+                              text-color disabled:text-gray-400"
                        :disabled="disabled"
                        :class="{ 'px-7 py-5': large }"
                        @keydown="handleKeydown">
@@ -75,7 +75,6 @@
                 <div v-if="inputType === 'number'" class="flex flex-col select-none min-h-full self-stretch">
                     <button :aria-controls="$attrs.id ?? name"
                             aria-roledescription="increment"
-                            tabindex="-1"
                             class="px-2 transition-colors h-full rounded-bl transform rotate-180
                                    bg-gray-50 hover:bg-gray-200
                                    dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400"
@@ -83,7 +82,6 @@
                             v-html="chevronIcon" />
                     <button :aria-controls="$attrs.id ?? name"
                             aria-roledescription="decrement"
-                            tabindex="-1"
                             class="px-2 transition-colors h-full rounded-br
                                    bg-gray-50 hover:bg-gray-200
                                    dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400"
@@ -92,6 +90,7 @@
                 </div>
             </div>
         </div>
+
         <UIExpandTransition>
             <slot v-if="error || $slots.error" name="error">
                 <p class="text-color-error text-sm">
@@ -240,6 +239,7 @@ export default defineComponent({
 
                 if (event.code === 'Backspace'
                     || event.code === 'Period' && !String(model.value).includes('.')
+                    || event.code === 'Tab'
                 ) {
                     return;
                 }
