@@ -35,7 +35,9 @@ module.exports = {
                 'tooltip',
                 'outer-html',
                 'click-away',
-                'intersect'
+                'intersect',
+                'deps',
+                'dev-deps'
             ]
         ],
     }
