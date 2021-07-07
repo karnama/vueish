@@ -106,7 +106,6 @@ export default defineComponent({
         watch(() => darkMode.value, val => {
             cache.set('theme', val ? 'dark' : 'light');
             document.body.classList.toggle('dark');
-            document.body.classList.toggle('light');
         });
 
         return {
