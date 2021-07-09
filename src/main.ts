@@ -26,3 +26,7 @@ export default {
         app.directive('outer-html', outerHtml);
     }
 } as Plugin;
+
+export function getVersion(): string {
+    return __VUEISH_VERSION__;
+}
