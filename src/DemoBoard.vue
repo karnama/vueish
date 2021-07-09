@@ -70,6 +70,7 @@ import LocalCache from '@helpers/cache/LocalCache';
 import { Router, RouteRecord } from 'vue-router';
 import UIButton from '@components/button/UIButton.vue';
 import { getIcon } from '@/helpers';
+import { getVersion } from '@/main';
 
 const cache = new LocalCache('demo');
 
@@ -81,7 +82,7 @@ export default defineComponent({
     setup() {
         const instance = getCurrentInstance()!;
         const clearIcon = getIcon('clear');
-        const version = __VUEISH_VERSION__;
+        const version = getVersion();
 
         const darkMode = ref(cache.get<'light' | 'dark'>('theme', 'light') === 'dark');
         const routeMap = computed(() => {
