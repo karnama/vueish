@@ -6,7 +6,7 @@ import defaultSettings from './defaultSettings';
 import tooltip from './directives/tooltip';
 import intersect from './directives/intersect';
 import outerHtml from './directives/outer-html';
-import clickAway from './directives/clickAway';
+import clickAway from './directives/click-away';
 import './assets/styles/main.scss';
 
 const componentModules = import.meta.globEager('./**/UI*.vue');
@@ -26,3 +26,7 @@ export default {
         app.directive('outer-html', outerHtml);
     }
 } as Plugin;
+
+export function getVersion(): string {
+    return __VUEISH_VERSION__;
+}

@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import * as path from 'path';
 import createWebTypes from './utils/createWebTypes';
+import { version } from './package.json';
 
 export default defineConfig({
     resolve: {
@@ -12,8 +13,9 @@ export default defineConfig({
             '@composables': path.resolve(__dirname, 'src/composables')
         }
     },
-    server: {
-        open: true
+    define: {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        __VUEISH_VERSION__: JSON.stringify(version)
     },
     build: {
         lib: {

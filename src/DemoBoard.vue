@@ -1,14 +1,18 @@
 <template>
-    <main class="h-full transition-colors bg-gray-100 dark:bg-gray-700 relative">
+    <main class="h-full transition-colors bg-gray-100 dark:bg-gray-700">
         <div class="flex">
             <!-- Menu -->
             <div class="menu px-12 shadow-xl dark:bg-gray-600 dark:text-gray-300 z-30 bg-white"
                  :class="[ isOpen ? 'open' : 'closed' ]">
                 <div class="sticky top-0">
                     <div class="flex items-center justify-between">
-                        <h1 class="text-2xl mt-4 mb-6">
-                            Vueish UI
-                        </h1>
+                        <div class="mt-4 mb-6">
+                            <h1 class="text-2xl whitespace-nowrap">
+                                Vueish UI
+                            </h1>
+                            <small>v{{ version }}</small>
+                        </div>
+
                         <UIButton minimal
                                   class="dark:text-gray-200 dark:hover:text-gray-700"
                                   @click="isOpen = false"
@@ -49,7 +53,7 @@
                     </svg>
                 </UIButton>
                 <div class="mx-auto" style="max-width: 1000px">
-                    <h1 class="text-2xl mb-2 text-center text-color">
+                    <h1 v-if="$route.meta.label" class="text-2xl mb-2 text-center text-color">
                         {{ $route.meta.label }}
                     </h1>
                     <router-view />
@@ -66,16 +70,19 @@ import LocalCache from '@helpers/cache/LocalCache';
 import { Router, RouteRecord } from 'vue-router';
 import UIButton from '@components/button/UIButton.vue';
 import { getIcon } from '@/helpers';
+import { getVersion } from '@/main';
 
 const cache = new LocalCache('demo');
 
 export default defineComponent({
     name: 'Demo',
+
     components: { UIButton, UIToggle },
 
     setup() {
         const instance = getCurrentInstance()!;
         const clearIcon = getIcon('clear');
+        const version = getVersion();
 
         const darkMode = ref(cache.get<'light' | 'dark'>('theme', 'light') === 'dark');
         const routeMap = computed(() => {
@@ -100,14 +107,14 @@ export default defineComponent({
         watch(() => darkMode.value, val => {
             cache.set('theme', val ? 'dark' : 'light');
             document.body.classList.toggle('dark');
-            document.body.classList.toggle('light');
         });
 
         return {
             darkMode,
             routeMap,
             isOpen,
-            clearIcon
+            clearIcon,
+            version
         };
     }
 });

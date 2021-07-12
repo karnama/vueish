@@ -24,7 +24,10 @@ exports[`UITextarea should display correctlt 1`] = `
       <div
         class="flex flex-col justify-center"
       >
-        <!--v-if-->
+        <transition-stub>
+          
+          
+        </transition-stub>
       </div>
     </div>
   </div>
@@ -35,7 +38,10 @@ exports[`UITextarea should display correctlt 1`] = `
       
       
     </transition-stub>
-    <!--v-if-->
+    <transition-stub>
+      
+      
+    </transition-stub>
   </div>
 </div>
 `;

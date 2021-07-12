@@ -30,16 +30,9 @@
 </template>
 
 <script lang="ts">
-import UIButton from '@components/button/UIButton.vue';
 import { defineComponent } from 'vue';
-import UIModal from '@components/modal/UIModal.vue';
 
 export default defineComponent({
-    name: 'Modal',
-
-    components: {
-        UIModal,
-        UIButton
-    }
+    name: 'Modal'
 });
 </script>

@@ -16,7 +16,7 @@
                   '!border-2 border-red-700 dark:border-red-500': error || $slots.error
               }"
               @click="toggleValue">
-            <span class="transition-all opacity-0 scale-0 text-white" v-html="indeterminate ? dashIcon : tickIcon" />
+            <span class="transition-all opacity-0 scale-0 text-white" v-html="indeterminate ? dashIcon : checkIcon" />
         </span>
         <label v-if="label || $slots.default"
                class="items-center cursor-pointer text-color ml-3"
@@ -34,7 +34,6 @@
             </p>
         </slot>
     </UIExpandTransition>
-    <p />
 </template>
 
 <script lang="ts">
@@ -46,7 +45,9 @@ import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
 
 export default defineComponent({
     name: 'UICheckbox',
+
     components: { UIExpandTransition },
+
     inheritAttrs: false,
 
     props: {
@@ -81,7 +82,7 @@ export default defineComponent({
         }
 
         const dashIcon = getIcon('dash');
-        const tickIcon = getIcon('tick');
+        const checkIcon = getIcon('check');
 
         const isChecked = computed(() => {
             if (Array.isArray(props.modelValue)) {
@@ -111,7 +112,7 @@ export default defineComponent({
             toggleValue,
             isChecked,
             dashIcon,
-            tickIcon,
+            checkIcon,
             omit
         };
     }

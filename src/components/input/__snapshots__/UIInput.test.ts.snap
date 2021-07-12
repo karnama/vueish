@@ -5,11 +5,14 @@ exports[`UIInput should correctly display 1`] = `
   class="ui-text"
 >
   <label
-    class="font-medium text-color"
+    class="font-medium text-color inline-flex"
     for="input"
-  />
+  >
+     
+    <!--v-if-->
+  </label>
   <div
-    class="group relative shadow-sm dark:shadow-md border border-gray-300 dark:border-gray-500 rounded
+    class="shadow-sm dark:shadow-md border border-gray-300 dark:border-gray-500 rounded
                     bg-white dark:bg-gray-600 transition focus-within:border-blue-400 dark:focus-within:border-blue-500"
   >
     <div
@@ -18,12 +21,16 @@ exports[`UIInput should correctly display 1`] = `
       <!--v-if-->
       <input
         class="flex-1 p-3.5 appearance-none bg-transparent outline-none
-                              disabled:cursor-not-allowed text-color disabled:text-gray-400"
+                              text-color disabled:text-gray-400"
         id="input"
         name="input"
+        type="text"
       />
       <!--v-if-->
-      <!--v-if-->
+      <transition-stub>
+        
+        
+      </transition-stub>
       <!--v-if-->
     </div>
   </div>

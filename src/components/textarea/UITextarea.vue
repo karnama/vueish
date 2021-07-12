@@ -28,18 +28,18 @@
                               counter ? 'min-height: 5rem' : '']" />
 
                 <div class="flex flex-col justify-center" :class="{ 'text-gray-400 cursor-not-allowed': disabled }">
-                    <span v-if="disabled"
-                          class="h-5 w-5 mx-2 text-color-muted flex-grow align-middle flex flex-col justify-center"
-                          :class="{ 'text-color-error': error || $slots.error }"
-                          v-html="lockIcon" />
+                    <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
+                        <span v-if="disabled"
+                              class="h-5 w-5 mx-2 text-color-muted flex-grow align-middle flex flex-col justify-center"
+                              v-html="lockIcon" />
 
-                    <button v-else-if="clearable && model"
-                            class="clear-icon h-5 w-5 mx-2 text-color-muted"
-                            :class="{ 'text-color-error': error || $slots.error }"
-                            :aria-controls="$attrs.id ?? name"
-                            aria-roledescription="clear"
-                            @click="model = ''"
-                            v-html="clearIcon" />
+                        <button v-else-if="clearable && model"
+                                class="clear-icon h-5 w-5 mx-2 text-color-muted"
+                                :aria-controls="$attrs.id ?? name"
+                                aria-roledescription="clear"
+                                @click="model = ''"
+                                v-html="clearIcon" />
+                    </UIFadeTransition>
                 </div>
             </div>
         </div>
@@ -53,11 +53,13 @@
                     </slot>
                 </div>
             </UIExpandTransition>
-            <span v-if="counter && modelValue"
-                  class="text-sm px-1 text-color-muted"
-                  :class="{ 'text-color-error': error || $slots.error }">
-                {{ modelValue.length }}
-            </span>
+            <UIFadeTransition>
+                <span v-if="counter && modelValue"
+                      class="text-sm px-1 text-color-muted transition-colors"
+                      :class="{ 'text-color-error': error || $slots.error }">
+                    {{ modelValue.length }}
+                </span>
+            </UIFadeTransition>
         </div>
     </div>
 </template>
@@ -69,7 +71,6 @@ import { defineComponent, ref, onMounted, onUpdated, onBeforeUnmount } from 'vue
 import {
     autofocus,
     label,
-    autofocusElement,
     clearable,
     name,
     disabled,
@@ -78,11 +79,12 @@ import {
 } from '@composables/input';
 import { getIcon } from '@/helpers';
 import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
+import UIFadeTransition from '@components/transitions/UIFadeTransition.vue';
 
 export default defineComponent({
-    name: 'UITextArea',
+    name: 'UITextarea',
 
-    components: { UIExpandTransition },
+    components: { UIExpandTransition, UIFadeTransition },
 
     inheritAttrs: false,
 
@@ -129,11 +131,13 @@ export default defineComponent({
             input.value!.style.height = `${input.value!.scrollHeight}px`;
         };
 
-        autofocusElement(props.autofocus, input);
-
         onMounted(() => {
             if (props.autoSize) {
                 input.value!.addEventListener('input', setHeight);
+            }
+
+            if (props.autofocus) {
+                input.value?.focus();
             }
         });
         onUpdated(() => {

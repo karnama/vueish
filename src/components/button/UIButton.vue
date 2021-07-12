@@ -2,7 +2,7 @@
     <button type="button"
             :class="classes"
             :disabled="disabled"
-            class="ui-button rounded relative font-bold text-sm m-0 focus:outline-none ring-0 focus:ring-2">
+            class="ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed">
         <UIFadeTransition>
             <span v-if="loading" class="loader">
                 <slot name="loader">
@@ -16,7 +16,7 @@
                 </slot>
             </span>
 
-            <span v-else class="label transition-opacity duration-200">
+            <span v-else class="label">
                 <slot>
                     {{ label }}
                 </slot>
@@ -136,6 +136,10 @@ export default defineComponent({
                 classes += ' pointer-events-none';
             }
 
+            if (!props.disabled) {
+                classes += ' focus:ring-2';
+            }
+
             return classes;
         });
         const loaderColor = computed<string>(() => {
@@ -187,7 +191,6 @@ button {
 
 button:disabled {
     opacity: 0.5;
-    cursor: not-allowed;
 }
 
 button:active:not(:disabled) {

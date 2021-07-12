@@ -1,17 +1,28 @@
 <template>
-    <div class="flex items-center justify-between relative">
+    <div class="flex items-center justify-between dark:text-white">
         <div class="flex items-center flex-row overflow-hidden">
-            <UIAvatar :src="src" class="mr-4 avatar text-sm" :content="extension" />
-            <p :title="file.name" class="file-name">
+            <UISpinnerLoader :determinate="!isLoading" :diameter="50" :stroke="2">
+                <UIAvatar :src="src" class="avatar text-xs" :content="extension" />
+            </UISpinnerLoader>
+            <p :title="file.name" class="ml-4 truncate">
                 {{ file.name }}
                 <br>
                 <small>{{ size }}</small>
             </p>
         </div>
-        <button v-if="!uploadOnMounted"
-                class="ml-2 p-1 transition-colors hover:text-white hover:bg-red-600 rounded"
-                @click="$emit('removed', file)"
-                v-html="clearIcon" />
+        <UIFadeTransition>
+            <template v-if="!isLoading">
+                <button v-if="!uploadOnMounted"
+                        class="ml-2 p-1 transition-colors hover:text-white hover:bg-red-600 rounded"
+                        @click="$emit('removed', file)"
+                        v-html="clearIcon" />
+                <button v-else-if="failedToUpload"
+                        class="transition transform hover:rotate-180 !duration-200"
+                        @click="uploadFile"
+                        v-html="retryIcon" />
+                <span v-else class="text-green-600 dark:text-green-500" v-html="checkIcon" />
+            </template>
+        </UIFadeTransition>
     </div>
 </template>
 
@@ -19,10 +30,14 @@
 import { computed, defineComponent, onMounted, PropType, ref, watch } from 'vue';
 import UIAvatar from '@components/avatar/UIAvatar.vue';
 import { getIcon } from '@/helpers';
+import UISpinnerLoader from '@components/loader-spinner/UISpinnerLoader.vue';
+import UIFadeTransition from '@components/transitions/UIFadeTransition.vue';
+import { getSizeString, isImage as fileIsImage, getExtension } from '@composables/utils';
 
+// todo accept a composable (returns a ref for progress) for upload
 export default defineComponent({
     name: 'UIFile',
-    components: { UIAvatar },
+    components: { UIAvatar, UISpinnerLoader, UIFadeTransition },
     props: {
         /**
          * The file that is being handled.
@@ -53,20 +68,35 @@ export default defineComponent({
 
     setup: (props) => {
         const clearIcon = getIcon('clear');
+        const checkIcon = getIcon('check');
+        const retryIcon = getIcon('retry');
 
+        const isLoading = ref(false);
         const src = ref<string | ArrayBuffer | null>();
+        const failedToUpload = ref(false);
 
-        const isImage = computed(() => RegExp(/[/.](gif|jp(e)?g|png)$/).exec(props.file.name.toLowerCase()));
-        const extension = computed(() => RegExp(/(?:\.([^.]+))?$/).exec(props.file.name.toLowerCase())[1]!);
-        const size = computed(() => {
-            const sizeInMb = props.file.size / 1024 / 1024;
+        const isImage = computed(() => fileIsImage(props.file));
+        const extension = computed(() => {
+            const ext = getExtension(props.file);
 
-            if (sizeInMb < 0.1) {
-                return (sizeInMb * 1024).toPrecision(2) + ' KB';
-            }
-
-            return sizeInMb.toPrecision(2) + ' MB';
+            return ext ? '.' + ext : 'file';
         });
+        const size = computed(() => getSizeString(props.file));
+
+        const uploadFile = async () => {
+            isLoading.value = true;
+
+            await props.upload([props.file])
+                .then(resp => {
+                    failedToUpload.value = false;
+                    return resp;
+                })
+                .catch(err => {
+                    failedToUpload.value = true;
+                    return err;
+                })
+                .finally(() => isLoading.value = false);
+        };
 
         watch(
             () => props.file,
@@ -84,24 +114,25 @@ export default defineComponent({
         onMounted(async () => {
             if (!props.uploadOnMounted) return;
 
-            await props.upload([props.file]);
+            await uploadFile();
         });
 
         return {
             size,
             extension,
             src,
-            clearIcon
+            clearIcon,
+            checkIcon,
+            retryIcon,
+            isLoading,
+            failedToUpload,
+            uploadFile
         };
     }
 });
 </script>
 
 <style scoped lang="scss">
-.file-name {
-    @apply truncate;
-    width: available;
-}
 .avatar {
     width: 2.5rem;
     height: 2.5rem;

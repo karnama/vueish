@@ -1,6 +1,12 @@
+// used by web-types and jest
 {
     "extends": "./tsconfig.json",
     "compilerOptions": {
-        "module": "CommonJS"
+        "module": "CommonJS",
+        "types": [
+            "node",
+            "jest",
+            "@types/requestidlecallback"
+        ]
     }
 }

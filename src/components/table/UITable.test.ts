@@ -560,7 +560,7 @@ describe('UITable', () => {
             expect(wrapper.find(selectorMap.nextPageBtn).exists()).toBe(false);
         });
 
-        it('should disable the pagination button if no nxt page exists', async () => {
+        it('should disable the pagination button if no next page exists', async () => {
             const wrapper = mount(UITable, {
                 props: {
                     rows: availableRows,

@@ -35,14 +35,10 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UITextarea from './UITextarea.vue';
-import UIButton from '@components/button/UIButton.vue';
 
 export default defineComponent({
     // eslint-disable-next-line vue/no-reserved-component-names
     name: 'Textarea',
-
-    components: { UITextarea, UIButton },
 
     setup() {
         const text = ref('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque cum dignissimos eius ' +

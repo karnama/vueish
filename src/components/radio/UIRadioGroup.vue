@@ -35,7 +35,9 @@ import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
 
 export default defineComponent({
     name: 'UIRadioGroup',
+
     components: { UIExpandTransition },
+
     props: {
         modelValue: {
             type: [String, Boolean, Number, Object, Array]

@@ -26,6 +26,7 @@ function ensureRelative(path: string) {
     return (path.startsWith('./') || path.startsWith('../') ? path : './' + path).replace(/\\/g, '/');
 }
 
+// todo - add watch option
 async function buildTag(fullPath: string): Promise<HtmlTag> {
     const parsed = await parse(fullPath);
 

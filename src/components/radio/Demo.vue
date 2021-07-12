@@ -39,14 +39,9 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UIRadio from './UIRadio.vue';
-import UIRadioGroup from './UIRadioGroup.vue';
-import UIButton from '@components/button/UIButton.vue';
 
 export default defineComponent({
     name: 'Radio',
-
-    components: { UIButton, UIRadioGroup, UIRadio },
 
     setup() {
         const value = ref();

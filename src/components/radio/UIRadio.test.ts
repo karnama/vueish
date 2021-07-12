@@ -9,6 +9,9 @@ describe('UIRadio', () => {
         const foo = 'bar';
 
         const wrapper = mount(UIRadio, {
+            props: {
+                value: 1
+            },
             attrs: {
                 foo
             }
@@ -24,6 +27,7 @@ describe('UIRadio', () => {
 
         const wrapper = mount(UIRadio, {
             props: {
+                value: 1,
                 label
             }
         });
@@ -35,6 +39,9 @@ describe('UIRadio', () => {
         const label = 'text';
 
         const wrapper = mount(UIRadio, {
+            props: {
+                value: 1
+            },
             slots: {
                 default: label
             }

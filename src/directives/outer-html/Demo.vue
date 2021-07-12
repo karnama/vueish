@@ -18,11 +18,10 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import outerHtml from './index';
 
 export default defineComponent({
     name: 'OuterHtml',
-    directives: { outerHtml },
+
     setup() {
         const html = ref('<p class="text-color">This is the next sibling of the origin</p>');
         const templateHtml = ref('<p class="text-color">This has replaced the &lt;template&gt; tag</p>');

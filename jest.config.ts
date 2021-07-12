@@ -1,9 +1,10 @@
 import { pathsToModuleNameMapper } from 'ts-jest/utils';
 import { compilerOptions } from './tsconfig.json';
-import type { Config } from '@jest/types';
+import { InitialOptionsTsJest } from 'ts-jest/dist/types';
 
 export default {
     clearMocks: true,
+    testEnvironment: 'jsdom',
     coverageDirectory: 'coverage',
     coverageProvider: 'v8',
     rootDir: './',
@@ -19,5 +20,10 @@ export default {
         '^.+\\.vue$': 'vue-jest',
         '^.+\\ts$': 'ts-jest'
     },
-    testMatch: ['**/src/**/*.test.ts']
-} as Config.InitialOptions;
+    testMatch: ['<rootDir>/src/**/*.test.ts'],
+    globals: {
+        'ts-jest': {
+            tsconfig: 'tsconfig.node.json'
+        }
+    }
+} as InitialOptionsTsJest;

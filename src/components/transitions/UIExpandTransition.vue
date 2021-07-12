@@ -16,9 +16,10 @@
 <script lang="ts">
 export default {
     name: 'UIExpandTransition',
+
     props: {
         /**
-         * Boolean flag for transition on appear.
+         * Boolean flag indicating to transition on appear.
          */
         appear: {
             type: Boolean,

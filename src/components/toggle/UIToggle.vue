@@ -38,7 +38,9 @@ import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
 // todo - update design from design chat (border red on error)
 export default defineComponent({
     name: 'UIToggle',
+
     components: { UIExpandTransition },
+
     inheritAttrs: false,
 
     props: {

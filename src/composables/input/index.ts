@@ -1,5 +1,6 @@
-import { computed, onMounted, getCurrentInstance, capitalize, ref, watch } from 'vue';
+import { computed, getCurrentInstance, capitalize, ref, watch } from 'vue';
 import type { Ref } from 'vue';
+import { getLibrarySettings } from '@/helpers';
 
 /**
  * The input label.
@@ -59,7 +60,22 @@ export const suffix = {
  */
 export const clearable = {
     type: Boolean,
-    default: false
+    default: (): boolean => {
+        const clearable = getLibrarySettings()?.clearableByDefault;
+
+        return typeof clearable === 'boolean' ? clearable : false;
+    }
+};
+
+/**
+ * Generic validator for optional numbers higher than 0.
+ */
+// todo - test in mock component
+export const positiveOptionalNumber = {
+    type: Number,
+    validator: (val: number): boolean => {
+        return typeof val === 'number' ? val > 0 : false;
+    }
 };
 
 /**
@@ -111,20 +127,4 @@ export function useVModel<T>(props: Record<string, any>, name = 'modelValue'): R
             internal.value = value;
         }
     });
-}
-
-/**
- * Configure the input to use autofocus.
- *
- * @param {boolean} autofocus
- * @param {Ref?} input
- */
-export function autofocusElement(autofocus: boolean, input: Ref<HTMLInputElement | undefined>): void {
-    if (input && autofocus) {
-        onMounted(() => {
-            if (input.value) {
-                input.value.focus();
-            }
-        });
-    }
 }

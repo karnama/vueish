@@ -13,12 +13,9 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UIFileUploader from './UIFileUploader.vue';
-import UIButton from '@components/button/UIButton.vue';
 
 export default defineComponent({
     name: 'FileUploader',
-    components: { UIButton, UIFileUploader },
 
     setup: () => {
         const error = ref('');

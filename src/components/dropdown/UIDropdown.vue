@@ -24,7 +24,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref, reactive } from 'vue';
 import type { PropType } from 'vue';
-import clickAway from '@/directives/clickAway';
+import clickAway from '@/directives/click-away';
 import { getPxValue } from '@composables/style';
 
 export default defineComponent({

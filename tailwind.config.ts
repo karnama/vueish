@@ -18,7 +18,7 @@ const brandColor = (level: number) => {
 };
 
 const brandColors = (levels: number[]) => {
-    const colors = {};
+    const colors: Record<string, CallableFunction> = {};
 
     levels.forEach(level => colors['brand-' + String(level)] = brandColor(level));
 
