@@ -31,6 +31,7 @@ module.exports = {
                 'table',
                 'textarea',
                 'toggle',
+                'pagination',
                 'transitions',
                 'tooltip',
                 'outer-html',

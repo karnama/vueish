@@ -6,22 +6,48 @@
         <UIButton :disabled="disabled || !hasPrevious"
                   aria-label="Previous Page"
                   class="transform rotate-90 padding"
-                  @click="previous"
+                  @click="page === 1 ? undefined : setPage(page - 1)"
                   v-html="chevronIcon" />
+        <UIButton :aria-current="isCurrent = page === 1"
+                  :category="isCurrent ? 'primary' : 'default'"
+                  :disabled="disabled"
+                  :outline="!isCurrent"
+                  :aria-label="isCurrent ? 'Current Page, Page 1' : 'Go to page 1'"
+                  :title="isCurrent ? 'Current Page, Page 1' : 'Go to page 1'"
+                  @click="setPage(1)">
+            1
+        </UIButton>
+        <div v-if="pages[0] !== 2">
+            ...
+        </div>
         <UIButton v-for="pageNum in pages"
                   :key="pageNum"
                   :aria-current="isCurrent = pageNum === page"
                   :category="isCurrent ? 'primary' : 'default'"
                   :outline="!isCurrent"
                   :aria-label="isCurrent ? 'Current Page, Page ' + pageNum : 'Go to page ' + pageNum"
+                  :title="isCurrent ? 'Current Page, Page ' + pageNum : 'Go to page ' + pageNum"
                   :disabled="disabled"
-                  @click="isCurrent ? null : page = pageNum">
+                  @click="setPage(pageNum)">
             {{ pageNum }}
+        </UIButton>
+        <div v-if="startPagesFrom + Number(visibleCount) < Number(length)">
+            ...
+        </div>
+        <UIButton v-if="Number(length) > 1"
+                  :aria-current="isCurrent = page === Number(length)"
+                  :category="isCurrent ? 'primary' : 'default'"
+                  :disabled="disabled"
+                  :outline="!isCurrent"
+                  :aria-label="isCurrent ? 'Current Page, Page ' + length : 'Go to page ' + length"
+                  :title="isCurrent ? 'Current Page, Page ' + length : 'Go to page ' + length"
+                  @click="setPage(Number(length))">
+            {{ length }}
         </UIButton>
         <UIButton :disabled="disabled || !hasNext"
                   aria-label="Next Page"
                   class="transform rotate-270 padding"
-                  @click="next"
+                  @click="page === Number(length) ? undefined : setPage(page + 1)"
                   v-html="chevronIcon" />
     </div>
 </template>
@@ -34,7 +60,9 @@ import UIButton from '@components/button/UIButton.vue';
 
 export default defineComponent({
     name: 'UIPagination',
+
     components: { UIButton },
+
     props: {
         /**
          * The current page.
@@ -51,69 +79,77 @@ export default defineComponent({
         length: {
             type: [Number, String],
             required: true,
-            validator: (val: number|string) => {
+            validator: (val: number | string) => {
                 val = Number(val);
-
-                return !isNaN(val) && Number.isInteger(val);
+                return !isNaN(val) && Number.isInteger(val) && val > 0;
             }
         },
 
         /**
          * The total number of page buttons to show.
          */
-        totalVisible: {
+        visibleCount: {
             type: [Number, String],
             default: 3,
-            validator: (val: number|string) => {
+            validator: (val: number | string) => {
                 val = Number(val);
-                return !isNaN(val) && Number.isInteger(val) && val >= 0;
+                const isValid = !isNaN(val) && Number.isInteger(val) && val >= 0;
+
+                if (isValid && val % 2 !== 1) {
+                    throw new Error('visibleCount expected to be an odd number.');
+                }
+
+                return isValid;
             }
         },
 
         disabled
     },
 
-    emits: ['update:modelValue', 'previous', 'next'],
+    emits: ['update:modelValue'],
 
-    setup(props, ctx) {
+    setup(props) {
         const chevronIcon = getIcon('chevron');
 
-        const page = useVModel(props);
+        const page = useVModel<number>(props);
         const hasPrevious = computed(() => page.value > 1);
         const hasNext = computed(() => page.value < Number(props.length));
+        const startPagesFrom = computed(() => {
+            const sideLength = Math.floor(Number(props.visibleCount) / 2);
 
+            if (page.value <= sideLength + 1) {
+                return 2;
+            }
+
+            if (page.value >= Number(props.length) - sideLength) {
+                return Number(props.length) - Number(props.visibleCount);
+            }
+
+            if (Number(props.length) === Number(props.visibleCount)) {
+                return page.value - sideLength - 1;
+            }
+            return page.value - sideLength;
+        });
         const pages = computed(() => {
-            const all = [...Array(Number(props.length) + 1).keys()].slice(1);
-            const maxVisible = Number(props.totalVisible);
-            const pageIndex = page.value - 1;
-
-            // if (maxVisible % 2 === 1) {
-            //     const sides = Math.floor(maxVisible / 2);
-            //     return all.slice(pageIndex - sides, pageIndex + sides + 1);
-            // }
-
-            return all.slice(pageIndex, pageIndex + maxVisible);
+            return Array.from(
+                { length: Number(props.visibleCount) },
+                (_, index) => index + startPagesFrom.value
+            )
+                .filter(pageNum => pageNum > 1 && pageNum < Number(props.length));
         });
 
-        const next = () => {
-            if (!hasNext.value) return;
+        const setPage = (pageNum: number) => {
+            if (pageNum === page.value) return;
 
-            page.value++;
-            ctx.emit('next', page.value);
-        };
-        const previous = () => {
-            if (!hasPrevious.value) return;
-
-            page.value--;
-            ctx.emit('previous', page.value);
+            page.value = pageNum;
         };
 
         return {
             page,
             hasPrevious,
+            startPagesFrom,
+            setPage,
             hasNext,
-            next,
-            previous,
             chevronIcon,
             pages
         };
