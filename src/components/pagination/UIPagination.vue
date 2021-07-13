@@ -3,12 +3,14 @@
          class="flex flex-wrap justify-between items-center max-w-max space-x-2"
          role="navigation"
          aria-label="Pagination navigation">
-        <UIButton :disabled="disabled || !hasPrevious"
+        <UIButton id="previous-page-button"
+                  :disabled="disabled || !hasPrevious"
                   aria-label="Previous Page"
                   class="transform rotate-90 padding"
                   @click="page === 1 ? undefined : setPage(page - 1)"
                   v-html="chevronIcon" />
-        <UIButton :aria-current="isCurrent = page === 1"
+        <UIButton id="page-1-button"
+                  :aria-current="isCurrent = page === 1"
                   :category="isCurrent ? 'primary' : 'default'"
                   :disabled="disabled"
                   :outline="!isCurrent"
@@ -21,6 +23,7 @@
             ...
         </div>
         <UIButton v-for="pageNum in pages"
+                  :id="`page-${pageNum}-button`"
                   :key="pageNum"
                   :aria-current="isCurrent = pageNum === page"
                   :category="isCurrent ? 'primary' : 'default'"
@@ -35,6 +38,7 @@
             ...
         </div>
         <UIButton v-if="Number(length) > 1"
+                  :id="`page-${length}-button`"
                   :aria-current="isCurrent = page === Number(length)"
                   :category="isCurrent ? 'primary' : 'default'"
                   :disabled="disabled"
@@ -44,7 +48,8 @@
                   @click="setPage(Number(length))">
             {{ length }}
         </UIButton>
-        <UIButton :disabled="disabled || !hasNext"
+        <UIButton id="next-page-button"
+                  :disabled="disabled || !hasNext"
                   aria-label="Next Page"
                   class="transform rotate-270 padding"
                   @click="page === Number(length) ? undefined : setPage(page + 1)"
