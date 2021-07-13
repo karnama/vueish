@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UITextarea should display correctlt 1`] = `
+exports[`UITextarea should display correctly 1`] = `
 <div
   class="ui-textarea relative"
 >
