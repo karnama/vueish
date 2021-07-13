@@ -51,10 +51,10 @@ export default defineComponent({
         @apply flex-1 w-full;
     }
     & > button:last-child {
-        @apply rounded-b rounded-r-none;
+        @apply rounded-b rounded-tr-none;
     }
     & > button:first-child {
-        @apply rounded-t rounded-l-none;
+        @apply rounded-t rounded-bl-none;
     }
 }
 .spread {

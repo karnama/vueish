@@ -27,9 +27,12 @@ module.exports = {
         ecmaVersion: 2020,
         parser: '@typescript-eslint/parser',
         sourceType: 'module',
-        project: 'tsconfig.dev.json',
+        project: './tsconfig.eslint.json',
         tsconfigRootDir: __dirname,
         extraFileExtensions: ['.vue'],
+    },
+    globals: {
+        __VUEISH_VERSION__: 'readonly'
     },
     rules: {
         // https://eslint.org/docs/rules/
@@ -198,7 +201,7 @@ module.exports = {
                         "ignore": ["describe"]
                     }
                 ],
-                "jest/no-disabled-tests": "warn"
+                "jest/no-disabled-tests": "off"
             }
         }
     ]

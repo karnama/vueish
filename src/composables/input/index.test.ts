@@ -4,7 +4,7 @@ import { defineComponent, h } from 'vue';
 import type { PropType } from 'vue';
 import { disableConsoleWarn, enableConsoleWarn } from '@helpers/test';
 
-describe('index', () => {
+describe('input', () => {
     describe('useVModel', () => {
         const Comp = defineComponent({
             name: 'Comp',

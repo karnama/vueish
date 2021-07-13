@@ -21,7 +21,6 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UISelect from '@components/select/UISelect.vue';
 
 const options = [
     {
@@ -45,7 +44,7 @@ const options = [
 export default defineComponent({
     // eslint-disable-next-line vue/no-reserved-component-names
     name: 'Select',
-    components: { UISelect },
+
     setup() {
         const selected = ref(null);
         const multiSelected = ref(null);

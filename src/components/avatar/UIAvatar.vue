@@ -1,14 +1,12 @@
 <template>
     <div class="ui-avatar text-lg overflow-hidden h-8 w-8
-                text-white bg-red-500 flex flex-col justify-center items-center"
+                text-white bg-brand-400 flex flex-col justify-center items-center"
          :class="[ squared ? 'rounded' : 'rounded-full' ]">
-        <img v-show="src && loaded"
+        <img v-if="src && loaded"
              :src="src"
              :alt="alt"
-             :aria-hidden="src && loaded"
-             @load="loaded = true"
              @error="loaded = false">
-        <template v-if="!loaded">
+        <template v-else>
             <slot v-if="$slots.default" />
             <template v-else-if="content">
                 {{ content }}
@@ -22,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, watch } from 'vue';
 import { getIcon } from '@/helpers';
 
 export default defineComponent({
@@ -50,9 +48,11 @@ export default defineComponent({
         squared: Boolean
     },
 
-    setup() {
-        const loaded = ref(false);
+    setup(props) {
+        const loaded = ref(true);
         const personIcon = getIcon('person');
+
+        watch(() => props.src, () => loaded.value = true);
 
         return {
             loaded,

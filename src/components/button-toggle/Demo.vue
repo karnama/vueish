@@ -16,7 +16,9 @@
                 name="multi"
                 class="mb-6" />
 
-    <p>Prop options</p>
+    <p class="text-color">
+        Prop options
+    </p>
     <UIButtonToggle v-model="selected"
                     :options="options"
                     :large="large"
@@ -25,7 +27,7 @@
                     :clearable="clearable"
                     :disabled="disabled" />
 
-    <p class="mt-4">
+    <p class="mt-4 text-color">
         Slotted option
     </p>
     <UIButtonToggle v-model="selectedSlotted"
@@ -49,13 +51,10 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UIButtonToggle from './UIButtonToggle.vue';
 import type { Option } from '@/types';
-import UICheckbox from '@components/checkbox/UICheckbox.vue';
 
 export default defineComponent({
     name: 'ButtonToggle',
-    components: { UICheckbox, UIButtonToggle },
 
     setup() {
         const options: Option[] = [

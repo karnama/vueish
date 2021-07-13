@@ -16,9 +16,10 @@
 <script lang="ts">
 export default {
     name: 'UIExpandTransition',
+
     props: {
         /**
-         * Boolean flag for transition on appear.
+         * Boolean flag indicating to transition on appear.
          */
         appear: {
             type: Boolean,
@@ -96,12 +97,13 @@ export default {
 
 .expand-enter-active {
     overflow: hidden;
+    /* fixme: opacity doesn't work at all */
     transition: height 200ms ease, opacity 200ms ease 100ms;
 }
 
 .expand-leave-active {
     overflow: hidden;
-    transition: height 200ms ease 100ms, opacity 200ms ease;
+    transition: opacity 200ms ease, height 200ms ease 200ms;
 }
 
 .expand-enter,

@@ -8,11 +8,10 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import clickAway from '@/directives/clickAway/index';
 
 export default defineComponent({
     name: 'ClickAway',
-    directives: { clickAway },
+
     setup: () => {
         const location = ref('no-where');
 

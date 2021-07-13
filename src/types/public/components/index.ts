@@ -1,4 +1,4 @@
-import { StyleType } from '@/types';
+import { StyleType, UIError } from '@/types';
 
 // UIBadge
 export const horizontal = ['left', 'middle', 'right'] as const;
@@ -39,3 +39,8 @@ export interface SortOrder {
     direction: 'asc' | 'desc';
 }
 type SortByFunc<T> = (row: T) => any;
+
+// UIFileUploader
+export interface FileError extends UIError {
+    files: File[];
+}

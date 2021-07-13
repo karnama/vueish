@@ -1,15 +1,15 @@
 <template>
     <div ref="selectComp"
          :class="{ 'cursor-not-allowed': disabled }"
-         class="ui-select text-default relative group outline-none"
+         class="ui-select relative group outline-none"
          role="listbox"
          :aria-disabled="disabled"
          :aria-valuetext="selectionDisplay"
          v-bind="$attrs">
         <!--Clickable area showing the current value and opens the list-->
-        <div class="current-selection cursor-pointer select-none border-b flex justify-between"
+        <div class="current-selection text-color cursor-pointer select-none border-b flex justify-between"
              :class="{
-                 'text-muted cursor-not-allowed focus:outline-none': disabled
+                 'text-color-muted cursor-not-allowed focus:outline-none': disabled
              }"
              tabindex="0"
              @keydown.space="openList"
@@ -19,18 +19,19 @@
                     {{ selectionDisplay }}
                 </span>
 
-                <span v-else class="opacity-50">
+                <span v-else class="text-gray-400 dark:text-gray-500">
                     {{ placeholder }}
                 </span>
             </slot>
 
             <span v-if="disabled"
-                  class="h-5 w-5 text-gray-400"
+                  class="h-5 w-5 text-gray-400 dark:text-gray-500"
                   v-html="lockIcon" />
 
             <span v-else-if="clearable && selectionDisplay"
                   class="opacity-0 clear-icon h-5 w-5 cursor-pointer right-0 top-1 group-hover:opacity-100
-                         transition-opacity text-gray-500 relative -mr-5 group-hover:mr-0 -mt-1 transition-spacing"
+                         transition-opacity text-gray-400 dark:text-gray-500
+                         relative -mr-5 group-hover:mr-0 -mt-1 transition-spacing"
                   aria-controls=""
                   @click.stop="clearSelection(undefined)"
                   v-html="clearIcon" />
@@ -41,23 +42,24 @@
             <div v-if="open"
                  ref="list"
                  v-click-away="closeList"
-                 class="list overflow-y-scroll absolute w-full border bg-white shadow-md"
+                 class="list overflow-y-scroll absolute w-full border text-color
+                        bg-white dark:bg-gray-600 dark:border-gray-500 shadow-md"
                  :style="style"
                  @keydown.esc="closeList">
                 <!--Header to display instructions-->
-                <div v-if="header || $slots.header" class="px-2 py-1 text-sm bg-dark border-b select-none">
+                <div v-if="header || $slots.header" class="px-2 py-1 text-sm border-b select-none">
                     <slot name="header">
                         {{ header }}
                     </slot>
                 </div>
 
                 <!--Search input to filter the list-->
-                <div v-if="!noSearch" class="p-2 bg-dark">
+                <div v-if="!noSearch" class="p-2">
                     <input ref="searchInput"
                            v-model="search"
                            tabindex="-1"
                            class="appearance-none bg-transparent w-full leading-tight
-                              focus:outline-none transition-text-color pb-2"
+                                  focus:outline-none transition-text-color"
                            name="search">
                 </div>
 
@@ -67,10 +69,10 @@
                         :key="option[optionLabel] + '-' + index"
                         :ref="el => { if (el) listElements[index] = el }"
                         :aria-selected="currentlySelected = isSelected(option)"
-                        class="option cursor-pointer bg-default hover:bg-gray-100 relative
-                               justify-center focus:bg-brand-200 outline-none"
+                        class="option cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500 relative
+                               justify-center focus:bg-brand-200 dark:focus:bg-brand-500 outline-none"
                         :class="{
-                            'selected-option bg-gray-200': currentlySelected,
+                            'selected-option bg-gray-200 dark:bg-gray-500 dark:hover:bg-gray-500': currentlySelected,
                             'border-t': index > 0 || !noSearch && index === 0
                         }"
                         role="option"
@@ -90,7 +92,7 @@
                                      || multi && clearable && currentlySelected
                                      || multi && currentlySelected && Array.isArray(selected) && selected.length > 1"
                                  class="flex items-center justify-between p-2 px-3">
-                                <span class="clear-icon h-5 w-5 cursor-pointer text-gray-500"
+                                <span class="clear-icon h-5 w-5 cursor-pointer text-color-muted"
                                       @click.stop="clearSelection(option)"
                                       v-html="clearIcon" />
                             </div>
@@ -109,10 +111,11 @@ import type { PropType } from 'vue';
 import { placeholder, autofocus, clearable, disabled, useVModel, label } from '@composables/input';
 import { getIcon, wrap } from '@/helpers';
 import { MaybeArray } from '@/types';
-import clickAway from '@/directives/clickAway';
+import clickAway from '@/directives/click-away';
 
 type Option = Record<string, any>;
 
+// todo - clearIcon no semantic indication of interactivity
 export default defineComponent({
     name: 'UISelect',
 

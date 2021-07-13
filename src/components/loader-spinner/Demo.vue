@@ -32,18 +32,9 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UISpinnerLoader from './UISpinnerLoader.vue';
-import UICheckbox from '@components/checkbox/UICheckbox.vue';
-import UIRangeSlider from '@components/range-slider/UIRangeSlider.vue';
 
 export default defineComponent({
     name: 'SpinnerLoader',
-
-    components: {
-        UIRangeSlider,
-        UICheckbox,
-        UISpinnerLoader
-    },
 
     setup() {
         const determinate = ref(false);
