@@ -19,7 +19,7 @@
                   @click="setPage(1)">
             1
         </UIButton>
-        <div v-if="pages[0] !== 2">
+        <div v-if="pages[0] !== 2" class="select-none">
             ...
         </div>
         <UIButton v-for="pageNum in pages"
@@ -34,7 +34,7 @@
                   @click="setPage(pageNum)">
             {{ pageNum }}
         </UIButton>
-        <div v-if="startPagesFrom + Number(visibleCount) < Number(length)">
+        <div v-if="startPagesFrom + Number(visibleCount) < Number(length)" class="select-none">
             ...
         </div>
         <UIButton v-if="Number(length) > 1"

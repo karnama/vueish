@@ -46,7 +46,9 @@ exports[`UIPagination should render correctly 1`] = `
       
     </transition-stub>
   </button>
-  <div>
+  <div
+    class="select-none"
+  >
      ... 
   </div>
   
@@ -111,7 +113,9 @@ exports[`UIPagination should render correctly 1`] = `
     </transition-stub>
   </button>
   
-  <div>
+  <div
+    class="select-none"
+  >
      ... 
   </div>
   <button
