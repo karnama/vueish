@@ -1,17 +1,18 @@
 <template>
-    <!--    <transition-group v-if="group"-->
-    <!--                      name="expand"-->
-    <!--                      :appear="appear"-->
-    <!--                      @enter="enter"-->
-    <!--                      @after-enter="afterEnter"-->
-    <!--                      @leave="leave"-->
-    <!--                      @before-enter="beforeEnter"-->
-    <!--                      @before-leave="beforeLeave"-->
-    <!--                      @after-leave="afterLeave">-->
-    <!--        <slot />-->
-    <!--    </transition-group>-->
+    <transition-group v-if="group"
+                      name="expand"
+                      :appear="appear"
+                      @enter="enter"
+                      @after-enter="afterEnter"
+                      @leave="leave"
+                      @before-enter="beforeEnter"
+                      @before-leave="beforeLeave"
+                      @after-leave="afterLeave">
+        <slot />
+    </transition-group>
 
     <transition
+        v-else
         name="expand"
         :appear="appear"
         :mode="mode"
@@ -38,21 +39,12 @@ export default {
     },
 
     setup() {
-        let height: number;
         const beforeEnter = (element: HTMLElement): void => {
-            // console.log('getBoundingClientRect.height', element.getBoundingClientRect().height);
-            // console.log('offsetHeight', element.offsetHeight);
-            // console.log('scrollHeight', element.scrollHeight);
-            // console.log('clientHeight', element.clientHeight);
-            // console.log('getComputedStyle', getComputedStyle(element).height);
-            // console.log(element);
-            // height = element.getBoundingClientRect().height || element.offsetHeight || element.scrollHeight || element.clientHeight || getComputedStyle(element).height;
-            // console.log(height);
             element.style.willChange = 'height, opacity';
             requestAnimationFrame(() => {
-                // if (!element.style.height) {
-                element.style.height = '0px';
-                // }
+                if (!element.style.height) {
+                    element.style.height = '0px';
+                }
             });
         };
         const enter = (element: HTMLElement): void => {
@@ -68,8 +60,6 @@ export default {
         };
 
         const beforeLeave = (element: HTMLElement): void => {
-            height = element.getBoundingClientRect().height || element.offsetHeight || element.scrollHeight || element.clientHeight || getComputedStyle(element).height;
-            console.log(height);
             element.style.willChange = 'height, opacity';
             requestAnimationFrame(() => {
                 if (!element.style.height) {
