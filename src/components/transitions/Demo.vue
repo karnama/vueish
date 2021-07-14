@@ -4,7 +4,7 @@
               :options="components"
               class="mb-2" />
 
-    <UIPanel header="Single Element" no-collapse class="mb-6">
+    <UIPanel header="Single Element" class="mb-6">
         <div class="flex flex-col justify-center"
              :style="[ component.name !== 'UIExpandTransition' ? 'min-height: 10rem;' : '' ]">
             <component :is="component.name">
@@ -21,7 +21,7 @@
         </slot>
     </UIPanel>
 
-    <UIPanel header="Between Two Elements" no-collapse class="mb-6">
+    <UIPanel header="Between Two Elements" class="mb-6">
         <div class="flex flex-col justify-center"
              :style="[ component.name !== 'UIExpandTransition' ? 'min-height: 10rem;' : '' ]">
             <component :is="component.name">
@@ -39,7 +39,7 @@
         </slot>
     </UIPanel>
 
-    <UIPanel header="Group Of Elements" no-collapse class="mb-6">
+    <UIPanel header="Group Of Elements" class="mb-6">
         <slot name="actions">
             <div class="flex justify-end">
                 <label>
