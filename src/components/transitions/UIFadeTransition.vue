@@ -1,5 +1,13 @@
 <template>
-    <transition-group v-if="group" name="fade">
+    <transition-group v-if="group"
+                      name="fade"
+                      :appear="appear"
+                      :enter-active-class="`transition-opacity ease-in ${durationIn}`"
+                      enter-from-class="opacity-0"
+                      enter-to-class="opacity-100"
+                      :leave-active-class="`transition-opacity ease-out ${durationOut}`"
+                      leave-from-class="opacity-100"
+                      leave-to-class="opacity-0">
         <slot />
     </transition-group>
 
