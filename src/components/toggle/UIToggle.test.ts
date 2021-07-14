@@ -11,6 +11,7 @@ describe('UIToggle', () => {
 
         expect(wrapper.element).toMatchSnapshot();
     });
+
     it('should toggle the input with click', async () => {
         const wrapper = mount(UIToggle, {
             props: {

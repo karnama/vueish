@@ -12,6 +12,7 @@ describe('UIInput', () => {
 
         expect(wrapper.element).toMatchSnapshot();
     });
+
     it('should handle model-binding correctly', async () => {
         const wrapper = mount(UIInput, {
             props: {

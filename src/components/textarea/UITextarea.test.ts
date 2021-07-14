@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import UITextarea from './UITextarea.vue';
 
 describe('UITextarea', () => {
-    it('should display correctlt', () => {
+    it('should display correctly', () => {
         const wrapper = mount(UITextarea, {
             props: {
                 modelValue: '',
