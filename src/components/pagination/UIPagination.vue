@@ -6,7 +6,7 @@
         <UIButton id="previous-page-button"
                   :disabled="disabled || !hasPrevious"
                   aria-label="Previous Page"
-                  class="transform rotate-90 padding"
+                  class="transform rotate-90 !p-1"
                   @click="page === 1 ? undefined : setPage(page - 1)"
                   v-html="chevronIcon" />
         <UIButton id="page-1-button"
@@ -14,6 +14,7 @@
                   :category="isCurrent ? 'primary' : 'default'"
                   :disabled="disabled"
                   :outline="!isCurrent"
+                  class="page-button"
                   :aria-label="isCurrent ? 'Current Page, Page 1' : 'Go to page 1'"
                   :title="isCurrent ? 'Current Page, Page 1' : 'Go to page 1'"
                   @click="setPage(1)">
@@ -28,6 +29,7 @@
                   :aria-current="isCurrent = pageNum === page"
                   :category="isCurrent ? 'primary' : 'default'"
                   :outline="!isCurrent"
+                  class="page-button"
                   :aria-label="isCurrent ? 'Current Page, Page ' + pageNum : 'Go to page ' + pageNum"
                   :title="isCurrent ? 'Current Page, Page ' + pageNum : 'Go to page ' + pageNum"
                   :disabled="disabled"
@@ -42,6 +44,7 @@
                   :aria-current="isCurrent = page === Number(length)"
                   :category="isCurrent ? 'primary' : 'default'"
                   :disabled="disabled"
+                  class="page-button"
                   :outline="!isCurrent"
                   :aria-label="isCurrent ? 'Current Page, Page ' + length : 'Go to page ' + length"
                   :title="isCurrent ? 'Current Page, Page ' + length : 'Go to page ' + length"
@@ -51,7 +54,7 @@
         <UIButton id="next-page-button"
                   :disabled="disabled || !hasNext"
                   aria-label="Next Page"
-                  class="transform rotate-270 padding"
+                  class="transform rotate-270 !p-1"
                   @click="page === Number(length) ? undefined : setPage(page + 1)"
                   v-html="chevronIcon" />
     </div>
@@ -163,7 +166,9 @@ export default defineComponent({
 </script>
 
 <style>
-.padding {
-    padding: 0.25rem !important;
+.page-button {
+    min-width: 40px;
+    padding: 0 5px !important;
+    height: 38px;
 }
 </style>
