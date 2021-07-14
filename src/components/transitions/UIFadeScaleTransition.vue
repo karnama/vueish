@@ -25,22 +25,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { appear, mode, group } from './props';
 
 export default defineComponent({
     name: 'UIFadeScaleTransition',
 
     props: {
-        /**
-         * Boolean flag to indicate whether the transition
-         * should operate in group mode or not.
-         *
-         * @type {boolean}
-         */
-        group: {
-            type: Boolean,
-            default: false
-        },
-
         /**
          * A class containing a transition timing function controlling
          * how long should the transition last when entering.
@@ -59,23 +49,9 @@ export default defineComponent({
             default: 'duration-75'
         },
 
-        /**
-         * Boolean flag indicating to transition on appear.
-         */
-        appear: {
-            type: Boolean,
-            default: false
-        },
-
-        /**
-         * The mode to apply to the transition.
-         *
-         * @type {string}
-         */
-        mode: {
-            type: String,
-            default: 'out-in'
-        }
+        appear,
+        mode,
+        group
     }
 });
 </script>

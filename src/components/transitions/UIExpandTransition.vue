@@ -1,49 +1,58 @@
 <template>
+    <!--    <transition-group v-if="group"-->
+    <!--                      name="expand"-->
+    <!--                      :appear="appear"-->
+    <!--                      @enter="enter"-->
+    <!--                      @after-enter="afterEnter"-->
+    <!--                      @leave="leave"-->
+    <!--                      @before-enter="beforeEnter"-->
+    <!--                      @before-leave="beforeLeave"-->
+    <!--                      @after-leave="afterLeave">-->
+    <!--        <slot />-->
+    <!--    </transition-group>-->
+
     <transition
         name="expand"
         :appear="appear"
         :mode="mode"
+        @before-enter="beforeEnter"
         @enter="enter"
         @after-enter="afterEnter"
-        @leave="leave"
-        @before-enter="beforeEnter"
         @before-leave="beforeLeave"
+        @leave="leave"
         @after-leave="afterLeave">
         <slot />
     </transition>
 </template>
 
 <script lang="ts">
+import { appear, group, mode } from './props';
+
 export default {
     name: 'UIExpandTransition',
 
     props: {
-        /**
-         * Boolean flag indicating to transition on appear.
-         */
-        appear: {
-            type: Boolean,
-            default: false
-        },
-
-        /**
-         * The transition mode between elements.
-         */
-        mode: {
-            type: String,
-            default: 'out-in',
-            validator: (val: string): boolean => val === 'out-in' || val === 'in-out'
-        }
+        appear,
+        group,
+        mode
     },
 
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     setup() {
+        let height: number;
         const beforeEnter = (element: HTMLElement): void => {
+            // console.log('getBoundingClientRect.height', element.getBoundingClientRect().height);
+            // console.log('offsetHeight', element.offsetHeight);
+            // console.log('scrollHeight', element.scrollHeight);
+            // console.log('clientHeight', element.clientHeight);
+            // console.log('getComputedStyle', getComputedStyle(element).height);
+            // console.log(element);
+            // height = element.getBoundingClientRect().height || element.offsetHeight || element.scrollHeight || element.clientHeight || getComputedStyle(element).height;
+            // console.log(height);
             element.style.willChange = 'height, opacity';
             requestAnimationFrame(() => {
-                if (!element.style.height) {
-                    element.style.height = '0px';
-                }
+                // if (!element.style.height) {
+                element.style.height = '0px';
+                // }
             });
         };
         const enter = (element: HTMLElement): void => {
@@ -59,6 +68,8 @@ export default {
         };
 
         const beforeLeave = (element: HTMLElement): void => {
+            height = element.getBoundingClientRect().height || element.offsetHeight || element.scrollHeight || element.clientHeight || getComputedStyle(element).height;
+            console.log(height);
             element.style.willChange = 'height, opacity';
             requestAnimationFrame(() => {
                 if (!element.style.height) {
@@ -91,14 +102,10 @@ export default {
 </script>
 
 <style scoped>
-* {
-    backface-visibility: hidden;
-}
-
+/* height comes from js */
 .expand-enter-active {
     overflow: hidden;
-    /* fixme: opacity doesn't work at all */
-    transition: height 200ms ease, opacity 200ms ease 100ms;
+    transition: height 200ms ease, opacity 200ms ease 200ms;
 }
 
 .expand-leave-active {
@@ -106,9 +113,8 @@ export default {
     transition: opacity 200ms ease, height 200ms ease 200ms;
 }
 
-.expand-enter,
+.expand-enter-from,
 .expand-leave-to {
-    height: 0;
     opacity: 0;
 }
 </style>

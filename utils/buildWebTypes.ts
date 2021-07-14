@@ -32,6 +32,7 @@ async function buildTag(fullPath: string): Promise<HtmlTag> {
 
     let description = parsed.description?.trim() ?? '';
 
+    // todo - try to fetch the docblock from imported props
     parsed.docsBlocks?.forEach(block => {
         if (description.length > 0) {
             description += '\n\n';

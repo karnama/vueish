@@ -25,39 +25,12 @@
 </template>
 
 <script lang="ts">
+import { appear, mode, group } from './props';
+
 export default {
     name: 'UIFadeTransition',
 
     props: {
-        /**
-         * Boolean flag indicating to transition on appear.
-         */
-        appear: {
-            type: Boolean,
-            default: false
-        },
-
-        /**
-         * Boolean flag to indicate whether the transition
-         * should operate in group mode or not.
-         *
-         * @type {boolean}
-         */
-        group: {
-            type: Boolean,
-            default: false
-        },
-
-        /**
-         * The mode to apply to the transition.
-         *
-         * @type {string}
-         */
-        mode: {
-            type: String,
-            default: 'out-in'
-        },
-
         /**
          * A class containing a transition timing function controlling
          * how long should the transition last when entering.
@@ -74,7 +47,11 @@ export default {
         durationOut: {
             type: String,
             default: 'duration-200'
-        }
+        },
+
+        appear,
+        mode,
+        group
     }
 };
 </script>
