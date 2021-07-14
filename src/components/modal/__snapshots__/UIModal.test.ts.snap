@@ -22,7 +22,7 @@ exports[`UIModal should render correctly 1`] = `
       
     </transition-stub>
     <header
-      class="w-full flex items-center px-12 relative transition-all no-blur"
+      class="w-full flex items-center px-12 relative transition-all filter blur-none"
     >
       <h1
         class="select-none flex-grow py-8"
@@ -44,7 +44,7 @@ exports[`UIModal should render correctly 1`] = `
     <transition-stub>
       
       <div
-        class="no-blur"
+        class="blur-none"
       >
         <main
           class="w-full px-12 py-6"
