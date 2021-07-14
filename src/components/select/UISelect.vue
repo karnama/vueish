@@ -4,8 +4,7 @@
          class="ui-select relative group outline-none"
          role="listbox"
          :aria-disabled="disabled"
-         :aria-valuetext="selectionDisplay"
-         v-bind="$attrs">
+         :aria-valuetext="selectionDisplay">
         <!--Clickable area showing the current value and opens the list-->
         <div class="current-selection text-color cursor-pointer select-none border-b flex justify-between"
              :class="{
@@ -120,8 +119,6 @@ export default defineComponent({
     name: 'UISelect',
 
     directives: { clickAway },
-
-    inheritAttrs: false,
 
     props: {
         modelValue: {
