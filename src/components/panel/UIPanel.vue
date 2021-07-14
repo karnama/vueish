@@ -9,8 +9,8 @@
         </UIFadeTransition>
 
         <header v-if="hasHeader || $slots.actions"
-                class="w-full flex items-center px-12 relative transition-all no-blur"
-                :class="{ 'blur': loading && blockingLoader }">
+                class="w-full flex items-center px-12 relative transition-all filter blur-none"
+                :class="{ 'blur-[1px]': loading && blockingLoader }">
             <h1 class="select-none flex-grow py-8"
                 :class="{
                     'cursor-pointer': collapsible,
@@ -30,8 +30,8 @@
             <keep-alive>
                 <div v-cloak
                      v-if="open"
-                     class="no-blur"
-                     :class="{ 'blur': loading && blockingLoader }">
+                     class="blur-none"
+                     :class="{ 'blur-[1px]': loading && blockingLoader }">
                     <main class="w-full px-12 py-6">
                         <slot />
                     </main>
@@ -45,7 +45,7 @@
 
         <UIFadeTransition>
             <div v-if="loading && blockingLoader"
-                 class="rounded absolute top-0 left-0 w-full h-full blocking-loader-bg
+                 class="rounded absolute top-0 left-0 w-full h-full bg-black bg-opacity-10
                         flex justify-center items-center">
                 <UISpinnerLoader />
             </div>
@@ -169,16 +169,3 @@ export default defineComponent({
     }
 });
 </script>
-
-<style scoped>
-.blocking-loader-bg {
-    background-color: rgba(0, 0, 0, 0.1);
-}
-.no-blur {
-    filter: blur(0);
-}
-.blur {
-    filter: blur(1px);
-    transition: filter 100ms ease;
-}
-</style>
