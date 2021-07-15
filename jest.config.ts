@@ -5,7 +5,6 @@ import { InitialOptionsTsJest } from 'ts-jest/dist/types';
 export default {
     clearMocks: true,
     testEnvironment: 'jsdom',
-    coverageDirectory: 'coverage',
     collectCoverageFrom: [
         '<rootDir>/src/**/*.vue',
         '!<rootDir>/src/**/Demo.vue',

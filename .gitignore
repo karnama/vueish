@@ -1,12 +1,8 @@
 node_modules
 .DS_Store
 dist
-dist-ssr
-*.local
 .idea
-vite.config.js.map
-vite.config.js
-jest.config.js
-jest.config.js.map
 .eslintcache
-coverage
+
+# test reports
+junit.xml

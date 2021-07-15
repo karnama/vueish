@@ -43,5 +43,5 @@ jobs:
         uses: dorny/test-reporter@v1
         with:
           name: JEST Tests
-          path: coverage/junit.xml
+          path: junit.xml
           reporter: jest-junit
