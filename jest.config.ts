@@ -6,6 +6,16 @@ export default {
     clearMocks: true,
     testEnvironment: 'jsdom',
     coverageDirectory: 'coverage',
+    collectCoverageFrom: [
+        '<rootDir>/src/**/*.vue',
+        '!<rootDir>/src/**/Demo.vue',
+        '!<rootDir>/src/DemoBoard.vue',
+        '<rootDir>/src/components/**/*.ts',
+        '<rootDir>/src/directives/**/*.ts',
+        '<rootDir>/src/helpers/cache/**/*.ts',
+        '<rootDir>/src/helpers/index.ts'
+    ],
+    coverageReporters: ['clover'],
     coverageProvider: 'v8',
     rootDir: './',
     moduleNameMapper: {
