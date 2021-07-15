@@ -32,12 +32,12 @@ jobs:
         run: npm ci
 
       - name: Tests
-        run: IS_CI=true npm run test -- --coverage
+        run: IS_CI=true JEST_JUNIT_OUTPUT_DIR=coverage jest --ci --reporters=default --reporters=jest-junit
 
       - name: Test Report
         if: ${{ success() || failure() }}
-      - uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@v1
         with:
           name: JEST Tests
-          path: coverage/clover.xml
+          path: coverage/junit.xml
           reporter: jest-junit

@@ -15,7 +15,6 @@ export default {
         '<rootDir>/src/helpers/cache/**/*.ts',
         '<rootDir>/src/helpers/index.ts'
     ],
-    coverageReporters: ['clover'],
     coverageProvider: 'v8',
     rootDir: './',
     moduleNameMapper: {
