@@ -96,7 +96,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .box {
-    @apply h-32 w-32 rounded
+    @apply h-32 w-32 rounded shadow;
 }
 
 .content {
