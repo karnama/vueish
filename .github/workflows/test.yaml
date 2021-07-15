@@ -33,7 +33,7 @@ jobs:
         run: npm ci
 
       - name: Tests
-        run: IS_CI=true JEST_JUNIT_OUTPUT_DIR=coverage npx jest --ci --reporters=default --reporters=jest-junit
+        run: JEST_JUNIT_OUTPUT_DIR=coverage JEST_JUNIT_CLASSNAME="{classname}" JEST_JUNIT_TITLE="{title}" npx jest --ci --reporters=default --reporters=jest-junit
 
       - name: Test Report
         if: ${{ success() || failure() }}
