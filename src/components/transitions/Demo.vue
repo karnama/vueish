@@ -79,7 +79,7 @@ export default defineComponent({
         ];
 
         const component = ref<{ name: string }>({ name: 'UIFadeTransition' });
-        const singleElement = ref(true);
+        const singleElement = ref(false);
         const betweenTwoElements = ref(true);
         const elementCount = ref(0);
 

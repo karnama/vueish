@@ -1,17 +1,37 @@
-import type { Prop, PropType, TransitionProps } from 'vue';
+import type { Prop, PropType } from 'vue';
+
+export type Duration = { enter: number; leave: number };
 
 /**
- * The duration of the transition
+ * Duration expressed as number of milliseconds in either number format or object format.
  */
-export const duration: Prop<Required<TransitionProps['duration']>> = {
-    type: [Object, Number] as PropType<Required<TransitionProps['duration']>>,
+export const duration: Prop<Duration | number> = {
+    type: [Object, Number] as PropType<Duration | number>,
     default: 200,
-    validator: (value: Required<TransitionProps['duration']>): boolean => {
+    validator: (value: Duration | number): boolean => {
         return typeof value === 'number'
             || typeof value === 'object'
             && typeof value.enter === 'number'
             && typeof value.leave === 'number';
     }
+};
+
+/**
+ * A class containing a transition timing function controlling
+ * how long should the transition last when entering.
+ */
+export const durationIn: Prop<string> = {
+    type: String,
+    default: 'duration-200'
+};
+
+/**
+ * A class containing a transition timing function controlling
+ * how long should the transition last when entering.
+ */
+export const durationOut: Prop<string> = {
+    type: String,
+    default: 'duration-200'
 };
 
 /**

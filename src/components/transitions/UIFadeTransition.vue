@@ -25,33 +25,18 @@
 </template>
 
 <script lang="ts">
-import { appear, mode, group } from './props';
+import { appear, mode, group, durationIn, durationOut } from './props';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
     name: 'UIFadeTransition',
 
     props: {
-        /**
-         * A class containing a transition timing function controlling
-         * how long should the transition last when entering.
-         */
-        durationIn: {
-            type: String,
-            default: 'duration-200'
-        },
-
-        /**
-         * A class containing a transition timing function controlling
-         * how long should the transition last when entering.
-         */
-        durationOut: {
-            type: String,
-            default: 'duration-200'
-        },
-
+        durationIn,
+        durationOut,
         appear,
         mode,
         group
     }
-};
+});
 </script>
