@@ -35,7 +35,7 @@ jobs:
       - name: Tests
         uses: anuraag016/Jest-Coverage-Diff@master
         with:
-          runCommand: "JEST_JUNIT_OUTPUT_DIR=coverage JEST_JUNIT_CLASSNAME='{classname}' JEST_JUNIT_TITLE='{title}' npx jest --coverage --coverageReporters='json-summary' --forceExit --detectOpenHandles --ci --reporters=default --reporters=jest-junit"
+          runCommand: "JEST_JUNIT_CLASSNAME='{classname}' JEST_JUNIT_TITLE='{title}' npx jest --coverage --coverageReporters='json-summary' --forceExit --detectOpenHandles --ci --reporters=default --reporters=jest-junit"
           delta: 0.5
 
       - name: Test Report

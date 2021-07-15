@@ -15,6 +15,7 @@ export default {
         '<rootDir>/src/helpers/index.ts'
     ],
     coverageProvider: 'v8',
+    coverageDirectory: '<rootDir>',
     rootDir: './',
     moduleNameMapper: {
         ...pathsToModuleNameMapper(compilerOptions?.paths ?? {}, { prefix: '<rootDir>/' }),
