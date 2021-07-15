@@ -4,10 +4,6 @@ import defaultSettings from '@/defaultSettings';
 import type { ComponentPublicInstance } from 'vue';
 
 beforeAll(() => {
-    if (process.env.IS_CI) {
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        config.global.config.warnHandler = () => {};
-    }
     config.global.config.globalProperties = {
         // eslint-disable-next-line @typescript-eslint/naming-convention
         Vueish: defaultSettings
