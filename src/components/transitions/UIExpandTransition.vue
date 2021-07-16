@@ -1,25 +1,19 @@
 <template>
     <transition-group v-if="group"
                       :appear="appear"
+                      :css="false"
                       @enter="enter"
-                      @after-enter="clearStyles"
-                      @leave="leave"
-                      @before-enter="beforeEnter"
-                      @before-leave="beforeLeave"
-                      @after-leave="clearStyles">
+                      @leave="leave">
         <slot />
     </transition-group>
 
     <transition
         v-else
+        :css="false"
         :appear="appear"
         :mode="mode"
-        @before-enter="beforeEnter"
         @enter="enter"
-        @after-enter="clearStyles"
-        @before-leave="beforeLeave"
-        @leave="leave"
-        @after-leave="clearStyles">
+        @leave="leave">
         <slot />
     </transition>
 </template>
@@ -69,9 +63,10 @@ export default defineComponent({
             element.style.willChange = '';
         };
 
-        const beforeEnter = (element: HTMLElement): void => {
+        const enter = (element: HTMLElement, done: () => void): void => {
             element.style.willChange = 'height, opacity, overflow, transition';
-            element.style.opacity = '0'; // fixme - here because otherwise it its visible straight away
+            element.style.opacity = '0';
+            const height = getHeight(element);
             const heightDuration = getDuration(props.heightDuration!, 'enter');
             const opacityDuration = getDuration(props.opacityDuration!, 'enter');
             requestAnimationFrame(() => {
@@ -79,20 +74,23 @@ export default defineComponent({
                 element.style.overflow = 'hidden';
                 element.style.transition = `height ${heightDuration}ms ease,`
                     + `opacity ${opacityDuration}ms ease ${heightDuration}ms`;
-            });
-        };
-        const enter = (element: HTMLElement): void => {
-            const height = getHeight(element);
-            requestAnimationFrame(() => {
-                // enter and is applied straight after beforeEnter hence pushing to the following frame
                 requestAnimationFrame(() => {
                     element.style.height = `${height}px`;
                     element.style.opacity = '1';
+                    requestAnimationFrame(() => {
+                        setTimeout(
+                            () => {
+                                clearStyles(element);
+                                done();
+                            },
+                            heightDuration + opacityDuration
+                        );
+                    });
                 });
             });
         };
 
-        const beforeLeave = (element: HTMLElement): void => {
+        const leave = (element: HTMLElement, done: () => void): void => {
             element.style.willChange = 'height, opacity, overflow, transition';
             const height = getHeight(element);
             const heightDuration = getDuration(props.heightDuration!, 'leave');
@@ -103,24 +101,25 @@ export default defineComponent({
                 element.style.overflow = 'hidden';
                 element.style.transition = `opacity ${opacityDuration}ms ease,`
                     + `height ${heightDuration}ms ease ${opacityDuration}ms`;
-            });
-        };
-        const leave = (element: HTMLElement): void => {
-            requestAnimationFrame(() => {
-                // leave and is applied straight after beforeLeave hence pushing to the following frame
                 requestAnimationFrame(() => {
                     element.style.height = '0px';
                     element.style.opacity = '0';
+                    requestAnimationFrame(() => {
+                        setTimeout(
+                            () => {
+                                clearStyles(element);
+                                done();
+                            },
+                            heightDuration + opacityDuration
+                        );
+                    });
                 });
             });
         };
 
         return {
-            beforeEnter,
             enter,
-            beforeLeave,
-            leave,
-            clearStyles
+            leave
         };
     }
 });
