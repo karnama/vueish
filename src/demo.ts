@@ -15,7 +15,7 @@ const routes = Object.keys(demos)
     .sort()
     .map(path => ({
         path: '/' + String(demos[path].default.name),
-        component: demos[path].default,
+        component: async () => import(/* @vite-ignore */path),
         meta: {
             label: String(demos[path].default.name),
             type: path.includes('directives') ? 'Directives' : 'Components'
