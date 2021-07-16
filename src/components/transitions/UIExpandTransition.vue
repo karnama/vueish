@@ -1,27 +1,25 @@
 <template>
     <transition-group v-if="group"
-                      name="expand"
                       :appear="appear"
                       @enter="enter"
-                      @after-enter="afterEnter"
+                      @after-enter="clearStyles"
                       @leave="leave"
                       @before-enter="beforeEnter"
                       @before-leave="beforeLeave"
-                      @after-leave="afterLeave">
+                      @after-leave="clearStyles">
         <slot />
     </transition-group>
 
     <transition
         v-else
-        name="expand"
         :appear="appear"
         :mode="mode"
         @before-enter="beforeEnter"
         @enter="enter"
-        @after-enter="afterEnter"
+        @after-enter="clearStyles"
         @before-leave="beforeLeave"
         @leave="leave"
-        @after-leave="afterLeave">
+        @after-leave="clearStyles">
         <slot />
     </transition>
 </template>
@@ -63,17 +61,24 @@ export default defineComponent({
 
             return duration[type];
         };
+        const clearStyles = (element: HTMLElement) => {
+            element.style.height = '';
+            element.style.overflow = '';
+            element.style.transition = '';
+            element.style.opacity = '';
+            element.style.willChange = '';
+        };
 
         const beforeEnter = (element: HTMLElement): void => {
             element.style.willChange = 'height, opacity, overflow, transition';
             element.style.opacity = '0'; // fixme - here because otherwise it its visible straight away
-            const heightTiming = getDuration(props.heightDuration!, 'enter');
+            const heightDuration = getDuration(props.heightDuration!, 'enter');
             const opacityDuration = getDuration(props.opacityDuration!, 'enter');
             requestAnimationFrame(() => {
                 element.style.height = '0px';
                 element.style.overflow = 'hidden';
-                element.style.transition = `height ${heightTiming}ms ease,`
-                    + `opacity ${opacityDuration}ms ease ${heightTiming}ms`;
+                element.style.transition = `height ${heightDuration}ms ease,`
+                    + `opacity ${opacityDuration}ms ease ${heightDuration}ms`;
             });
         };
         const enter = (element: HTMLElement): void => {
@@ -86,25 +91,18 @@ export default defineComponent({
                 });
             });
         };
-        const afterEnter = (element: HTMLElement): void => {
-            element.style.opacity = '';
-            element.style.height = '';
-            element.style.overflow = '';
-            element.style.transition = '';
-            element.style.willChange = '';
-        };
 
         const beforeLeave = (element: HTMLElement): void => {
             element.style.willChange = 'height, opacity, overflow, transition';
             const height = getHeight(element);
-            const heightTiming = getDuration(props.heightDuration!, 'leave');
-            const opacityTiming = getDuration(props.opacityDuration!, 'leave');
+            const heightDuration = getDuration(props.heightDuration!, 'leave');
+            const opacityDuration = getDuration(props.opacityDuration!, 'leave');
             requestAnimationFrame(() => {
                 element.style.opacity = '1';
                 element.style.height = `${height}px`;
                 element.style.overflow = 'hidden';
-                element.style.transition = `opacity ${opacityTiming}ms ease,`
-                    + `height ${heightTiming}ms ease ${opacityTiming}ms`;
+                element.style.transition = `opacity ${opacityDuration}ms ease,`
+                    + `height ${heightDuration}ms ease ${opacityDuration}ms`;
             });
         };
         const leave = (element: HTMLElement): void => {
@@ -116,21 +114,13 @@ export default defineComponent({
                 });
             });
         };
-        const afterLeave = (element: HTMLElement): void => {
-            element.style.height = '';
-            element.style.overflow = '';
-            element.style.transition = '';
-            element.style.opacity = '';
-            element.style.willChange = '';
-        };
 
         return {
             beforeEnter,
             enter,
-            afterEnter,
             beforeLeave,
             leave,
-            afterLeave
+            clearStyles
         };
     }
 });
