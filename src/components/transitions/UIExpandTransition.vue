@@ -66,17 +66,21 @@ export default defineComponent({
         const enter = (element: HTMLElement, done: () => void): void => {
             element.style.willChange = 'height, opacity, overflow, transition';
             element.style.opacity = '0';
+
             const height = getHeight(element);
             const heightDuration = getDuration(props.heightDuration!, 'enter');
             const opacityDuration = getDuration(props.opacityDuration!, 'enter');
+
             requestAnimationFrame(() => {
                 element.style.height = '0px';
                 element.style.overflow = 'hidden';
                 element.style.transition = `height ${heightDuration}ms ease,`
                     + `opacity ${opacityDuration}ms ease ${heightDuration}ms`;
+
                 requestAnimationFrame(() => {
                     element.style.height = `${height}px`;
                     element.style.opacity = '1';
+
                     requestAnimationFrame(() => {
                         setTimeout(
                             () => {
@@ -92,18 +96,22 @@ export default defineComponent({
 
         const leave = (element: HTMLElement, done: () => void): void => {
             element.style.willChange = 'height, opacity, overflow, transition';
+
             const height = getHeight(element);
             const heightDuration = getDuration(props.heightDuration!, 'leave');
             const opacityDuration = getDuration(props.opacityDuration!, 'leave');
+
             requestAnimationFrame(() => {
                 element.style.opacity = '1';
                 element.style.height = `${height}px`;
                 element.style.overflow = 'hidden';
                 element.style.transition = `opacity ${opacityDuration}ms ease,`
                     + `height ${heightDuration}ms ease ${opacityDuration}ms`;
+
                 requestAnimationFrame(() => {
                     element.style.height = '0px';
                     element.style.opacity = '0';
+
                     requestAnimationFrame(() => {
                         setTimeout(
                             () => {
