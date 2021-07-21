@@ -74,7 +74,7 @@ import type { PropType } from 'vue';
 import UIFile from './UIFile.vue';
 import { getIcon } from '@/helpers';
 import UIButton from '@components/button/UIButton.vue';
-import { FileError } from '@public-types';
+import type { FileError } from '@public-types';
 import UIFadeTransition from '@components/transitions/UIFadeTransition.vue';
 import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
 import { error } from '@composables/input';

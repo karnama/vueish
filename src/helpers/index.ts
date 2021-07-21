@@ -4,7 +4,7 @@ import type { Icon, Settings } from '@public-types';
 /**
  * Get the library settings.
  */
-export function getLibrarySettings(): Settings | null {
+export function getLibrarySettings(): Settings | undefined {
     return getCurrentInstance()?.appContext.config.globalProperties.Vueish;
 }
 

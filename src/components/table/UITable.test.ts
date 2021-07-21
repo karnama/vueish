@@ -1,5 +1,6 @@
 import type { Column, Row } from '@public-types';
-import { mount, VueWrapper } from '@vue/test-utils';
+import type { VueWrapper } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import UITable from '@components/table/UITable.vue';
 import { snakeCase } from 'lodash-es';
 import UIInput from '@components/input/UIInput.vue';

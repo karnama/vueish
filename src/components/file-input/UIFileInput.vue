@@ -90,7 +90,7 @@ import { omit } from 'lodash-es';
 import { getIcon } from '@/helpers';
 import UIFadeTransition from '@components/transitions/UIFadeTransition.vue';
 import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
-import { FileError } from '@public-types';
+import type { FileError } from '@public-types';
 
 export default defineComponent({
     name: 'UIFileInput',

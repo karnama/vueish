@@ -27,7 +27,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, PropType, ref, watch } from 'vue';
+import type { PropType } from 'vue';
+import { computed, defineComponent, onMounted, ref, watch } from 'vue';
 import UIAvatar from '@components/avatar/UIAvatar.vue';
 import { getIcon } from '@/helpers';
 import UISpinnerLoader from '@components/loader-spinner/UISpinnerLoader.vue';

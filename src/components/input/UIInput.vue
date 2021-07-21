@@ -102,7 +102,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, PropType, ref, watch } from 'vue';
+import type { PropType } from 'vue';
+import { defineComponent, onMounted, ref, watch } from 'vue';
 import {
     autofocus,
     label,

@@ -1,4 +1,5 @@
-import { StyleType, styleTypes } from '@public-types';
+import type { StyleType } from '@public-types';
+import { styleTypes } from '@public-types';
 import type { Prop, PropType } from 'vue';
 
 export const category: Prop<string, 'default'> = {

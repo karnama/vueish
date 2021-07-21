@@ -1,4 +1,4 @@
-import { TailwindConfig } from 'tailwindcss/tailwind-config';
+import type { TailwindConfig } from 'tailwindcss/tailwind-config';
 
 type DeepPartial<T> = {
     [P in keyof T]?: DeepPartial<T[P]>;

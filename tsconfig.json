@@ -34,7 +34,7 @@
         ],
         "types": [
             "vite/client",
-            "jest", // todo, try to get IDE to use
+            "jest", // todo, try to get IDE to use the node one for files with *.test.ts
             "@types/requestidlecallback"
         ],
         "plugins": [],
