@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import UIButton from './UIButton.vue';
-import { styleTypes } from '@/types';
+import { styleTypes } from '@public-types';
 
 describe('UIButton', () => {
     it('should render correctly', async () => {

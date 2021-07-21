@@ -196,7 +196,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref, watch } from 'vue';
 import type { PropType } from 'vue';
-import type { Column, Row, SortOrder } from '@/types/public';
+import type { Column, Row, SortOrder } from '@public-types';
 import { snakeCase, uniqueId, isEqual, orderBy, cloneDeep } from 'lodash-es';
 import UIInput from '@components/input/UIInput.vue';
 import UICheckbox from '@components/checkbox/UICheckbox.vue';

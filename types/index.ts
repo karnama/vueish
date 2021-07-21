@@ -1,3 +1,5 @@
+import './vueish.d.ts';
+
 export type Icon = 'clear' | 'check' | 'dash' | 'lock' | 'chevron' | 'person' | 'upload' | 'show' | 'hide' | 'retry';
 
 export type Settings = {

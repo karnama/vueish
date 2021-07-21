@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import path from 'path';
 import glob from 'glob';
-import JSONSchemaForWebTypes, { HtmlTag } from '../src/types/utilities/web-types';
+import JSONSchemaForWebTypes, { HtmlTag } from './web-types';
 import fs from 'fs';
 import { name, version } from '../package.json';
 import { parse } from 'vue-docgen-api';

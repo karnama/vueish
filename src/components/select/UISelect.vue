@@ -110,7 +110,7 @@ import { isEqual as _isEqual, cloneDeep } from 'lodash-es';
 import type { PropType } from 'vue';
 import { placeholder, autofocus, clearable, disabled, useVModel, label } from '@composables/input';
 import { getIcon, wrap } from '@/helpers';
-import { MaybeArray } from '@/types';
+import { MaybeArray } from '@public-types';
 import clickAway from '@/directives/click-away';
 
 type Option = Record<string, any>;

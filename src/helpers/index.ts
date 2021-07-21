@@ -1,5 +1,5 @@
 import { getCurrentInstance } from 'vue';
-import type { Icon, Settings } from '@/types';
+import type { Icon, Settings } from '@public-types';
 
 /**
  * Get the library settings.

@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { styleTypes } from '@/types';
+import { styleTypes } from '@public-types';
 
 export default defineComponent({
     name: 'Pill',

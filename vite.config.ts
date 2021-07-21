@@ -7,6 +7,7 @@ import { version } from './package.json';
 export default defineConfig({
     resolve: {
         alias: {
+            '@public-types': path.resolve(__dirname, '/types'),
             '@': path.resolve(__dirname, '/src'),
             '@components': path.resolve(__dirname, 'src/components'),
             '@helpers': path.resolve(__dirname, 'src/helpers'),

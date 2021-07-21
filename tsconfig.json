@@ -11,6 +11,9 @@
         "sourceMap": true,
         "baseUrl": ".",
         "paths": {
+            "@public-types": [
+                "types"
+            ],
             "@/*": [
                 "src/*"
             ],
@@ -31,7 +34,7 @@
         ],
         "types": [
             "vite/client",
-            "jest",
+            "jest", // todo, try to get IDE to use
             "@types/requestidlecallback"
         ],
         "plugins": [],
