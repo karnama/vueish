@@ -17,13 +17,13 @@
             "@/*": [
                 "src/*"
             ],
-            "@components/*": [
+            "components/*": [
                 "src/components/*"
             ],
-            "@helpers/*": [
+            "helpers/*": [
                 "src/helpers/*"
             ],
-            "@composables/*": [
+            "composables/*": [
                 "src/composables/*"
             ]
         },

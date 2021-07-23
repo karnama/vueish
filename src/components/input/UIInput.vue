@@ -114,12 +114,12 @@ import {
     disabled,
     useVModel,
     error
-} from '@composables/input';
-import { large } from '@composables/style';
+} from 'composables/input';
+import { large } from 'composables/style';
 import { getIcon, getPrecision } from '@/helpers';
 import { omit } from 'lodash-es';
-import UIFadeTransition from '@components/transitions/UIFadeTransition.vue';
-import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
+import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
+import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 
 const types = [
     'text',

@@ -29,11 +29,11 @@
 <script lang="ts">
 import type { PropType } from 'vue';
 import { computed, defineComponent, onMounted, ref, watch } from 'vue';
-import UIAvatar from '@components/avatar/UIAvatar.vue';
+import UIAvatar from 'components/avatar/UIAvatar.vue';
 import { getIcon } from '@/helpers';
-import UISpinnerLoader from '@components/loader-spinner/UISpinnerLoader.vue';
-import UIFadeTransition from '@components/transitions/UIFadeTransition.vue';
-import { getSizeString, isImage as fileIsImage, getExtension } from '@composables/utils';
+import UISpinnerLoader from 'components/loader-spinner/UISpinnerLoader.vue';
+import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
+import { getSizeString, isImage as fileIsImage, getExtension } from 'composables/utils';
 
 // todo accept a composable (returns a ref for progress) for upload
 export default defineComponent({

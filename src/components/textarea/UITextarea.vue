@@ -76,10 +76,10 @@ import {
     disabled,
     useVModel,
     error
-} from '@composables/input';
+} from 'composables/input';
 import { getIcon } from '@/helpers';
-import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
-import UIFadeTransition from '@components/transitions/UIFadeTransition.vue';
+import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
+import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
 
 export default defineComponent({
     name: 'UITextarea',

@@ -25,7 +25,7 @@
 import { computed, defineComponent, ref, reactive } from 'vue';
 import type { PropType } from 'vue';
 import clickAway from '@/directives/click-away';
-import { getPxValue } from '@composables/style';
+import { getPxValue } from 'composables/style';
 
 export default defineComponent({
     name: 'UIDropdown',

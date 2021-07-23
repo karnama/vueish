@@ -1,8 +1,8 @@
-import { useVModel } from '@composables/input/index';
+import { useVModel } from 'composables/input/index';
 import { mount } from '@vue/test-utils';
 import { defineComponent, h } from 'vue';
 import type { PropType } from 'vue';
-import { disableConsoleWarn, enableConsoleWarn } from '@helpers/test';
+import { disableConsoleWarn, enableConsoleWarn } from 'helpers/test';
 
 describe('input', () => {
     describe('useVModel', () => {

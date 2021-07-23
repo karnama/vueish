@@ -30,7 +30,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 import type { PropType, VNode } from 'vue';
-import UIAvatar from '@components/avatar/UIAvatar.vue';
+import UIAvatar from 'components/avatar/UIAvatar.vue';
 import type { Avatar } from 'types';
 import { omit } from 'lodash-es';
 

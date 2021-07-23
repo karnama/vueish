@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
-import UIAvatarGroup from '@components/avatar/UIAvatarGroup.vue';
+import UIAvatarGroup from 'components/avatar/UIAvatarGroup.vue';
 import type { Avatar } from 'types';
-import UIAvatar from '@components/avatar/UIAvatar.vue';
+import UIAvatar from 'components/avatar/UIAvatar.vue';
 
 const avatars: Avatar[] = [
     {},
