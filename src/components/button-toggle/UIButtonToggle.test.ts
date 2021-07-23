@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import UIButtonToggle from './UIButtonToggle.vue';
-import type { Option } from '@/types';
+import type { Option } from 'types';
 
 const options: Record<string, any>[] = [
     { label: 'Places', value: 'places' },

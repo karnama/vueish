@@ -1,5 +1,7 @@
-import minimist, { ParsedArgs } from 'minimist';
-import buildWebTypes, { Settings } from './buildWebTypes';
+import type { ParsedArgs } from 'minimist';
+import minimist from 'minimist';
+import type { Settings } from './buildWebTypes';
+import buildWebTypes from './buildWebTypes';
 
 const args = minimist(process.argv.slice(2), {
     default: {

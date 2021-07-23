@@ -5,9 +5,8 @@ import './assets/styles/main.scss';
 import Vueish from './main';
 import type { RouteRecordRaw } from 'vue-router';
 
-const componentDemos = import.meta.globEager('./components/**/Demo.vue') as {
-    [path: string]: { default: Record<string, any>};
-};
+const componentDemos =
+    import.meta.globEager('./components/**/Demo.vue') as Record<string, { default: Record<string, any>}>;
 const directiveDemos = import.meta.globEager('./directives/**/Demo.vue');
 
 const demos = Object.assign(componentDemos, directiveDemos);

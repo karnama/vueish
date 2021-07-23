@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import UIAvatar from '@components/avatar/UIAvatar.vue';
+import UIAvatar from './UIAvatar.vue';
 
 describe('UIAvatar', () => {
     it('should correctly display', () => {

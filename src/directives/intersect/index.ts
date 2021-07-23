@@ -1,5 +1,5 @@
 import type { Directive, DirectiveBinding, DirectiveHook } from 'vue';
-import { IntersectArgument, IntersectCallback } from '@/types';
+import type { IntersectArgument, IntersectCallback } from 'types';
 
 interface ElementToObserve extends Element {
     _intersectionObserver?: {

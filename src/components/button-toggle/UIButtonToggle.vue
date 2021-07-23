@@ -26,12 +26,13 @@
 <script lang="ts">
 import { defineComponent, watch } from 'vue';
 import type { PropType } from 'vue';
-import UIButtonGroup, { props } from '@components/button-group/UIButtonGroup.vue';
-import { large, category } from '@composables/style';
-import { useVModel, disabled, clearable } from '@composables/input';
-import UIButton from '@components/button/UIButton.vue';
+import UIButtonGroup, { props } from 'components/button-group/UIButtonGroup.vue';
+import { large, category } from 'composables/style';
+import { useVModel, disabled, clearable } from 'composables/input';
+import UIButton from 'components/button/UIButton.vue';
 import { isEqual, uniq } from 'lodash-es';
-import type { MaybeArray, Option } from '@/types';
+import type { MaybeArray } from 'types/utilities';
+import type { Option } from 'types';
 import { wrap } from '@/helpers';
 
 export default defineComponent({

@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import UIToggle from '@components/toggle/UIToggle.vue';
+import UIToggle from './UIToggle.vue';
 
 describe('UIToggle', () => {
     it('should display correctly', () => {

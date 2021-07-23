@@ -54,12 +54,12 @@
 </template>
 
 <script lang="ts">
-import UIFadeTransition from '@components/transitions/UIFadeTransition.vue';
-import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
-import UILinearLoader from '@components/loader-linear/UILinearLoader.vue';
+import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
+import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
+import UILinearLoader from 'components/loader-linear/UILinearLoader.vue';
 import LocalCache from '@/helpers/cache/LocalCache';
 import { defineComponent, ref, computed, watch } from 'vue';
-import UISpinnerLoader from '@components/loader-spinner/UISpinnerLoader.vue';
+import UISpinnerLoader from 'components/loader-spinner/UISpinnerLoader.vue';
 
 let cache: LocalCache;
 
