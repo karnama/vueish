@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import UIBadge from 'components/badge/UIBadge.vue';
+import UIBadge from './UIBadge.vue';
 
 describe('UIBadge', () => {
     it('should correctly display', () => {
