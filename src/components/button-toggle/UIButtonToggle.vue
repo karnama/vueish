@@ -31,8 +31,8 @@ import { large, category } from '@composables/style';
 import { useVModel, disabled, clearable } from '@composables/input';
 import UIButton from '@components/button/UIButton.vue';
 import { isEqual, uniq } from 'lodash-es';
-import type { MaybeArray } from '@/types';
-import type { Option } from '@public-types';
+import type { MaybeArray } from 'types/utilities';
+import type { Option } from 'types';
 import { wrap } from '@/helpers';
 
 export default defineComponent({

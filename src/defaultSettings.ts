@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import type { Settings } from '@public-types';
+import type { Settings } from 'types';
 
 export default {
     clearableByDefault: false,

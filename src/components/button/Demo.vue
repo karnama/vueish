@@ -32,7 +32,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { styleTypes } from '@public-types';
+import { styleTypes } from 'types';
 
 export default defineComponent({
     // eslint-disable-next-line vue/no-reserved-component-names

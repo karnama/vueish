@@ -51,7 +51,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import type { Column, Row } from '@public-types';
+import type { Column, Row } from 'types';
 
 export default defineComponent({
     // eslint-disable-next-line vue/no-reserved-component-names

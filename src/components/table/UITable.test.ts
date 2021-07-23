@@ -1,4 +1,4 @@
-import type { Column, Row } from '@public-types';
+import type { Column, Row } from 'types';
 import type { VueWrapper } from '@vue/test-utils';
 import { mount } from '@vue/test-utils';
 import UITable from '@components/table/UITable.vue';

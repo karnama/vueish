@@ -10,7 +10,7 @@
 import { computed, defineComponent } from 'vue';
 import { label } from '@composables/input';
 import { category } from '@composables/style';
-import type { StyleType } from '@public-types';
+import type { StyleType } from 'types';
 
 const categoryClasses = {
     default: 'text-gray-700 bg-gray-200',
