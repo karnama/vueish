@@ -87,8 +87,8 @@ export default defineComponent({
                 if (!props.clearable && optionIndex !== -1 && values.length === 1) return;
 
                 model.value = optionIndex === -1
-                    ? [...(model.value as Option[]), option]
-                    : (model.value as Option[]).filter((option, index) => index !== optionIndex);
+                    ? [...values, option]
+                    : values.filter((option, index) => index !== optionIndex);
                 return;
             }
 

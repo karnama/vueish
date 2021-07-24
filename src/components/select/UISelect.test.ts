@@ -113,7 +113,8 @@ describe('UISelect', () => {
         const wrapper = mount(UISelect, {
             props: {
                 options,
-                modelValue: null
+                modelValue: null,
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
             }
         });
 
@@ -134,7 +135,8 @@ describe('UISelect', () => {
         const wrapper = mount(UISelect, {
             props: {
                 options,
-                modelValue: null
+                modelValue: null,
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
             }
         });
 
@@ -148,7 +150,8 @@ describe('UISelect', () => {
         const wrapper  = mount(UISelect, {
             props: {
                 options,
-                modelValue: null
+                modelValue: null,
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
             }
         });
 
@@ -172,6 +175,7 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: [],
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                 multi: true
             }
         });
@@ -191,6 +195,7 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: [],
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                 multi: true,
                 clearable: true
             }
@@ -211,6 +216,7 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: [],
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                 multi: true,
                 clearable: true
             }
@@ -232,6 +238,7 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: [],
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                 disabled: true
             }
         });
@@ -246,7 +253,8 @@ describe('UISelect', () => {
             const wrapper = mount(UISelect, {
                 props: {
                     options,
-                    modelValue: []
+                    modelValue: [],
+                    'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
                 }
             });
 
@@ -266,6 +274,7 @@ describe('UISelect', () => {
                 props: {
                     options,
                     modelValue: [],
+                    'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                     multi: true
                 }
             });
@@ -305,6 +314,7 @@ describe('UISelect', () => {
                 props: {
                     options,
                     modelValue: [],
+                    'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                     multi: true
                 }
             });
@@ -340,7 +350,8 @@ describe('UISelect', () => {
         const wrapper = mount(UISelect, {
             props: {
                 options,
-                modelValue: []
+                modelValue: [],
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
             }
         });
 
@@ -358,6 +369,7 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: [],
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                 multi: true
             }
         });
@@ -459,7 +471,8 @@ describe('UISelect', () => {
             const wrapper = mount(UISelect, {
                 props: {
                     options,
-                    modelValue: []
+                    modelValue: [],
+                    'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
                 }
             });
 
@@ -477,7 +490,8 @@ describe('UISelect', () => {
             const wrapper = mount(UISelect, {
                 props: {
                     options,
-                    modelValue: []
+                    modelValue: [],
+                    'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
                 }
             });
 
@@ -495,6 +509,7 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: [],
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                 multi: true
             }
         });
