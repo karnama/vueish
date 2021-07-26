@@ -12,7 +12,8 @@ const createWebTypes = (settings: Partial<Settings> = {}): Plugin => {
                 componentSrcGlobPattern: 'src/components/**/UI*.vue',
                 directiveSrcGlobPattern: 'src/directives/**/index.ts',
                 dest: './dist',
-                fileName: 'web-types.json'
+                fileName: 'web-types.json',
+                webTypesFileName: 'web-types.ts'
             },
             settings
         ))

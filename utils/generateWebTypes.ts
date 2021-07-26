@@ -8,7 +8,8 @@ const args = minimist(process.argv.slice(2), {
         componentSrcGlobPattern: 'src/components/**/UI*.vue',
         directiveSrcGlobPattern: 'src/directives/**/index.ts',
         dest: './dist',
-        fileName: 'web-types.json'
+        fileName: 'web-types.json',
+        webTypesFileName: 'web-types.ts'
     }
 }) as ParsedArgs & Settings;
 
@@ -17,5 +18,6 @@ void buildWebTypes({
     directiveSrcGlobPattern: args.directiveSrcGlobPattern,
     dest: args.dest,
     fileName: args.fileName,
-    ignore: args.fileName
+    ignore: args.fileName,
+    webTypesFileName: args.webTypesFileName
 });
