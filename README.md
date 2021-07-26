@@ -20,6 +20,7 @@ Install:
 
 Then add or update test to cover the new logic. The test file should be placed next to the source code in a file that is named the same but appended with `test` in the name. (`UITable.test.ts`)
 
+To customise the web-types.json generated, place a `web-types.ts` file next to your source code and set the appropriate default export
 
 error like
 ```text
