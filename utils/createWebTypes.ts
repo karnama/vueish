@@ -9,7 +9,8 @@ const createWebTypes = (settings: Partial<Settings> = {}): Plugin => {
         apply: 'build',
         closeBundle: async () => buildWebTypes(Object.assign(
             {
-                srcGlobPattern: 'src/components/**/UI*.vue',
+                componentSrcGlobPattern: 'src/components/**/UI*.vue',
+                directiveSrcGlobPattern: 'src/directives/**/index.ts',
                 dest: './dist',
                 fileName: 'web-types.json'
             },

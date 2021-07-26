@@ -1,21 +1,32 @@
 /* eslint-disable no-console */
 import path from 'path';
 import glob from 'glob';
-import type { HtmlTag } from './web-types';
+import type { HtmlTag, HtmlAttribute } from './web-types';
 import type JSONSchemaForWebTypes from './web-types';
 import fs from 'fs';
 import { name, version } from '../package.json';
-import { parse } from 'vue-docgen-api';
+import { parse as parseVueComponent } from 'vue-docgen-api';
+import { parse as parseModule } from '@babel/parser';
+import {
+    Aliases,
+    Description,
+    DocUrl,
+    HtmlAttributeDefault,
+    HtmlAttributeRequired,
+    HtmlAttributeValue, HtmlAttributeVueArgument, HtmlAttributeVueModifier,
+    Name, Source
+} from './web-types';
 
 export interface Settings {
-    srcGlobPattern: string;
+    componentSrcGlobPattern?: string;
+    directiveSrcGlobPattern?: string;
     dest: string;
     fileName: string;
     ignore?: string | string[];
 }
 
 
-async function getVueFiles(globPattern: string, ignorePatterns: string[] = []): Promise<string[]> {
+async function getFiles(globPattern: string, ignorePatterns: string[] = []): Promise<string[]> {
     return Promise.resolve(
         glob.sync(process.cwd() + path.sep + globPattern, { ignore: ignorePatterns })
     ).then(paths => paths.sort());
@@ -29,7 +40,7 @@ function ensureRelative(path: string) {
 
 // todo - add watch option
 async function buildTag(fullPath: string): Promise<HtmlTag> {
-    const parsed = await parse(fullPath);
+    const parsed = await parseVueComponent(fullPath);
 
     let description = parsed.description?.trim() ?? '';
 
@@ -67,6 +78,22 @@ async function buildTag(fullPath: string): Promise<HtmlTag> {
         }
     };
 }
+async function buildAttribute(fullPath: string): Promise<HtmlAttribute> {
+    // this gets the name correctly
+    const directive = await parseVueComponent('/' + fullPath + '/');
+
+    return {
+        name: `v-${directive.displayName}`
+        // description?: Description;
+        // 'doc-url'?: DocUrl;
+        // default?: HtmlAttributeDefault;
+        // required?: HtmlAttributeRequired;
+        // value?: HtmlAttributeValue;
+        // source?: Source;
+        // 'vue-argument'?: HtmlAttributeVueArgument;
+        // 'vue-modifiers'?: HtmlAttributeVueModifier[];
+    };
+}
 
 const webTypes: JSONSchemaForWebTypes = {
     $schema: 'https://json.schemastore.org/web-types',
@@ -87,14 +114,32 @@ export default async function buildWebTypes(settings: Settings): Promise<void> {
     const ignores = settings.ignore
         ? Array.isArray(settings.ignore) ? settings.ignore : [settings.ignore]
         : [];
-    const promises = await getVueFiles(settings.srcGlobPattern, ignores)
-        .then(paths => {
-            console.log(`Resolved ${paths.length} component(s)`);
-            return paths;
-        })
-        .then(paths => paths.map(async fullPath => buildTag(fullPath)));
+    const promises: Promise<HtmlTag | HtmlAttribute>[] = [];
+
+    if (settings.componentSrcGlobPattern) {
+        promises.push(
+            ...await getFiles(settings.componentSrcGlobPattern, ignores)
+                .then(paths => {
+                    console.log(`Resolved ${paths.length} component(s)`);
+                    return paths;
+                })
+                .then(paths => paths.map(async fullPath => buildTag(fullPath)))
+        );
+    }
+
+    // if (settings.directiveSrcGlobPattern) {
+    //     promises.push(
+    //         ...await getFiles(settings.directiveSrcGlobPattern, ignores)
+    //             .then(paths => {
+    //                 console.log(`Resolved ${paths.length} directive(s)`);
+    //                 return paths;
+    //             })
+    //             .then(paths => paths.map(async fullPath => buildAttribute(fullPath)))
+    //     );
+    // }
+
     const tags: HtmlTag[] = await Promise.all(promises);
-    console.log('Built tag definitions.');
+    console.log('Built web-types definitions.');
 
     if (tags.length) {
         webTypes.contributions.html!.tags = tags;

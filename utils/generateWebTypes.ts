@@ -5,14 +5,16 @@ import buildWebTypes from './buildWebTypes';
 
 const args = minimist(process.argv.slice(2), {
     default: {
-        srcGlobPattern: 'src/components/**/UI*.vue',
+        componentSrcGlobPattern: 'src/components/**/UI*.vue',
+        directiveSrcGlobPattern: 'src/directives/**/index.ts',
         dest: './dist',
         fileName: 'web-types.json'
     }
 }) as ParsedArgs & Settings;
 
 void buildWebTypes({
-    srcGlobPattern: args.srcGlobPattern,
+    componentSrcGlobPattern: args.componentSrcGlobPattern,
+    directiveSrcGlobPattern: args.directiveSrcGlobPattern,
     dest: args.dest,
     fileName: args.fileName,
     ignore: args.fileName
