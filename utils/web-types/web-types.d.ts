@@ -4,6 +4,7 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
+// web-types - https://blog.jetbrains.com/webstorm/2021/01/web-types/  https://github.com/JetBrains/web-types
 // schema - https://json.schemastore.org/web-types
 // converter - https://bcherny.github.io/json-schema-to-typescript-browser/
 

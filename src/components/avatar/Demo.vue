@@ -56,7 +56,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import type { Avatar } from '@/types';
+import type { Avatar } from 'types';
 
 export default defineComponent({
     name: 'Avatar',

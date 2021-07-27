@@ -83,14 +83,14 @@
 
 import { computed, defineComponent, ref, watch } from 'vue';
 import type { PropType } from 'vue';
-import { createFileList, getSizeString } from '@composables/utils';
-import { name, label, clearable, autofocus, disabled, positiveOptionalNumber, error } from '@composables/input';
-import { large } from '@composables/style';
+import { createFileList, getSizeString } from 'composables/utils';
+import { name, label, clearable, autofocus, disabled, positiveOptionalNumber, error } from 'composables/input';
+import { large } from 'composables/style';
 import { omit } from 'lodash-es';
 import { getIcon } from '@/helpers';
-import UIFadeTransition from '@components/transitions/UIFadeTransition.vue';
-import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
-import { FileError } from '@/types';
+import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
+import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
+import type { FileError } from 'types';
 
 export default defineComponent({
     name: 'UIFileInput',

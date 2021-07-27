@@ -1,4 +1,4 @@
-import { getPrecision } from '@helpers/index';
+import { getPrecision } from 'helpers/index';
 
 describe('helpers', () => {
     describe('getPrecision', () => {

@@ -87,8 +87,8 @@ module.exports = {
         '@typescript-eslint/func-call-spacing': ['error', 'never'],
         '@typescript-eslint/comma-spacing': 'warn',
         '@typescript-eslint/keyword-spacing': 'warn',
-        // '@typescript-eslint/consistent-indexed-object-style': ['error', 'record'], // waiting on dependency updates
-        // '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
+        '@typescript-eslint/consistent-indexed-object-style': ['error', 'record'],
+        '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
         '@typescript-eslint/member-delimiter-style': 'warn',
         '@typescript-eslint/type-annotation-spacing': 'warn',
         '@typescript-eslint/naming-convention': [

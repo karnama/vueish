@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { label, disabled } from '@composables/input';
+import { label, disabled } from 'composables/input';
 
 export default defineComponent({
     name: 'UIRadio',

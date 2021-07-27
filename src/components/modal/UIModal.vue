@@ -54,8 +54,8 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UIButton from '@components/button/UIButton.vue';
-import UIPanel from '@components/panel/UIPanel.vue';
+import UIButton from 'components/button/UIButton.vue';
+import UIPanel from 'components/panel/UIPanel.vue';
 import type { PropType } from 'vue';
 import { getIcon } from '@/helpers';
 

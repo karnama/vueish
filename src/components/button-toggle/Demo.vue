@@ -51,7 +51,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import type { Option } from '@/types';
+import type { Option } from 'types';
 
 export default defineComponent({
     name: 'ButtonToggle',

@@ -107,9 +107,9 @@
 import { computed, defineComponent, onMounted, ref, onUnmounted, nextTick, onBeforeUpdate } from 'vue';
 import { isEqual as _isEqual, cloneDeep } from 'lodash-es';
 import type { PropType } from 'vue';
-import { placeholder, autofocus, clearable, disabled, useVModel, label } from '@composables/input';
+import { placeholder, autofocus, clearable, disabled, useVModel, label } from 'composables/input';
 import { getIcon, wrap } from '@/helpers';
-import { MaybeArray } from '@/types';
+import type { MaybeArray } from 'types/utilities';
 import clickAway from '@/directives/click-away';
 
 type Option = Record<string, any>;

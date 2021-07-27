@@ -1,6 +1,6 @@
 {
     "name": "@karnama/vueish",
-    "version": "0.6.0",
+    "version": "0.6.2",
     "files": [
         "dist",
         "types"
@@ -24,7 +24,7 @@
         "test:update-snapshots": "npm run test -- --updateSnapshot",
         "lint": "eslint . --fix --ext .ts,.vue,.tsx",
         "prepare": "husky install",
-        "generate:web-types": "ts-node-cwd -P ./tsconfig.node.json utils/generateWebTypes.ts",
+        "generate:web-types": "ts-node-cwd -P ./tsconfig.node.json utils/web-types/generateWebTypes.ts",
         "commit": "commit"
     },
     "peerDependencies": {
@@ -46,7 +46,7 @@
         "@vitejs/plugin-vue": "^1.2.2",
         "@vue/compiler-sfc": "~3.0.11",
         "@vue/eslint-config-typescript": "^7.0.0",
-        "@vue/test-utils": "2.0.0-rc.4",
+        "@vue/test-utils": "^2.0.0-rc.10",
         "@vuedx/typecheck": "^0.7.4",
         "@vuedx/typescript-plugin-vue": "^0.7.4",
         "autoprefixer": "^10.2.3",

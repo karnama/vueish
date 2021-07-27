@@ -73,12 +73,12 @@ import { defineComponent, ref } from 'vue';
 import type { PropType } from 'vue';
 import UIFile from './UIFile.vue';
 import { getIcon } from '@/helpers';
-import UIButton from '@components/button/UIButton.vue';
-import { FileError } from '@/types';
-import UIFadeTransition from '@components/transitions/UIFadeTransition.vue';
-import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
-import { error } from '@composables/input';
-import { positiveOptionalNumber } from '@composables/input';
+import UIButton from 'components/button/UIButton.vue';
+import type { FileError } from 'types';
+import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
+import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
+import { error } from 'composables/input';
+import { positiveOptionalNumber } from 'composables/input';
 
 // todo - UIFile may make the uploader overflow if the side menu is open when using files with long titles
 export default defineComponent({

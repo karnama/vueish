@@ -1,4 +1,4 @@
-import { StyleType, UIError } from '@/types';
+import type { StyleType, UIError } from '../';
 
 // UIBadge
 export const horizontal = ['left', 'middle', 'right'] as const;

@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, watch, onMounted, onUnmounted } from 'vue';
-import { inheritColor, determinate, steps, progress } from '@composables/style';
+import { inheritColor, determinate, steps, progress } from 'composables/style';
 
 export default defineComponent({
     name: 'UISpinnerLoader',
