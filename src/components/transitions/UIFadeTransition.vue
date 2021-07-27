@@ -1,6 +1,5 @@
 <template>
     <transition-group v-if="group"
-                      name="fade"
                       :appear="appear"
                       :enter-active-class="`transition-opacity ease-in ${durationIn}`"
                       enter-from-class="opacity-0"
