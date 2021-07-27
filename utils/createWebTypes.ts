@@ -7,16 +7,22 @@ const createWebTypes = (settings: Partial<Settings> = {}): Plugin => {
         name: createWebTypes.name,
         enforce: 'post',
         apply: 'build',
-        closeBundle: async () => buildWebTypes(Object.assign(
-            {
-                componentSrcGlobPattern: 'src/components/**/UI*.vue',
-                directiveSrcGlobPattern: 'src/directives/**/index.ts',
-                dest: './dist',
-                fileName: 'web-types.json',
-                webTypesFileName: 'web-types.ts'
-            },
-            settings
-        ))
+        closeBundle: async () => {
+            /* eslint-disable */
+            require('ts-node').register({ lazy: true, transpileOnly: true, compilerOptions: { "module": "CommonJS" } });
+            /* eslint-enable */
+
+            await buildWebTypes(Object.assign(
+                {
+                    componentSrcGlobPattern: 'src/components/**/UI*.vue',
+                    directiveSrcGlobPattern: 'src/directives/**/index.ts',
+                    dest: './dist',
+                    fileName: 'web-types.json',
+                    webTypesFileName: 'web-types.ts'
+                },
+                settings
+            ));
+        }
     };
 };
 
