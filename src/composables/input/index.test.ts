@@ -75,7 +75,11 @@ describe('input', () => {
         });
 
         it('should react to prop being set', async () => {
-            const wrapper = mount(Comp);
+            const wrapper = mount(Comp, {
+                props: {
+                    'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
+                }
+            });
 
             expect(wrapper.text()).toBe('1');
             await wrapper.trigger('click');

@@ -44,7 +44,10 @@ describe('UIPagination', () => {
 
     it('should navigate to the previous page on previous button', async () => {
         const wrapper = mount(UIPagination, {
-            props: commonProps
+            props: {
+                ...commonProps,
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
+            }
         });
 
         const previousPageBtn = wrapper.find('#previous-page-button');
@@ -64,7 +67,10 @@ describe('UIPagination', () => {
 
     it('should navigate to the next page on next button', async () => {
         const wrapper = mount(UIPagination, {
-            props: commonProps
+            props: {
+                ...commonProps,
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
+            }
         });
 
         const nextPageBtn = wrapper.find('#next-page-button');

@@ -46,7 +46,7 @@
         "@vitejs/plugin-vue": "^1.2.2",
         "@vue/compiler-sfc": "~3.0.11",
         "@vue/eslint-config-typescript": "^7.0.0",
-        "@vue/test-utils": "2.0.0-rc.4",
+        "@vue/test-utils": "^2.0.0-rc.10",
         "@vuedx/typecheck": "^0.7.4",
         "@vuedx/typescript-plugin-vue": "^0.7.4",
         "autoprefixer": "^10.2.3",

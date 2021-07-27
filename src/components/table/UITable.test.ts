@@ -367,6 +367,7 @@ describe('UITable', () => {
                     rows,
                     headers,
                     modelValue: [],
+                    'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                     selectable: true
                 }
             });
@@ -405,6 +406,7 @@ describe('UITable', () => {
                     rows,
                     headers,
                     modelValue: [],
+                    'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                     selectable: true
                 }
             });
