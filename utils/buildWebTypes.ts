@@ -8,6 +8,8 @@ import { name, version } from '../package.json';
 import { parse as parseVueComponent } from 'vue-docgen-api';
 import { wrap } from '../src/helpers';
 
+// todo - add watch option
+
 export interface Settings {
     componentSrcGlobPattern?: string;
     directiveSrcGlobPattern?: string;
@@ -23,24 +25,35 @@ async function getFiles(globPattern: string, ignorePatterns: string[] = []): Pro
     ).then(paths => paths.sort());
 }
 
-function ensureRelativePath(path: string) {
+/**
+ * Ensure the given relative path is formatted correctly.
+ *
+ * @param {string} path
+ */
+function formatRelativePath(path: string) {
     // The .replace() is a fix for paths that end up like"./src\\components\\General\\VerticalButton.vue"
     // on windows machines.
     return (path.startsWith('./') || path.startsWith('../') ? path : './' + path).replace(/\\/g, '/');
 }
 
-// todo - add watch option
-async function buildTag(fullPath: string, webTypesFile: string): Promise<HtmlTag> {
+/**
+ * Build a HTML tag web-types object.
+ *
+ * @param {string} fullPath - Path to the component file.
+ * @param {string} webTypesFile - Path to a dedicated web-types file for the given component.
+ */
+async function buildTag(fullPath: string, webTypesFile = 'web-types.ts'): Promise<HtmlTag> {
     const parentFolder = path.dirname(fullPath);
     const parsed = await parseVueComponent(fullPath);
 
     let description = parsed.description?.trim() ?? '';
 
-    // break blocks onto new lines and add it to description
+    // break blocks onto new lines and add it to the description
     parsed.docsBlocks?.forEach(block => {
         if (description.length > 0) {
             description += '\n\n';
         }
+
         description += block;
     });
 
@@ -66,7 +79,7 @@ async function buildTag(fullPath: string, webTypesFile: string): Promise<HtmlTag
             description: slot.description
         })),
         source: {
-            module: ensureRelativePath(path.relative(process.cwd(), fullPath)),
+            module: formatRelativePath(path.relative(process.cwd(), fullPath)),
             symbol: parsed.exportName
         }
     };
@@ -82,12 +95,12 @@ async function buildTag(fullPath: string, webTypesFile: string): Promise<HtmlTag
 
     return tag;
 }
-async function buildAttribute(fullPath: string, webTypesFile: string): Promise<HtmlAttribute> {
+async function buildAttribute(fullPath: string, webTypesFile = 'web-types.ts'): Promise<HtmlAttribute> {
     const parentFolder = path.dirname(fullPath);
     const attribute: HtmlAttribute = {
         name: `v-${path.basename(parentFolder)}`,
         source: {
-            module: ensureRelativePath(path.relative(process.cwd(), fullPath)),
+            module: formatRelativePath(path.relative(process.cwd(), fullPath)),
             symbol: 'default'
         }
     };
@@ -128,22 +141,16 @@ export default async function buildWebTypes(settings: Settings): Promise<void> {
         componentPromises = await getFiles(settings.componentSrcGlobPattern, ignores)
             .then(paths => {
                 console.log(`Resolved ${paths.length} component(s)`);
-                return paths;
-            })
-            .then(paths => paths.map(async fullPath => buildTag(fullPath, settings.webTypesFileName ?? 'web-types.ts'))
-            );
+                return paths.map(async fullPath => buildTag(fullPath, settings.webTypesFileName));
+            });
     }
 
     if (settings.directiveSrcGlobPattern) {
         directivePromises = await getFiles(settings.directiveSrcGlobPattern, ignores)
             .then(paths => {
                 console.log(`Resolved ${paths.length} directive(s)`);
-                return paths;
-            })
-            .then(paths => paths.map(async fullPath => buildAttribute(
-                fullPath,
-                settings.webTypesFileName ?? 'web-types.ts'
-            )));
+                return paths.map(async fullPath => buildAttribute(fullPath, settings.webTypesFileName));
+            });
     }
 
     if (componentPromises.length) {
