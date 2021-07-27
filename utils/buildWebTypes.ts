@@ -6,16 +6,6 @@ import type JSONSchemaForWebTypes from './web-types';
 import fs from 'fs';
 import { name, version } from '../package.json';
 import { parse as parseVueComponent } from 'vue-docgen-api';
-import { parse as parseModule } from '@babel/parser';
-import {
-    Aliases,
-    Description,
-    DocUrl,
-    HtmlAttributeDefault,
-    HtmlAttributeRequired,
-    HtmlAttributeValue, HtmlAttributeVueArgument, HtmlAttributeVueModifier,
-    Name, Source
-} from './web-types';
 
 export interface Settings {
     componentSrcGlobPattern?: string;
