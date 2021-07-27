@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils';
 import UIButtonToggle from './UIButtonToggle.vue';
 import type { Option } from 'types';
+import { ref, watch } from 'vue';
 
 const options: Record<string, any>[] = [
     { label: 'Places', value: 'places' },
@@ -57,22 +58,25 @@ describe('UIButtonToggle', () => {
     });
 
     it('should be able to select multiple options given the prop', async () => {
-        const wrapper = mount(UIButtonToggle, {
-            props: {
-                options,
-                modelValue: null,
-                multi: true
+        const wrapper = mount({
+            template: '<UIButtonToggle :options="options" multi v-model="model" />',
+            components: { UIButtonToggle },
+            setup: () => {
+                return {
+                    model: ref(null),
+                    options
+                };
             }
         });
 
         const buttons = wrapper.findAll('button');
 
         await buttons[0]!.trigger('click');
-        expect(wrapper.lastEventValue()).toStrictEqual([[options[0]]]);
+        expect(wrapper.vm.model).toStrictEqual([options[0]]);
         await buttons[1]!.trigger('click');
-        expect(wrapper.lastEventValue()).toStrictEqual([[options[0], options[1]]]);
+        expect(wrapper.vm.model).toStrictEqual([options[0], options[1]]);
         await buttons[1]!.trigger('click');
-        expect(wrapper.lastEventValue()).toStrictEqual([[options[0]]]);
+        expect(wrapper.vm.model).toStrictEqual([options[0]]);
     });
 
     it('should be disabled given the prop', async () => {
@@ -88,12 +92,12 @@ describe('UIButtonToggle', () => {
         expect(wrapper.lastEventValue()).toBeUndefined();
     });
 
-    // eslint-disable-next-line jest/no-disabled-tests
-    it.skip('should not be clearable by default', async () => {
+    it('should not be clearable by default', async () => {
         const wrapper = mount(UIButtonToggle, {
             props: {
                 options,
-                modelValue: null
+                modelValue: null,
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
             }
         });
 
@@ -103,22 +107,24 @@ describe('UIButtonToggle', () => {
         await button.trigger('click'); // not emitting if already selected
         expect(wrapper.emitted('update:modelValue')).toHaveLength(1);
 
-        // eslint-disable-next-line no-console
-        console.log(wrapper.vm.model);
         await wrapper.setProps({ clearable: true });
-        // eslint-disable-next-line no-console
-        console.log(wrapper.vm.model);
         await button.trigger('click');
         expect(wrapper.emitted('update:modelValue')).toHaveLength(2);
         expect(wrapper.lastEventValue()).toStrictEqual([null]);
     });
 
     it('should clear up to a single value on multi select', async () => {
-        const wrapper = mount(UIButtonToggle, {
-            props: {
-                options,
-                modelValue: null,
-                multi: true
+        const wrapper = mount({
+            template: '<UIButtonToggle :options="options" multi v-model="model" />',
+            components: { UIButtonToggle },
+            setup: (_props, ctx) => {
+                const model = ref(null);
+                watch(() => model.value, () => ctx.emit('update:modelValue'));
+
+                return {
+                    model,
+                    options
+                };
             }
         });
 
@@ -127,10 +133,10 @@ describe('UIButtonToggle', () => {
         await buttons[0]!.trigger('click');
         await buttons[1]!.trigger('click');
 
-        expect(wrapper.lastEventValue()).toStrictEqual([[options[0], options[1]]]);
+        expect(wrapper.vm.model).toStrictEqual([options[0], options[1]]);
 
         await buttons[0]!.trigger('click');
-        expect(wrapper.lastEventValue()).toStrictEqual([[options[1]]]);
+        expect(wrapper.vm.model).toStrictEqual([options[1]]);
         await buttons[1]!.trigger('click');
         expect(wrapper.emitted('update:modelValue')).toHaveLength(4);
     });
@@ -140,6 +146,7 @@ describe('UIButtonToggle', () => {
             props: {
                 options,
                 modelValue: null,
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                 clearable: true
             }
         });
