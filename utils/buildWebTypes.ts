@@ -6,6 +6,7 @@ import type JSONSchemaForWebTypes from './web-types';
 import fs from 'fs';
 import { name, version } from '../package.json';
 import { parse as parseVueComponent } from 'vue-docgen-api';
+import { wrap } from '../src/helpers';
 
 export interface Settings {
     componentSrcGlobPattern?: string;
@@ -16,14 +17,13 @@ export interface Settings {
     webTypesFileName?: string;
 }
 
-
 async function getFiles(globPattern: string, ignorePatterns: string[] = []): Promise<string[]> {
     return Promise.resolve(
         glob.sync(process.cwd() + path.sep + globPattern, { ignore: ignorePatterns })
     ).then(paths => paths.sort());
 }
 
-function ensureRelative(path: string) {
+function ensureRelativePath(path: string) {
     // The .replace() is a fix for paths that end up like"./src\\components\\General\\VerticalButton.vue"
     // on windows machines.
     return (path.startsWith('./') || path.startsWith('../') ? path : './' + path).replace(/\\/g, '/');
@@ -36,6 +36,7 @@ async function buildTag(fullPath: string, webTypesFile: string): Promise<HtmlTag
 
     let description = parsed.description?.trim() ?? '';
 
+    // break blocks onto new lines and add it to description
     parsed.docsBlocks?.forEach(block => {
         if (description.length > 0) {
             description += '\n\n';
@@ -65,11 +66,12 @@ async function buildTag(fullPath: string, webTypesFile: string): Promise<HtmlTag
             description: slot.description
         })),
         source: {
-            module: ensureRelative(path.relative(process.cwd(), fullPath)),
+            module: ensureRelativePath(path.relative(process.cwd(), fullPath)),
             symbol: parsed.exportName
         }
     };
 
+    // merge in the user defined web-types if exists
     if (fs.existsSync(parentFolder + path.sep + webTypesFile)) {
         Object.assign(
             tag,
@@ -82,7 +84,15 @@ async function buildTag(fullPath: string, webTypesFile: string): Promise<HtmlTag
 }
 async function buildAttribute(fullPath: string, webTypesFile: string): Promise<HtmlAttribute> {
     const parentFolder = path.dirname(fullPath);
-    const attribute: HtmlAttribute = { name: `v-${path.basename(parentFolder)}` };
+    const attribute: HtmlAttribute = {
+        name: `v-${path.basename(parentFolder)}`,
+        source: {
+            module: ensureRelativePath(path.relative(process.cwd(), fullPath)),
+            symbol: 'default'
+        }
+    };
+
+    // merge in the user defined web-types if exists
     if (fs.existsSync(parentFolder + path.sep + webTypesFile)) {
         Object.assign(
             attribute,
@@ -110,9 +120,7 @@ const webTypes: JSONSchemaForWebTypes = {
 
 export default async function buildWebTypes(settings: Settings): Promise<void> {
     console.group('Building web-types:');
-    const ignores = settings.ignore
-        ? Array.isArray(settings.ignore) ? settings.ignore : [settings.ignore]
-        : [];
+    const ignores = settings.ignore ? wrap(settings.ignore) : [];
     let componentPromises: Promise<HtmlTag>[] = [];
     let directivePromises: Promise<HtmlAttribute>[] = [];
 
@@ -148,6 +156,7 @@ export default async function buildWebTypes(settings: Settings): Promise<void> {
         console.log(`Built ${directivePromises.length} directive definition(s).`);
     }
 
+    // create target folder if doesn't already exists
     if (!fs.existsSync(process.cwd() + path.sep + settings.dest)) {
         fs.mkdirSync(process.cwd() + path.sep + settings.dest);
     }
