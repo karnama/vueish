@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 import type { DOMWrapper } from '@vue/test-utils';
 import UIRadio from './UIRadio.vue';
 import UIRadioGroup from './UIRadioGroup.vue';
-import { disableConsoleWarn, enableConsoleWarn } from '@helpers/test';
+import { disableConsoleWarn, enableConsoleWarn } from 'helpers/test';
 
 describe('UIRadio', () => {
     it('should bind attributes to the input', () => {

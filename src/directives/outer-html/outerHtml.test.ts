@@ -24,7 +24,7 @@ describe('outer-html', () => {
             data: () => ({ html: '<div>test</div>' })
         });
 
-        expect(wrapper.html()).toBe('<div>origin<span>after</span></div><div>test</div>');
+        expect(wrapper.html()).toBe('<div>origin<span>after</span></div>\n<div>test</div>');
     });
 
     // skipped in case in the future a way is devised to make this reactive

@@ -1,4 +1,4 @@
-import { getPxValue } from '@composables/style/index';
+import { getPxValue } from 'composables/style/index';
 
 describe('style', () => {
     describe('getPxValue', () => {

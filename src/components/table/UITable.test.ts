@@ -1,8 +1,9 @@
-import type { Column, Row } from '@/types/public';
-import { mount, VueWrapper } from '@vue/test-utils';
-import UITable from '@components/table/UITable.vue';
+import type { Column, Row } from 'types';
+import type { VueWrapper } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
+import UITable from './UITable.vue';
 import { snakeCase } from 'lodash-es';
-import UIInput from '@components/input/UIInput.vue';
+import UIInput from 'components/input/UIInput.vue';
 import { nextTick, h } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import { orderBy } from 'lodash-es';
@@ -366,6 +367,7 @@ describe('UITable', () => {
                     rows,
                     headers,
                     modelValue: [],
+                    'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                     selectable: true
                 }
             });
@@ -404,6 +406,7 @@ describe('UITable', () => {
                     rows,
                     headers,
                     modelValue: [],
+                    'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                     selectable: true
                 }
             });

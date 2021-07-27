@@ -190,7 +190,8 @@ describe('UITextarea', () => {
         const wrapper = mount(UITextarea, {
             props: {
                 name: 'input',
-                modelValue: value
+                modelValue: value,
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
             }
         });
 

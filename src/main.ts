@@ -1,6 +1,7 @@
 import type { App, Plugin } from '@vue/runtime-core';
 import type { DefineComponent } from 'vue';
-import type { Settings, DeepPartial } from '@/types';
+import type { DeepPartial } from 'types/utilities';
+import type { Settings } from 'types';
 import { merge } from 'lodash-es';
 import defaultSettings from './defaultSettings';
 import tooltip from './directives/tooltip';

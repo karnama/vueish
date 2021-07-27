@@ -31,9 +31,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { name, useVModel, disabled, label, error } from '@composables/input';
+import { name, useVModel, disabled, label, error } from 'composables/input';
 import { omit } from 'lodash-es';
-import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
+import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 
 // todo - update design from design chat (border red on error)
 export default defineComponent({

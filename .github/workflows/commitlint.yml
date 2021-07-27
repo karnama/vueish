@@ -1,13 +1,17 @@
 name: Lint Commit Messages
-on: [pull_request]
+
+on:
+  pull_request:
+    types: [ready_for_review, opened, synchronize, reopened]
 
 jobs:
   commitlint:
+    if: github.event.pull_request.draft == false && github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - uses: wagoid/commitlint-github-action@v3
+      - uses: wagoid/commitlint-github-action@v4.1.1
         with:
           configFile: .commitlintrc.js

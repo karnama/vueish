@@ -1,6 +1,6 @@
 import { pathsToModuleNameMapper } from 'ts-jest/utils';
 import { compilerOptions } from './tsconfig.json';
-import { InitialOptionsTsJest } from 'ts-jest/dist/types';
+import type { InitialOptionsTsJest } from 'ts-jest/dist/types';
 
 export default {
     clearMocks: true,

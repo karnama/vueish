@@ -6,7 +6,21 @@ Install:
  - add `style="position: relative"` to the body tag
 
 
-# Contribution
+## Contribution
+
+### Adding features
+
+#### Component
+ 1. create a folder  in the `src/components` folder aptly named
+ 2. create a `.vue` file that starts with `UI` e.g.: `UITable.vue`
+
+#### Directive
+1. create a folder  in the `src/directives` folder aptly named
+2. create an `index.ts` file in the created folder.
+
+Then add or update test to cover the new logic. The test file should be placed next to the source code in a file that is named the same but appended with `test` in the name. (`UITable.test.ts`)
+
+To customise the web-types.json generated, place a `web-types.ts` file next to your source code and set the appropriate default export
 
 error like
 ```text
@@ -16,13 +30,6 @@ Error: The service was stopped
 ```
 
 can be fixed by running `node node_modules/esbuild/install`
-
-### IDE Support
-
-IDE support has been added by using web-types.json.
-To add your own definition to a new component:
- - Add a ts file (normally named web-type.ts next to the component) which is found by the configured glob pattern
- - In that set the default export to either `HtmlTag` or `HtmlTag[]`
 
 ### Testing
 

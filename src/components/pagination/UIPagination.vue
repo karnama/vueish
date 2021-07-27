@@ -62,9 +62,9 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { useVModel, disabled } from '@composables/input';
+import { useVModel, disabled } from 'composables/input';
 import { getIcon } from '@/helpers';
-import UIButton from '@components/button/UIButton.vue';
+import UIButton from 'components/button/UIButton.vue';
 
 export default defineComponent({
     name: 'UIPagination',

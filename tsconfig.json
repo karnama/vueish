@@ -11,16 +11,19 @@
         "sourceMap": true,
         "baseUrl": ".",
         "paths": {
+            "types": [
+                "types"
+            ],
             "@/*": [
                 "src/*"
             ],
-            "@components/*": [
+            "components/*": [
                 "src/components/*"
             ],
-            "@helpers/*": [
+            "helpers/*": [
                 "src/helpers/*"
             ],
-            "@composables/*": [
+            "composables/*": [
                 "src/composables/*"
             ]
         },

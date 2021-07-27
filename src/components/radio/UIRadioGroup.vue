@@ -30,8 +30,8 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, onBeforeUpdate, watch } from 'vue';
-import { label, disabled, name, error } from '@composables/input';
-import UIExpandTransition from '@components/transitions/UIExpandTransition.vue';
+import { label, disabled, name, error } from 'composables/input';
+import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 
 export default defineComponent({
     name: 'UIRadioGroup',

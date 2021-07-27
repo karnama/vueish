@@ -1,8 +1,8 @@
-import { useVModel } from '@composables/input/index';
+import { useVModel } from 'composables/input/index';
 import { mount } from '@vue/test-utils';
 import { defineComponent, h } from 'vue';
 import type { PropType } from 'vue';
-import { disableConsoleWarn, enableConsoleWarn } from '@helpers/test';
+import { disableConsoleWarn, enableConsoleWarn } from 'helpers/test';
 
 describe('input', () => {
     describe('useVModel', () => {
@@ -75,7 +75,11 @@ describe('input', () => {
         });
 
         it('should react to prop being set', async () => {
-            const wrapper = mount(Comp);
+            const wrapper = mount(Comp, {
+                props: {
+                    'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
+                }
+            });
 
             expect(wrapper.text()).toBe('1');
             await wrapper.trigger('click');

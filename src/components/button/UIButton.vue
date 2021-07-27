@@ -27,11 +27,11 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import type { StyleType } from '@/types';
-import { category, large } from '@composables/style';
-import { label, disabled } from '@composables/input';
-import UISpinnerLoader from '@components/loader-spinner/UISpinnerLoader.vue';
-import UIFadeTransition from '@components/transitions/UIFadeTransition.vue';
+import type { StyleType } from 'types';
+import { category, large } from 'composables/style';
+import { label, disabled } from 'composables/input';
+import UISpinnerLoader from 'components/loader-spinner/UISpinnerLoader.vue';
+import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
 
 export default defineComponent({
     name: 'UIButton',
