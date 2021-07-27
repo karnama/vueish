@@ -1,4 +1,4 @@
-import type { HtmlAttribute } from '../../../utils/web-types';
+import type { HtmlAttribute } from '../../../utils/web-types/web-types';
 
 export default {
     description: 'Insert the html as the next sibling element. This can be used on a `<template>` tag.' +

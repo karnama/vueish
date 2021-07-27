@@ -4,9 +4,9 @@ import glob from 'glob';
 import type { HtmlTag, HtmlAttribute } from './web-types';
 import type JSONSchemaForWebTypes from './web-types';
 import fs from 'fs';
-import { name, version } from '../package.json';
+import { name, version } from '../../package.json';
 import { parse as parseVueComponent } from 'vue-docgen-api';
-import { wrap } from '../src/helpers';
+import { wrap } from '../../src/helpers';
 
 // todo - add watch option
 

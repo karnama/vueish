@@ -1,4 +1,4 @@
-import type { HtmlAttribute } from '../../../utils/web-types';
+import type { HtmlAttribute } from '../../../utils/web-types/web-types';
 
 export default {
     description: 'When the user clicks away from the element call the given callback',
