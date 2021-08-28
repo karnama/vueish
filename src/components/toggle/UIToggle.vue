@@ -1,10 +1,15 @@
 <template>
     <div :class="$attrs.class" :style="$attrs.style">
-        <label :for="$attrs.id ?? name"
-               class="cursor-pointer text-color font-medium"
-               :class="{ 'text-color-error': error || $slots.error }">
-            <slot name="label">{{ label }}</slot>
-        </label>
+        <UIExpandTransition>
+            <label v-if="label || $slots.label"
+                   :for="$attrs.id ?? name"
+                   class="cursor-pointer text-color font-medium"
+                   :class="{ 'text-color-error': error || $slots.error }">
+                <slot name="label">
+                    {{ label }}
+                </slot>
+            </label>
+        </UIExpandTransition>
         <div class="toggle-wrapper relative rounded-full
                     flex ring-0 ring-red-700 transition"
              :class="{ 'ring-2 mt-1': error || $slots.error }">

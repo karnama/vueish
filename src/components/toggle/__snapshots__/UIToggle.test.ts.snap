@@ -4,14 +4,10 @@ exports[`UIToggle should display correctly 1`] = `
 <div
   class=""
 >
-  <label
-    class="cursor-pointer text-color font-medium"
-    for="name"
-  >
+  <transition-stub>
     
     
-    
-  </label>
+  </transition-stub>
   <div
     class="toggle-wrapper relative rounded-full
                     flex ring-0 ring-red-700 transition"
