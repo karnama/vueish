@@ -4,7 +4,7 @@ exports[`UISelect display should display correctly 1`] = `
 <div
   class="list overflow-y-scroll absolute w-full border text-color
                         bg-white dark:bg-gray-600 dark:border-gray-500 shadow-md"
-  style="width: 0px; z-index: 9999;"
+  style="width: 0px; left: 0px; z-index: 9999; top: 5px;"
 >
   <!--Header to display instructions-->
   <div
