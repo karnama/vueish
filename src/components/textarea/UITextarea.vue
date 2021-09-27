@@ -23,6 +23,7 @@
                           v-bind="$attrs"
                           ref="input"
                           v-model="model"
+                          spellcheck="true"
                           :name="name"
                           :disabled="disabled"
                           :aria-placeholder="$attrs.placeholder"
