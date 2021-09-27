@@ -1,14 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`UIToggle should display correctly 1`] = `
-<div>
+<div
+  class=""
+>
   <transition-stub>
     
     
   </transition-stub>
   <div
-    class="toggle-wrapper relative rounded-full
-                    flex ring-0 ring-red-700 transition"
+    class="toggle-wrapper relative rounded-full flex ring-0 ring-red-700 transition"
   >
     <input
       class="w-full h-full cursor-pointer opacity-0 m-0 p-0"

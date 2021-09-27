@@ -15,8 +15,9 @@
                      :error="error"
                      clearable
                      name="file-input"
-                     label="Default file input" />
+                     :label="label" />
 
+        <UIInput v-model="label" name="label" />
         <UIFileInput v-model="file"
                      name="file-input"
                      :large="large"
@@ -46,12 +47,14 @@ export default defineComponent({
         const file2 = ref<File[]>([generatedFile]);
         const large = ref(false);
         const error = ref('');
+        const label = ref('');
 
         return {
             file,
             file2,
             large,
-            error
+            error,
+            label
         };
     }
 });

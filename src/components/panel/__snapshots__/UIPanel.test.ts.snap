@@ -3,8 +3,7 @@
 exports[`UIPanel should render correctly 1`] = `
 <section
   aria-expanded="true"
-  class="ui-panel rounded shadow-md relative transition-all
-                    bg-white dark:bg-gray-600 text-color"
+  class="ui-panel rounded shadow-md relative transition-all bg-white dark:bg-gray-600 text-color"
 >
   <transition-stub>
     
