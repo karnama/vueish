@@ -44,3 +44,10 @@ type SortByFunc<T> = (row: T) => any;
 export interface FileError extends UIError {
     files: File[];
 }
+
+// UIModal
+export interface UIModal {
+    open: () => Promise<void>;
+    close: (event: 'accept' | 'cancel') => Promise<void>;
+    isOpen: boolean;
+}
