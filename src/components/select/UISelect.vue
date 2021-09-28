@@ -1,15 +1,28 @@
 <template>
     <div :class="{ 'cursor-not-allowed': disabled }"
-         class="ui-select relative group outline-none"
-         :aria-disabled="disabled"
-         :aria-valuetext="selectionDisplay">
+         class="ui-select relative group outline-none">
+        <UIExpandTransition>
+            <label v-if="label || $slots.label"
+                   :for="$attrs.id ?? name"
+                   class="font-medium text-color inline-flex"
+                   :class="{ 'text-color-error': error || $slots.error }">
+                <slot name="label">
+                    {{ label }}
+                </slot>
+            </label>
+        </UIExpandTransition>
+
         <!--Clickable area showing the current value and opens the list-->
-        <div :id="name"
+        <div :id="$attrs.id ?? name"
              ref="selectComp"
              class="current-selection text-color cursor-pointer select-none flex items-center justify-between
                     shadow-sm dark:shadow-md border border-gray-300 dark:border-gray-500 rounded
                     bg-white dark:bg-gray-600 transition p-3.5"
              role="textbox"
+             contenteditable="false"
+             aria-multiline="false"
+             :aria-disabled="disabled"
+             :aria-valuetext="selectionDisplay"
              :class="{
                  'bg-gray-200 dark:!bg-gray-700 text-color-muted cursor-not-allowed focus:outline-none': disabled,
                  'px-7 py-5': large
@@ -42,6 +55,14 @@
                         v-html="clearIcon" />
             </UIFadeTransition>
         </div>
+
+        <UIExpandTransition>
+            <slot v-if="error || $slots.error" name="error">
+                <p class="text-color-error text-sm">
+                    {{ error }}
+                </p>
+            </slot>
+        </UIExpandTransition>
 
         <!--List of available options-->
         <teleport to="body">
@@ -115,17 +136,16 @@
 import { computed, defineComponent, onMounted, ref, onUnmounted, nextTick, onBeforeUpdate } from 'vue';
 import { isEqual as _isEqual, cloneDeep } from 'lodash-es';
 import type { PropType } from 'vue';
-import { placeholder, autofocus, clearable, disabled, useVModel, label, name } from 'composables/input';
+import { placeholder, autofocus, clearable, disabled, useVModel, label, name, error } from 'composables/input';
 import { large } from 'composables/style';
 import { getIcon, wrap } from '@/helpers';
 import type { MaybeArray } from 'types/utilities';
 import clickAway from '@/directives/click-away';
 import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
+import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 
 type Option = Record<string, any>;
 
-// todo - errors
-// todo - add label
 // todo - add select all clear all
 // todo - clearIcon no semantic indication of interactivity
 export default defineComponent({
@@ -133,7 +153,7 @@ export default defineComponent({
 
     directives: { clickAway },
 
-    components: { UIFadeTransition },
+    components: { UIFadeTransition, UIExpandTransition },
 
     props: {
         modelValue: {
@@ -204,7 +224,8 @@ export default defineComponent({
         autofocus,
         disabled,
         name,
-        large
+        large,
+        error
     },
 
     emits: ['update:modelValue'],

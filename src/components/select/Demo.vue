@@ -13,6 +13,7 @@
               clearable
               :error="error"
               :large="large"
+              label="Clearable select"
               name="select-1"
               placeholder="Please select..." />
 
@@ -23,6 +24,7 @@
               :error="error"
               disabled
               :large="large"
+              label="Disabled multi select"
               name="select-2"
               placeholder="Please select..." />
 
@@ -30,6 +32,7 @@
               multi
               class="my-12"
               :options="options"
+              label="Multi select"
               :error="error"
               :large="large"
               name="select-2"
@@ -38,6 +41,7 @@
     <UISelect v-model="multiSelected"
               multi
               clearable
+              label="Clearable multi select"
               name="select-3"
               :error="error"
               :large="large"
