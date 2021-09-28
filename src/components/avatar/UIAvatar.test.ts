@@ -17,16 +17,6 @@ describe('UIAvatar', () => {
         expect(wrapper.text()).toBe('my-slot');
     });
 
-    it('should display alt\'s first letter if given and source cannot load and slot not given', () => {
-        const wrapper = mount(UIAvatar, {
-            props: {
-                alt: 'my alt textc'
-            }
-        });
-
-        expect(wrapper.text()).toBe('M');
-    });
-
     it('should fall back to displaying the person icon', () => {
         const wrapper = mount(UIAvatar);
 
