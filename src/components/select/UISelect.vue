@@ -6,7 +6,7 @@
         <!--Clickable area showing the current value and opens the list-->
         <div :id="name"
              ref="selectComp"
-             class="current-selection text-color cursor-pointer select-none flex justify-between
+             class="current-selection text-color cursor-pointer select-none flex items-center justify-between
                     shadow-sm dark:shadow-md border border-gray-300 dark:border-gray-500 rounded
                     bg-white dark:bg-gray-600 transition p-3.5"
              role="textbox"
@@ -22,22 +22,25 @@
                     {{ selectionDisplay }}
                 </span>
 
-                <span v-else class="text-gray-400 dark:text-gray-500">
+                <span v-else>
                     {{ placeholder }}
                 </span>
             </slot>
 
-            <span v-if="disabled"
-                  class="h-5 w-5 text-gray-400 dark:text-gray-500"
-                  v-html="lockIcon" />
+            <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
+                <span v-if="disabled"
+                      class="h-5 w-5 text-color-muted"
+                      :class="{ '-mr-3.5': large }"
+                      v-html="lockIcon" />
 
-            <span v-else-if="clearable && selectionDisplay"
-                  class="opacity-0 clear-icon h-5 w-5 cursor-pointer right-0 top-1 group-hover:opacity-100
-                         transition-opacity text-gray-400 dark:text-gray-500
-                         relative -mr-5 group-hover:mr-0 -mt-1 transition-spacing"
-                  aria-controls=""
-                  @click.stop="clearSelection(undefined)"
-                  v-html="clearIcon" />
+                <button v-else-if="clearable && selectionDisplay"
+                        class="clear-icon h-5 w-5 cursor-pointer text-color-muted"
+                        :class="{ '-mr-3.5': large }"
+                        :aria-controls="$attrs.id ?? name"
+                        aria-roledescription="clear"
+                        @click.stop="clearSelection(undefined)"
+                        v-html="clearIcon" />
+            </UIFadeTransition>
         </div>
 
         <!--List of available options-->
@@ -117,6 +120,7 @@ import { large } from 'composables/style';
 import { getIcon, wrap } from '@/helpers';
 import type { MaybeArray } from 'types/utilities';
 import clickAway from '@/directives/click-away';
+import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
 
 type Option = Record<string, any>;
 
@@ -128,6 +132,8 @@ export default defineComponent({
     name: 'UISelect',
 
     directives: { clickAway },
+
+    components: { UIFadeTransition },
 
     props: {
         modelValue: {
