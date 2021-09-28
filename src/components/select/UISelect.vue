@@ -4,8 +4,7 @@
          class="ui-select relative group outline-none"
          role="listbox"
          :aria-disabled="disabled"
-         :aria-valuetext="selectionDisplay"
-         v-bind="$attrs">
+         :aria-valuetext="selectionDisplay">
         <!--Clickable area showing the current value and opens the list-->
         <div class="current-selection text-color cursor-pointer select-none border-b flex justify-between"
              :class="{
@@ -115,13 +114,13 @@ import clickAway from '@/directives/click-away';
 
 type Option = Record<string, any>;
 
+// todo - add label
+// todo - add select all clear all
 // todo - clearIcon no semantic indication of interactivity
 export default defineComponent({
     name: 'UISelect',
 
     directives: { clickAway },
-
-    inheritAttrs: false,
 
     props: {
         modelValue: {

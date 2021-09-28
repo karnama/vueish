@@ -61,6 +61,7 @@ async function buildTag(fullPath: string, webTypesFile = 'web-types.ts'): Promis
         attributes: parsed.props?.map(prop => ({
             name: prop.name,
             required: prop.required,
+            // todo - try to fetch the docblock from imported props
             description: prop.description,
             value: {
                 kind: 'expression',

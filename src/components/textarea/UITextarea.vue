@@ -1,10 +1,15 @@
 <template>
     <div class="ui-textarea relative">
-        <label :for="$attrs.id ?? name"
-               class="font-medium text-color"
-               :class="{ 'text-color-error': error || $slots.error }">
-            {{ label }}
-        </label>
+        <UIExpandTransition>
+            <label v-if="label"
+                   :for="$attrs.id ?? name"
+                   class="font-medium text-color"
+                   :class="{ 'text-color-error': error || $slots.error }">
+                <slot name="label">
+                    {{ label }}
+                </slot>
+            </label>
+        </UIExpandTransition>
 
         <div class="group relative shadow-sm dark:shadow-md border border-gray-300 dark:border-gray-500 rounded
                     bg-white dark:bg-gray-600 transition"
@@ -18,6 +23,7 @@
                           v-bind="$attrs"
                           ref="input"
                           v-model="model"
+                          spellcheck="true"
                           :name="name"
                           :disabled="disabled"
                           :aria-placeholder="$attrs.placeholder"

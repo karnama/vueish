@@ -38,7 +38,7 @@ module.exports = {
                 'click-away',
                 'intersect',
                 'deps',
-                'dev-deps'
+                'deps-dev'
             ]
         ],
     }

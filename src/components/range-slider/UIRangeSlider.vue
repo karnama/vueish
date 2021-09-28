@@ -40,7 +40,8 @@ import { disabled, name, label } from 'composables/input';
 
 let timeoutId: any;
 
-// todo - add error styles when range has been fixed
+// todo - add error styles
+// todo - add disappearing label
 export default defineComponent({
     name: 'UIRangeSlider',
 

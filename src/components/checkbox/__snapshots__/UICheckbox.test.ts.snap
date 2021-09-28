@@ -15,8 +15,7 @@ exports[`UICheckbox should correctly display 1`] = `
       type="checkbox"
     />
     <span
-      class="ui-checkbox rounded flex justify-center items-center flex-shrink-0
-                 transition-all text-white border-2 cursor-pointer"
+      class="ui-checkbox rounded flex justify-center items-center flex-shrink-0 transition-all text-white border-2 cursor-pointer"
     >
       <span
         class="transition-all opacity-0 scale-0 text-white"

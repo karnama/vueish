@@ -1,11 +1,14 @@
 <template>
     <div class="ui-radio-group">
-        <span class="label text-sm text-gray-500 transition-colors"
-              :class="{ 'text-color-error': error || $slots.error }">
-            <slot name="label">
-                {{ label }}
-            </slot>
-        </span>
+        <UIExpandTransition>
+            <span v-if="label || $slots.label"
+                  class="label text-sm text-gray-500 transition-colors"
+                  :class="{ 'text-color-error': error || $slots.error }">
+                <slot name="label">
+                    {{ label }}
+                </slot>
+            </span>
+        </UIExpandTransition>
 
         <div ref="slot"
              class="slot flex pt-2"

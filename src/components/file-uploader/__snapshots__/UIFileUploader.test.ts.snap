@@ -4,8 +4,7 @@ exports[`UIFileUploader should display correctly 1`] = `
 <div>
   <div
     aria-label="File Upload"
-    class="rounded-lg drop-zone border-2 border-dashed transition-colors flex flex-wrap items-stretch
-                    dark:text-white relative border-current"
+    class="rounded-lg drop-zone border-2 border-dashed transition-colors flex flex-wrap items-stretch dark:text-white relative border-current"
     tabindex="0"
   >
     <input
@@ -55,8 +54,7 @@ exports[`UIFileUploader should display correctly 1`] = `
       </button>
     </div>
     <div
-      class="w-full sm:w-1/2 flex flex-col py-6 px-2
-                        justify-between bg-gray-200 dark:bg-gray-600 items-center"
+      class="w-full sm:w-1/2 flex flex-col py-6 px-2 justify-between bg-gray-200 dark:bg-gray-600 items-center"
       style="display: none;"
     >
       <div
