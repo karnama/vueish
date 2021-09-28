@@ -37,7 +37,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          test-command: "JEST_JUNIT_CLASSNAME='{classname}' JEST_JUNIT_TITLE='{title}' npx jest --forceExit --detectOpenHandles --ci --reporters=default --reporters=jest-junit"
+          test-command: "JEST_JUNIT_CLASSNAME='{classname}' JEST_JUNIT_TITLE='{title}' npx jest -coverage --coverageReporters='json-summary' --forceExit --detectOpenHandles --ci --reporters=default --reporters=jest-junit"
 
       - name: Test Report
         if: ${{ success() || failure() }}
