@@ -1,10 +1,15 @@
 <template>
     <div class="ui-file-input" :class="$attrs.class">
-        <label :for="$attrs.id ?? name"
-               class="font-medium text-color flex items-center"
-               :class="{ 'text-color-error': error || $slots.error }">
-            {{ label }}
-        </label>
+        <UIExpandTransition>
+            <label v-if="label || $slots.label"
+                   :for="$attrs.id ?? name"
+                   class="font-medium text-color flex items-center"
+                   :class="{ 'text-color-error': error || $slots.error }">
+                <slot name="label">
+                    {{ label }}
+                </slot>
+            </label>
+        </UIExpandTransition>
 
         <div ref="input"
              class="rounded flex justify-between items-center shadow-sm focus:outline-none

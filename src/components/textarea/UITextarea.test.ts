@@ -91,7 +91,8 @@ describe('UITextarea', () => {
         const wrapper = mount(UITextarea, {
             props: {
                 modelValue: '',
-                name
+                name,
+                label: 'TextArea'
             }
         });
 

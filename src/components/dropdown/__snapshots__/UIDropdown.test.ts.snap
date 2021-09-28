@@ -11,8 +11,7 @@ exports[`UIDropdown should correctly display 1`] = `
   />
   
   <div
-    class="dropdown absolute z-50 rounded overflow-scroll flex flex-col items-stretch shadow-lg
-                    bg-white dark:bg-gray-600 ring-1 ring-opacity-5 ring-black dark:ring-white dark:ring-opacity-5"
+    class="dropdown absolute z-50 rounded overflow-scroll flex flex-col items-stretch shadow-lg bg-white dark:bg-gray-600 ring-1 ring-opacity-5 ring-black dark:ring-white dark:ring-opacity-5"
     role="group"
     style="max-height: 35vh; width: 250px; right: 0px; top: 0px;"
   >

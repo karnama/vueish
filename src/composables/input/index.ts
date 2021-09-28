@@ -106,7 +106,8 @@ export function useVModel<T>(props: Record<string, any>, name = 'modelValue'): R
         return typeof props[name] !== 'undefined' &&
             (instance.vnode.props?.hasOwnProperty(name) || instance.vnode.props?.hasOwnProperty(capitalize(name)));
     });
-    const hasDefaultValue = computed(() => instance.vnode.component?.props.hasOwnProperty(name));
+    // if setting undefined as a default value then you're abusing js and this is your own making
+    const hasDefaultValue = computed(() => instance.vnode.component?.props[name] !== undefined);
 
     if (!propIsDefined.value && !hasDefaultValue.value) {
         throw new Error('Attempted to use useVModel without value.');

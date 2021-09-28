@@ -1,20 +1,15 @@
 <template>
     <div class="ui-text" :class="$attrs.class">
-        <label :for="$attrs.id ?? name"
-               class="font-medium text-color inline-flex"
-               :class="{ 'text-color-error': error || $slots.error }">
-            {{ label }}
-            <template v-if="isPasswordInitially && !disablePasswordToggle">
-                <button v-if="inputType === 'password'"
-                        class="ml-2"
-                        @click="inputType = 'text'"
-                        v-html="hideIcon" />
-                <button v-else
-                        class="ml-2"
-                        @click="inputType = 'password'"
-                        v-html="showIcon" />
-            </template>
-        </label>
+        <UIExpandTransition>
+            <label v-if="label || $slots.label"
+                   :for="$attrs.id ?? name"
+                   class="font-medium text-color inline-flex"
+                   :class="{ 'text-color-error': error || $slots.error }">
+                <slot name="label">
+                    {{ label }}
+                </slot>
+            </label>
+        </UIExpandTransition>
 
         <div class="shadow-sm dark:shadow-md border border-gray-300 dark:border-gray-500 rounded
                     bg-white dark:bg-gray-600 transition"
@@ -25,6 +20,16 @@
              }"
              :style="$attrs.style">
             <div class="flex items-center">
+                <template v-if="isPasswordInitially && !disablePasswordToggle">
+                    <button v-if="inputType === 'password'"
+                            class="ml-3 -mr-1 p-1 text-color-muted pass-toggle"
+                            @click="inputType = 'text'"
+                            v-html="hideIcon" />
+                    <button v-else
+                            class="ml-3 -mr-1 p-1 text-color-muted pass-toggle"
+                            @click="inputType = 'password'"
+                            v-html="showIcon" />
+                </template>
                 <span v-if="prefix ?? $slots.prefix"
                       class="prefix ml-3 -mr-1 select-none text-color-muted"
                       :class="{ 'ml-5 -mr-4': large }">
@@ -357,7 +362,7 @@ input:disabled[type=number] {
     -moz-appearance: textfield;
 }
 
-.prefix, .suffix {
+.prefix, .suffix, .pass-toggle {
     line-height: 1.28;
 }
 </style>

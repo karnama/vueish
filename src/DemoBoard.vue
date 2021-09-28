@@ -101,12 +101,25 @@ export default defineComponent({
         });
         const isOpen = ref(cache.get('menuOpen', true));
 
+        const setBg = (dark: boolean) => {
+            if (dark) {
+                document.body.classList.add('bg-gray-700');
+                document.body.classList.remove('bg-gray-100');
+                return;
+            }
+
+            document.body.classList.remove('bg-gray-700');
+            document.body.classList.add('bg-gray-100');
+        };
+
         document.body.classList.add(cache.get('theme', 'light')!);
+        setBg(cache.get('theme', 'light') === 'dark');
 
         watch(() => isOpen.value, val => cache.set('menuOpen', val));
         watch(() => darkMode.value, val => {
             cache.set('theme', val ? 'dark' : 'light');
             document.body.classList.toggle('dark');
+            setBg(val);
         });
 
         return {
