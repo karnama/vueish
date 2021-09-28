@@ -33,11 +33,10 @@ jobs:
         run: npm ci
 
       - name: Tests
-        uses: mattallty/jest-github-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: anuraag016/Jest-Coverage-Diff@master
         with:
-          test-command: "JEST_JUNIT_CLASSNAME='{classname}' JEST_JUNIT_TITLE='{title}' npx jest -coverage --coverageReporters='json-summary' --forceExit --detectOpenHandles --ci --reporters=default --reporters=jest-junit"
+          runCommand: "JEST_JUNIT_CLASSNAME='{classname}' JEST_JUNIT_TITLE='{title}' npx jest --coverage --coverageReporters='json-summary' --forceExit --detectOpenHandles --ci --reporters=default --reporters=jest-junit"
+          delta: 0.5
 
       - name: Test Report
         if: ${{ success() || failure() }}

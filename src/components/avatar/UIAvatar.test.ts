@@ -20,7 +20,7 @@ describe('UIAvatar', () => {
     it('should display alt\'s first letter if given and source cannot load and slot not given', () => {
         const wrapper = mount(UIAvatar, {
             props: {
-                alt: 'my alt texts'
+                alt: 'my alt textc'
             }
         });
 
