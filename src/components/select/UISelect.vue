@@ -1,14 +1,18 @@
 <template>
-    <div ref="selectComp"
-         :class="{ 'cursor-not-allowed': disabled }"
+    <div :class="{ 'cursor-not-allowed': disabled }"
          class="ui-select relative group outline-none"
-         role="listbox"
          :aria-disabled="disabled"
          :aria-valuetext="selectionDisplay">
         <!--Clickable area showing the current value and opens the list-->
-        <div class="current-selection text-color cursor-pointer select-none border-b flex justify-between"
+        <div :id="name"
+             ref="selectComp"
+             class="current-selection text-color cursor-pointer select-none flex justify-between
+                    shadow-sm dark:shadow-md border border-gray-300 dark:border-gray-500 rounded
+                    bg-white dark:bg-gray-600 transition p-3.5"
+             role="textbox"
              :class="{
-                 'text-color-muted cursor-not-allowed focus:outline-none': disabled
+                 'bg-gray-200 dark:!bg-gray-700 text-color-muted cursor-not-allowed focus:outline-none': disabled,
+                 'px-7 py-5': large
              }"
              tabindex="0"
              @keydown.space="openList"
@@ -41,6 +45,7 @@
             <div v-if="open"
                  ref="list"
                  v-click-away="closeList"
+                 role="listbox"
                  class="list overflow-y-scroll absolute w-full border text-color
                         bg-white dark:bg-gray-600 dark:border-gray-500 shadow-md"
                  :style="style"
@@ -107,13 +112,15 @@
 import { computed, defineComponent, onMounted, ref, onUnmounted, nextTick, onBeforeUpdate } from 'vue';
 import { isEqual as _isEqual, cloneDeep } from 'lodash-es';
 import type { PropType } from 'vue';
-import { placeholder, autofocus, clearable, disabled, useVModel, label } from 'composables/input';
+import { placeholder, autofocus, clearable, disabled, useVModel, label, name } from 'composables/input';
+import { large } from 'composables/style';
 import { getIcon, wrap } from '@/helpers';
 import type { MaybeArray } from 'types/utilities';
 import clickAway from '@/directives/click-away';
 
 type Option = Record<string, any>;
 
+// todo - errors
 // todo - add label
 // todo - add select all clear all
 // todo - clearIcon no semantic indication of interactivity
@@ -189,7 +196,9 @@ export default defineComponent({
         placeholder,
         clearable,
         autofocus,
-        disabled
+        disabled,
+        name,
+        large
     },
 
     emits: ['update:modelValue'],
@@ -248,7 +257,7 @@ export default defineComponent({
             open.value = true;
             await nextTick();
             setPosition();
-            searchInput.value?.focus();
+            searchInput.value?.focus({ preventScroll: true });
             window.addEventListener('resize', setPosition);
         };
         const clearSelection = (option?: Option) => {
@@ -308,12 +317,15 @@ export default defineComponent({
             }
 
             const offset = 5;
-            // const fitsOnTheBottom = listRect.height >= innerHeight - selectRect.y + selectRect.height + offset;
+            const fitsOnTheBottom = listRect.height <= innerHeight - (selectRect.y + selectRect.height + offset);
+            const above = scrollY + selectRect.top - offset - listRect.height;
+            const below = scrollY + selectRect.bottom + offset;
+
             style.value = {
                 width: `${selectRect.width}px`,
                 left: `${selectRect.x}px`,
                 zIndex: '9999',
-                top: `${selectRect.y + selectRect.height + offset}px`
+                top: `${fitsOnTheBottom ? below : above}px`
             };
         };
 

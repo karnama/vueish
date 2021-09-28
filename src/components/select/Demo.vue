@@ -3,17 +3,20 @@
     <UISelect v-model="selected"
               :options="options"
               clearable
+              name="select-1"
               placeholder="Please select..." />
 
     <UISelect v-model="multiSelected"
               multi
               class="my-12"
               :options="options"
+              name="select-2"
               placeholder="Please select..." />
 
     <UISelect v-model="multiSelected"
               multi
               clearable
+              name="select-3"
               :options="options"
               placeholder="Please select..." />
     <div class="h-screen" />
