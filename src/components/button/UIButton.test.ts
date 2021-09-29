@@ -41,7 +41,7 @@ describe('UIButton', () => {
 
         expect(button.attributes().disabled).toBeUndefined();
         await wrapper.setProps({ disabled: true });
-        expect(button.attributes().disabled).not.toBeUndefined();
+        expect(button.attributes().disabled).toBeDefined();
     });
 
     it('should not trigger the click event when disabled', async () => {

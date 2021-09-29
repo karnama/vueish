@@ -44,7 +44,7 @@ describe('input', () => {
                 render: () => h('div')
             });
 
-            expect(wrapper.emitted('update:myProp')).not.toBeUndefined();
+            expect(wrapper.emitted('update:myProp')).toBeDefined();
         });
 
         it('should thrown an error if not called within a lifecycle hook', () => {
