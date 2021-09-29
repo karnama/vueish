@@ -75,10 +75,22 @@
                  :style="style"
                  @keydown.esc="closeList">
                 <!--Header to display instructions-->
-                <div v-if="header || $slots.header" class="px-2 py-1 text-sm border-b select-none">
+                <div class="flex items-center justify-between px-2 py-1 text-sm border-b select-none">
                     <slot name="header">
                         {{ header }}
                     </slot>
+                    <div v-if="multi"
+                         class="flex-1 text-right"
+                         :data-has-selected="hasSelected = selectionCount > 0"
+                         :data-not-all-selected="notAllSelected = selectionCount < options.length">
+                        <button v-if="notAllSelected" class="x-select-all" @click="selected = options">
+                            Select All
+                        </button>
+                        <span v-if="notAllSelected && hasSelected"> / </span>
+                        <button v-if="hasSelected" class="x-select-none" @click="selected = []">
+                            Select None
+                        </button>
+                    </div>
                 </div>
 
                 <!--Search input to filter the list-->
@@ -118,7 +130,7 @@
 
                             <div v-if="currentlySelected && (clearable && !multi)
                                      || multi && clearable && currentlySelected
-                                     || multi && currentlySelected && Array.isArray(selected) && selected.length > 1"
+                                     || multi && currentlySelected && selectionCount > 1"
                                  class="flex items-center justify-between p-2 px-3">
                                 <span class="clear-icon h-5 w-5 cursor-pointer text-color-muted"
                                       @click.stop="clearSelection(option)"
@@ -146,7 +158,6 @@ import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 
 type Option = Record<string, any>;
 
-// todo - add select all clear all
 // todo - clearIcon no semantic indication of interactivity
 export default defineComponent({
     name: 'UISelect',
@@ -269,6 +280,13 @@ export default defineComponent({
 
             return options;
         });
+        const selectionCount = computed(() => {
+            if (!selected.value) return 0;
+
+            const options = Array.isArray(selected.value) ? selected.value : [selected.value];
+
+            return options.length;
+        });
         const style = ref<Partial<CSSStyleDeclaration>>({});
         const listElements = ref<HTMLLIElement[]>([]);
 
@@ -290,7 +308,7 @@ export default defineComponent({
         const clearSelection = (option?: Option) => {
             if (
                 // nothing to clear
-                !selected.value || Array.isArray(selected.value) && selected.value.length === 0
+                selectionCount.value === 0
                 // or not clearable single select
                 || !props.clearable && !props.multi
                 // or not clearable multi-select with only one value
@@ -384,6 +402,7 @@ export default defineComponent({
             filteredOptions,
             selectionDisplay,
             listElements,
+            selectionCount,
             select,
             closeList,
             openList,

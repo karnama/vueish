@@ -3,15 +3,17 @@
 exports[`UISelect display should display correctly 1`] = `
 <div
   class="list overflow-y-scroll absolute w-full border text-color bg-white dark:bg-gray-600 dark:border-gray-500 shadow-md"
+  role="listbox"
   style="width: 0px; left: 0px; z-index: 9999; top: 5px;"
 >
   <!--Header to display instructions-->
   <div
-    class="px-2 py-1 text-sm border-b select-none"
+    class="flex items-center justify-between px-2 py-1 text-sm border-b select-none"
   >
     
     Select an option
     
+    <!--v-if-->
   </div>
   <!--Search input to filter the list-->
   <div
