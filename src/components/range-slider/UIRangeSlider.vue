@@ -1,24 +1,34 @@
 <template>
-    <label class="mt-4">
-        <slot name="label" :value="model">
-            {{ label }}
-        </slot>
+    <div :class="$attrs.class" :style="$attrs.style">
+        <UIExpandTransition>
+            <label v-if="label || $slots.label"
+                   :for="$attrs.id ?? name"
+                   class="font-medium text-color inline-flex"
+                   :class="{ 'text-color-error': error || $slots.error }">
+                <slot name="label" :value="model">
+                    {{ label }}
+                </slot>
+            </label>
+        </UIExpandTransition>
+
         <teleport to="body">
-            <span ref="labelElement"
+            <span ref="floatingLabel"
                   class="range-value opacity-0 transition-opacity px-2 py-1
-                             bg-brand-400 rounded text-center text-white absolute"
+                         bg-brand-400 rounded text-center text-white absolute"
                   :class="{ 'opacity-100': showLabel }"
                   :style="position">
                 {{ model }}
             </span>
         </teleport>
-        <input ref="range"
+
+        <input :id="$attrs.id ?? name"
+               ref="range"
                v-model="model"
                type="range"
                class="range-slider-range bg-darker outline-none text-white transition-all border-0 w-full"
                :style="bgColor"
                :step="step"
-               v-bind="$attrs"
+               v-bind="omit($attrs, ['class', 'style'])"
                :name="name"
                :disabled="disabled"
                :min="min"
@@ -27,17 +37,23 @@
                @mouseover="showLabel = true"
                @touchend="showLabel = false"
                @mouseout="showLabel = false">
-    </label>
+
+        <UIExpandTransition>
+            <slot v-if="error || $slots.error" name="error">
+                <p class="text-color-error text-sm mt-2">
+                    {{ error }}
+                </p>
+            </slot>
+        </UIExpandTransition>
+    </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, ref, watch } from 'vue';
 import { useVModel } from 'composables/input';
-import { disabled, name, label } from 'composables/input';
+import { disabled, name, label, error } from 'composables/input';
+import { omit } from 'lodash-es';
 
-
-// todo - add error styles
-// todo - add disappearing label
 export default defineComponent({
     name: 'UIRangeSlider',
 
@@ -74,7 +90,7 @@ export default defineComponent({
         },
 
         /**
-         * Display the floating label while using
+         * Display the floating label while moving the marker.
          */
         withMarker: {
             type: Boolean,
@@ -83,7 +99,8 @@ export default defineComponent({
 
         label,
         disabled,
-        name
+        name,
+        error
     },
 
     emits: ['update:modelValue'],
@@ -91,7 +108,7 @@ export default defineComponent({
     setup(props) {
         const showLabel = ref(false);
         const range = ref<HTMLInputElement>();
-        const labelElement = ref<HTMLSpanElement>();
+        const floatingLabel = ref<HTMLSpanElement>();
         const model = useVModel<number>(props);
         const progress = computed(() => {
             return Number(model.value) - Number(props.min) * 100 / Number(props.max) - Number(props.min);
@@ -102,7 +119,7 @@ export default defineComponent({
                 backgroundImage:
                     `-webkit-gradient(linear, left top, right top,
                     color-stop(${progress.value / 100},
-                        ${props.disabled? 'rgba(0,0,0,0)' : 'rgba(var(--color-brand-400), 1)'}),
+                        ${props.disabled ? 'rgba(0,0,0,0)' : 'rgba(var(--color-brand-400), 1)'}),
                     color-stop(${progress.value / 100}, rgba(0,0,0,0)))`
             };
         });
@@ -112,7 +129,7 @@ export default defineComponent({
             () => progress.value,
             (val: number) => {
                 const rangeRect = range.value?.getBoundingClientRect();
-                const labelRect = labelElement.value?.getBoundingClientRect();
+                const labelRect = floatingLabel.value?.getBoundingClientRect();
                 const rangeHandleSize = 25;
 
                 if (!rangeRect || !labelRect) return;
@@ -129,7 +146,8 @@ export default defineComponent({
             bgColor,
             position,
             range,
-            labelElement
+            floatingLabel,
+            omit
         };
     }
 });
