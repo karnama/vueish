@@ -1,25 +1,26 @@
 <template>
+    <div class="h-screen" />
     <UISelect v-model="selected"
               :options="options"
+              clearable
               placeholder="Please select..." />
 
     <UISelect v-model="multiSelected"
               multi
               class="my-12"
-              no-clear
               :options="options"
               placeholder="Please select..." />
 
     <UISelect v-model="multiSelected"
               multi
-              disabled
+              clearable
               :options="options"
               placeholder="Please select..." />
+    <div class="h-screen" />
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UISelect from '@components/select/UISelect.vue';
 
 const options = [
     {
@@ -43,7 +44,7 @@ const options = [
 export default defineComponent({
     // eslint-disable-next-line vue/no-reserved-component-names
     name: 'Select',
-    components: { UISelect },
+
     setup() {
         const selected = ref(null);
         const multiSelected = ref(null);

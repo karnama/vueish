@@ -7,7 +7,7 @@
                     :progress="Number(progress)"
                     :height="Number(height)" />
     <br>
-    <div class="space-y-2">
+    <div class="space-y-2 text-color">
         <label class="flex">
             steps
             <input v-model="steps"
@@ -33,12 +33,11 @@
 </template>
 
 <script lang="ts">
-import UILinearLoader from './UILinearLoader.vue';
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
     name: 'LinearLoader',
-    components: { UILinearLoader },
+
     setup() {
         const steps = ref(10);
         const height = ref(4);

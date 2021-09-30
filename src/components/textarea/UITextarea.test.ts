@@ -2,6 +2,17 @@ import { mount } from '@vue/test-utils';
 import UITextarea from './UITextarea.vue';
 
 describe('UITextarea', () => {
+    it('should display correctly', () => {
+        const wrapper = mount(UITextarea, {
+            props: {
+                modelValue: '',
+                name: 'input'
+            }
+        });
+
+        expect(wrapper.element).toMatchSnapshot();
+    });
+
     it('should handle model-binding correctly', async () => {
         const wrapper = mount(UITextarea, {
             props: {
@@ -12,7 +23,7 @@ describe('UITextarea', () => {
 
         await wrapper.get('textarea').setValue('Hello World');
 
-        expect(wrapper.emitted('update:modelValue')).not.toBeUndefined();
+        expect(wrapper.emitted('update:modelValue')).toBeDefined();
         expect(wrapper.emitted('update:modelValue')![0]).toStrictEqual(['Hello World']);
     });
 
@@ -40,7 +51,7 @@ describe('UITextarea', () => {
 
         expect(input.attributes().disabled).toBeUndefined();
         await wrapper.setProps({ disabled: true });
-        expect(input.attributes().disabled).not.toBeUndefined();
+        expect(input.attributes().disabled).toBeDefined();
     });
 
     it('should prevent resize when the fixed prop is given', async () => {
@@ -80,7 +91,8 @@ describe('UITextarea', () => {
         const wrapper = mount(UITextarea, {
             props: {
                 modelValue: '',
-                name
+                name,
+                label: 'TextArea'
             }
         });
 
@@ -179,7 +191,8 @@ describe('UITextarea', () => {
         const wrapper = mount(UITextarea, {
             props: {
                 name: 'input',
-                modelValue: value
+                modelValue: value,
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
             }
         });
 

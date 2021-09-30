@@ -17,3 +17,28 @@
 @tailwind components;
 @tailwind utilities;
 
+.text-color {
+    @apply text-gray-800;
+}
+
+.text-color-muted {
+    @apply text-gray-500;
+}
+
+.text-color-error {
+    color: theme('colors.red.700') !important;
+}
+
+.dark {
+    & .text-color {
+        @apply text-gray-200;
+    }
+
+    & .text-color-muted {
+        @apply text-gray-400;
+    }
+
+    & .text-color-error {
+        color: theme('colors.red.500') !important;
+    }
+}

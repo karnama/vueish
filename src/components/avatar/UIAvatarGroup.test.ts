@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils';
-import UIAvatarGroup from '@components/avatar/UIAvatarGroup.vue';
-import { Avatar } from '@/types';
-import UIAvatar from '@components/avatar/UIAvatar.vue';
+import UIAvatarGroup from './UIAvatarGroup.vue';
+import type { Avatar } from 'types';
+import UIAvatar from './UIAvatar.vue';
 
 const avatars: Avatar[] = [
     {},
@@ -12,6 +12,16 @@ const avatars: Avatar[] = [
 ];
 
 describe('UIAvatarGroup', () => {
+    it('should correctly display', () => {
+        const wrapper = mount(UIAvatarGroup, {
+            props: {
+                avatars,
+                max: avatars.length
+            }
+        });
+        expect(wrapper.element).toMatchSnapshot();
+    });
+
     it('should display the avatars given as prop', () => {
         const wrapper = mount(UIAvatarGroup, {
             props: {

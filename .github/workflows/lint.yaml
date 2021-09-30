@@ -14,13 +14,18 @@ on:
 
 jobs:
   build:
-    if: github.event.pull_request.draft == false
+    if: github.event.pull_request.draft == false && github.actor != 'dependabot[bot]'
     name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
+      - uses: actions/cache@v2
         with:
+          key: npm-${{ hashFiles('./package-lock.json') }}
+          path: ~/.npm
+          restore-keys: |
+            npm-
           node-version: 15
       - run: npm ci
       - name: ESLint

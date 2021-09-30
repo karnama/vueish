@@ -1,21 +1,33 @@
 <template>
-    Using the default slot
+    <p class="text-color">
+        Using the default slot
+    </p>
     <UIAvatar>hi</UIAvatar>
 
-    No props/slot with squared
+    <p class="text-color">
+        No props/slot with squared
+    </p>
     <UIAvatar squared />
 
-    Small sizing with tw classes
+    <p class="text-color">
+        Small sizing with tw classes
+    </p>
     <UIAvatar alt="Person" class="override" />
-    Default
-    <UIAvatar>OP</UIAvatar>
-    Large sizing with tw classes
-    <UIAvatar src="https://picsum.photos/50?random=1" class="h-12 w-12" />
 
-    <div class="mt-12">
+    <p class="text-color">
+        Default
+    </p>
+    <UIAvatar>OP</UIAvatar>
+
+    <p class="text-color">
+        Large sizing with tw classes
+    </p>
+    <UIAvatar src="https://picsum.photos/50?random=1" class="!h-12 !w-12" />
+
+    <p class="mt-12 text-color">
         Avatar group
-    </div>
-    <UIAvatarGroup class="h-12 w-12 bg-green-700">
+    </p>
+    <UIAvatarGroup class="!h-12 !w-12 bg-green-700">
         <UIAvatar alt="smt" />
         <UIAvatar src="https://picsum.photos/50?random=3" />
         <UIAvatar src="https://picsum.photos/50?random=4" />
@@ -24,10 +36,10 @@
         <UIAvatar alt="smt" />
     </UIAvatarGroup>
 
-    <div class="mt-12">
+    <p class="mt-12 text-color">
         Avatar group (reverse stacking)
-    </div>
-    <UIAvatarGroup class="h-12 w-12" reverse-stacking>
+    </p>
+    <UIAvatarGroup class="!h-12 !w-12" reverse-stacking>
         <UIAvatar alt="smt" />
         <UIAvatar src="https://picsum.photos/50?random=5" />
         <UIAvatar src="https://picsum.photos/50?random=6" />
@@ -36,22 +48,18 @@
         <UIAvatar alt="smt" />
     </UIAvatarGroup>
 
-    <div class="mt-12">
+    <p class="mt-12 text-color">
         Avatar group (with avatars as prop)
-    </div>
-    <UIAvatarGroup :avatars="avatars" class="h-10 w-10" />
+    </p>
+    <UIAvatarGroup :avatars="avatars" class="!h-10 !w-10" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import UIAvatar from './UIAvatar.vue';
-import UIAvatarGroup from './UIAvatarGroup.vue';
-import type { Avatar } from '@/types';
+import type { Avatar } from 'types';
 
 export default defineComponent({
     name: 'Avatar',
-
-    components: { UIAvatarGroup, UIAvatar },
 
     setup() {
         return {

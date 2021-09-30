@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UIBadge should correctly display 1`] = `
+<div
+  class="ui-badge relative"
+>
+  
+  my default slot content
+  
+  <span
+    class="rounded bg-brand-400 text-white px-2 absolute"
+    role="status"
+  >
+    
+    my-content
+    
+  </span>
+</div>
+`;

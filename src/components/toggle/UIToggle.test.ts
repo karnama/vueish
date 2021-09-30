@@ -1,7 +1,17 @@
 import { mount } from '@vue/test-utils';
-import UIToggle from '@components/toggle/UIToggle.vue';
+import UIToggle from './UIToggle.vue';
 
 describe('UIToggle', () => {
+    it('should display correctly', () => {
+        const wrapper = mount(UIToggle, {
+            props: {
+                name: 'name'
+            }
+        });
+
+        expect(wrapper.element).toMatchSnapshot();
+    });
+
     it('should toggle the input with click', async () => {
         const wrapper = mount(UIToggle, {
             props: {

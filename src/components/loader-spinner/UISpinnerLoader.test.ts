@@ -3,17 +3,28 @@ import { mount } from '@vue/test-utils';
 
 const props = {
     progress: 38,
+    steps: 76,
     stroke: 10,
     diameter: 75,
     determinate: true
 };
 
 describe('UISpinner', () => {
-    it('should render', () => {
-        const wrapper = mount(UISpinnerLoader);
+    it('should render correctly', () => {
+        const wrapper = mount(UISpinnerLoader, { props });
 
-        expect(wrapper).toBeDefined();
-        expect(wrapper.exists()).toBe(true);
+        expect(wrapper.element).toMatchSnapshot();
+    });
+
+    it('should render correctly when set to determinate', () => {
+        const wrapper = mount(UISpinnerLoader, {
+            props: {
+                ...props,
+                determinate: false
+            }
+        });
+
+        expect(wrapper.element).toMatchSnapshot();
     });
 
     it('should be display the given slot', () => {
@@ -48,17 +59,19 @@ describe('UISpinner', () => {
     });
 
     it('should dynamically update the progress', async () => {
-        const getStrokeOffsetStyle = (progress: number) => {
+        const getStrokeOffsetStyle = (progress?: number) => {
+            progress = progress ?? props.progress;
             const radius = (props.diameter - props.stroke) / 2;
             const circumference = Math.PI * 2 * radius;
+            const step = circumference / Number(props.steps);
 
-            return `stroke-dashoffset: ${circumference * (100 - progress) / 100}px`;
+            return `stroke-dashoffset: ${circumference - step * progress}px`;
         };
 
         const wrapper = mount(UISpinnerLoader, { props });
         const circle = wrapper.find('circle');
 
-        expect(circle.attributes()['style']).toContain(getStrokeOffsetStyle(props.progress));
+        expect(circle.attributes()['style']).toContain(getStrokeOffsetStyle());
         await wrapper.setProps({ progress: 99 });
         expect(circle.attributes()['style']).toContain(getStrokeOffsetStyle(99));
     });

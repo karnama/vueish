@@ -1,9 +1,10 @@
-import { useVModel } from '@composables/input/index';
+import { useVModel } from 'composables/input/index';
 import { mount } from '@vue/test-utils';
 import { defineComponent, h } from 'vue';
-import { disableConsoleWarn, enableConsoleWarn } from '@helpers/test';
+import type { PropType } from 'vue';
+import { disableConsoleWarn, enableConsoleWarn } from 'helpers/test';
 
-describe('index', () => {
+describe('input', () => {
     describe('useVModel', () => {
         const Comp = defineComponent({
             name: 'Comp',
@@ -43,7 +44,7 @@ describe('index', () => {
                 render: () => h('div')
             });
 
-            expect(wrapper.emitted('update:myProp')).not.toBeUndefined();
+            expect(wrapper.emitted('update:myProp')).toBeDefined();
         });
 
         it('should thrown an error if not called within a lifecycle hook', () => {
@@ -74,20 +75,24 @@ describe('index', () => {
         });
 
         it('should react to prop being set', async () => {
-            const wrapper = mount(Comp);
+            const wrapper = mount(Comp, {
+                props: {
+                    'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
+                }
+            });
 
             expect(wrapper.text()).toBe('1');
             await wrapper.trigger('click');
-            expect(wrapper.text()).toBe('2');
+            expect(wrapper.lastEventValue()).toStrictEqual([2]);
 
             await wrapper.setProps({ modelValue: 1 });
             expect(wrapper.text()).toBe('1');
             await wrapper.trigger('click');
-            expect(wrapper.text()).toBe('2');
+            expect(wrapper.lastEventValue()).toStrictEqual([2]);
         });
 
-        // eslint-disable-next-line jest/no-disabled-tests
-        it.skip('should emit mutations', () => {
+        it('should emit mutations for object literals', () => {
+            jest.useFakeTimers();
             const wrapper = mount({
                 props: {
                     modelValue: {
@@ -98,12 +103,40 @@ describe('index', () => {
                 emits: ['update:modelValue'],
                 setup(props) {
                     const model = useVModel<Record<string, any>>(props);
-                    model.value.test = 1;
+                    model.value.key = { test: 1 };
+                    setTimeout(() => model.value.key.test = 2, 0);
                 },
                 render: () => h('div')
             });
 
-            expect(wrapper.emitted('update:modelValue')).toBe([[1]]);
+            expect(wrapper.lastEventValue()).toStrictEqual([{ key: { test: 1 } }]);
+            jest.runAllTimers();
+            expect(wrapper.lastEventValue()).toStrictEqual([{ key: { test: 2 } }]);
+            jest.useRealTimers();
+        });
+
+        it('should emit mutations for arrays', () => {
+            jest.useFakeTimers();
+            const wrapper = mount({
+                props: {
+                    modelValue: {
+                        type: Array as PropType<number[]>,
+                        default: () => []
+                    }
+                },
+                emits: ['update:modelValue'],
+                setup(props) {
+                    const model = useVModel<Record<string, any>>(props);
+                    model.value.push(1);
+                    setTimeout(() => model.value.pop(), 0);
+                },
+                render: () => h('div')
+            });
+
+            expect(wrapper.lastEventValue()).toStrictEqual([[1]]);
+            jest.runAllTimers();
+            expect(wrapper.lastEventValue()).toStrictEqual([[]]);
+            jest.useRealTimers();
         });
     });
 });

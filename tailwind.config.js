@@ -22,7 +22,9 @@ const brandColors = (levels) => {
  * @type {import('@types/tailwindcss').TailwindConfig}
  */
 module.exports = {
-    purge: ['./index.html', './src/**/*.{vue,ts,tsx}'],
+    purge: ['./src/**/*.{vue,ts,tsx}'],
+    darkMode: 'class',
+    mode: 'jit',
     theme: {
         borderColor: theme => ({
             ...theme('colors'),

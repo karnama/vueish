@@ -30,8 +30,8 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 import type { PropType, VNode } from 'vue';
-import UIAvatar from '@components/avatar/UIAvatar.vue';
-import type { Avatar } from '@/types';
+import UIAvatar from 'components/avatar/UIAvatar.vue';
+import type { Avatar } from 'types';
 import { omit } from 'lodash-es';
 
 export default defineComponent({
@@ -47,7 +47,7 @@ export default defineComponent({
          */
         avatars: {
             type: Array as PropType<Avatar[]>,
-            default: []
+            default: () => []
         },
 
         /**
@@ -78,7 +78,7 @@ export default defineComponent({
                 return [];
             }
 
-            return ctx.slots.default();
+            return ctx.slots.default!();
         });
 
         return {

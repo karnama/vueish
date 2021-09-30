@@ -38,6 +38,19 @@ const selectorMap = {
 
 describe('UISelect', () => {
     describe('display', () => {
+        it('should display correctly', async () => {
+            const wrapper  = mount(UISelect, {
+                props: {
+                    options,
+                    modelValue: null
+                }
+            });
+
+            await wrapper.find(selectorMap.currentSelection).trigger('click');
+            expect(getList()!.element).toMatchSnapshot();
+            wrapper.unmount();
+        });
+
         it('should display the given options when open', async () => {
             const wrapper  = mount(UISelect, {
                 props: {
@@ -47,7 +60,7 @@ describe('UISelect', () => {
             });
 
             expect(getList()).toBeNull();
-            await wrapper.find(selectorMap.currentSelection).trigger('click');
+            await wrapper.get(selectorMap.currentSelection).trigger('click');
             const htmlOptions = getList()!.findAll(selectorMap.options);
             expect(htmlOptions).toHaveLength(options.length);
             expect(htmlOptions[0].html()).toContain(options[0].name);
@@ -76,7 +89,7 @@ describe('UISelect', () => {
                 }
             });
 
-            await wrapper.find(selectorMap.currentSelection).trigger('click');
+            await wrapper.get(selectorMap.currentSelection).trigger('click');
             expect(getList()?.html()).toContain('my-header');
             wrapper.unmount();
 
@@ -90,7 +103,7 @@ describe('UISelect', () => {
                 }
             });
 
-            await wrapper.find(selectorMap.currentSelection).trigger('click');
+            await wrapper.get(selectorMap.currentSelection).trigger('click');
             expect(getList()?.find('#my-header').exists()).toBe(true);
             wrapper.unmount();
         });
@@ -100,15 +113,16 @@ describe('UISelect', () => {
         const wrapper = mount(UISelect, {
             props: {
                 options,
-                modelValue: null
+                modelValue: null,
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
             }
         });
 
-        await wrapper.find(selectorMap.currentSelection).trigger('click');
-        await getList()!.find(selectorMap.options).trigger('click');
+        await wrapper.get(selectorMap.currentSelection).trigger('click');
+        await getList()!.get(selectorMap.options).trigger('click');
         expect(wrapper.lastEventValue()).toStrictEqual([options[0]]);
 
-        await wrapper.find(selectorMap.currentSelection).trigger('click');
+        await wrapper.get(selectorMap.currentSelection).trigger('click');
         const selected = getList()!.findAll(selectorMap.options)
             .filter(option => option.attributes()['aria-selected'] === 'true');
 
@@ -121,12 +135,13 @@ describe('UISelect', () => {
         const wrapper = mount(UISelect, {
             props: {
                 options,
-                modelValue: null
+                modelValue: null,
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
             }
         });
 
-        await wrapper.find(selectorMap.currentSelection).trigger('click');
-        await getList()!.find(selectorMap.options).trigger('click');
+        await wrapper.get(selectorMap.currentSelection).trigger('click');
+        await getList()!.get(selectorMap.options).trigger('click');
         expect(getList()).toBeNull();
         wrapper.unmount();
     });
@@ -135,11 +150,12 @@ describe('UISelect', () => {
         const wrapper  = mount(UISelect, {
             props: {
                 options,
-                modelValue: null
+                modelValue: null,
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
             }
         });
 
-        await wrapper.find(selectorMap.currentSelection).trigger('click');
+        await wrapper.get(selectorMap.currentSelection).trigger('click');
         const htmlOptions = getList()!.findAll(selectorMap.options);
 
         await htmlOptions[0].trigger('click');
@@ -159,11 +175,12 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: [],
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                 multi: true
             }
         });
 
-        await wrapper.find(selectorMap.currentSelection).trigger('click');
+        await wrapper.get(selectorMap.currentSelection).trigger('click');
         const htmlOptions = getList()!.findAll(selectorMap.options);
 
         await htmlOptions[0].trigger('click');
@@ -178,16 +195,18 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: [],
-                multi: true
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
+                multi: true,
+                clearable: true
             }
         });
 
-        await wrapper.find(selectorMap.currentSelection).trigger('click');
+        await wrapper.get(selectorMap.currentSelection).trigger('click');
         const htmlOptions = getList()!.findAll(selectorMap.options);
 
         await htmlOptions[0].trigger('click');
 
-        await wrapper.find(selectorMap.selectionClear).trigger('click');
+        await wrapper.get(selectorMap.selectionClear).trigger('click');
         expect(wrapper.lastEventValue<unknown[]>()![0]).toStrictEqual([]);
         wrapper.unmount();
     });
@@ -197,17 +216,19 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: [],
-                multi: true
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
+                multi: true,
+                clearable: true
             }
         });
 
-        await wrapper.find(selectorMap.currentSelection).trigger('click');
+        await wrapper.get(selectorMap.currentSelection).trigger('click');
         const htmlOptions = getList()!.findAll(selectorMap.options);
 
         await htmlOptions[0].trigger('click');
         expect(wrapper.lastEventValue<unknown[]>()![0]).toStrictEqual([options[0]]);
 
-        await htmlOptions[0].find(selectorMap.optionClear).trigger('click');
+        await htmlOptions[0].get(selectorMap.optionClear).trigger('click');
         expect(wrapper.lastEventValue<unknown[]>()![0]).toStrictEqual([]);
         wrapper.unmount();
     });
@@ -217,31 +238,32 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: [],
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                 disabled: true
             }
         });
 
-        await wrapper.find(selectorMap.currentSelection).trigger('click');
+        await wrapper.get(selectorMap.currentSelection).trigger('click');
         expect(getList()).toBeNull();
         wrapper.unmount();
     });
 
-    describe('noClear', () => {
+    describe('clearable', () => {
         it('should not allow clearing the value on single select given the prop', async () => {
             const wrapper = mount(UISelect, {
                 props: {
                     options,
                     modelValue: [],
-                    noClear: true
+                    'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
                 }
             });
 
-            await wrapper.find(selectorMap.currentSelection).trigger('click');
+            await wrapper.get(selectorMap.currentSelection).trigger('click');
 
             await getList()!.get(selectorMap.options).trigger('click');
             expect(wrapper.lastEventValue()).toStrictEqual([options[0]]);
 
-            await wrapper.find(selectorMap.currentSelection).trigger('click');
+            await wrapper.get(selectorMap.currentSelection).trigger('click');
 
             expect(getList()!.find(selectorMap.optionClear).exists()).toBe(false);
             wrapper.unmount();
@@ -252,18 +274,18 @@ describe('UISelect', () => {
                 props: {
                     options,
                     modelValue: [],
-                    noClear: true,
+                    'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                     multi: true
                 }
             });
 
-            await wrapper.find(selectorMap.currentSelection).trigger('click');
+            await wrapper.get(selectorMap.currentSelection).trigger('click');
             const htmlOptions = getList()!.findAll(selectorMap.options);
 
             await htmlOptions[0].trigger('click');
             await htmlOptions[1].trigger('click');
 
-            await htmlOptions[1].find(selectorMap.optionClear).trigger('click');
+            await htmlOptions[1].get(selectorMap.optionClear).trigger('click');
             expect(wrapper.lastEventValue<unknown[]>()![0]).toStrictEqual([options[0]]);
             await htmlOptions[0].trigger('click');
             expect(wrapper.lastEventValue<unknown[]>()![0]).toStrictEqual([options[0]]);
@@ -275,12 +297,11 @@ describe('UISelect', () => {
             const wrapper = mount(UISelect, {
                 props: {
                     options,
-                    modelValue: [],
-                    noClear: true
+                    modelValue: []
                 }
             });
 
-            await wrapper.find(selectorMap.currentSelection).trigger('click');
+            await wrapper.get(selectorMap.currentSelection).trigger('click');
 
             const list = getList()!;
             await list.get(selectorMap.options).trigger('click');
@@ -293,12 +314,12 @@ describe('UISelect', () => {
                 props: {
                     options,
                     modelValue: [],
-                    noClear: true,
+                    'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                     multi: true
                 }
             });
 
-            await wrapper.find(selectorMap.currentSelection).trigger('click');
+            await wrapper.get(selectorMap.currentSelection).trigger('click');
 
             const list = getList()!;
             const selectOptions = list.findAll(selectorMap.options);
@@ -329,11 +350,12 @@ describe('UISelect', () => {
         const wrapper = mount(UISelect, {
             props: {
                 options,
-                modelValue: []
+                modelValue: [],
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
             }
         });
 
-        await wrapper.find(selectorMap.currentSelection).trigger('click');
+        await wrapper.get(selectorMap.currentSelection).trigger('click');
 
         const list = getList()!;
         expect(list.find(selectorMap.search).exists()).toBe(true);
@@ -347,11 +369,12 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: [],
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                 multi: true
             }
         });
 
-        await wrapper.find(selectorMap.currentSelection).trigger('click');
+        await wrapper.get(selectorMap.currentSelection).trigger('click');
         const htmlOptions = getList()!.findAll(selectorMap.options);
 
         for await (const option of htmlOptions) {
@@ -371,42 +394,44 @@ describe('UISelect', () => {
                 }
             });
 
-            await wrapper.find(selectorMap.currentSelection).trigger('keydown', { key: 'space' });
+            await wrapper.get(selectorMap.currentSelection).trigger('keydown', { key: 'space' });
             expect(getList()).not.toBeNull();
             wrapper.unmount();
         });
 
-        // todo - figure out how to focus away from an untabbable element
-        // eslint-disable-next-line jest/no-disabled-tests
-        it.skip('should focus the next element on tab', async () => {
-            const wrapper = mount(UISelect, {
-                props: {
-                    options,
-                    modelValue: [],
-                    noClear: true,
-                    multi: true
-                }
-            });
-
-            await wrapper.find(selectorMap.currentSelection).trigger('click');
-            const htmlOptions = getList()!.findAll(selectorMap.options);
-            await getList()!.find(selectorMap.search).trigger('keydown', { keyCode: 9, key: 'tab' });
-
-            expect(document.activeElement?.innerHTML).toBe(htmlOptions[0].html());
-            wrapper.unmount();
-        });
+        // elements don't have event listeners only tabindexes
+        it.todo('should focus the next element on tab'
+        //     , async () => {
+        //     const wrapper = mount(UISelect, {
+        //         props: {
+        //             options,
+        //             modelValue: [],
+        //             multi: true
+        //         }
+        //     });
+        //
+        //     await wrapper.get(selectorMap.currentSelection).trigger('click');
+        //
+        //     const search = getList()!.get(selectorMap.search);
+        //     expect(search.element.isSameNode(document.activeElement)).toBe(true);
+        //     const htmlOption = getList()!.get(selectorMap.options);
+        //     await search.trigger('keydown', { keyCode: 9, key: 'Tab', code: 'Tab' });
+        //
+        //     expect(document.activeElement?.outerHTML).toBe(htmlOption.html());
+        //     wrapper.unmount();
+        // }
+        );
 
         it('should focus the previous element on key up if possible', async () => {
             const wrapper = mount(UISelect, {
                 props: {
                     options,
                     modelValue: [],
-                    noClear: true,
                     multi: true
                 }
             });
 
-            await wrapper.find(selectorMap.currentSelection).trigger('click');
+            await wrapper.get(selectorMap.currentSelection).trigger('click');
             const htmlOptions = getList()!.findAll<HTMLDivElement>(selectorMap.options);
             htmlOptions[1].element.focus();
             await htmlOptions[1].trigger('keydown', { keycode: 38, key: 'up' });
@@ -424,12 +449,11 @@ describe('UISelect', () => {
                 props: {
                     options,
                     modelValue: [],
-                    noClear: true,
                     multi: true
                 }
             });
 
-            await wrapper.find(selectorMap.currentSelection).trigger('click');
+            await wrapper.get(selectorMap.currentSelection).trigger('click');
             const htmlOptions = getList()!.findAll<HTMLDivElement>(selectorMap.options);
             const lastIndex = htmlOptions.length - 1;
             htmlOptions[lastIndex - 1].element.focus();
@@ -447,11 +471,12 @@ describe('UISelect', () => {
             const wrapper = mount(UISelect, {
                 props: {
                     options,
-                    modelValue: []
+                    modelValue: [],
+                    'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
                 }
             });
 
-            await wrapper.find(selectorMap.currentSelection).trigger('click');
+            await wrapper.get(selectorMap.currentSelection).trigger('click');
             expect(getList()).not.toBeNull();
 
             const currentFocus = new DOMWrapper(document.activeElement!);
@@ -466,11 +491,11 @@ describe('UISelect', () => {
                 props: {
                     options,
                     modelValue: [],
-                    noClear: true
+                    'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
                 }
             });
 
-            await wrapper.find(selectorMap.currentSelection).trigger('click');
+            await wrapper.get(selectorMap.currentSelection).trigger('click');
             const htmlOption = getList()!.find<HTMLDivElement>(selectorMap.options);
 
             await htmlOption.trigger('keydown', { key: 'enter' });
@@ -484,14 +509,14 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: [],
-                noClear: true,
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                 multi: true
             }
         });
 
-        await wrapper.find(selectorMap.currentSelection).trigger('click');
+        await wrapper.get(selectorMap.currentSelection).trigger('click');
         expect(getList()).not.toBeNull();
-        await wrapper.find(selectorMap.currentSelection).trigger('click');
+        await wrapper.get(selectorMap.currentSelection).trigger('click');
         expect(getList()).toBeNull();
         wrapper.unmount();
     });

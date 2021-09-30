@@ -25,21 +25,19 @@
         </UIButton>
     </div>
 
-    <p v-show="clicked" class="mt-5">
+    <p v-show="clicked" class="mt-5 text-color-muted">
         Last clicked button: {{ clicked }}
     </p>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { styleTypes } from '@/types';
-import UIButton from './UIButton.vue';
-import UICheckbox from '@components/checkbox/UICheckbox.vue';
+import { styleTypes } from 'types';
 
 export default defineComponent({
     // eslint-disable-next-line vue/no-reserved-component-names
     name: 'Button',
-    components: { UICheckbox, UIButton },
+
     setup() {
         const disabled = ref(false);
         const loading = ref(false);

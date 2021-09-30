@@ -1,21 +1,20 @@
 import { createApp } from 'vue';
-import Demo from './Demo.vue';
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import DemoBoard from './DemoBoard.vue';
+import { createRouter, createWebHistory } from 'vue-router';
 import './assets/styles/main.scss';
-import defaultSettings from '@/defaultSettings';
-import tooltip from '@/directives/tooltip';
+import Vueish from './main';
+import type { RouteRecordRaw } from 'vue-router';
 
-const componentDemos = import.meta.globEager('./components/**/Demo.vue') as {
-    [path: string]: { default: Record<string, any>};
-};
+const componentDemos =
+    import.meta.globEager('./components/**/Demo.vue') as Record<string, { default: Record<string, any>}>;
 const directiveDemos = import.meta.globEager('./directives/**/Demo.vue');
 
 const demos = Object.assign(componentDemos, directiveDemos);
-
 const routes = Object.keys(demos)
+    .sort()
     .map(path => ({
         path: '/' + String(demos[path].default.name),
-        component: demos[path].default,
+        component: async () => import(/* @vite-ignore */path),
         meta: {
             label: String(demos[path].default.name),
             type: path.includes('directives') ? 'Directives' : 'Components'
@@ -25,10 +24,7 @@ const routes = Object.keys(demos)
 
 const router = createRouter({ history: createWebHistory(), routes });
 
-const app = createApp(Demo)
-    .directive('tooltip', tooltip)
-    .use(router);
-
-app.config.globalProperties.Vueish = defaultSettings;
-
-app.mount('#app');
+createApp(DemoBoard)
+    .use(Vueish)
+    .use(router)
+    .mount('#app');

@@ -1,5 +1,5 @@
 <template>
-    <UIPanel closed class="bg-white mb-4">
+    <UIPanel closed class="mb-4">
         <template #header>
             Table with slots
         </template>
@@ -19,7 +19,7 @@
                 </UIButton>
             </template>
             <template #footer>
-                <span class="font-bold text-gray-700">
+                <span class="font-bold text-color">
                     My wildly
                     long slotted footer content that I have to
                     make up words for such as
@@ -30,13 +30,17 @@
         </UITable>
     </UIPanel>
 
-    Searchable
+    <p class="text-color mt-12">
+        Searchable
+    </p>
     <UITable :headers="headers"
              :rows="rows"
              search
              disable-sorting />
 
-    With Selection
+    <p class="text-color mt-12">
+        With Selection
+    </p>
     <UITable v-model="selectedRows"
              :headers="headers"
              :rows="rows"
@@ -47,15 +51,12 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UITable from '@components/table/UITable.vue';
-import type { Column, Row } from '@/types/public';
-import UIPanel from '@components/panel/UIPanel.vue';
-import UIButton from '@components/button/UIButton.vue';
+import type { Column, Row } from 'types';
 
 export default defineComponent({
     // eslint-disable-next-line vue/no-reserved-component-names
     name: 'Table',
-    components: { UIButton, UIPanel, UITable },
+
     setup() {
         const headers = ref<Column[]>([
             { header: 'Dessert (100g serving)', rowProperty: 'name' },

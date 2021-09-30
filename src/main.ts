@@ -1,9 +1,14 @@
-import type { App } from '@vue/runtime-core';
+import type { App, Plugin } from '@vue/runtime-core';
 import type { DefineComponent } from 'vue';
-import type { Settings, DeepPartial } from '@/types';
+import type { DeepPartial } from 'types/utilities';
+import type { Settings } from 'types';
 import { merge } from 'lodash-es';
 import defaultSettings from './defaultSettings';
-import * as directives from './directives';
+import tooltip from './directives/tooltip';
+import intersect from './directives/intersect';
+import outerHtml from './directives/outer-html';
+import clickAway from './directives/click-away';
+import './assets/styles/main.scss';
 
 const componentModules = import.meta.globEager('./**/UI*.vue');
 const components: DefineComponent[] = Object.keys(componentModules)
@@ -16,9 +21,13 @@ export default {
 
         components.forEach(component => app.component(component.name, component));
 
-        Object.keys(directives).forEach(name => {
-            // @ts-expect-error
-            app.directive(name, directives[name]);
-        });
+        app.directive('tooltip', tooltip);
+        app.directive('intersect', intersect);
+        app.directive('clickAway', clickAway);
+        app.directive('outer-html', outerHtml);
     }
-};
+} as Plugin;
+
+export function getVersion(): string {
+    return __VUEISH_VERSION__;
+}

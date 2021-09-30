@@ -32,9 +32,12 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, watch } from 'vue';
-import { useVModel } from '@composables/input';
-import { disabled, name, label } from '@composables/input';
+import { useVModel } from 'composables/input';
+import { disabled, name, label } from 'composables/input';
 
+
+// todo - add error styles
+// todo - add disappearing label
 export default defineComponent({
     name: 'UIRangeSlider',
 
@@ -90,9 +93,9 @@ export default defineComponent({
         const range = ref<HTMLInputElement>();
         const labelElement = ref<HTMLSpanElement>();
         const model = useVModel<number>(props);
-        const progress = computed(() =>
-            (Number(model.value) - Number(props.min)) * 100 / (Number(props.max) - Number(props.min))
-        );
+        const progress = computed(() => {
+            return Number(model.value) - Number(props.min) * 100 / Number(props.max) - Number(props.min);
+        });
 
         const bgColor = computed<Partial<CSSStyleDeclaration>>(() => {
             return {
@@ -115,7 +118,8 @@ export default defineComponent({
                 if (!rangeRect || !labelRect) return;
 
                 position.value.top = `calc(${rangeRect.y}px - ${labelRect.height}px - ${rangeHandleSize / 2}px - 5px)`;
-                position.value.left = `calc(${rangeRect.left}px + ${rangeRect.width / 100 * val}px - ${rangeHandleSize / 100 * val}px)`;
+                position.value.left = `calc(${rangeRect.left}px + ${rangeRect.width / 100 * val}px -
+                ${rangeHandleSize / 100 * val}px)`;
             });
 
 
