@@ -109,9 +109,24 @@ export default defineComponent({
         const showLabel = ref(false);
         const range = ref<HTMLInputElement>();
         const floatingLabel = ref<HTMLSpanElement>();
-        const model = useVModel<number>(props);
+        const model = useVModel<number | string>(props);
+        /**
+         * Progress represented as percentage from 0 to 100 regardless of min and max values
+         */
         const progress = computed(() => {
-            return Number(model.value) - Number(props.min) * 100 / Number(props.max) - Number(props.min);
+            let min = Number(props.min);
+            let max = Number(props.max);
+            if (min < 0) {
+                max = max + Math.abs(0 - min);
+                min = 0;
+            }
+
+            const modelValue = Number(model.value);
+            const range = max - min;
+            const shrinkValue = range / 100;
+            const percentage = range / shrinkValue / 100 * modelValue;
+
+            return percentage;
         });
 
         const bgColor = computed<Partial<CSSStyleDeclaration>>(() => {
@@ -135,9 +150,12 @@ export default defineComponent({
                 if (!rangeRect || !labelRect) return;
 
                 position.value.top = `calc(${rangeRect.y}px - ${labelRect.height}px - ${rangeHandleSize / 2}px - 5px)`;
-                position.value.left = `calc(${rangeRect.left}px + ${rangeRect.width / 100 * val}px -
-                ${rangeHandleSize / 100 * val}px)`;
-            });
+                const left = rangeRect.left + rangeRect.width / 100 * val - rangeHandleSize / 2 - 50 * val;
+                position.value.left = `${left}px`;
+                // position.value.left = `calc(${rangeRect.left}px + ${rangeRect.width / 100 * val}px - `
+                //     + `${rangeHandleSize / 100 * val}px)`;
+            }
+        );
 
 
         return {
