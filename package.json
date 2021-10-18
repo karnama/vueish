@@ -5,7 +5,7 @@
         "dist",
         "types"
     ],
-    "main": "./dist/vueish.umd.js",
+    "main": "./dist/vueish.es.js",
     "module": "./dist/vueish.es.js",
     "types": "./types/index.d.ts",
     "web-types": "/dist/web-types.json",
@@ -13,7 +13,7 @@
     "exports": {
         ".": {
             "import": "./dist/vueish.es.js",
-            "require": "./dist/vueish.umd.js"
+            "require": "./dist/vueish.es.js"
         }
     },
     "scripts": {
