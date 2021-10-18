@@ -23,7 +23,7 @@ describe('UITextarea', () => {
 
         await wrapper.get('textarea').setValue('Hello World');
 
-        expect(wrapper.emitted('update:modelValue')).not.toBeUndefined();
+        expect(wrapper.emitted('update:modelValue')).toBeDefined();
         expect(wrapper.emitted('update:modelValue')![0]).toStrictEqual(['Hello World']);
     });
 
@@ -51,7 +51,7 @@ describe('UITextarea', () => {
 
         expect(input.attributes().disabled).toBeUndefined();
         await wrapper.setProps({ disabled: true });
-        expect(input.attributes().disabled).not.toBeUndefined();
+        expect(input.attributes().disabled).toBeDefined();
     });
 
     it('should prevent resize when the fixed prop is given', async () => {

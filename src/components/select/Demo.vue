@@ -1,22 +1,52 @@
 <template>
-    <div class="h-screen" />
+    <div class="flex justify-evenly mb-6">
+        <UICheckbox v-model="large"
+                    name="large"
+                    label="Large Style" />
+
+        <UIButton category="danger" @click="error ? error = '' : error = 'Error message.'">
+            {{ error ? 'Remove' : 'Set' }} Error state
+        </UIButton>
+    </div>
     <UISelect v-model="selected"
               :options="options"
               clearable
+              :error="error"
+              :large="large"
+              label="Clearable select"
+              name="select-1"
               placeholder="Please select..." />
 
     <UISelect v-model="multiSelected"
               multi
               class="my-12"
               :options="options"
+              :error="error"
+              disabled
+              :large="large"
+              label="Disabled multi select"
+              name="select-2"
+              placeholder="Please select..." />
+
+    <UISelect v-model="multiSelected"
+              multi
+              class="my-12"
+              :options="options"
+              label="Multi select"
+              :error="error"
+              :large="large"
+              name="select-2"
               placeholder="Please select..." />
 
     <UISelect v-model="multiSelected"
               multi
               clearable
+              label="Clearable multi select"
+              name="select-3"
+              :error="error"
+              :large="large"
               :options="options"
               placeholder="Please select..." />
-    <div class="h-screen" />
 </template>
 
 <script lang="ts">
@@ -48,11 +78,15 @@ export default defineComponent({
     setup() {
         const selected = ref(null);
         const multiSelected = ref(null);
+        const large = ref(false);
+        const error = ref('');
 
         return {
             selected,
             multiSelected,
-            options
+            options,
+            large,
+            error
         };
     }
 });

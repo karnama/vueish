@@ -160,7 +160,8 @@
                                 <span class="flex items-center justify-end space-x-2 my-2 flex-grow">
                                     <span class="flex items-center">
                                         <span class="mr-2">Items per page</span>
-                                        <UISelect :model-value="{ id: currentItemsPerPage }"
+                                        <UISelect name="items-per-page"
+                                                  :model-value="{ id: currentItemsPerPage }"
                                                   :options="itemPerPageOptions"
                                                   option-label="id"
                                                   class="mr-2"
