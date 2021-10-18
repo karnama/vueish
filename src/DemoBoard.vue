@@ -28,6 +28,7 @@
                             </h3>
                             <router-link v-for="route in routeMap[type]"
                                          :key="route.path"
+                                         class="capitalize"
                                          :to="route.path">
                                 {{ route.meta.label }}
                             </router-link>
