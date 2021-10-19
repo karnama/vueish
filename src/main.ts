@@ -1,5 +1,4 @@
 import type { App, Plugin } from '@vue/runtime-core';
-import type { DefineComponent } from 'vue';
 import type { DeepPartial } from 'types/utilities';
 import type { Settings } from 'types';
 import { merge } from 'lodash-es';
@@ -9,17 +8,29 @@ import intersect from './directives/intersect';
 import outerHtml from './directives/outer-html';
 import clickAway from './directives/click-away';
 import './assets/styles/main.scss';
+import { defineAsyncComponent } from 'vue';
 
-const componentModules = import.meta.globEager('./**/UI*.vue');
-const components: DefineComponent[] = Object.keys(componentModules)
-    .map(modulePath => componentModules[modulePath].default)
-    .flat(1);
+const componentModules = import.meta.glob('./**/UI*.vue');
+
+/**
+ * Get the file name without extension.
+ *
+ * @param {string} path
+ */
+function getName(path: string): string {
+    return path.substring(path.lastIndexOf('/') + 1, path.indexOf('.vue'));
+}
 
 export default {
     install: (app: App, setting: DeepPartial<Settings> = {}): void => {
         app.config.globalProperties.Vueish = merge(defaultSettings, setting);
 
-        components.forEach(component => app.component(component.name, component));
+        Object.keys(componentModules).forEach(path => {
+            const component = defineAsyncComponent(async () => componentModules[path]());
+
+            // eslint ensures the component named the same as the file
+            app.component(getName(path), component);
+        });
 
         app.directive('tooltip', tooltip);
         app.directive('intersect', intersect);
