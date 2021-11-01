@@ -30,7 +30,7 @@
         "vue": "^3.0.0"
     },
     "devDependencies": {
-        "@babel/core": "^7.13.16",
+        "@babel/core": "^7.16.0",
         "@commitlint/config-conventional": "^13.1.0",
         "@commitlint/prompt-cli": "^13.1.0",
         "@commitlint/types": "^13.1.0",
