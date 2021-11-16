@@ -94,7 +94,7 @@ describe('UITable', () => {
         const trs = wrapper.findAll(selectorMap.rows);
         expect(trs).toHaveLength(rows.length);
         rows.forEach((row, index) => {
-            expect(trs[index].text()).toContain(row.number);
+            expect(trs[index].text()).toContain(String(row.number));
         });
         wrapper.unmount();
     });
@@ -276,7 +276,7 @@ describe('UITable', () => {
             expect(sortByFunc).toHaveBeenLastCalledWith(expect.objectContaining(rows[rows.length - 1]));
 
             wrapper.findAll(selectorMap.rows).forEach((tr, index) => {
-                expect(tr.text()).toContain(orderedRows[index].number);
+                expect(tr.text()).toContain(String(orderedRows[index].number));
             });
 
             await th.trigger('click');
