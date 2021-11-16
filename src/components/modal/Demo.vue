@@ -33,6 +33,6 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'Modal'
+    name: 'ModalDemo'
 });
 </script>

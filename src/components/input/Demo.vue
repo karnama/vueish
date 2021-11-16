@@ -142,7 +142,7 @@ import { getLibrarySettings } from '@/helpers';
 
 export default defineComponent({
     // eslint-disable-next-line vue/no-reserved-component-names
-    name: 'Input',
+    name: 'InputDemo',
 
     setup() {
         const text = ref('I\'m a input!');

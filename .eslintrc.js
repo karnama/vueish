@@ -114,10 +114,11 @@ module.exports = {
         'vue/new-line-between-multi-line-property': 'warn',
         'vue/max-attributes-per-line': ['warn', {
             'singleline': 3,
-            'multiline': {
-                'max': 1,
-                'allowFirstLine': true
-            }
+            'multiline': 1
+        }],
+        "vue/first-attribute-linebreak": ["error", {
+            "singleline": "beside",
+            "multiline": "beside"
         }],
         'vue/no-boolean-default': ['error', 'default-false'],
         'vue/no-duplicate-attr-inheritance': 'error',

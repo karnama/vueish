@@ -73,7 +73,7 @@ const options = [
 
 export default defineComponent({
     // eslint-disable-next-line vue/no-reserved-component-names
-    name: 'Select',
+    name: 'SelectDemo',
 
     setup() {
         const selected = ref(null);

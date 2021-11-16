@@ -38,7 +38,7 @@ import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
     // eslint-disable-next-line vue/no-reserved-component-names
-    name: 'Textarea',
+    name: 'TextareaDemo',
 
     setup() {
         const text = ref('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque cum dignissimos eius ' +

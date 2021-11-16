@@ -55,7 +55,7 @@ import type { Column, Row } from 'types';
 
 export default defineComponent({
     // eslint-disable-next-line vue/no-reserved-component-names
-    name: 'Table',
+    name: 'TableDemo',
 
     setup() {
         const headers = ref<Column[]>([
