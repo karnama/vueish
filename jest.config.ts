@@ -17,7 +17,7 @@ export default {
     preset: 'ts-jest',
     snapshotSerializers: ['jest-serializer-vue'],
     transform: {
-        '^.+\\.vue$': 'vue-jest',
+        '^.+\\.vue$': '@vue/vue3-jest',
         '^.+\\ts$': 'ts-jest'
     },
     testMatch: ['<rootDir>/src/**/*.test.ts'],

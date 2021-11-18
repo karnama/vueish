@@ -15,7 +15,7 @@
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
-    name: 'Intersect',
+    name: 'IntersectDemo',
 
     setup: () => {
         const onScreen = ref(false);

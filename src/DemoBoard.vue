@@ -76,7 +76,7 @@ import { getVersion } from '@/main';
 const cache = new LocalCache('demo');
 
 export default defineComponent({
-    name: 'Demo',
+    name: 'DemoBoard',
 
     components: { UIButton, UIToggle },
 

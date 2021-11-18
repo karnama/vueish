@@ -6,13 +6,12 @@
         <UIFadeTransition>
             <span v-if="loading" class="loader">
                 <slot name="loader">
-                    <UISpinnerLoader
-                        v-if="loading"
-                        inherit-color
-                        class="px-4"
-                        :class="loaderColor"
-                        :stroke="2"
-                        :diameter="25" />
+                    <UISpinnerLoader v-if="loading"
+                                     inherit-color
+                                     class="px-4"
+                                     :class="loaderColor"
+                                     :stroke="2"
+                                     :diameter="25" />
                 </slot>
             </span>
 

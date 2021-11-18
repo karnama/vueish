@@ -19,7 +19,7 @@ import { defineComponent } from 'vue';
 import { horizontal, vertical } from 'types';
 
 export default defineComponent({
-    name: 'Badge',
+    name: 'BadgeDemo',
 
     setup() {
         return {

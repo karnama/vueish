@@ -34,7 +34,7 @@
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
-    name: 'Pagination',
+    name: 'PaginationDemo',
 
     setup() {
         const disabled = ref(false);

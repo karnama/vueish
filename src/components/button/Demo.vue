@@ -36,7 +36,7 @@ import { styleTypes } from 'types';
 
 export default defineComponent({
     // eslint-disable-next-line vue/no-reserved-component-names
-    name: 'Button',
+    name: 'ButtonDemo',
 
     setup() {
         const disabled = ref(false);

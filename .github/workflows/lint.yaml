@@ -20,13 +20,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-      - uses: actions/cache@v2
         with:
-          key: npm-${{ hashFiles('./package-lock.json') }}
-          path: ~/.npm
-          restore-keys: |
-            npm-
-          node-version: 15
+          cache: 'npm'
       - run: npm ci
       - name: ESLint
         run: node node_modules/.bin/eslint . --ext .ts,.vue
