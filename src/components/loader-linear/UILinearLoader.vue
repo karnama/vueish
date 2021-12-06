@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
-import { inheritColor, progress, steps, determinate } from '@composables/style';
+import { inheritColor, progress, steps, determinate } from 'composables/style';
 
 export default defineComponent({
     name: 'UILinearLoader',

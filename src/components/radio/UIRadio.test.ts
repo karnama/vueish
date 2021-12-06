@@ -2,13 +2,16 @@ import { mount } from '@vue/test-utils';
 import type { DOMWrapper } from '@vue/test-utils';
 import UIRadio from './UIRadio.vue';
 import UIRadioGroup from './UIRadioGroup.vue';
-import { disableConsoleWarn, enableConsoleWarn } from '@helpers/test';
+import { disableConsoleWarn, enableConsoleWarn } from 'helpers/test';
 
 describe('UIRadio', () => {
     it('should bind attributes to the input', () => {
         const foo = 'bar';
 
         const wrapper = mount(UIRadio, {
+            props: {
+                value: 1
+            },
             attrs: {
                 foo
             }
@@ -24,6 +27,7 @@ describe('UIRadio', () => {
 
         const wrapper = mount(UIRadio, {
             props: {
+                value: 1,
                 label
             }
         });
@@ -35,6 +39,9 @@ describe('UIRadio', () => {
         const label = 'text';
 
         const wrapper = mount(UIRadio, {
+            props: {
+                value: 1
+            },
             slots: {
                 default: label
             }
@@ -144,7 +151,7 @@ describe('UIRadioGroup', () => {
 
         inputs.forEach(input => expect(input.attributes().disabled).toBeUndefined());
         await wrapper.setProps({ disabled: true });
-        inputs.forEach(input => expect(input.attributes().disabled).not.toBeUndefined());
+        inputs.forEach(input => expect(input.attributes().disabled).toBeDefined());
     });
 
     it('should bind the required value to the radio inputs', async () => {
@@ -161,7 +168,7 @@ describe('UIRadioGroup', () => {
 
         expect(inputs[0].attributes().required).toBeUndefined();
         await wrapper.setProps({ required: true });
-        expect(inputs[0].attributes().required).not.toBeUndefined();
+        expect(inputs[0].attributes().required).toBeDefined();
     });
 
     it('should bind the modelValue to the radio inputs', async () => {
@@ -209,7 +216,7 @@ describe('UIRadioGroup', () => {
         const input = wrapper.find('input[type="radio"]');
 
         await input.trigger('click');
-        expect(radioGroup.emitted('update:modelValue')).not.toBeUndefined();
+        expect(radioGroup.emitted('update:modelValue')).toBeDefined();
         expect(radioGroup.emitted('update:modelValue')![0]).toStrictEqual(['foo']);
     });
 

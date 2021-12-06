@@ -1,4 +1,4 @@
-import { getPxValue } from '@composables/style/index';
+import { getPxValue } from 'composables/style/index';
 
 describe('style', () => {
     describe('getPxValue', () => {
@@ -37,6 +37,16 @@ describe('style', () => {
 
         it('should correctly convert vh to px', () => {
             expect(getPxValue('1vh')).toBe(1);
+        });
+
+        it('should correctly convert rem to px', () => {
+            const style = document.createElement('style');
+            document.head.appendChild(style);
+            style.sheet!.insertRule('html { font-size: 16px; }');
+
+            expect(getPxValue('1rem')).toBe(16);
+
+            document.head.removeChild(style);
         });
     });
 });

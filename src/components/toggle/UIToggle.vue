@@ -1,9 +1,18 @@
 <template>
     <div :class="$attrs.class" :style="$attrs.style">
-        <label :for="$attrs.id ?? name" class="cursor-pointer pb-2">
-            <slot name="label">{{ label }}</slot>
-        </label>
-        <div class="toggle-wrapper relative flex">
+        <UIExpandTransition>
+            <label v-if="label || $slots.label"
+                   :for="$attrs.id ?? name"
+                   class="cursor-pointer text-color font-medium"
+                   :class="{ 'text-color-error': error || $slots.error }">
+                <slot name="label">
+                    {{ label }}
+                </slot>
+            </label>
+        </UIExpandTransition>
+        <div class="toggle-wrapper relative rounded-full
+                    flex ring-0 ring-red-700 transition"
+             :class="{ 'ring-2 mt-1': error || $slots.error }">
             <input :id="$attrs.id ?? name"
                    :checked="model"
                    type="checkbox"
@@ -13,18 +22,29 @@
                    :name="name"
                    @change="model = !model">
             <div class="handle" />
-            <div class="background bg-gray-200 rounded-full w-full h-full absolute top-0 left-0 z-0" />
+            <div class="background rounded-full w-full h-full absolute top-0 left-0 z-0" />
         </div>
+        <UIExpandTransition>
+            <slot v-if="error || $slots.error" name="error">
+                <p class="text-color-error text-sm">
+                    {{ error }}
+                </p>
+            </slot>
+        </UIExpandTransition>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { name, useVModel, disabled, label } from '@composables/input';
+import { name, useVModel, disabled, label, error } from 'composables/input';
 import { omit } from 'lodash-es';
+import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 
+// todo - update design from design chat (border red on error)
 export default defineComponent({
     name: 'UIToggle',
+
+    components: { UIExpandTransition },
 
     inheritAttrs: false,
 
@@ -35,7 +55,8 @@ export default defineComponent({
 
         name,
         label,
-        disabled
+        disabled,
+        error
     },
 
     emits: ['update:modelValue'],
@@ -55,6 +76,7 @@ export default defineComponent({
 $handleSize: 25;
 $width: 53;
 $border: 1px solid #E5E5E5;
+$borderDark: 1px solid #9e9e9e;
 $transition: 250ms ease all;
 
 .toggle-wrapper {
@@ -77,6 +99,7 @@ input {
     pointer-events: none;
     border: $border;
     transition: $transition;
+    @apply bg-gray-200;
 }
 
 .handle:before {
@@ -95,7 +118,7 @@ input {
 
 input:checked {
     & + .handle:before {
-        left: calc(#{$width}px - #{$handleSize}px + 2px);
+        left: calc(#{$width}px - #{$handleSize}px);
     }
 
     & ~ .background {
@@ -125,8 +148,33 @@ input:disabled:checked {
 
     & + .handle:before {
         @apply bg-gray-200;
-        box-shadow: none;
-        border: $border;
+    }
+}
+
+.dark {
+    & .background {
+        @apply bg-gray-500;
+        border: $borderDark;
+    }
+
+    & input:disabled {
+        & ~ .background {
+            @apply bg-gray-300;
+        }
+        & + .handle:before {
+            border: $borderDark;
+        }
+    }
+
+    & input:disabled:checked {
+        & ~ .background {
+            @apply bg-brand-400;
+            filter: brightness(90%) saturate(70%);
+        }
+
+        & + .handle:before {
+            @apply bg-gray-300;
+        }
     }
 }
 </style>

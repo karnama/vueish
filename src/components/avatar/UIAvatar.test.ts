@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import UIAvatar from '@components/avatar/UIAvatar.vue';
+import UIAvatar from './UIAvatar.vue';
 
 describe('UIAvatar', () => {
     it('should correctly display', () => {
@@ -41,5 +41,15 @@ describe('UIAvatar', () => {
         await wrapper.setProps({ squared: true });
         expect(wrapper.html()).not.toContain('rounded-full');
         expect(wrapper.html()).toContain('rounded');
+    });
+
+    it('should react to changes of the src prop', async () => {
+        const wrapper = mount(UIAvatar);
+
+        expect(wrapper.find('img').exists()).toBe(false);
+        await wrapper.setProps({
+            src: 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
+        });
+        expect(wrapper.find('img').exists()).toBe(true);
     });
 });

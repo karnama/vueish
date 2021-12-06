@@ -10,13 +10,12 @@
 </template>
 
 <script lang="ts">
-import UIPill from './UIPill.vue';
 import { defineComponent } from 'vue';
-import { styleTypes } from '@/types';
+import { styleTypes } from 'types';
 
 export default defineComponent({
-    name: 'Pill',
-    components: { UIPill },
+    name: 'PillDemo',
+
     setup() {
         return { styleTypes };
     }

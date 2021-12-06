@@ -13,11 +13,10 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import intersect from './index';
 
 export default defineComponent({
-    name: 'Intersect',
-    directives: { intersect },
+    name: 'IntersectDemo',
+
     setup: () => {
         const onScreen = ref(false);
         const onIntersect = (isIntersecting: boolean) => {

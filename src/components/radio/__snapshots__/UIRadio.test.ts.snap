@@ -4,13 +4,17 @@ exports[`UIRadioGroup should display correctly 1`] = `
 <div
   class="ui-radio-group"
 >
-  <span
-    class="label text-sm text-gray-500"
-  >
+  <transition-stub>
     
-    my-label
+    <span
+      class="label text-sm text-gray-500 transition-colors"
+    >
+      
+      my-label
+      
+    </span>
     
-  </span>
+  </transition-stub>
   <div
     class="slot flex pt-2 flex-col space-y-4"
     role="radiogroup"
@@ -20,7 +24,7 @@ exports[`UIRadioGroup should display correctly 1`] = `
       class="flex ui-radio"
     >
       <label
-        class="relative flex items-center outline-none"
+        class="relative flex items-center outline-none text-color"
         tabindex="0"
       >
         <input
@@ -31,7 +35,7 @@ exports[`UIRadioGroup should display correctly 1`] = `
           value="foo"
         />
         <span
-          class="ui-radio-btn relative float-left mr-2 h-5 w-5 border-2 rounded-full outline-none"
+          class="ui-radio-btn text-brand-500 relative float-left mr-2 h-5 w-5 border-2 rounded-full outline-none transition-colors"
           role="radio"
         />
         
@@ -43,7 +47,7 @@ exports[`UIRadioGroup should display correctly 1`] = `
       class="flex ui-radio"
     >
       <label
-        class="relative flex items-center outline-none"
+        class="relative flex items-center outline-none text-color"
         tabindex="0"
       >
         <input
@@ -54,7 +58,7 @@ exports[`UIRadioGroup should display correctly 1`] = `
           value="bar"
         />
         <span
-          class="ui-radio-btn relative float-left mr-2 h-5 w-5 border-2 rounded-full outline-none"
+          class="ui-radio-btn text-brand-500 relative float-left mr-2 h-5 w-5 border-2 rounded-full outline-none transition-colors"
           role="radio"
         />
         
@@ -64,5 +68,9 @@ exports[`UIRadioGroup should display correctly 1`] = `
     </div>
     
   </div>
+  <transition-stub>
+    
+    
+  </transition-stub>
 </div>
 `;

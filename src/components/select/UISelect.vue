@@ -1,15 +1,31 @@
 <template>
-    <div ref="selectComp"
-         :class="{ 'cursor-not-allowed': disabled }"
-         class="ui-select text-default relative group outline-none"
-         role="listbox"
-         :aria-disabled="disabled"
-         :aria-valuetext="selectionDisplay"
-         v-bind="$attrs">
+    <div :class="{ 'cursor-not-allowed': disabled }"
+         class="ui-select relative group outline-none">
+        <UIExpandTransition>
+            <label v-if="label || $slots.label"
+                   :for="$attrs.id ?? name"
+                   class="font-medium text-color inline-flex"
+                   :class="{ 'text-color-error': error || $slots.error }">
+                <slot name="label">
+                    {{ label }}
+                </slot>
+            </label>
+        </UIExpandTransition>
+
         <!--Clickable area showing the current value and opens the list-->
-        <div class="current-selection cursor-pointer select-none border-b flex justify-between"
+        <div :id="$attrs.id ?? name"
+             ref="selectComp"
+             class="current-selection text-color cursor-pointer select-none flex items-center justify-between
+                    shadow-sm dark:shadow-md border border-gray-300 dark:border-gray-500 rounded
+                    bg-white dark:bg-gray-600 transition p-3.5"
+             role="textbox"
+             contenteditable="false"
+             aria-multiline="false"
+             :aria-disabled="disabled"
+             :aria-valuetext="selectionDisplay"
              :class="{
-                 'text-muted cursor-not-allowed focus:outline-none': disabled
+                 'bg-gray-200 dark:!bg-gray-700 text-color-muted cursor-not-allowed focus:outline-none': disabled,
+                 'px-7 py-5': large
              }"
              tabindex="0"
              @keydown.space="openList"
@@ -19,45 +35,71 @@
                     {{ selectionDisplay }}
                 </span>
 
-                <span v-else class="opacity-50">
+                <span v-else>
                     {{ placeholder }}
                 </span>
             </slot>
 
-            <span v-if="disabled"
-                  class="h-5 w-5 text-gray-400"
-                  v-html="lockIcon" />
+            <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
+                <span v-if="disabled"
+                      class="h-5 w-5 text-color-muted"
+                      :class="{ '-mr-3.5': large }"
+                      v-html="lockIcon" />
 
-            <span v-else-if="clearable && selectionDisplay"
-                  class="opacity-0 clear-icon h-5 w-5 cursor-pointer right-0 top-1 group-hover:opacity-100
-                         transition-opacity text-gray-500 relative -mr-5 group-hover:mr-0 -mt-1 transition-spacing"
-                  aria-controls=""
-                  @click.stop="clearSelection(undefined)"
-                  v-html="clearIcon" />
+                <button v-else-if="clearable && selectionDisplay"
+                        class="clear-icon h-5 w-5 cursor-pointer text-color-muted"
+                        :class="{ '-mr-3.5': large }"
+                        :aria-controls="$attrs.id ?? name"
+                        aria-roledescription="clear"
+                        @click.stop="clearSelection(undefined)"
+                        v-html="clearIcon" />
+            </UIFadeTransition>
         </div>
+
+        <UIExpandTransition>
+            <slot v-if="error || $slots.error" name="error">
+                <p class="text-color-error text-sm">
+                    {{ error }}
+                </p>
+            </slot>
+        </UIExpandTransition>
 
         <!--List of available options-->
         <teleport to="body">
             <div v-if="open"
                  ref="list"
                  v-click-away="closeList"
-                 class="list overflow-y-scroll absolute w-full border bg-white shadow-md"
+                 role="listbox"
+                 class="list overflow-y-scroll absolute w-full border text-color
+                        bg-white dark:bg-gray-600 dark:border-gray-500 shadow-md"
                  :style="style"
                  @keydown.esc="closeList">
                 <!--Header to display instructions-->
-                <div v-if="header || $slots.header" class="px-2 py-1 text-sm bg-dark border-b select-none">
+                <div class="flex items-center justify-between px-2 py-1 text-sm border-b select-none">
                     <slot name="header">
                         {{ header }}
                     </slot>
+                    <div v-if="multi"
+                         class="flex-1 text-right"
+                         :data-has-selected="hasSelected = selectionCount > 0"
+                         :data-not-all-selected="notAllSelected = selectionCount < options.length">
+                        <button v-if="notAllSelected" class="x-select-all" @click="selected = options">
+                            Select All
+                        </button>
+                        <span v-if="notAllSelected && hasSelected"> / </span>
+                        <button v-if="hasSelected" class="x-select-none" @click="selected = []">
+                            Select None
+                        </button>
+                    </div>
                 </div>
 
                 <!--Search input to filter the list-->
-                <div v-if="!noSearch" class="p-2 bg-dark">
+                <div v-if="!noSearch" class="p-2">
                     <input ref="searchInput"
                            v-model="search"
                            tabindex="-1"
                            class="appearance-none bg-transparent w-full leading-tight
-                              focus:outline-none transition-text-color pb-2"
+                                  focus:outline-none transition-text-color"
                            name="search">
                 </div>
 
@@ -67,10 +109,10 @@
                         :key="option[optionLabel] + '-' + index"
                         :ref="el => { if (el) listElements[index] = el }"
                         :aria-selected="currentlySelected = isSelected(option)"
-                        class="option cursor-pointer bg-default hover:bg-gray-100 relative
-                               justify-center focus:bg-brand-200 outline-none"
+                        class="option cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500 relative
+                               justify-center focus:bg-brand-200 dark:focus:bg-brand-500 outline-none"
                         :class="{
-                            'selected-option bg-gray-200': currentlySelected,
+                            'selected-option bg-gray-200 dark:bg-gray-500 dark:hover:bg-gray-500': currentlySelected,
                             'border-t': index > 0 || !noSearch && index === 0
                         }"
                         role="option"
@@ -88,9 +130,9 @@
 
                             <div v-if="currentlySelected && (clearable && !multi)
                                      || multi && clearable && currentlySelected
-                                     || multi && currentlySelected && Array.isArray(selected) && selected.length > 1"
+                                     || multi && currentlySelected && selectionCount > 1"
                                  class="flex items-center justify-between p-2 px-3">
-                                <span class="clear-icon h-5 w-5 cursor-pointer text-gray-500"
+                                <span class="clear-icon h-5 w-5 cursor-pointer text-color-muted"
                                       @click.stop="clearSelection(option)"
                                       v-html="clearIcon" />
                             </div>
@@ -106,10 +148,13 @@
 import { computed, defineComponent, onMounted, ref, onUnmounted, nextTick, onBeforeUpdate } from 'vue';
 import { isEqual as _isEqual, cloneDeep } from 'lodash-es';
 import type { PropType } from 'vue';
-import { placeholder, autofocus, clearable, disabled, useVModel, label } from '@composables/input';
+import { placeholder, autofocus, clearable, disabled, useVModel, label, name, error } from 'composables/input';
+import { large } from 'composables/style';
 import { getIcon, wrap } from '@/helpers';
-import { MaybeArray } from '@/types';
-import clickAway from '@/directives/clickAway';
+import type { MaybeArray } from 'types/utilities';
+import clickAway from '@/directives/click-away';
+import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
+import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 
 type Option = Record<string, any>;
 
@@ -118,7 +163,7 @@ export default defineComponent({
 
     directives: { clickAway },
 
-    inheritAttrs: false,
+    components: { UIFadeTransition, UIExpandTransition },
 
     props: {
         modelValue: {
@@ -187,7 +232,10 @@ export default defineComponent({
         placeholder,
         clearable,
         autofocus,
-        disabled
+        disabled,
+        name,
+        large,
+        error
     },
 
     emits: ['update:modelValue'],
@@ -231,6 +279,13 @@ export default defineComponent({
 
             return options;
         });
+        const selectionCount = computed(() => {
+            if (!selected.value) return 0;
+
+            const options = Array.isArray(selected.value) ? selected.value : [selected.value];
+
+            return options.length;
+        });
         const style = ref<Partial<CSSStyleDeclaration>>({});
         const listElements = ref<HTMLLIElement[]>([]);
 
@@ -246,13 +301,13 @@ export default defineComponent({
             open.value = true;
             await nextTick();
             setPosition();
-            searchInput.value?.focus();
+            searchInput.value?.focus({ preventScroll: true });
             window.addEventListener('resize', setPosition);
         };
         const clearSelection = (option?: Option) => {
             if (
                 // nothing to clear
-                !selected.value || Array.isArray(selected.value) && selected.value.length === 0
+                selectionCount.value === 0
                 // or not clearable single select
                 || !props.clearable && !props.multi
                 // or not clearable multi-select with only one value
@@ -306,12 +361,15 @@ export default defineComponent({
             }
 
             const offset = 5;
-            // const fitsOnTheBottom = listRect.height >= innerHeight - selectRect.y + selectRect.height + offset;
+            const fitsOnTheBottom = listRect.height <= innerHeight - (selectRect.y + selectRect.height + offset);
+            const above = scrollY + selectRect.top - offset - listRect.height;
+            const below = scrollY + selectRect.bottom + offset;
+
             style.value = {
                 width: `${selectRect.width}px`,
                 left: `${selectRect.x}px`,
                 zIndex: '9999',
-                top: `${selectRect.y + selectRect.height + offset}px`
+                top: `${fitsOnTheBottom ? below : above}px`
             };
         };
 
@@ -343,6 +401,7 @@ export default defineComponent({
             filteredOptions,
             selectionDisplay,
             listElements,
+            selectionCount,
             select,
             closeList,
             openList,

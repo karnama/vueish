@@ -1,22 +1,23 @@
 import type { Directive, DirectiveBinding } from 'vue';
 
 let eventType: 'touchstart' | 'click' = 'click';
+const listenerKey = '_click_away_listener';
 
-let listener: undefined | EventListenerObject;
+type ClickAwayElement = Element & { [listenerKey]?: undefined | EventListenerObject };
 
-export const initialiseClickAway = (el: Element, binding: DirectiveBinding<typeof Function>): void => {
-    removeClickAway();
+export const initialiseClickAway = (el: ClickAwayElement, binding: DirectiveBinding<typeof Function>): void => {
+    removeClickAway(el);
     createClickAwayListener(el, binding);
-    addClickAway();
+    addClickAway(el);
 };
 
-export const createClickAwayListener = (el: Element, binding: DirectiveBinding<typeof Function>): void => {
+export const createClickAwayListener = (el: ClickAwayElement, binding: DirectiveBinding<typeof Function>): void => {
     const cb = binding.value;
     let nextTick = false;
     setTimeout(() => { nextTick = true; }, 0);
     eventType = document.ontouchstart ? 'touchstart' : 'click';
 
-    listener = {
+    el[listenerKey] = {
         handleEvent(event: UIEvent) {
             if (binding.modifiers.stop) {
                 event.stopPropagation();
@@ -33,17 +34,18 @@ export const createClickAwayListener = (el: Element, binding: DirectiveBinding<t
     };
 };
 
-export const addClickAway = (): void => {
-    if (!listener) return;
-    document.addEventListener(eventType, listener);
+export const addClickAway = (el: ClickAwayElement): void => {
+    if (!el[listenerKey]) return;
+    document.addEventListener(eventType, el[listenerKey]!);
 };
 
-export const removeClickAway = (): void => {
-    if (!listener) return;
-    document.removeEventListener(eventType, listener);
+export const removeClickAway = (el: ClickAwayElement): void => {
+    if (!el[listenerKey]) return;
+    document.removeEventListener(eventType, el[listenerKey]!);
+    delete el[listenerKey];
 };
 
-export const updateClickAway = (el: Element, binding: DirectiveBinding<typeof Function>): void => {
+export const updateClickAway = (el: ClickAwayElement, binding: DirectiveBinding<typeof Function>): void => {
     if (binding.value === binding.oldValue) {
         return;
     }

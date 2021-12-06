@@ -1,6 +1,6 @@
 import UILinearLoader from './UILinearLoader.vue';
 import { mount } from '@vue/test-utils';
-import { disableConsoleWarn, enableConsoleWarn } from '@helpers/test';
+import { disableConsoleWarn, enableConsoleWarn } from 'helpers/test';
 
 let wrapper: ReturnType<typeof mount>;
 

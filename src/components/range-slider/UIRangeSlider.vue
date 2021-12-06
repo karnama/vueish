@@ -35,11 +35,13 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import { useVModel } from '@composables/input';
-import { disabled, name, label } from '@composables/input';
+import { useVModel } from 'composables/input';
+import { disabled, name, label } from 'composables/input';
 
-let timeoutId: any;
+let timeoutId: ReturnType<typeof setTimeout>;
 
+// todo - add error styles
+// todo - add disappearing label
 export default defineComponent({
     name: 'UIRangeSlider',
 

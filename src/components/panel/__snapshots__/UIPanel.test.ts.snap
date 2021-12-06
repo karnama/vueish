@@ -3,14 +3,14 @@
 exports[`UIPanel should render correctly 1`] = `
 <section
   aria-expanded="true"
-  class="ui-panel rounded shadow-md bg-default relative transition-all"
+  class="ui-panel rounded shadow-md relative transition-all bg-white dark:bg-gray-600 text-color"
 >
   <transition-stub>
     
     
   </transition-stub>
   <header
-    class="w-full flex items-center px-12 relative transition-all no-blur"
+    class="w-full flex items-center px-12 relative transition-all filter blur-none"
   >
     <h1
       class="select-none flex-grow py-8 cursor-pointer"
@@ -19,9 +19,7 @@ exports[`UIPanel should render correctly 1`] = `
       header text
       
     </h1>
-    <div
-      class="my-2"
-    >
+    <div>
       
       
     </div>
@@ -29,10 +27,10 @@ exports[`UIPanel should render correctly 1`] = `
   <transition-stub>
     
     <div
-      class="no-blur"
+      class="blur-none"
     >
       <main
-        class="w-full px-12 py-6 text-gray-700"
+        class="w-full px-12 py-6"
       >
         
         default slot text

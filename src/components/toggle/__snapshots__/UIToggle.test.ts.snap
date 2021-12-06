@@ -4,16 +4,12 @@ exports[`UIToggle should display correctly 1`] = `
 <div
   class=""
 >
-  <label
-    class="cursor-pointer pb-2"
-    for="name"
-  >
+  <transition-stub>
     
     
-    
-  </label>
+  </transition-stub>
   <div
-    class="toggle-wrapper relative flex"
+    class="toggle-wrapper relative rounded-full flex ring-0 ring-red-700 transition"
   >
     <input
       class="w-full h-full cursor-pointer opacity-0 m-0 p-0"
@@ -25,8 +21,12 @@ exports[`UIToggle should display correctly 1`] = `
       class="handle"
     />
     <div
-      class="background bg-gray-200 rounded-full w-full h-full absolute top-0 left-0 z-0"
+      class="background rounded-full w-full h-full absolute top-0 left-0 z-0"
     />
   </div>
+  <transition-stub>
+    
+    
+  </transition-stub>
 </div>
 `;

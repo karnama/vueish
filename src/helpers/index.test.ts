@@ -1,4 +1,4 @@
-import { wrap } from '@helpers/index';
+import { wrap } from 'helpers/index';
 
 describe('wrap()', () => {
     it('should wrap a value in an array if it isn\'t already an array', () => {

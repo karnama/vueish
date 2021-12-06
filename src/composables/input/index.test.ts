@@ -1,13 +1,13 @@
-import { useVModel } from '@composables/input/index';
+import { useVModel } from 'composables/input/index';
 import { mount } from '@vue/test-utils';
 import { defineComponent, h } from 'vue';
 import type { PropType } from 'vue';
-import { disableConsoleWarn, enableConsoleWarn } from '@helpers/test';
+import { disableConsoleWarn, enableConsoleWarn } from 'helpers/test';
 
-describe('index', () => {
+describe('input', () => {
     describe('useVModel', () => {
         const Comp = defineComponent({
-            name: 'Comp',
+            name: 'TestComp',
             props: {
                 modelValue: {
                     type: Number,
@@ -44,7 +44,7 @@ describe('index', () => {
                 render: () => h('div')
             });
 
-            expect(wrapper.emitted('update:myProp')).not.toBeUndefined();
+            expect(wrapper.emitted('update:myProp')).toBeDefined();
         });
 
         it('should thrown an error if not called within a lifecycle hook', () => {
@@ -75,7 +75,11 @@ describe('index', () => {
         });
 
         it('should react to prop being set', async () => {
-            const wrapper = mount(Comp);
+            const wrapper = mount(Comp, {
+                props: {
+                    'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
+                }
+            });
 
             expect(wrapper.text()).toBe('1');
             await wrapper.trigger('click');

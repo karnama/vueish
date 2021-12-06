@@ -11,7 +11,8 @@
              v-bind="$attrs"
              ref="dropdown"
              v-click-away="hide"
-             class="dropdown absolute flex flex-col items-stretch shadow-lg bg-white rounded z-50 overflow-scroll"
+             class="dropdown absolute z-50 rounded overflow-scroll flex flex-col items-stretch shadow-lg
+                    bg-white dark:bg-gray-600 ring-1 ring-opacity-5 ring-black dark:ring-white dark:ring-opacity-5"
              :style="dropdownStyle"
              role="group"
              @click.stop>
@@ -23,8 +24,8 @@
 <script lang="ts">
 import { computed, defineComponent, ref, reactive } from 'vue';
 import type { PropType } from 'vue';
-import clickAway from '@/directives/clickAway';
-import { getPxValue } from '@composables/style';
+import clickAway from '@/directives/click-away';
+import { getPxValue } from 'composables/style';
 
 export default defineComponent({
     name: 'UIDropdown',
@@ -61,8 +62,10 @@ export default defineComponent({
         },
 
         /**
-         * The width of the dropdown with px or vw notation.
+         * The width of the dropdown with px or vw notation if using atMousePosition
+         * otherwise css rule accepted values.
          */
+        // todo add cross validation when https://github.com/vuejs/vue-next/pull/3258 merged then default to auto
         width: {
             type: String,
             default: '250px'
@@ -145,16 +148,14 @@ export default defineComponent({
 
             isOpen.value = true;
         };
-
         const hide = () => {
             isOpen.value = false;
         };
-
-        const toggle = (event: MouseEvent) => {
+        const toggle = (event?: MouseEvent) => {
             // If the dropdown is showing via contextmenu event, and the user has triggered
             // another contextmenu event then reshow the dropdown at the new mouse
             // position.
-            const reshow = isOpen.value && props.atMousePosition && event.type === 'contextmenu';
+            const reshow = isOpen.value && props.atMousePosition && event?.type === 'contextmenu';
 
             if (isOpen.value) {
                 hide();

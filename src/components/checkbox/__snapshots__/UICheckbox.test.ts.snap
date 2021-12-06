@@ -2,35 +2,41 @@
 
 exports[`UICheckbox should correctly display 1`] = `
 <div
-  class="flex items-center"
+  data-v-app=""
 >
-  <input
-    class="hidden"
-    id="name"
-    name="name"
-    type="checkbox"
-  />
-  <span
-    class="ui-checkbox rounded flex justify-center items-center
-                 transition-all text-white border-2 cursor-pointer"
+  
+  <div
+    class="flex items-center"
   >
+    <input
+      class="hidden"
+      id="name"
+      name="name"
+      type="checkbox"
+    />
     <span
-      class="transition-all opacity-0 scale-0 text-white"
+      class="ui-checkbox rounded flex justify-center items-center flex-shrink-0 transition-all text-white border-2 cursor-pointer"
     >
-      <svg
-        fill="currentColor"
-        height="10"
-        viewBox="0 0 512 512"
-        width="15"
-        xml:space="preserve"
-        xmlns="http://www.w3.org/2000/svg"
+      <span
+        class="transition-all opacity-0 scale-0 text-white"
       >
-        <path
-          d="M504.502,75.496c-9.997-9.998-26.205-9.998-36.204,0L161.594,382.203L43.702, 264.311c-9.997-9.998-26.205-9.997-36.204,0 c-9.998,9.997-9.998,26.205,0,36.203l135.994, 135.992c9.994,9.997,26.214,9.99,36.204,0L504.502,111.7 C514.5,101.703,514.499,85.494,504.502, 75.496z"
-        />
-      </svg>
+        <svg
+          style="width:24px;height:24px;"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"
+            fill="currentColor"
+          />
+        </svg>
+      </span>
     </span>
-  </span>
-  <!--v-if-->
+    <!--v-if-->
+  </div>
+  <transition-stub>
+    
+    
+  </transition-stub>
+  
 </div>
 `;

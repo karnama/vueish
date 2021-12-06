@@ -17,11 +17,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import tooltip from './index';
 
 export default defineComponent({
-    name: 'Tooltip',
-    directives: { tooltip }
+    name: 'TooltipDemo'
 });
 </script>
 

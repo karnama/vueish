@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils';
 import UIInput from './UIInput.vue';
+import { nextTick } from 'vue';
 
 describe('UIInput', () => {
     it('should correctly display', () => {
@@ -12,6 +13,7 @@ describe('UIInput', () => {
 
         expect(wrapper.element).toMatchSnapshot();
     });
+
     it('should handle model-binding correctly', async () => {
         const wrapper = mount(UIInput, {
             props: {
@@ -49,7 +51,7 @@ describe('UIInput', () => {
 
         expect(input.attributes().disabled).toBeUndefined();
         await wrapper.setProps({ disabled: true });
-        expect(input.attributes().disabled).not.toBeUndefined();
+        expect(input.attributes().disabled).toBeDefined();
     });
 
     it('should assign the name prop', () => {
@@ -58,7 +60,8 @@ describe('UIInput', () => {
         const wrapper = mount(UIInput, {
             props: {
                 modelValue: '',
-                name
+                name,
+                label: 'my label'
             }
         });
 
@@ -223,5 +226,58 @@ describe('UIInput', () => {
         });
 
         expect(wrapper.get('.suffix').text()).toBe(suffix);
+    });
+
+    it('should only display the label if slot or prop given', async () => {
+        let wrapper = mount(UIInput, {
+            props: {
+                modelValue: '',
+                name: 'input'
+            }
+        });
+
+        expect(wrapper.find('label').exists()).toBe(false);
+
+        await wrapper.setProps({ label: 'myLabel' });
+        expect(wrapper.find('label').exists()).toBe(true);
+
+        wrapper = mount(UIInput, {
+            props: {
+                modelValue: '',
+                name: 'input'
+            },
+            slots: {
+                label: 'myLabel'
+            }
+        });
+        expect(wrapper.find('label').exists()).toBe(true);
+    });
+
+    it('should toggle the input type on password type when toggle clicked on', async () => {
+        jest.useFakeTimers();
+        const wrapper = mount(UIInput, {
+            props: {
+                modelValue: '',
+                name: 'input',
+                type: 'password',
+                passwordToggleTimeout: 1000
+            }
+        });
+
+        expect(wrapper.get('input').attributes('type')).toBe('password');
+
+        await wrapper.get('.pass-toggle').trigger('click');
+        expect(wrapper.get('input').attributes('type')).toBe('text');
+
+        await wrapper.get('.pass-toggle').trigger('click');
+        expect(wrapper.get('input').attributes('type')).toBe('password');
+
+        // it automatically turns back
+        await wrapper.get('.pass-toggle').trigger('click');
+        jest.runAllTimers();
+        await nextTick();
+        expect(wrapper.get('input').attributes('type')).toBe('password');
+
+        jest.useRealTimers();
     });
 });

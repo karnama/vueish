@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import UIDropdown from '@components/dropdown/UIDropdown.vue';
+import UIDropdown from './UIDropdown.vue';
 import { h, nextTick } from 'vue';
 
 describe('UIDropdown', () => {
@@ -11,7 +11,7 @@ describe('UIDropdown', () => {
             }
         });
 
-        // @ts-expect-error
+        // @ts-expect-error - ts reckons this has the type never
         wrapper.vm.toggle();
         await nextTick();
         expect(wrapper.element).toMatchSnapshot();
@@ -27,7 +27,7 @@ describe('UIDropdown', () => {
 
         expect(wrapper.find('#trigger').exists()).toBe(true);
         expect(wrapper.find('#content').exists()).toBe(false);
-        // @ts-expect-error
+        // @ts-expect-error - ts reckons this has the type never
         wrapper.vm.toggle();
         await nextTick();
         expect(wrapper.find('#content').exists()).toBe(true);
