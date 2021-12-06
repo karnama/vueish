@@ -1,5 +1,5 @@
 <template>
-    <UITabs vertical>
+    <UITabs>
         <UITab title="title 1">
             tab 1
         </UITab>
@@ -18,7 +18,8 @@ import UITabs from './UITabs.vue';
 import UITab from './UITab.vue';
 
 export default defineComponent({
-    name: 'Tabs',
+    name: 'TabsDemo',
+
     components: { UITabs, UITab }
 });
 </script>

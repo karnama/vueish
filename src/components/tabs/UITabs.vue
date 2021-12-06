@@ -1,10 +1,11 @@
 <template>
-    <div class="flex" :class="{ 'flex-col': !vertical }">
-        <div class="flex justify-around" :class="{ 'flex-col': vertical }">
+    <div class="flex rounded border border-gray-300 bg-white" :class="{ 'flex-col': !vertical }">
+        <div class="flex justify-around divide-gray-300"
+             :class="{ 'flex-col divide-y-2': vertical, 'divide-x-2': !vertical }">
             <div v-for="(title, index) in titles"
                  :key="index"
-                 :class="{ 'active-tab': Number(index) === activeTab }"
-                 class="cursor-pointer"
+                 :class="{ 'active-tab': index === activeTab }"
+                 class="cursor-pointer bg-red-100 w-full text-center p-2"
                  @click="activeTab = index">
                 <template v-if="typeof title === 'string'">
                     {{ title }}
@@ -12,9 +13,9 @@
                 <component :is="title" v-else />
             </div>
         </div>
-        <template v-if="tabVisible">
+        <div v-if="tabVisible" class="m-4">
             <component :is="tab" />
-        </template>
+        </div>
     </div>
     <template v-if="false">
         <slot />

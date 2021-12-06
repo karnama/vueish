@@ -1,8 +1,10 @@
 <template>
-    <slot name="title">
-        {{ title }}
-    </slot>
-    <slot />
+    <div>
+        <slot name="title">
+            {{ title }}
+        </slot>
+        <slot />
+    </div>
 </template>
 
 <script lang="ts">
