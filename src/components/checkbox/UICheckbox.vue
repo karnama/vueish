@@ -8,7 +8,7 @@
                :disabled="disabled"
                :checked="isChecked"
                @click="toggleValue">
-        <span class="ui-checkbox rounded flex justify-center items-center flex-shrink-0
+        <span class="ui-checkbox rounded flex justify-center items-center shrink-0
                  transition-all text-white border-2 cursor-pointer"
               :class="{
                   'bg-brand-600': isChecked && !indeterminate,
