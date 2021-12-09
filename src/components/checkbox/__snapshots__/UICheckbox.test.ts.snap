@@ -4,7 +4,7 @@ exports[`UICheckbox should correctly display 1`] = `
 <div
   data-v-app=""
 >
-
+  
   <div
     class="flex items-center"
   >
@@ -34,9 +34,9 @@ exports[`UICheckbox should correctly display 1`] = `
     <!--v-if-->
   </div>
   <transition-stub>
-
-
+    
+    
   </transition-stub>
-
+  
 </div>
 `;
