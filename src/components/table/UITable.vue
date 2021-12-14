@@ -180,7 +180,7 @@
                                                   v-html="chevronIcon" />
                                         <UIButton :disabled="!hasNext"
                                                   minimal
-                                                  class="rotate-270"
+                                                  class="transform -rotate-90"
                                                   @click="currentPage++"
                                                   v-html="chevronIcon" />
                                     </span>
