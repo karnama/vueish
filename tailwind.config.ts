@@ -42,9 +42,6 @@ export default {
             },
             transitionProperty: {
                 'spacing': 'margin, padding'
-            },
-            rotate: {
-                '270': '270deg'
             }
         }
     }
