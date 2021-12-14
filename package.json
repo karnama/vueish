@@ -43,7 +43,7 @@
         "@typescript-eslint/eslint-plugin": "^5.4.0",
         "@typescript-eslint/parser": "^5.4.0",
         "@vitejs/plugin-vue": "^1.2.2",
-        "@vue/compiler-sfc": "^3.2.11",
+        "@vue/compiler-sfc": "^3.2.26",
         "@vue/eslint-config-typescript": "^9.1.0",
         "@vue/test-utils": "2.0.0-rc.16",
         "@vue/vue3-jest": "^27.0.0-alpha.3",
