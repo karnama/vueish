@@ -23,7 +23,7 @@ exports[`UIModal should render correctly 1`] = `
       class="w-full flex items-center px-12 relative transition-all filter blur-none"
     >
       <h1
-        class="select-none flex-grow py-8"
+        class="select-none grow py-8"
       >
         
         

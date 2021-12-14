@@ -21,7 +21,7 @@
                    :accept="acceptedMimes.join(',')"
                    @change.prevent="addFiles">
 
-            <div class="flex-grow flex flex-col items-center justify-center py-24 px-2 text-center cursor-pointer"
+            <div class="grow flex flex-col items-center justify-center py-24 px-2 text-center cursor-pointer"
                  @click="openFileBrowser">
                 <p class="mb-4 text-brand-600" v-html="uploadIcon" />
                 <p class="text-lg">

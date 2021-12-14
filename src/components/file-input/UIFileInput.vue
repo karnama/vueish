@@ -60,11 +60,11 @@
 
                     <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
                         <span v-if="disabled"
-                              class="h-5 w-5 mr-2 mx-auto text-color-muted flex-shrink-0"
+                              class="h-5 w-5 mr-2 mx-auto text-color-muted shrink-0"
                               v-html="lockIcon" />
 
                         <button v-else-if="clearable && displayName"
-                                class="clear-icon h-5 w-5 mr-2 cursor-pointer mx-auto text-color-muted flex-shrink-0"
+                                class="clear-icon h-5 w-5 mr-2 cursor-pointer mx-auto text-color-muted shrink-0"
                                 :aria-controls="$attrs.id ?? name"
                                 aria-roledescription="clear"
                                 @click.stop="$emit('update:modelValue', null)"

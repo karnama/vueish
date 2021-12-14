@@ -6,7 +6,7 @@
         <UIButton id="previous-page-button"
                   :disabled="disabled || !hasPrevious"
                   aria-label="Previous Page"
-                  class="transform rotate-90 !p-1"
+                  class="rotate-90 !p-1"
                   @click="page === 1 ? undefined : setPage(page - 1)"
                   v-html="chevronIcon" />
         <UIButton id="page-1-button"
@@ -54,7 +54,7 @@
         <UIButton id="next-page-button"
                   :disabled="disabled || !hasNext"
                   aria-label="Next Page"
-                  class="transform rotate-270 !p-1"
+                  class="transform -rotate-90 !p-1"
                   @click="page === Number(length) ? undefined : setPage(page + 1)"
                   v-html="chevronIcon" />
     </div>
