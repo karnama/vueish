@@ -80,7 +80,7 @@
                 <div v-if="inputType === 'number'" class="flex flex-col select-none min-h-full self-stretch">
                     <button :aria-controls="$attrs.id ?? name"
                             aria-roledescription="increment"
-                            class="px-2 transition-colors h-full rounded-bl transform rotate-180
+                            class="px-2 transition-colors h-full rounded-bl rotate-180
                                    bg-gray-50 hover:bg-gray-200
                                    dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400"
                             @click="increment"

@@ -43,7 +43,7 @@
                             </slot>
 
                             <i v-if="!disableSorting && column.sortable"
-                               class="ml-2 transition transform opacity-0 group-hover:opacity-100"
+                               class="ml-2 transition opacity-0 group-hover:opacity-100"
                                :class="{
                                    'opacity-100': !!sortDirection(column.rowProperty),
                                    'rotate-180': sortDirection(column.rowProperty) === 'desc'
@@ -94,7 +94,7 @@
                                 </slot>
 
                                 <i v-if="!disableSorting && col.sortable"
-                                   class="ml-2 transition transform opacity-0 group-hover:opacity-100"
+                                   class="ml-2 transition opacity-0 group-hover:opacity-100"
                                    :class="{
                                        'opacity-100': !!sortDir,
                                        'rotate-180': sortDir=== 'desc'
@@ -132,7 +132,7 @@
                    class="border-t border-gray-300 dark:border-gray-500 sticky
                           bg-white dark:bg-gray-700 bottom-0 sm:relative shadow-up">
                 <tr class="w-full flex sm:table-row">
-                    <td class="block flex-grow sm:table-cell"
+                    <td class="block grow sm:table-cell"
                         :colspan="normalisedHeaders.length + ($slots.action ? 1 : 0) + (selectable ? 1 : 0)">
                         <span class="flex flex-col sm:flex-row items-center justify-between
                                      flex-wrap break-words px-4 py-6">
@@ -157,7 +157,7 @@
                                       hasPrevious,
                                       jumpToPage
                                   }">
-                                <span class="flex items-center justify-end space-x-2 my-2 flex-grow">
+                                <span class="flex items-center justify-end space-x-2 my-2 grow">
                                     <span class="flex items-center">
                                         <span class="mr-2">Items per page</span>
                                         <UISelect name="items-per-page"
@@ -175,7 +175,7 @@
                                     <span class="flex justify-end items-center space-x-2">
                                         <UIButton :disabled="!hasPrevious"
                                                   minimal
-                                                  class="transform rotate-90"
+                                                  class="rotate-90"
                                                   @click="currentPage--"
                                                   v-html="chevronIcon" />
                                         <UIButton :disabled="!hasNext"
