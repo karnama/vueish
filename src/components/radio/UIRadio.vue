@@ -1,13 +1,14 @@
 <template>
     <div class="flex ui-radio">
-        <label class="relative flex items-center outline-none">
+        <label class="relative flex items-center outline-none text-color">
             <input v-bind="$attrs"
                    type="radio"
                    :value="value"
                    tabindex="-1"
                    :disabled="disabled"
                    class="hidden">
-            <span class="ui-radio-btn relative float-left mr-2 h-5 w-5 border-2 rounded-full outline-none"
+            <span class="ui-radio-btn text-brand-500 relative float-left mr-2 h-5 w-5
+                         border-2 rounded-full outline-none transition-colors"
                   role="radio" />
             <slot>
                 {{ label }}
@@ -18,7 +19,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { label, value, disabled } from '@composables/input';
+import { label, disabled } from 'composables/input';
 
 export default defineComponent({
     name: 'UIRadio',
@@ -26,16 +27,18 @@ export default defineComponent({
     inheritAttrs: false,
 
     props: {
+        value: {
+            type: [String, Boolean, Array, Object, Number],
+            required: true
+        },
+
         label,
-        value,
         disabled
     }
 });
 </script>
 
 <style lang="scss" scoped>
-$color: theme('colors.brand-500');
-
 .ui-radio-btn:after {
     content: '';
     position: absolute;
@@ -44,7 +47,7 @@ $color: theme('colors.brand-500');
     width: 10px;
     height: 10px;
     border-radius: 100%;
-    background: $color;
+    background: currentColor;
     transform: scale(0);
     transition: all .2s ease;
     opacity: .08;
@@ -70,7 +73,7 @@ input:checked + .ui-radio-btn:after {
 }
 
 input:checked:enabled + .ui-radio-btn {
-    border-color: $color;
+    border-color: currentColor;
 }
 
 label:hover input:enabled > .ui-radio-btn:after {
@@ -78,6 +81,6 @@ label:hover input:enabled > .ui-radio-btn:after {
 }
 
 label:focus > input:enabled + .ui-radio-btn {
-    border-color: $color;
+    border-color: currentColor;
 }
 </style>

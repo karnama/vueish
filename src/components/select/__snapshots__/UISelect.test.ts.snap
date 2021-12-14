@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UISelect display should display correctly 1`] = `
+<div
+  class="list overflow-y-scroll absolute w-full border text-color bg-white dark:bg-gray-600 dark:border-gray-500 shadow-md"
+  role="listbox"
+  style="width: 0px; left: 0px; z-index: 9999; top: 5px;"
+>
+  <!--Header to display instructions-->
+  <div
+    class="flex items-center justify-between px-2 py-1 text-sm border-b select-none"
+  >
+    
+    Select an option
+    
+    <!--v-if-->
+  </div>
+  <!--Search input to filter the list-->
+  <div
+    class="p-2"
+  >
+    <input
+      class="appearance-none bg-transparent w-full leading-tight focus:outline-none transition-text-color"
+      name="search"
+      tabindex="-1"
+    />
+  </div>
+  <!--Options available for selection-->
+  <ul
+    role="list"
+  >
+    
+    <li
+      aria-selected="false"
+      class="option cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500 relative justify-center focus:bg-brand-200 dark:focus:bg-brand-500 outline-none border-t"
+      role="option"
+      tabindex="0"
+    >
+      <div
+        class="flex justify-between"
+      >
+        <div
+          class="p-2"
+        >
+          
+          Bruce Banner
+          
+        </div>
+        <!--v-if-->
+      </div>
+    </li>
+    <li
+      aria-selected="false"
+      class="option cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500 relative justify-center focus:bg-brand-200 dark:focus:bg-brand-500 outline-none border-t"
+      role="option"
+      tabindex="0"
+    >
+      <div
+        class="flex justify-between"
+      >
+        <div
+          class="p-2"
+        >
+          
+          Bruce Wayne
+          
+        </div>
+        <!--v-if-->
+      </div>
+    </li>
+    <li
+      aria-selected="false"
+      class="option cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500 relative justify-center focus:bg-brand-200 dark:focus:bg-brand-500 outline-none border-t"
+      role="option"
+      tabindex="0"
+    >
+      <div
+        class="flex justify-between"
+      >
+        <div
+          class="p-2"
+        >
+          
+          Bruce Lee
+          
+        </div>
+        <!--v-if-->
+      </div>
+    </li>
+    <li
+      aria-selected="false"
+      class="option cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500 relative justify-center focus:bg-brand-200 dark:focus:bg-brand-500 outline-none border-t"
+      role="option"
+      tabindex="0"
+    >
+      <div
+        class="flex justify-between"
+      >
+        <div
+          class="p-2"
+        >
+          
+          Brucie Bonus
+          
+        </div>
+        <!--v-if-->
+      </div>
+    </li>
+    
+  </ul>
+</div>
+`;

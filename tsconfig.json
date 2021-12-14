@@ -4,33 +4,38 @@
         "module": "esnext",
         "moduleResolution": "node",
         "resolveJsonModule": true,
+        "isolatedModules": true,
         "strict": true,
         "jsx": "preserve",
         "noEmit": true,
         "sourceMap": true,
         "baseUrl": ".",
         "paths": {
+            "types": [
+                "types"
+            ],
             "@/*": [
                 "src/*"
             ],
-            "@components/*": [
+            "components/*": [
                 "src/components/*"
             ],
-            "@helpers/*": [
+            "helpers/*": [
                 "src/helpers/*"
             ],
-            "@composables/*": [
+            "composables/*": [
                 "src/composables/*"
             ]
         },
         "lib": [
             "esnext",
-            "dom"
+            "dom",
+            "DOM.Iterable"
         ],
         "types": [
             "vite/client",
             "jest",
-            "node"
+            "@types/requestidlecallback"
         ],
         "plugins": [],
         "esModuleInterop": true

@@ -3,7 +3,7 @@ import type { Directive, DirectiveBinding } from 'vue';
 const x = ['left', 'right'] as const;
 const y = ['top', 'bottom'] as const;
 
-function updateElement(el: Element, binding: DirectiveBinding): void {
+function updateElement(el: Element, binding: DirectiveBinding<typeof x[number] | typeof y[number]>): void {
     el.setAttribute('data-v-tooltip', binding.value);
 
     Object.keys(binding.modifiers).forEach(position => {

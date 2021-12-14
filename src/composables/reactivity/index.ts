@@ -8,7 +8,7 @@ import type { Ref } from 'vue';
  * @param delay
  */
 export function debouncedRef<T = unknown>(value: T, delay = 200): Ref<T> {
-    let timeout: any;
+    let timeout: ReturnType<typeof setTimeout>;
     return customRef<T>((track, trigger) => {
         return {
             get() {

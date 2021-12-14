@@ -1,5 +1,6 @@
-import { computed, ref, onMounted, getCurrentInstance } from 'vue';
+import { computed, getCurrentInstance, capitalize, ref, watch } from 'vue';
 import type { Ref } from 'vue';
+import { getLibrarySettings } from '@/helpers';
 
 /**
  * The input label.
@@ -54,64 +55,78 @@ export const suffix = {
     type: String
 };
 
-// todo - remove when updating the select
-export const noClear = {
-    type: Boolean,
-    default: false
-};
-
 /**
  * Whether the component is clearable or not.
  */
 export const clearable = {
     type: Boolean,
-    default: false
+    default: (): boolean => {
+        const clearable = getLibrarySettings()?.clearableByDefault;
+
+        return typeof clearable === 'boolean' ? clearable : false;
+    }
 };
 
 /**
- * Generic one-way value binding.
+ * Generic validator for optional numbers higher than 0.
  */
-export const value = {
-    type: [String, Boolean, Array, Object, Number],
-    required: true
+// todo - test in mock component
+export const positiveOptionalNumber = {
+    type: Number,
+    validator: (val: number): boolean => {
+        return typeof val === 'number' ? val > 0 : false;
+    }
+};
+
+/**
+ * Error to display to the user.
+ */
+export const error = {
+    type: String,
+    default: ''
 };
 
 /**
  * Make the prop 2-way reactive.
- * You may only replace this value.
- * Interact with it like `.push()` will cause unexpected errors.
+ *
+ * Mutating object literals and array will not trigger an emit
+ * therefore, you should always replace the value.
  *
  * @param {object} props
  * @param {string} name - the string to append to the emitted event eg.: 'option' will be used for v-model:option=""
  */
+// todo - make deep an argument
 export function useVModel<T>(props: Record<string, any>, name = 'modelValue'): Ref<T> {
     const instance = getCurrentInstance();
     if (!instance) {
-        return ref() as Ref<T>;
+        throw new Error('useVModel must be called from the setup or lifecycle hook methods.');
     }
+
+    const propIsDefined = computed(() => {
+        return typeof props[name] !== 'undefined' &&
+            (instance.vnode.props?.hasOwnProperty(name) || instance.vnode.props?.hasOwnProperty(capitalize(name)));
+    });
+    // if setting undefined as a default value then you're abusing js and this is your own making
+    const hasDefaultValue = computed(() => instance.vnode.component?.props[name] !== undefined);
+
+    if (!propIsDefined.value && !hasDefaultValue.value) {
+        throw new Error('Attempted to use useVModel without value.');
+    }
+
+    const internal = ref(propIsDefined.value ? props[name] : instance.vnode.component!.props[name]) as Ref<T>;
+
+    watch(
+        () => internal.value,
+        value => instance.emit(`update:${name}`, value),
+        { deep: true }
+    );
 
     return computed<T>({
         get() {
-            return props[name];
+            return propIsDefined.value ? props[name]: internal.value;
         },
         set(value: T) {
-            instance.emit(`update:${name}`, value);
+            internal.value = value;
         }
     });
-}
-
-/**
- * Configure the input to use autofocus.
- *
- * @param {boolean} autofocus
- * @param {Ref?} input
- */
-export function autofocusElement(autofocus: boolean, input: Ref<HTMLInputElement | undefined>): void {
-    if (input && autofocus) {
-        onMounted(() => {
-            if (input.value) {
-                input.value.focus();
-            }
-        });
-    }
 }

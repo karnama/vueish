@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UIPagination should render correctly 1`] = `
+<div
+  aria-label="Pagination navigation"
+  class="flex flex-wrap justify-between items-center max-w-max space-x-2"
+  role="navigation"
+>
+  <button
+    aria-label="Previous Page"
+    class="border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 ring-gray-600 hover:bg-gray-400 hover:border-gray-400 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed rotate-90 !p-1"
+    id="previous-page-button"
+    type="button"
+  >
+    <svg
+      fill="currentColor"
+      height="15px"
+      viewBox="0 0 407.437 407.437"
+      x="0px"
+      xml:space="preserve"
+      xmlns="http://www.w3.org/2000/svg"
+      y="0px"
+    >
+      <polygon
+        points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 "
+      />
+    </svg>
+  </button>
+  <button
+    aria-current="false"
+    aria-label="Go to page 1"
+    class="text-gray-600 dark:text-gray-400 shadow-sm border-gray-400 disabled:bg-gray-300disabled:shadow-none ring-gray-600 hover:text-white dark:hover:text-white hover:bg-gray-400 border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed page-button"
+    id="page-1-button"
+    title="Go to page 1"
+    type="button"
+  >
+    <transition-stub>
+      
+      <span
+        class="label"
+      >
+        
+         1 
+        
+      </span>
+      
+    </transition-stub>
+  </button>
+  <div
+    class="select-none"
+  >
+     ... 
+  </div>
+  
+  <button
+    aria-current="false"
+    aria-label="Go to page 4"
+    class="text-gray-600 dark:text-gray-400 shadow-sm border-gray-400 disabled:bg-gray-300disabled:shadow-none ring-gray-600 hover:text-white dark:hover:text-white hover:bg-gray-400 border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed page-button"
+    id="page-4-button"
+    title="Go to page 4"
+    type="button"
+  >
+    <transition-stub>
+      
+      <span
+        class="label"
+      >
+        
+        4
+        
+      </span>
+      
+    </transition-stub>
+  </button>
+  <button
+    aria-current="true"
+    aria-label="Current Page, Page 5"
+    class="border-blue-600 text-white bg-blue-600 ring-blue-300 hover:bg-blue-700 hover:border-blue-700 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed page-button"
+    id="page-5-button"
+    title="Current Page, Page 5"
+    type="button"
+  >
+    <transition-stub>
+      
+      <span
+        class="label"
+      >
+        
+        5
+        
+      </span>
+      
+    </transition-stub>
+  </button>
+  <button
+    aria-current="false"
+    aria-label="Go to page 6"
+    class="text-gray-600 dark:text-gray-400 shadow-sm border-gray-400 disabled:bg-gray-300disabled:shadow-none ring-gray-600 hover:text-white dark:hover:text-white hover:bg-gray-400 border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed page-button"
+    id="page-6-button"
+    title="Go to page 6"
+    type="button"
+  >
+    <transition-stub>
+      
+      <span
+        class="label"
+      >
+        
+        6
+        
+      </span>
+      
+    </transition-stub>
+  </button>
+  
+  <div
+    class="select-none"
+  >
+     ... 
+  </div>
+  <button
+    aria-current="false"
+    aria-label="Go to page 10"
+    class="text-gray-600 dark:text-gray-400 shadow-sm border-gray-400 disabled:bg-gray-300disabled:shadow-none ring-gray-600 hover:text-white dark:hover:text-white hover:bg-gray-400 border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed page-button"
+    id="page-10-button"
+    title="Go to page 10"
+    type="button"
+  >
+    <transition-stub>
+      
+      <span
+        class="label"
+      >
+        
+        10
+        
+      </span>
+      
+    </transition-stub>
+  </button>
+  <button
+    aria-label="Next Page"
+    class="border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 ring-gray-600 hover:bg-gray-400 hover:border-gray-400 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed transform -rotate-90 !p-1"
+    id="next-page-button"
+    type="button"
+  >
+    <svg
+      fill="currentColor"
+      height="15px"
+      viewBox="0 0 407.437 407.437"
+      x="0px"
+      xml:space="preserve"
+      xmlns="http://www.w3.org/2000/svg"
+      y="0px"
+    >
+      <polygon
+        points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 "
+      />
+    </svg>
+  </button>
+</div>
+`;

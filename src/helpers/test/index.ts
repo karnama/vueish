@@ -1,4 +1,4 @@
-let consoleWarnMock: jest.SpyInstance;
+let consoleWarnMock: jest.SpyInstance | null = null;
 
 /**
  * Disable console warnings.
@@ -14,5 +14,6 @@ export function disableConsoleWarn(): void {
 export function enableConsoleWarn(): void {
     if (consoleWarnMock) {
         consoleWarnMock.mockRestore();
+        consoleWarnMock = null;
     }
 }

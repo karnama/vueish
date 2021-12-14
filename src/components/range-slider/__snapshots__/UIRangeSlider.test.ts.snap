@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UIRangeSlider should display correctly 1`] = `
+<label
+  class="mt-4"
+>
+  
+  my-label
+  
+  <span
+    class="relative block"
+  >
+    <svg
+      class="range-thumb-indicator opacity-0 transition-opacity range-value fill-current text-brand-400"
+      data-value="50"
+      style="left: calc(50% - 12.5px - 5px);"
+      viewBox="0 0 80 90"
+    >
+      <path
+        d="M40 99.5 C-22.5 47.5 0 0 40 0.5 C80 0 102.5 47.5 40 99.5z"
+      />
+    </svg>
+    <span
+      class="range-value opacity-0 transition-opacity"
+      data-value="50"
+      style="left: calc(50% - 12.5px - 5px);"
+    />
+    <input
+      class="range-slider-range bg-darker outline-none text-white transition-all border-0 w-full"
+      max="100"
+      min="0"
+      name="slider"
+      step="1"
+      type="range"
+    />
+  </span>
+</label>
+`;

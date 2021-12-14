@@ -1,19 +1,27 @@
 import UILinearLoader from './UILinearLoader.vue';
 import { mount } from '@vue/test-utils';
-import { disableConsoleWarn, enableConsoleWarn } from '@helpers/test';
+import { disableConsoleWarn, enableConsoleWarn } from 'helpers/test';
 
-const wrapper = mount(UILinearLoader, {
-    props: {
-        steps: 10,
-        progress: 1,
-        height: 5
-    }
-});
+let wrapper: ReturnType<typeof mount>;
 
 describe('UILinearLoader', () => {
-    it('should render', () => {
-        expect(wrapper).toBeDefined();
-        expect(wrapper.exists()).toBe(true);
+    beforeEach(() => {
+        wrapper = mount(UILinearLoader, {
+            props: {
+                steps: 10,
+                progress: 1,
+                height: 5
+            }
+        });
+    });
+
+    it('should render correctly', () => {
+        expect(wrapper.element).toMatchSnapshot();
+    });
+
+    it('should render correctly when set to determinate', async () => {
+        await wrapper.setProps({ determinate: true });
+        expect(wrapper.element).toMatchSnapshot();
     });
 
     it('should set the height of the element by props', () => {

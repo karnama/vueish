@@ -3,6 +3,17 @@ import { h } from 'vue';
 import UIRangeSlider from './UIRangeSlider.vue';
 
 describe('UIRangeSlider', () => {
+    it('should display correctly', () => {
+        const wrapper = mount(UIRangeSlider, {
+            props: {
+                modelValue: 50,
+                label: 'my-label',
+                name: 'slider'
+            }
+        });
+
+        expect(wrapper.element).toMatchSnapshot();
+    });
     it('should display the label when given as prop', () => {
         const wrapper = mount(UIRangeSlider, {
             props: {
@@ -22,7 +33,7 @@ describe('UIRangeSlider', () => {
                 name: 'slider'
             },
             slots: {
-                label: (props) => h('div', { id: 'my-label' }, props.value)
+                label: (props) => h('div', { id: 'my-label' }, props.value as string)
             }
         });
 
