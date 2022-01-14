@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <slot name="title">
-            {{ title }}
-        </slot>
+    <div class="m-4">
+        <template v-if="false">
+            <slot name="title" />
+        </template>
         <slot />
     </div>
 </template>
@@ -14,7 +14,25 @@ export default defineComponent({
     name: 'UITab',
 
     props: {
-        title: String
+        title: {
+            type: String
+        },
+
+        /**
+         * The key to emit when the tab is navigated to.
+         */
+        tabKey: {
+            type: String
+        },
+
+        /**
+         * Flag indicating that this tab is visible by default.
+         * If multiple UITabs marked with default, the first will be selected.
+         */
+        default: {
+            type: Boolean,
+            default: false
+        }
     },
 
     setup(props, ctx) {

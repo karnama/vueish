@@ -4,8 +4,8 @@
              :class="{ 'flex-col divide-y-2': vertical, 'divide-x-2': !vertical }">
             <div v-for="(title, index) in titles"
                  :key="index"
-                 :class="{ 'active-tab': index === activeTab }"
-                 class="cursor-pointer bg-red-100 w-full text-center p-2"
+                 :class="{ 'active-tab': index === activeTab, 'flex flex-col justify-center': vertical }"
+                 class="cursor-pointer bg-red-100 w-full text-center p-2 h-full"
                  @click="activeTab = index">
                 <template v-if="typeof title === 'string'">
                     {{ title }}
@@ -13,13 +13,13 @@
                 <component :is="title" v-else />
             </div>
         </div>
-        <div v-if="tabVisible" class="m-4">
-            <component :is="tab" />
-        </div>
+        <template v-for="(tab, index) in defaultSlot" :key="index">
+            <component :is="tab" v-show="index === activeTab" />
+        </template>
+        <template v-if="false">
+            <slot />
+        </template>
     </div>
-    <template v-if="false">
-        <slot />
-    </template>
 </template>
 
 <script lang="ts">
@@ -30,23 +30,40 @@ export default defineComponent({
     name: 'UITabs',
 
     props: {
+        /**
+         * Flag indicating to align the tabs vertically.
+         */
         vertical: {
             type: Boolean,
             default: false
+        },
+
+        /**
+         * The tab to display initially when rendering.
+         * Must match a tab-key given to the UITab components.
+         * This takes priority over the 'default' property on UITab component.
+         */
+        initialTab: {
+            type: String
         }
     },
 
+    emits: ['change'],
+
     setup(props, ctx) {
         let defaultSlot = ref<VNode[]>([]);
-
         const activeTab = ref(0);
+        const tabVisible = ref(true);
+
         const titles = computed<string[]>(() => {
-            return defaultSlot.value.map((tab: VNode) => {
+            return defaultSlot.value.map((tab) => {
                 if (tab.props?.title) {
                     return tab.props.title;
                 }
 
+                // @ts-expect-error TS2339: Property 'title' does not exist
                 if (tab.children?.title) {
+                    // @ts-expect-error TS2339: Property 'title' does not exist
                     return tab.children.title;
                 }
 
@@ -56,7 +73,6 @@ export default defineComponent({
         const tab = computed(() => {
             return defaultSlot.value[activeTab.value];
         });
-        const tabVisible = ref(true);
 
         const setDefaultSlot = () => {
             defaultSlot.value = ctx.slots?.default instanceof Function ? ctx.slots.default() : [];
@@ -65,21 +81,50 @@ export default defineComponent({
                 throw new Error('UITabs expect at least 2 UITabs in the default slot.');
             }
         };
+        const setActiveTab = () => {
+            if (!props.initialTab) {
+                const tabIndex = defaultSlot.value.findIndex(vNode => vNode.props?.default);
+
+                activeTab.value = tabIndex === -1 ? 0 : tabIndex;
+                // tab.value = defaultSlot.value[activeTab];
+                return;
+            }
+
+            const tabIndex = defaultSlot.value.findIndex(vNode =>
+                vNode.props
+                && 'tab-key' in vNode.props
+                && vNode.props['tab-key'] === props.initialTab
+            );
+
+            activeTab.value = tabIndex === -1 ? 0 : tabIndex;
+        };
+
         setDefaultSlot();
+        setActiveTab();
 
         // hack as getCurrentInstance() seems to be null hence can't call .update()
-        watch(() => tab.value, async () => {
+        watch(() => tab.value, async (value) => {
             tabVisible.value = false;
             await nextTick();
             tabVisible.value = true;
+
+            if (value.props && 'tab-key' in value.props) {
+                ctx.emit('change', value.props['tab-key']);
+            }
         });
 
         return {
             titles,
             tabVisible,
             activeTab,
-            tab
+            defaultSlot
         };
+    },
+
+    methods: {
+        forceUpdate() {
+            this.$forceUpdate();
+        }
     }
 });
 </script>
