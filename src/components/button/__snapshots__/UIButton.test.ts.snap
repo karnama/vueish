@@ -13,7 +13,7 @@ exports[`UIButton should display the loading correctly 1`] = `
       
       <transition-stub>
         <div
-          class="ui-spinner-loader indeterminate px-4"
+          class="ui-spinner-loader indeterminate px-4 mx-auto"
           role="progressbar"
         >
           <svg

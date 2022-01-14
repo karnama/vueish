@@ -8,7 +8,7 @@
                 <slot name="loader">
                     <UISpinnerLoader v-if="loading"
                                      inherit-color
-                                     class="px-4"
+                                     class="px-4 mx-auto"
                                      :class="loaderColor"
                                      :stroke="2"
                                      :diameter="25" />
