@@ -23,7 +23,7 @@ const routes = Object.keys(demos)
 
         return {
             path: '/' + getPath(path),
-            component: defineAsyncComponent(async () => demos[path]()),
+            component: async () => demos[path](),
             meta: {
                 label: getPath(path).replace('-', ' '),
                 type: isDirective ? 'Directives' : 'Components'
