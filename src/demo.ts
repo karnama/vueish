@@ -1,4 +1,4 @@
-import { createApp, defineAsyncComponent } from 'vue';
+import { createApp } from 'vue';
 import DemoBoard from './DemoBoard.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import './assets/styles/main.scss';
@@ -23,7 +23,7 @@ const routes = Object.keys(demos)
 
         return {
             path: '/' + getPath(path),
-            component: defineAsyncComponent(async () => demos[path]()),
+            component: async () => demos[path](),
             meta: {
                 label: getPath(path).replace('-', ' '),
                 type: isDirective ? 'Directives' : 'Components'
