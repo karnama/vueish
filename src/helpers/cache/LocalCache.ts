@@ -30,7 +30,7 @@ export default class LocalCache {
      *
      * @return {*}
      */
-    public get<T>(key: string, defaultValue?: T): T
+    public get<T>(key: string, defaultValue?: T): T;
     public get(key: string, defaultValue?: unknown): undefined {
         try {
             let value = JSON.parse(localStorage.getItem(this.prefix + key) as string);
