@@ -162,6 +162,30 @@ describe('UITable', () => {
             jest.useRealTimers();
             wrapper.unmount();
         });
+
+        it('should not filter the rows if asyncSearch prop is set', async () => {
+            jest.useFakeTimers();
+            const wrapper = mount(UITable, {
+                props: {
+                    rows,
+                    headers,
+                    search: true,
+                    asyncSearch: true
+                }
+            });
+
+            const search = wrapper.findComponent(UIInput);
+            await search.find('input').setValue('a1');
+            jest.runAllTimers(); // search is debounced
+            await nextTick(); // wait for dom updates
+
+            const searchResults = wrapper.findAll(selectorMap.rows);
+            expect(searchResults).toHaveLength(rows.length);
+            expect(wrapper.lastEventValue('searching')).toHaveLength(1);
+
+            jest.useRealTimers();
+            wrapper.unmount();
+        });
     });
 
     describe('sorting', () => {
