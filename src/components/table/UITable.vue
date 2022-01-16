@@ -244,10 +244,18 @@ export default defineComponent({
         },
 
         /**
-         * Boolean flag to enable or callback that os used for searching.
+         * Boolean flag to enable or callback that is used for searching.
          */
         search: {
             type: [Boolean, Function] as PropType<boolean | ((row: Row, searchTerm: string) => boolean)>
+        },
+
+        /**
+         * Flag indicating that the search function should not be used.
+         */
+        asyncSearch: {
+            type: Boolean,
+            default: false
         },
 
         /**
@@ -309,9 +317,9 @@ export default defineComponent({
         }
     },
 
-    emits: ['update:modelValue', 'update:page', 'update:itemsPerPage'],
+    emits: ['update:modelValue', 'update:page', 'update:itemsPerPage', 'searching'],
 
-    setup(props) {
+    setup(props, ctx) {
         const chevronIcon = getIcon('chevron');
         let styleTagId = '';
         const itemPerPageOptions = [
@@ -366,6 +374,10 @@ export default defineComponent({
 
             if (!props.search || !term.value) {
                 return sortedRows(normalisedRows.value);
+            }
+
+            if (props.asyncSearch) {
+                return normalisedRows.value;
             }
 
             const search: (row: Row, searchString: string) => boolean = props.search instanceof Function
@@ -533,6 +545,10 @@ export default defineComponent({
             [() => normalisedHeaders.value, () => props.hoverHighlight],
             val => addHoverStyles(val),
             { immediate: true }
+        );
+        watch(
+            () => term.value,
+            val => ctx.emit('searching', val)
         );
 
         return {
