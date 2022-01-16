@@ -64,12 +64,21 @@
 import { defineComponent, ref } from 'vue';
 import type { Column, Row } from 'types';
 
+interface Dessert {
+    name: string;
+    calories: number;
+    fat: number;
+    carbs: number;
+    protein: number;
+    iron: string;
+}
+
 export default defineComponent({
     // eslint-disable-next-line vue/no-reserved-component-names
     name: 'TableDemo',
 
     setup() {
-        const headers = ref<Column[]>([
+        const headers = ref<Column<Dessert>[]>([
             { header: 'Dessert (100g serving)', rowProperty: 'name' },
             { header: 'Calories', rowProperty: 'calories' },
             { header: 'Fat (g)', rowProperty: 'fat' },

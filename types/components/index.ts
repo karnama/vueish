@@ -27,7 +27,7 @@ export interface Row {
 }
 export interface Column<T = Row> {
     header?: string;
-    rowProperty: string;
+    rowProperty: keyof Omit<T, 'isSelectable'> | string;
     suffix?: string;
     prefix?: string;
     sortable?: boolean;
