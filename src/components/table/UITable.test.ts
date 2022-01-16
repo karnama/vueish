@@ -1,12 +1,10 @@
 import type { Column, Row } from 'types';
-import type { VueWrapper } from '@vue/test-utils';
 import { mount } from '@vue/test-utils';
 import UITable from './UITable.vue';
 import { snakeCase } from 'lodash-es';
 import UIInput from 'components/input/UIInput.vue';
 import { nextTick, h } from 'vue';
-import type { ComponentPublicInstance } from 'vue';
-import { orderBy } from 'lodash-es';
+import { orderBy, cloneDeep } from 'lodash-es';
 
 const headers: Readonly<Column[]> = [
     {
@@ -115,6 +113,24 @@ describe('UITable', () => {
         expect(trs).toHaveLength(rows.length);
         rows.forEach((row, index) => {
             expect(trs[index].text()).toContain(String(row.number) + '%');
+        });
+        wrapper.unmount();
+    });
+
+    it('should accept a callback for the suffixes and prefixes', () => {
+        const newHeaders = cloneDeep(headers);
+        newHeaders[1].suffix = (row) => row.number === 1 ? '-computed-suffix' : '%';
+        const wrapper = mount(UITable, {
+            props: {
+                rows,
+                headers: newHeaders
+            }
+        });
+
+        const trs = wrapper.findAll(selectorMap.rows);
+        rows.forEach((row, index) => {
+            const text = trs[index].text();
+            expect(text).toContain(String(row.number) + (text.includes('1') ? '-computed-suffix' : '%'));
         });
         wrapper.unmount();
     });

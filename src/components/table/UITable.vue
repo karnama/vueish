@@ -104,7 +104,7 @@
 
                             <span class="block p-4">
                                 <slot :name="name" :row="row">
-                                    {{ col.prefix + (row[name] ?? '') + col.suffix }}
+                                    {{ getDisplayName(col, row) }}
                                 </slot>
                             </span>
                         </td>
@@ -545,6 +545,13 @@ export default defineComponent({
 
             currentPage.value = input;
         };
+        const getDisplayName = (column: Column, row: Row): string => {
+            const prefix = typeof column.prefix === 'function' ? column.prefix(row) : column.prefix;
+            const suffix = typeof column.suffix === 'function' ? column.suffix(row) : column.suffix;
+
+            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+            return (prefix ?? '') + (row[column.rowProperty] ?? '') + (suffix ?? '');
+        };
 
         watch(
             [() => normalisedHeaders.value, () => props.hoverHighlight],
@@ -579,6 +586,7 @@ export default defineComponent({
             jumpToPage,
             handleHover,
             sortDirection,
+            getDisplayName,
             toggleRowSelection,
             toggleAllRowSelection
         };
