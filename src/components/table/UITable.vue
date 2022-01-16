@@ -130,7 +130,12 @@
                        || selectable && !singleSelect
                        || filteredRows.length > itemsPerPage && !disablePagination"
                    class="border-t border-gray-300 dark:border-gray-500 sticky
-                          bg-white dark:bg-gray-700 bottom-0 sm:relative shadow-up">
+                          bg-white dark:bg-gray-700 bottom-0 sm:relative shadow-up"
+                   :class="{
+                       'sm:hidden': selectable
+                           && !singleSelect
+                           && !(filteredRows.length > itemsPerPage && !disablePagination || $slots.footer)
+                   }">
                 <tr class="w-full flex sm:table-row">
                     <td class="block grow sm:table-cell"
                         :colspan="normalisedHeaders.length + ($slots.action ? 1 : 0) + (selectable ? 1 : 0)">
