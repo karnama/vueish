@@ -1,52 +1,61 @@
 <template>
-    <UIPanel closed class="mb-4">
-        <template #header>
-            Table with slots
-        </template>
-        <UITable :headers="headers"
-                 :rows="rows"
-                 hover-highlight
-                 :items-per-page="Number(5)">
-            <template #header="slotProps">
-                slotted {{ slotProps.header.rowProperty }}
-            </template>
-            <template #name="slotProps">
-                slotted {{ slotProps.row.name }}
-            </template>
-            <template #action>
-                <UIButton category="brand">
-                    CTA
-                </UIButton>
-            </template>
-            <template #footer>
-                <span class="font-bold text-color">
-                    My wildly
-                    long slotted footer content that I have to
-                    make up words for such as
-                    fubershlung (the act of drinking a beer after a devastating loss)
-                    and shmelolia (a rare type of tulip's petals)
-                </span>
-            </template>
-        </UITable>
-    </UIPanel>
+    <div class="space-y-4">
+        <UIPanel closed header="Table with slots">
+            <UITable :headers="headers"
+                     :rows="rows"
+                     hover-highlight
+                     :items-per-page="Number(5)">
+                <template #header="slotProps">
+                    slotted {{ slotProps.header.rowProperty }}
+                </template>
+                <template #name="slotProps">
+                    slotted {{ slotProps.row.name }}
+                </template>
+                <template #action>
+                    <UIButton category="brand">
+                        CTA
+                    </UIButton>
+                </template>
+                <template #footer>
+                    <span class="font-bold text-color">
+                        My wildly
+                        long slotted footer content that I have to
+                        make up words for such as
+                        fubershlung (the act of drinking a beer after a devastating loss)
+                        and shmelolia (a rare type of tulip's petals)
+                    </span>
+                </template>
+            </UITable>
+        </UIPanel>
 
-    <p class="text-color mt-12">
-        Searchable
-    </p>
-    <UITable :headers="headers"
-             :rows="rows"
-             search
-             disable-sorting />
+        <UIPanel closed header="Searchable">
+            <UITable :headers="headers"
+                     :rows="rows"
+                     search
+                     disable-sorting />
+        </UIPanel>
 
-    <p class="text-color mt-12">
-        With Selection
-    </p>
-    <UITable v-model="selectedRows"
-             :headers="headers"
-             :rows="rows"
-             selectable
-             disable-pagination
-             disable-sorting />
+        <UIPanel closed header="With Selection">
+            <UITable v-model="selectedRows"
+                     :headers="headers"
+                     :rows="rows"
+                     selectable
+                     disable-pagination
+                     disable-sorting />
+        </UIPanel>
+
+        <UIPanel closed header="Using custom paginator">
+            <UITable :headers="headers"
+                     :items-per-page="5"
+                     :rows="rows">
+                <template #pagination="slotProps">
+                    <UIPagination :model-value="slotProps.page"
+                                  :length="slotProps.pageCount"
+                                  @update:model-value="val => slotProps.jumpToPage(val)" />
+                </template>
+            </UITable>
+        </UIPanel>
+    </div>
 </template>
 
 <script lang="ts">
