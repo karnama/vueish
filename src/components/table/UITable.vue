@@ -400,7 +400,7 @@ export default defineComponent({
 
             return filteredRows.value.slice(start, start + currentItemsPerPage.value);
         });
-        const pageCount = computed(() => filteredRows.value.length / currentItemsPerPage.value);
+        const pageCount = computed(() => Math.ceil(filteredRows.value.length / currentItemsPerPage.value));
         const hasNext = computed(() => {
             return !!filteredRows.value
                 .slice((currentPage.value - 1) * currentItemsPerPage.value + currentItemsPerPage.value)
