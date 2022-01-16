@@ -56,14 +56,6 @@ function titleCase(str: string): string {
             previous + ' ' + next.charAt(0).toUpperCase() + next.slice(1));
 }
 
-function getLastEventValue(wrapper: VueWrapper<ComponentPublicInstance>): Row[] {
-    // filter out the checkbox events
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const events = (wrapper.emitted('update:modelValue') as unknown[][])
-        .filter(argumentArr => argumentArr.length === 1 && typeof argumentArr[0] !== 'boolean') as Row[][];
-    return events[events.length - 1];
-}
-
 describe('UITable', () => {
     it('should display correctly', () => {
         const wrapper = mount(UITable, {
@@ -331,7 +323,7 @@ describe('UITable', () => {
             await nextTick();
 
             // first is not selectable
-            expect(getLastEventValue(wrapper)[0]).toStrictEqual([expect.objectContaining(rows[1])]);
+            expect(wrapper.lastEventValue<Row[]>()![0]).toStrictEqual([expect.objectContaining(rows[1])]);
             wrapper.unmount();
         });
 
@@ -376,7 +368,7 @@ describe('UITable', () => {
             await checkboxes[0].trigger('click');
             await checkboxes[1].trigger('click');
 
-            expect(getLastEventValue(wrapper)[0].map((row: Row) => row.letter)).toStrictEqual(
+            expect(wrapper.lastEventValue<Row[]>()![0].map((row: Row) => row.letter)).toStrictEqual(
                 rows.filter(row => typeof row.isSelectable === 'boolean' ? row.isSelectable : true)
                     .map(row => row.letter)
             );
@@ -394,7 +386,7 @@ describe('UITable', () => {
 
             await wrapper.find(selectorMap.topCheckbox).trigger('click');
 
-            expect(getLastEventValue(wrapper)[0].map((row: Row) => row.letter)).toStrictEqual(
+            expect(wrapper.lastEventValue<Row[]>()![0].map((row: Row) => row.letter)).toStrictEqual(
                 rows.filter(row => typeof row.isSelectable === 'boolean' ? row.isSelectable : true)
                     .map(row => row.letter)
             );
@@ -413,13 +405,13 @@ describe('UITable', () => {
 
             // click the first
             await wrapper.find(selectorMap.checkboxes).trigger('click');
-            expect(getLastEventValue(wrapper)[0]).toHaveLength(1);
+            expect(wrapper.lastEventValue<Row[]>()![0]).toHaveLength(1);
 
             await wrapper.find(selectorMap.topCheckbox).trigger('click');
-            expect(getLastEventValue(wrapper)[0]).toHaveLength(0);
+            expect(wrapper.lastEventValue<Row[]>()![0]).toHaveLength(0);
 
             await wrapper.find(selectorMap.topCheckbox).trigger('click');
-            expect(getLastEventValue(wrapper)[0]).toHaveLength(
+            expect(wrapper.lastEventValue<Row[]>()![0]).toHaveLength(
                 rows.filter(row => typeof row.isSelectable === 'boolean' ? row.isSelectable : true).length
             );
         });
@@ -436,7 +428,7 @@ describe('UITable', () => {
 
             await wrapper.find(selectorMap.topCheckbox).trigger('click');
 
-            expect(getLastEventValue(wrapper)[0]).toHaveLength(
+            expect(wrapper.lastEventValue<Row[]>()![0]).toHaveLength(
                 rows.filter(row => typeof row.isSelectable === 'boolean' ? row.isSelectable : true).length
             );
         });
