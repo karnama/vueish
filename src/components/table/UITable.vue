@@ -140,7 +140,7 @@
                     <td class="block grow sm:table-cell"
                         :colspan="normalisedHeaders.length + ($slots.action ? 1 : 0) + (selectable ? 1 : 0)">
                         <span class="flex flex-col sm:flex-row items-center justify-between
-                                     flex-wrap break-words px-4 py-6">
+                                     flex-wrap break-words px-4 py-6 relative">
                             <slot name="footer" />
                             <span v-if="selectable && !singleSelect" class="block sm:hidden">
                                 <UICheckbox name="selectAll"

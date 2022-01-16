@@ -49,9 +49,11 @@
                      :items-per-page="5"
                      :rows="rows">
                 <template #pagination="slotProps">
-                    <UIPagination :model-value="slotProps.page"
-                                  :length="slotProps.pageCount"
-                                  @update:model-value="val => slotProps.jumpToPage(val)" />
+                    <div class="flex justify-end w-full">
+                        <UIPagination :model-value="slotProps.page"
+                                      :length="slotProps.pageCount"
+                                      @update:model-value="val => slotProps.jumpToPage(val)" />
+                    </div>
                 </template>
             </UITable>
         </UIPanel>
