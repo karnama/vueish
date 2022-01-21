@@ -36,11 +36,11 @@
                      name="file-input"
                      :large="large"
                      :error="error"
-                     :displayNameFunc="displayName"
+                     :display-name-func="displayName"
                      multiple
                      clearable
-                     label="Multiple file input with custom label" >
-            <template v-slot:button-text>
+                     label="Multiple file input with custom label">
+            <template #button-text>
                 Select attachments or drop here
             </template>
         </UIFileInput>
@@ -62,7 +62,7 @@ export default defineComponent({
 
         const displayName = (files) => {
             return Array.isArray(files) && files.length > 1
-                ? files.length + ' files selected'
+                ? String(files.length) + ' files selected'
                 : '1 file selected';
         };
 

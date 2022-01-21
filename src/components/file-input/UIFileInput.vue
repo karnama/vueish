@@ -178,7 +178,7 @@ export default defineComponent({
             }
 
             if (props.displayNameFunc) {
-                return props.displayNameFunc(props.modelValue);
+                return props.displayNameFunc(props.modelValue) as string;
             }
 
             return (Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue])
