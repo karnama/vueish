@@ -50,7 +50,9 @@
                             'py-[1.3125rem] px-6': large,
                             'px-4 py-[0.938rem]': !large
                         }">
-                    Choose file
+                    <slot name="buttonText">
+                        {{ buttonText }}
+                    </slot>
                 </button>
 
                 <template v-if="displayName">
@@ -96,6 +98,7 @@ import { getIcon } from '@/helpers';
 import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
 import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 import type { FileError } from 'types';
+import type { MaybeArray } from '../../../types/utilities';
 
 export default defineComponent({
     name: 'UIFileInput',
@@ -138,6 +141,22 @@ export default defineComponent({
          */
         maxFiles: positiveOptionalNumber,
 
+        /**
+         * Override files preview output.
+         */
+        displayNameFunc: {
+            default: null,
+            type: Function as PropType<(file: MaybeArray<File> | null) => string>
+        },
+
+        /**
+         * The label for file input. Default: "Choose file".
+         */
+        buttonText: {
+            type: String,
+            default: 'Choose file'
+        },
+
         name,
         label,
         clearable,
@@ -165,6 +184,10 @@ export default defineComponent({
         const displayName = computed(() => {
             if (!props.modelValue) {
                 return '';
+            }
+
+            if (props.displayNameFunc) {
+                return props.displayNameFunc(props.modelValue);
             }
 
             return (Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue])
