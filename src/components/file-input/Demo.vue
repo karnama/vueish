@@ -36,8 +36,8 @@
                      name="file-input"
                      :large="large"
                      :error="error"
-                     :showFilesCount="true"
                      :light="true"
+                     :showFilesCount="true"
                      multiple
                      clearable
                      label="Multiple file input with custom label" >
