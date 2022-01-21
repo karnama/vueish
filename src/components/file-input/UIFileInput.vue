@@ -44,14 +44,16 @@
                                bg-gray-200 dark:bg-gray-700 ring-gray-400 dark:ring-gray-500"
                         :style="{
                             'filter': disabled ? 'invert(5%)': 'invert(0%)',
-                            'border': light ? '1px solid #CFD8E3': 'none'
+                            'border': light
+                             ? error || $slots.error ? '1px solid #B91C1CFF' : '1px solid #CFD8E3'
+                            : 'none'
                         }"
                         :class="{
                             'text-color-muted': disabled,
                             'hover:bg-gray-300 dark:hover:bg-gray-800 focus:ring-1': !disabled,
                             'py-[1.3125rem] px-6': large,
                             'px-4 py-[0.938rem]': !large,
-                            '!bg-white rounded': light
+                            '!bg-white rounded': light,
                         }">
                     <slot name="button-text">
                         Choose file
