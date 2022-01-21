@@ -98,6 +98,7 @@ import { getIcon } from '@/helpers';
 import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
 import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 import type { FileError } from 'types';
+import {MaybeArray} from "../../../types/utilities";
 
 export default defineComponent({
     name: 'UIFileInput',
@@ -144,8 +145,8 @@ export default defineComponent({
          * Override files preview output.
          */
         displayNameFunc: {
-            type: Function,
-            default: null
+            default: null,
+            type: Function as PropType<(file: MaybeArray<File> | null) => string>
         },
 
         name,
@@ -178,7 +179,7 @@ export default defineComponent({
             }
 
             if (props.displayNameFunc) {
-                return props.displayNameFunc(props.modelValue) as string;
+                return props.displayNameFunc(props.modelValue);
             }
 
             return (Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue])
