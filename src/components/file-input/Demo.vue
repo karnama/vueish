@@ -31,6 +31,20 @@
                      multiple
                      clearable
                      label="Multiple file input" />
+
+        <UIFileInput v-model="file3"
+                     name="file-input"
+                     :large="large"
+                     :error="error"
+                     :light="true"
+                     :showFilesCount="true"
+                     multiple
+                     clearable
+                     label="Multiple file input with custom label" >
+            <template v-slot:button-text>
+                Select attachments or drop here
+            </template>
+        </UIFileInput>
     </div>
 </template>
 
@@ -44,12 +58,14 @@ export default defineComponent({
         const generatedFile = new File(['content'], 'my-document.pdf');
         const file = ref(generatedFile);
         const file2 = ref<File[]>([generatedFile]);
+        const file3 = ref<File[]>([generatedFile]);
         const large = ref(false);
         const error = ref('');
 
         return {
             file,
             file2,
+            file3,
             large,
             error
         };
