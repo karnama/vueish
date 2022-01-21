@@ -19,7 +19,7 @@
                  'bg-gray-200 dark:!bg-gray-700 cursor-not-allowed': disabled,
                  'cursor-pointer': !disabled,
                  'focus-within:border-blue-400 dark:focus-within:border-blue-500':!(error || $slots.error) && !disabled,
-                 '!border-none bg-transparent shadow-none': light,
+                 '!border-none bg-transparent shadow-none': isLight,
                  'border-red-700 dark:!border-red-500': error || $slots.error
              }"
              :tabindex="disabled ? -1 : 0"
@@ -43,17 +43,14 @@
                                transition-all rounded-l text-color disabled:cursor-not-allowed
                                bg-gray-200 dark:bg-gray-700 ring-gray-400 dark:ring-gray-500"
                         :style="{
-                            'filter': disabled ? 'invert(5%)': 'invert(0%)',
-                            'border': light
-                             ? error || $slots.error ? '1px solid #B91C1CFF' : '1px solid #CFD8E3'
-                            : 'none'
+                            'filter': disabled ? 'invert(5%)': 'invert(0%)'
                         }"
                         :class="{
                             'text-color-muted': disabled,
                             'hover:bg-gray-300 dark:hover:bg-gray-800 focus:ring-1': !disabled,
                             'py-[1.3125rem] px-6': large,
                             'px-4 py-[0.938rem]': !large,
-                            '!bg-white rounded': light,
+                            '!bg-white rounded !border-solid border border-gray-300 shadow-sm': isLight,
                         }">
                     <slot name="button-text">
                         Choose file
@@ -145,12 +142,18 @@ export default defineComponent({
          */
         maxFiles: positiveOptionalNumber,
 
-        showFilesCount: {
-            type: Boolean,
-            default: false
+        /**
+         * Override files preview output.
+         */
+        displayNameFunc: {
+            type: Function,
+            default: null
         },
 
-        light: {
+        /**
+         * Change component style to make input white.
+         */
+        isLight: {
             type: Boolean,
             default: false
         },
@@ -184,10 +187,8 @@ export default defineComponent({
                 return '';
             }
 
-            if (props.showFilesCount) {
-                return Array.isArray(props.modelValue) && props.modelValue.length > 1
-                    ?  props.modelValue.length + ' files selected'
-                    : '1 file selected';
+            if (props.displayNameFunc) {
+                return props.displayNameFunc(props.modelValue);
             }
 
             return (Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue])

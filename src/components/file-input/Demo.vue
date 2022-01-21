@@ -32,12 +32,12 @@
                      clearable
                      label="Multiple file input" />
 
-        <UIFileInput v-model="file3"
+        <UIFileInput v-model="file2"
                      name="file-input"
                      :large="large"
                      :error="error"
-                     :light="true"
-                     :showFilesCount="true"
+                     :isLight="true"
+                     :displayNameFunc="displayName"
                      multiple
                      clearable
                      label="Multiple file input with custom label" >
@@ -58,14 +58,19 @@ export default defineComponent({
         const generatedFile = new File(['content'], 'my-document.pdf');
         const file = ref(generatedFile);
         const file2 = ref<File[]>([generatedFile]);
-        const file3 = ref<File[]>([generatedFile]);
         const large = ref(false);
         const error = ref('');
+
+        const displayName = (files) => {
+            return Array.isArray(files) && files.length > 1
+                ? files.length + ' files selected'
+                : '1 file selected';
+        };
 
         return {
             file,
             file2,
-            file3,
+            displayName,
             large,
             error
         };
