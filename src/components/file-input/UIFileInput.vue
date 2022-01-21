@@ -50,8 +50,8 @@
                             'py-[1.3125rem] px-6': large,
                             'px-4 py-[0.938rem]': !large
                         }">
-                    <slot name="button-text">
-                        Choose file
+                    <slot name="buttonText">
+                        {{ buttonText }}
                     </slot>
                 </button>
 
@@ -98,7 +98,7 @@ import { getIcon } from '@/helpers';
 import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
 import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 import type { FileError } from 'types';
-import {MaybeArray} from "../../../types/utilities";
+import type { MaybeArray } from '../../../types/utilities';
 
 export default defineComponent({
     name: 'UIFileInput',
@@ -147,6 +147,11 @@ export default defineComponent({
         displayNameFunc: {
             default: null,
             type: Function as PropType<(file: MaybeArray<File> | null) => string>
+        },
+
+        buttonText: {
+            type: String,
+            default: 'Choose file'
         },
 
         name,

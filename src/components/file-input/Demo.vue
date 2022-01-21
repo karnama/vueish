@@ -37,13 +37,10 @@
                      :large="large"
                      :error="error"
                      :display-name-func="displayName"
+                     button-text="Select attachments or drop here"
                      multiple
                      clearable
-                     label="Multiple file input with custom label">
-            <template #button-text>
-                Select attachments or drop here
-            </template>
-        </UIFileInput>
+                     label="Multiple file input with custom label" />
     </div>
 </template>
 
