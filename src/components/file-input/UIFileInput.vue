@@ -149,6 +149,9 @@ export default defineComponent({
             type: Function as PropType<(file: MaybeArray<File> | null) => string>
         },
 
+        /**
+         * The label for file input. Default: "Choose file".
+         */
         buttonText: {
             type: String,
             default: 'Choose file'
