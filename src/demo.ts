@@ -25,7 +25,7 @@ const routes = Object.keys(demos)
             path: '/' + getPath(path),
             component: async () => demos[path](),
             meta: {
-                label: getPath(path).replace('-', ' '),
+                label: getPath(path).split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
                 type: isDirective ? 'Directives' : 'Components'
             }
         } as RouteRecordRaw;
