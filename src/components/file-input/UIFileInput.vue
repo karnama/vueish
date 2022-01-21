@@ -19,7 +19,6 @@
                  'bg-gray-200 dark:!bg-gray-700 cursor-not-allowed': disabled,
                  'cursor-pointer': !disabled,
                  'focus-within:border-blue-400 dark:focus-within:border-blue-500':!(error || $slots.error) && !disabled,
-                 '!border-none bg-transparent shadow-none': isLight,
                  'border-red-700 dark:!border-red-500': error || $slots.error
              }"
              :tabindex="disabled ? -1 : 0"
@@ -49,8 +48,7 @@
                             'text-color-muted': disabled,
                             'hover:bg-gray-300 dark:hover:bg-gray-800 focus:ring-1': !disabled,
                             'py-[1.3125rem] px-6': large,
-                            'px-4 py-[0.938rem]': !large,
-                            '!bg-white rounded !border-solid border border-gray-300 shadow-sm': isLight,
+                            'px-4 py-[0.938rem]': !large
                         }">
                     <slot name="button-text">
                         Choose file
@@ -148,14 +146,6 @@ export default defineComponent({
         displayNameFunc: {
             type: Function,
             default: null
-        },
-
-        /**
-         * Change component style to make input white.
-         */
-        isLight: {
-            type: Boolean,
-            default: false
         },
 
         name,

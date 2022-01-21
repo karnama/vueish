@@ -36,7 +36,6 @@
                      name="file-input"
                      :large="large"
                      :error="error"
-                     :isLight="true"
                      :displayNameFunc="displayName"
                      multiple
                      clearable
