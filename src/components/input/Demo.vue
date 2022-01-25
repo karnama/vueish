@@ -133,6 +133,13 @@
                 </svg>
             </template>
         </UIInput>
+
+        <UIInput v-model="placeholder"
+                 name="ui-text14"
+                 class="mt-10"
+                 type="number"
+                 placeholder="Placeholder text."
+                 label="Placeholder" />
     </div>
 </template>
 
@@ -157,6 +164,7 @@ export default defineComponent({
         const prefixSlot = ref('Billions');
         const suffixProp = ref('100');
         const suffixSlot = ref('Feather-weight');
+        const placeholder = ref<number>();
         const large = ref(false);
         const error = ref('');
 
@@ -178,6 +186,7 @@ export default defineComponent({
             prefixSlot,
             suffixProp,
             suffixSlot,
+            placeholder,
             large,
             error
         };

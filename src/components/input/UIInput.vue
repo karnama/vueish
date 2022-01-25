@@ -47,7 +47,8 @@
                        :step="step"
                        :min="min"
                        :max="max"
-                       :aria-placeholder="$attrs.placeholder"
+                       :placeholder="placeholder"
+                       :aria-placeholder="placeholder"
                        class="flex-1 p-3.5 appearance-none bg-transparent outline-none
                               text-color disabled:text-gray-400"
                        :disabled="disabled"
@@ -118,7 +119,8 @@ import {
     clearable,
     disabled,
     useVModel,
-    error
+    error,
+    placeholder
 } from 'composables/input';
 import { large } from 'composables/style';
 import { getIcon, getPrecision } from '@/helpers';
@@ -203,7 +205,8 @@ export default defineComponent({
         clearable,
         name,
         disabled,
-        error
+        error,
+        placeholder
     },
 
     emits: ['update:modelValue'],
