@@ -25,6 +25,10 @@ export default {
     install: (app: App, setting: DeepPartial<Settings> = {}): void => {
         app.config.globalProperties.Vueish = merge(defaultSettings, setting);
 
+        if (document && getComputedStyle(document.body).position !== 'relative') {
+            document.body.style.position = 'relative';
+        }
+
         Object.keys(componentModules).forEach(path => {
             const component = defineAsyncComponent(async () => componentModules[path]());
 
