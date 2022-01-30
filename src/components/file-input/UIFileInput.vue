@@ -99,7 +99,7 @@ export default defineComponent({
 
     props: {
         modelValue: {
-            type: [File, Array, null] as PropType<File | File[] | null>
+            type: [File, Array, null] as PropType<MaybeArray<File> | null>
         },
 
         /**
@@ -140,7 +140,9 @@ export default defineComponent({
         },
 
         /**
-         * The label for file input. Default: "Choose file".
+         * The label for file input.
+         *
+         * @default "Choose file"
          */
         buttonText: {
             type: String,
