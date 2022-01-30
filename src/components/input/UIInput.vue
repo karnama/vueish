@@ -50,7 +50,7 @@
                        :placeholder="placeholder"
                        :aria-placeholder="placeholder"
                        class="flex-1 p-3.5 appearance-none bg-transparent outline-none
-                              text-color disabled:text-gray-400"
+                              text-color disabled:text-gray-400 overflow-x-scroll"
                        :disabled="disabled"
                        :class="{ 'px-7 py-5': large }"
                        @keydown="handleKeydown">
