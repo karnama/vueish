@@ -14,8 +14,7 @@
               :error="error"
               :large="large"
               label="Clearable select"
-              name="select-1"
-              placeholder="Please select..." />
+              name="select-1" />
 
     <UISelect v-model="multiSelected"
               multi
@@ -25,8 +24,7 @@
               disabled
               :large="large"
               label="Disabled multi select"
-              name="select-2"
-              placeholder="Please select..." />
+              name="select-2" />
 
     <UISelect v-model="multiSelected"
               multi
@@ -35,8 +33,7 @@
               label="Multi select"
               :error="error"
               :large="large"
-              name="select-2"
-              placeholder="Please select..." />
+              name="select-2" />
 
     <UISelect v-model="multiSelected"
               multi
@@ -45,8 +42,7 @@
               name="select-3"
               :error="error"
               :large="large"
-              :options="options"
-              placeholder="Please select..." />
+              :options="options" />
 </template>
 
 <script lang="ts">
