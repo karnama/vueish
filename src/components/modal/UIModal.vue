@@ -1,14 +1,15 @@
 <template>
     <teleport to="body">
         <div v-if="isOpen"
-             class="h-full w-full z-40 fixed top-0 left-0 opacity-0 transition-opacity"
+             class="h-full w-full z-40 fixed top-0 left-0 opacity-0 transition-opacity wrapper"
              :class="{ 'opacity-100': isVisible }">
             <!--Modal overlay-->
-            <div class="absolute h-screen w-screen backdrop-blur-[1px] bg-[#00000061]" @click="close('cancel')" />
+            <div class="overlay absolute h-screen w-screen backdrop-blur-[1px] bg-[#00000061]"
+                 @click="close('cancel')" />
 
             <!--Main modal dialog-->
-            <UIPanel class="top-0 w-full relative mx-auto shadow-xl rounded bg-white opacity-0 translate-y-0
-                            max-w-[700px] max-h-[80vh] transition"
+            <UIPanel class="modal top-0 w-full relative mx-auto shadow-xl rounded bg-white opacity-0
+                            translate-y-0 max-w-[700px] max-h-[80vh] transition"
                      :class="{ 'translate-y-[70px] opacity-100': isVisible }"
                      style="transition: transform 300ms ease-out, opacity 100ms linear"
                      role="dialog"
