@@ -8,9 +8,11 @@ import intersect from './directives/intersect';
 import outerHtml from './directives/outer-html';
 import clickAway from './directives/click-away';
 import './assets/styles/main.scss';
+import type { DefineComponent } from 'vue';
 import { defineAsyncComponent } from 'vue';
 
-const componentModules = import.meta.glob('./**/UI*.vue');
+const componentModules = import.meta.glob('./**/UI*(!(Radio.vue)).vue');
+const uIRadioImport = import.meta.globEager('./**/UIRadio.vue');
 
 /**
  * Get the file name without extension.
@@ -28,6 +30,10 @@ export default {
         if (document && getComputedStyle(document.body).position !== 'relative') {
             document.body.style.position = 'relative';
         }
+
+        // todo - investigate if there's a more elegant solution
+        // UIRadioGroup needs to have access to it's mounted subcomponents
+        app.component('UIRadio', uIRadioImport[Object.keys(uIRadioImport)[0]].default as DefineComponent);
 
         Object.keys(componentModules).forEach(path => {
             const component = defineAsyncComponent(async () => componentModules[path]());
