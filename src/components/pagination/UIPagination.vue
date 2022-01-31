@@ -1,6 +1,6 @@
 <template>
     <div :key="page"
-         class="flex flex-wrap justify-between items-center max-w-max space-x-2"
+         class="flex flex-wrap justify-between items-center space-x-2"
          role="navigation"
          aria-label="Pagination navigation">
         <UIButton id="previous-page-button"

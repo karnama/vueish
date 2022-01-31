@@ -5,7 +5,6 @@ Vue UI Library
 
 Install:
  - run `npm i vueish`
- - add `style="position: relative"` to the body tag
 
 # Contribution
 

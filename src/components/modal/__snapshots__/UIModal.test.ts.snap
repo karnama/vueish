@@ -2,18 +2,19 @@
 
 exports[`UIModal should render correctly 1`] = `
 <div
-  class="h-full w-full z-40 fixed top-0 left-0 wrapper visible"
+  class="h-full w-full z-40 fixed top-0 left-0 opacity-0 transition-opacity wrapper opacity-100"
 >
   <!--Modal overlay-->
   <div
-    class="overlay absolute h-screen w-screen"
+    class="overlay absolute h-screen w-screen backdrop-blur-[1px] bg-[#00000061]"
   />
   <!--Main modal dialog-->
   <section
     aria-expanded="true"
     aria-modal="true"
-    class="ui-panel rounded shadow-md relative transition-all bg-white dark:bg-gray-600 text-color modal top-0 w-full overflow-y-scroll relative bg-default mx-auto shadow-xl rounded bg-white opacity-0 translate-y-0"
+    class="ui-panel rounded shadow-md relative transition-all bg-white dark:bg-gray-600 text-color modal top-0 w-full relative mx-auto shadow-xl rounded bg-white opacity-0 translate-y-0 max-w-[700px] max-h-[80vh] transition translate-y-[70px] opacity-100"
     role="dialog"
+    style="transition: transform 300ms ease-out, opacity 100ms linear;"
   >
     <transition-stub>
       
@@ -48,9 +49,14 @@ exports[`UIModal should render correctly 1`] = `
           class="w-full px-12 py-6"
         >
           
-          
-          Default slot content
-          
+          <div
+            class="overflow-y-scroll"
+            style="max-height: 50vh;"
+          >
+            
+            Default slot content
+            
+          </div>
           
         </main>
         <footer

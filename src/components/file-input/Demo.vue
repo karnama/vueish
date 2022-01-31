@@ -40,12 +40,13 @@
                      button-text="Select attachments or drop here"
                      multiple
                      clearable
-                     label="Multiple file input with custom label" />
+                     label="Custom labelled input" />
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import type { MaybeArray } from '../../../types/utilities';
 
 export default defineComponent({
     name: 'FileInput',
@@ -57,8 +58,9 @@ export default defineComponent({
         const large = ref(false);
         const error = ref('');
 
-        const displayName = (files) => {
-            if (files === null || files === undefined) return '';
+        const displayName = (files: MaybeArray<File> | null) => {
+            if (!files) return '';
+
             return Array.isArray(files) && files.length > 1
                 ? String(files.length) + ' files selected'
                 : '1 file selected';

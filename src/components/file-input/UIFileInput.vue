@@ -12,7 +12,7 @@
         </UIExpandTransition>
 
         <div ref="input"
-             class="rounded flex justify-between items-center shadow-sm focus:outline-none
+             class="rounded flex justify-between items-stretch shadow-sm focus:outline-none h-auto
                     transition-colors border-gray-300 dark:border-gray-500 bg-white dark:bg-gray-600 border"
              :title="displayList"
              :class="{
@@ -36,24 +36,14 @@
                    v-bind="omit($attrs, ['class', 'style'])"
                    @change="addFiles">
             <div class="flex items-center flex-wrap w-full" :class="{ 'justify-center' : displayName }">
-                <button title="Choose a file"
-                        :disabled="disabled"
-                        class="focus:outline-none font-bold m-0 text-sm border-none
-                               transition-all rounded-l text-color disabled:cursor-not-allowed
-                               bg-gray-200 dark:bg-gray-700 ring-gray-400 dark:ring-gray-500"
-                        :style="{
-                            'filter': disabled ? 'invert(5%)': 'invert(0%)'
-                        }"
-                        :class="{
-                            'text-color-muted': disabled,
-                            'hover:bg-gray-300 dark:hover:bg-gray-800 focus:ring-1': !disabled,
-                            'py-[1.3125rem] px-6': large,
-                            'px-4 py-[0.938rem]': !large
-                        }">
+                <UIButton :large="large"
+                          :disabled="disabled"
+                          title="Choose a file"
+                          class="rounded-none h-full">
                     <slot name="buttonText">
                         {{ buttonText }}
                     </slot>
-                </button>
+                </UIButton>
 
                 <template v-if="displayName">
                     <div class="truncate text-color py-2 px-4 flex-1 select-none break-words value-text"
@@ -109,7 +99,7 @@ export default defineComponent({
 
     props: {
         modelValue: {
-            type: [File, Array, null] as PropType<File | File[] | null>
+            type: [File, Array, null] as PropType<MaybeArray<File> | null>
         },
 
         /**
@@ -150,7 +140,9 @@ export default defineComponent({
         },
 
         /**
-         * The label for file input. Default: "Choose file".
+         * The label for file input.
+         *
+         * @default "Choose file"
          */
         buttonText: {
             type: String,
