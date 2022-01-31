@@ -213,7 +213,7 @@ export default defineComponent({
 
     setup(props) {
         const input = ref<HTMLInputElement>();
-        const inputType = ref<typeof types[number]>(props.type);
+        const inputType = ref(props.type);
 
         const lockIcon = getIcon('lock');
         const clearIcon = getIcon('clear');
