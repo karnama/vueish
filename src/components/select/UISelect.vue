@@ -35,7 +35,7 @@
                     {{ selectionDisplay }}
                 </span>
 
-                <span v-else>
+                <span v-else class="text-color-muted">
                     {{ placeholder }}
                 </span>
             </slot>
@@ -174,7 +174,7 @@ export default defineComponent({
          * Array of option objects.
          */
         options: {
-            type: Array as () => Option[],
+            type: Array as PropType<Option[]>,
             required: true
         },
 
@@ -188,7 +188,7 @@ export default defineComponent({
 
         /**
          * The key on the options to compare the objects by.
-         * Otherwise if set to 'whole' The objects will
+         * Otherwise, if set to 'whole' The objects will
          * be compared based on deep equality.
          */
         optionKey: {
@@ -228,8 +228,16 @@ export default defineComponent({
             default: false
         },
 
+        /**
+         * The placeholder the input should display.
+         */
+        // eslint-disable-next-line vue/require-prop-types
+        placeholder: {
+            ...placeholder,
+            default: 'Please select...'
+        },
+
         label,
-        placeholder,
         clearable,
         autofocus,
         disabled,

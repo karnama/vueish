@@ -27,5 +27,6 @@ function updateElement(el: Element, binding: DirectiveBinding<typeof x[number] |
 
 export default {
     created: updateElement,
+    mounted: updateElement,
     updated: updateElement
 } as Directive;
