@@ -168,7 +168,7 @@ export default defineComponent({
 
     props: {
         modelValue: {
-            type: [Object, Array, String] as PropType<MaybeArray<Option> | null>
+            type: [Object, Array] as PropType<MaybeArray<Option> | MaybeArray<string> | null>
         },
 
         /**
@@ -250,7 +250,6 @@ export default defineComponent({
     emits: ['update:modelValue'],
 
     setup(props) {
-        const stringOptions = computed(() => props.options.every(option => typeof option === 'string'));
         const search = ref('');
         const open = ref(false);
         const searchInput = ref<HTMLInputElement>();
@@ -271,14 +270,14 @@ export default defineComponent({
         const filteredOptions = computed<OptionObject[]>(() => {
             const formattedOptions = props.options?.map(option =>
                 typeof option === 'string' ? { [props.optionKey]: option, [props.optionLabel]: option } : option
-            ) ?? [];
+            );
 
             if (!search.value) {
                 return formattedOptions;
             }
 
             let selectedOptions = (selected.value ? wrap(cloneDeep(selected.value)) : []).map(option =>
-                typeof option === 'string' ? { [props.optionLabel]: option } : option
+                typeof option === 'string' ? { [props.optionKey]: option, [props.optionLabel]: option } : option
             );
 
             formattedOptions
@@ -343,11 +342,11 @@ export default defineComponent({
 
         const isEqual = (previous: Option, next: Option): boolean => {
             // Compare as strings options (checking type of previous/next to satisfy TS).
-            if (stringOptions.value || typeof previous === 'string' || typeof next === 'string') {
-                const previousString: string = typeof previous === 'string' ? previous : previous[props.optionLabel];
-                const nextString: string = typeof next === 'string' ? next : next[props.optionLabel];
+            if (typeof previous === 'string' || typeof next === 'string') {
+                const previousString: string = typeof previous === 'string' ? previous : previous[props.optionKey];
+                const nextString: string = typeof next === 'string' ? next : next[props.optionKey];
 
-                return previousString.toLowerCase() === nextString.toLowerCase();
+                return previousString === nextString;
             }
 
             // Compare as object options.
@@ -365,7 +364,9 @@ export default defineComponent({
                 return;
             }
 
-            const value = stringOptions.value ? option[props.optionLabel] : option;
+            const value = props.options.every(option => typeof option === 'string')
+                ? option[props.optionLabel]
+                : option;
 
             if (!props.multi) {
                 selected.value = value;
