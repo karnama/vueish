@@ -70,12 +70,13 @@
                  ref="list"
                  v-click-away="closeList"
                  role="listbox"
-                 class="list overflow-y-scroll absolute w-full border text-color
-                        bg-white dark:bg-gray-600 dark:border-gray-500 shadow-md"
+                 class="list overflow-y-scroll absolute w-full border border-gray-300 text-color
+                        bg-white dark:bg-gray-600 dark:border-gray-500 shadow-md rounded"
                  :style="style"
                  @keydown.esc="closeList">
                 <!--Header to display instructions-->
-                <div class="flex items-center justify-between px-2 py-1 text-sm border-b select-none">
+                <div class="flex items-center justify-between px-2 py-1 text-sm
+                            border-b border-gray-300 dark:border-gray-500 select-none">
                     <slot name="header">
                         {{ header }}
                     </slot>
@@ -113,7 +114,7 @@
                                justify-center focus:bg-brand-200 dark:focus:bg-brand-500 outline-none"
                         :class="{
                             'selected-option bg-gray-200 dark:bg-gray-500 dark:hover:bg-gray-500': currentlySelected,
-                            'border-t': index > 0 || !noSearch && index === 0
+                            'border-t border-gray-300 dark:border-gray-500': index > 0 || !noSearch && index === 0
                         }"
                         role="option"
                         tabindex="0"
@@ -268,7 +269,7 @@ export default defineComponent({
             return options.map(option => typeof option === 'string' ? option : option[props.optionLabel]).join(', ');
         });
         const filteredOptions = computed<OptionObject[]>(() => {
-            const formattedOptions = props.options?.map(option =>
+            const formattedOptions = props.options.map(option =>
                 typeof option === 'string' ? { [props.optionKey]: option, [props.optionLabel]: option } : option
             );
 
