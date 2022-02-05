@@ -270,7 +270,7 @@ export default defineComponent({
             return options.map(option => typeof option === 'string' ? option : option[props.optionLabel]).join(', ');
         });
         const filteredOptions = computed<OptionObject[]>(() => {
-            const formattedOptions = props.options?.map(option =>
+            const formattedOptions = props.options.map(option =>
                 typeof option === 'string' ? { [props.optionKey]: option, [props.optionLabel]: option } : option
             ) ?? [];
 
