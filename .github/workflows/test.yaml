@@ -7,7 +7,7 @@ on:
       - '**/*.ts'
       - '**/*.vue'
       - 'tsconfig*.json'
-      - 'jest.config.js'
+      - 'jest.config.ts'
       - 'package-lock.json'
     branches:
       - main
