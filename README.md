@@ -1,9 +1,10 @@
 # vueish
 Vue UI Library
 
+> :warning: **This package is not production ready!**
+
 Install:
  - run `npm i vueish`
- - add `style="position: relative"` to the body tag
 
 # Contribution
 

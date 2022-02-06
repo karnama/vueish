@@ -43,7 +43,7 @@ import { defineComponent, ref } from 'vue';
 import { range } from 'lodash-es';
 
 export default defineComponent({
-    name: 'Dropdown',
+    name: 'DropdownDemo',
 
     setup: () => {
         const atMousePosition = ref(false);

@@ -33,7 +33,7 @@ describe('UIRangeSlider', () => {
                 name: 'slider'
             },
             slots: {
-                label: (props) => h('div', { id: 'my-label' }, props.value)
+                label: (props) => h('div', { id: 'my-label' }, props.value as string)
             }
         });
 

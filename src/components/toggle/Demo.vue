@@ -29,7 +29,7 @@
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
-    name: 'Toggle',
+    name: 'ToggleDemo',
 
     setup: () => {
         const value = ref(false);

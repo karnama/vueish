@@ -3,22 +3,22 @@
                       name="fade"
                       :appear="appear"
                       :enter-active-class="`transition ease-out ${durationIn}`"
-                      enter-from-class="transform opacity-0 scale-95"
-                      enter-to-class="transform opacity-100 scale-100"
+                      enter-from-class="opacity-0 scale-95"
+                      enter-to-class="opacity-100 scale-100"
                       :leave-active-class="`transition ease-in ${durationOut}`"
-                      leave-from-class="transform opacity-100 scale-100"
-                      leave-to-class="transform opacity-0 scale-95">
+                      leave-from-class="opacity-100 scale-100"
+                      leave-to-class="opacity-0 scale-95">
         <slot />
     </transition-group>
 
     <transition v-else
                 :mode="mode"
                 :enter-active-class="`transition ease-out ${durationIn}`"
-                enter-from-class="transform opacity-0 scale-95"
-                enter-to-class="transform opacity-100 scale-100"
+                enter-from-class="opacity-0 scale-95"
+                enter-to-class="opacity-100 scale-100"
                 :leave-active-class="`transition ease-in ${durationOut}`"
-                leave-from-class="transform opacity-100 scale-100"
-                leave-to-class="transform opacity-0 scale-95">
+                leave-from-class="opacity-100 scale-100"
+                leave-to-class="opacity-0 scale-95">
         <slot />
     </transition>
 </template>

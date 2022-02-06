@@ -81,7 +81,9 @@ export default defineComponent({
         }
     },
 
-    setup(props) {
+    emits: ['open', 'close'],
+
+    setup(props, ctx) {
         const isOpen = ref(false);
         const uiDropdown = ref<HTMLDivElement>();
         const dropdown = ref<HTMLDivElement>();
@@ -144,12 +146,15 @@ export default defineComponent({
             if (event && props.atMousePosition) {
                 mousePos.x = event.offsetX;
                 mousePos.y = event.offsetY;
+            } else {
+                ctx.emit('open');
             }
 
             isOpen.value = true;
         };
         const hide = () => {
             isOpen.value = false;
+            ctx.emit('close');
         };
         const toggle = (event?: MouseEvent) => {
             // If the dropdown is showing via contextmenu event, and the user has triggered

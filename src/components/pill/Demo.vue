@@ -14,7 +14,7 @@ import { defineComponent } from 'vue';
 import { styleTypes } from 'types';
 
 export default defineComponent({
-    name: 'Pill',
+    name: 'PillDemo',
 
     setup() {
         return { styleTypes };

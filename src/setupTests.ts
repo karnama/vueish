@@ -38,6 +38,6 @@ declare module '@vue/test-utils' {
          *
          * @param {string=} eventName
          */
-        lastEventValue<R extends unknown>(eventName?: string): R | undefined;
+        lastEventValue<R>(eventName?: string): R | undefined;
     }
 }

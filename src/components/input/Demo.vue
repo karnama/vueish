@@ -133,6 +133,13 @@
                 </svg>
             </template>
         </UIInput>
+
+        <UIInput v-model="placeholder"
+                 name="ui-text14"
+                 class="mt-10"
+                 type="number"
+                 placeholder="Placeholder text."
+                 label="Placeholder" />
     </div>
 </template>
 
@@ -141,8 +148,7 @@ import { defineComponent, ref } from 'vue';
 import { getLibrarySettings } from '@/helpers';
 
 export default defineComponent({
-    // eslint-disable-next-line vue/no-reserved-component-names
-    name: 'Input',
+    name: 'InputDemo',
 
     setup() {
         const text = ref('I\'m a input!');
@@ -158,6 +164,7 @@ export default defineComponent({
         const prefixSlot = ref('Billions');
         const suffixProp = ref('100');
         const suffixSlot = ref('Feather-weight');
+        const placeholder = ref<number>();
         const large = ref(false);
         const error = ref('');
 
@@ -179,6 +186,7 @@ export default defineComponent({
             prefixSlot,
             suffixProp,
             suffixSlot,
+            placeholder,
             large,
             error
         };

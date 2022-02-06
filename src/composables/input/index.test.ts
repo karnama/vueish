@@ -7,7 +7,7 @@ import { disableConsoleWarn, enableConsoleWarn } from 'helpers/test';
 describe('input', () => {
     describe('useVModel', () => {
         const Comp = defineComponent({
-            name: 'Comp',
+            name: 'TestComp',
             props: {
                 modelValue: {
                     type: Number,
@@ -44,7 +44,7 @@ describe('input', () => {
                 render: () => h('div')
             });
 
-            expect(wrapper.emitted('update:myProp')).not.toBeUndefined();
+            expect(wrapper.emitted('update:myProp')).toBeDefined();
         });
 
         it('should thrown an error if not called within a lifecycle hook', () => {

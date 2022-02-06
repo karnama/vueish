@@ -51,7 +51,7 @@ describe('UIInput', () => {
 
         expect(input.attributes().disabled).toBeUndefined();
         await wrapper.setProps({ disabled: true });
-        expect(input.attributes().disabled).not.toBeUndefined();
+        expect(input.attributes().disabled).toBeDefined();
     });
 
     it('should assign the name prop', () => {
