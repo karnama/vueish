@@ -21,6 +21,12 @@ const options = [
     }
 ] as const;
 
+const stringOptions = [
+    'Foo',
+    'Bar',
+    'Baz'
+] as const;
+
 const getList = (): DOMWrapper<HTMLDivElement> | null => {
     const element = document.querySelector<HTMLDivElement>(selectorMap.list);
 
@@ -68,6 +74,23 @@ describe('UISelect', () => {
             const htmlOptions = getList()!.findAll(selectorMap.options);
             expect(htmlOptions).toHaveLength(options.length);
             expect(htmlOptions[0].html()).toContain(options[0].name);
+            wrapper.unmount();
+        });
+
+        it('should display the given string options when open', async () => {
+            const wrapper  = mount(UISelect, {
+                props: {
+                    options: stringOptions,
+                    name: 'select',
+                    modelValue: null
+                }
+            });
+
+            expect(getList()).toBeNull();
+            await wrapper.get(selectorMap.currentSelection).trigger('click');
+            const htmlOptions = getList()!.findAll(selectorMap.options);
+            expect(htmlOptions).toHaveLength(stringOptions.length);
+            expect(htmlOptions[0].html()).toContain(stringOptions[0]);
             wrapper.unmount();
         });
 
@@ -136,6 +159,29 @@ describe('UISelect', () => {
 
         expect(selected).toHaveLength(1);
         expect(selected[0].text()).toContain(options[0].name);
+        wrapper.unmount();
+    });
+
+    it('should bind the selected string option to v-model', async () => {
+        const wrapper = mount(UISelect, {
+            props: {
+                options: stringOptions,
+                modelValue: null,
+                name: 'select',
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
+            }
+        });
+
+        await wrapper.get(selectorMap.currentSelection).trigger('click');
+        await getList()!.get(selectorMap.options).trigger('click');
+        expect(wrapper.lastEventValue()).toStrictEqual([stringOptions[0]]);
+
+        await wrapper.get(selectorMap.currentSelection).trigger('click');
+        const selected = getList()!.findAll(selectorMap.options)
+            .filter(option => option.attributes()['aria-selected'] === 'true');
+
+        expect(selected).toHaveLength(1);
+        expect(selected[0].text()).toContain(stringOptions[0]);
         wrapper.unmount();
     });
 
@@ -403,6 +449,28 @@ describe('UISelect', () => {
         }
 
         expect(wrapper.html()).toContain(options.map(o => o.name).join(', '));
+        wrapper.unmount();
+    });
+
+    it('should display the string options when the input is closed', async () => {
+        const wrapper = mount(UISelect, {
+            props: {
+                options: stringOptions,
+                modelValue: [],
+                name: 'select',
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
+                multi: true
+            }
+        });
+
+        await wrapper.get(selectorMap.currentSelection).trigger('click');
+        const htmlOptions = getList()!.findAll(selectorMap.options);
+
+        for await (const option of htmlOptions) {
+            await option.trigger('click');
+        }
+
+        expect(wrapper.html()).toContain(stringOptions.join(', '));
         wrapper.unmount();
     });
 
