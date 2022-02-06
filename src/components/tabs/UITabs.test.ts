@@ -2,11 +2,14 @@ import { mount } from '@vue/test-utils';
 import UITab from './UITab.vue';
 import UITabs from './UITabs.vue';
 import { defineComponent, nextTick, ref } from 'vue';
+import { disableConsoleWarn, enableConsoleWarn } from 'helpers/test';
 
 describe('UITab', () => {
     it('should throw an error if no title is given', () => {
+        disableConsoleWarn();
         let failingFunc = () => mount(UITab);
         expect(failingFunc).toThrow(new Error('The title prop or slot is required when using UITab.'));
+
 
         failingFunc = () => mount(UITab, {
             props: {
@@ -21,6 +24,7 @@ describe('UITab', () => {
             }
         });
         expect(failingFunc).not.toThrow(new Error('The title prop or slot is required when using UITab.'));
+        enableConsoleWarn();
     });
 });
 
@@ -56,38 +60,41 @@ describe('UITabs', () => {
     it('should switch tabs when clicking on the title', async () => {
         const wrapper = mount({
             template: '<UITabs>' +
-                        '<UITab title="tab1">tab-1-content</UITab><UITab title="tab2">tab-2-content</UITab>' +
+                        '<UITab title="tab1"><p id="tab-1">tab-1-content</p></UITab>' +
+                        '<UITab title="tab2"><p id="tab-2">tab-2-content</p></UITab>' +
                       '</UITabs>',
             components: { UITabs, UITab }
         });
 
-        expect(wrapper.html()).toContain('tab-1-content');
-        expect(wrapper.html()).not.toContain('tab-2-content');
+        expect(wrapper.get('#tab-1').isVisible()).toBe(true);
+        expect(wrapper.get('#tab-2').isVisible()).toBe(false);
 
         await wrapper.find('div.cursor-pointer:not(.active-tab)').trigger('click');
 
-        expect(wrapper.html()).toContain('tab-2-content');
-        expect(wrapper.html()).not.toContain('tab-1-content');
+        expect(wrapper.get('#tab-1').isVisible()).toBe(false);
+        expect(wrapper.get('#tab-2').isVisible()).toBe(true);
     });
 
     it('should accept both text and components in the UITab\'s default slot', async () => {
-        const Foo = defineComponent({ name: 'FooBar', template: 'foo-content' });
+        // eslint-disable-next-line vue/one-component-per-file
+        const Foo = defineComponent({ name: 'FooBar', template: '<p id="tab-2">foo-content</p>' });
 
         const wrapper = mount({
             template: '<UITabs>' +
-                '<UITab title="tab1">tab-1-content</UITab><UITab title="tab2"><Foo /></UITab>' +
-                '</UITabs>',
+                        '<UITab title="tab1"><p id="tab-1"></p>tab-1-content</UITab>' +
+                        '<UITab title="tab2"><Foo /></UITab>' +
+                      '</UITabs>',
             // eslint-disable-next-line @typescript-eslint/naming-convention
             components: { UITabs, UITab, Foo }
         });
 
-        expect(wrapper.html()).toContain('tab-1-content');
-        expect(wrapper.html()).not.toContain('foo-content');
+        expect(wrapper.get('#tab-1').isVisible()).toBe(true);
+        expect(wrapper.findComponent(Foo).isVisible()).toBe(false);
 
         await wrapper.find('div.cursor-pointer:not(.active-tab)').trigger('click');
 
-        expect(wrapper.html()).not.toContain('tab-1-content');
-        expect(wrapper.html()).toContain('foo-content');
+        expect(wrapper.get('#tab-1').isVisible()).toBe(false);
+        expect(wrapper.get('#tab-2').isVisible()).toBe(true);
     });
 
     it('should keep the subcomponents alive', async () => {
@@ -125,7 +132,6 @@ describe('UITabs', () => {
         await wrapper.find('#tab-1').trigger('click');
         await wrapper.find('#tab-2').trigger('click');
         expect(wrapper.html()).toContain('my-number:1');
-        console.log(wrapper.html());
     });
 
     // eslint-disable-next-line jest/no-commented-out-tests

@@ -31,8 +31,7 @@ const lastEventPlugin = (wrapper: VueWrapper<ComponentPublicInstance>) => {
 config.plugins.VueWrapper.install(lastEventPlugin);
 
 declare module '@vue/test-utils' {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    interface VueWrapper<T extends ComponentPublicInstance> {
+    interface VueWrapper {
         /**
          * Return the last event value if any that has occurred.
          *
