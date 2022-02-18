@@ -12,6 +12,7 @@
 
         <span v-tooltip.left="'hover text'" class="hover-tag">left hover position</span>
         <span v-tooltip.right="'hover text'" class="hover-tag">right hover position</span>
+        <span v-tooltip class="hover-tag">without content</span>
     </div>
 </template>
 

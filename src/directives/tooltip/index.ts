@@ -3,8 +3,13 @@ import type { Directive, DirectiveBinding } from 'vue';
 const x = ['left', 'right'] as const;
 const y = ['top', 'bottom'] as const;
 
-function updateElement(el: Element, binding: DirectiveBinding<typeof x[number] | typeof y[number]>): void {
-    el.setAttribute('data-v-tooltip', binding.value);
+function updateElement(el: Element, binding: DirectiveBinding<unknown>): void {
+    if (binding.value === '' || binding.value === undefined) {
+        el.removeAttribute('data-v-tooltip');
+    } else {
+        el.setAttribute('data-v-tooltip', String(binding.value));
+    }
+
 
     Object.keys(binding.modifiers).forEach(position => {
         const pos = position.toLowerCase();
