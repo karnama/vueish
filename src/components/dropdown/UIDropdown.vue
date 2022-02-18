@@ -83,6 +83,8 @@ export default defineComponent({
 
     emits: ['open', 'close'],
 
+    expose: ['hide', 'show', 'toggle'],
+
     setup(props, ctx) {
         const isOpen = ref(false);
         const uiDropdown = ref<HTMLDivElement>();
