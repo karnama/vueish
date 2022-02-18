@@ -16,7 +16,7 @@
              :style="dropdownStyle"
              role="group"
              @click.stop>
-            <slot />
+            <slot :toggle="toggle" :show="show" :hide="hide" />
         </div>
     </div>
 </template>
