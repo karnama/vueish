@@ -7,7 +7,20 @@
               :show="show"
               :hide="hide" />
 
-        <div v-if="isOpen"
+        <component :is="transitionComponent" v-if="transitionComponent">
+            <div v-if="isOpen"
+                 v-bind="$attrs"
+                 ref="dropdown"
+                 v-click-away="hide"
+                 class="dropdown absolute z-50 rounded overflow-scroll flex flex-col items-stretch shadow-lg
+                    bg-white dark:bg-gray-600 ring-1 ring-opacity-5 ring-black dark:ring-white dark:ring-opacity-5"
+                 :style="dropdownStyle"
+                 role="group"
+                 @click.stop>
+                <slot :toggle="toggle" :show="show" :hide="hide" />
+            </div>
+        </component>
+        <div v-else-if="isOpen"
              v-bind="$attrs"
              ref="dropdown"
              v-click-away="hide"
@@ -26,6 +39,7 @@ import { computed, defineComponent, ref, reactive } from 'vue';
 import type { PropType } from 'vue';
 import clickAway from '@/directives/click-away';
 import { getPxValue } from 'composables/style';
+import UIFadeScaleTransition from '../transitions/UIFadeScaleTransition.vue';
 
 export default defineComponent({
     name: 'UIDropdown',
@@ -37,6 +51,8 @@ export default defineComponent({
     props: {
         /**
          * The horizontal position of the dropdown.
+         *
+         * @default 'right'
          */
         horizontal: {
             type: String as PropType<'right' | 'left'>,
@@ -46,6 +62,8 @@ export default defineComponent({
 
         /**
          * The vertical position of the dropdown.
+         *
+         * @default 'bottom'
          */
         vertical: {
             type: String as PropType<'top' | 'bottom'>,
@@ -55,6 +73,8 @@ export default defineComponent({
 
         /**
          * The max height of the dropdown with px or vh notation.
+         *
+         * @default '35vh'
          */
         maxHeight: {
             type: String,
@@ -64,6 +84,8 @@ export default defineComponent({
         /**
          * The width of the dropdown with px or vw notation if using atMousePosition
          * otherwise css rule accepted values.
+         *
+         * @default '250px'
          */
         // todo add cross validation when https://github.com/vuejs/vue-next/pull/3258 merged then default to auto
         width: {
@@ -74,10 +96,23 @@ export default defineComponent({
         /**
          * Whether the position should be where
          * the mouse is currently at or not.
+         *
+         * @default false
          */
         atMousePosition: {
             type: Boolean,
             default: false
+        },
+
+        /**
+         * The component that controls how the dropdown transitions.
+         * This can be either a falsy value or a html tag name or a component definition.
+         *
+         * @default UIFadeScaleTransition
+         */
+        transitionComponent: {
+            type: [Object, String] as PropType<ReturnType<typeof defineComponent> | null>,
+            default: UIFadeScaleTransition
         }
     },
 
