@@ -23,10 +23,11 @@
                           v-bind="$attrs"
                           ref="input"
                           v-model="model"
+                          :placeholder="placeholder"
                           spellcheck="true"
                           :name="name"
                           :disabled="disabled"
-                          :aria-placeholder="$attrs.placeholder"
+                          :aria-placeholder="placeholder"
                           class="flex-1 p-3 appearance-none bg-transparent outline-none
                                  disabled:cursor-not-allowed text-color disabled:text-gray-400"
                           :style="[
@@ -80,6 +81,7 @@ import {
     clearable,
     name,
     disabled,
+    placeholder,
     useVModel,
     error
 } from 'composables/input';
@@ -100,7 +102,7 @@ export default defineComponent({
         },
 
         /**
-         * Flag to enable auto-sizing the the text area's height.
+         * Flag to enable auto-sizing the text area's height.
          */
         autoSize: {
             type: Boolean,
@@ -121,7 +123,8 @@ export default defineComponent({
         clearable,
         name,
         disabled,
-        error
+        error,
+        placeholder
     },
 
     emits: ['update:modelValue'],
