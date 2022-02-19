@@ -169,7 +169,7 @@ export default defineComponent({
 
     props: {
         modelValue: {
-            type: [Object, Array] as PropType<MaybeArray<Option> | MaybeArray<string> | null>
+            type: [Object, Array, String] as PropType<MaybeArray<Option> | MaybeArray<string> | null>
         },
 
         /**
