@@ -1,14 +1,17 @@
 <template>
     <teleport to="body">
         <div v-if="isOpen"
-             class="h-full w-full z-40 fixed top-0 left-0 wrapper"
-             :class="{ 'visible': isVisible }">
+             class="h-full w-full z-40 fixed top-0 left-0 opacity-0 transition-opacity wrapper"
+             :class="{ 'opacity-100': isVisible }">
             <!--Modal overlay-->
-            <div class="overlay absolute h-screen w-screen" @click="close('cancel')" />
+            <div class="overlay absolute h-screen w-screen backdrop-blur-[1px] bg-[#00000061]"
+                 @click="close('cancel')" />
 
             <!--Main modal dialog-->
-            <UIPanel class="modal top-0 w-full overflow-y-scroll
-                            relative bg-default m-auto shadow-xl rounded bg-white opacity-0 translate-y-0"
+            <UIPanel class="modal top-0 w-full relative mx-auto shadow-xl rounded bg-white opacity-0
+                            translate-y-0 max-w-[700px] max-h-[80vh] transition"
+                     :class="{ 'translate-y-[70px] opacity-100': isVisible }"
+                     style="transition: transform 300ms ease-out, opacity 100ms linear"
                      role="dialog"
                      aria-modal="true"
                      :aria-label="header"
@@ -24,16 +27,19 @@
                 <!--Modal Close Icon-->
                 <template #actions>
                     <slot name="actions">
-                        <i class="fa fa-times cursor-pointer text-muted
-                    hover:text-default transition-text-color show-on-hover"
-                           @click="close('cancel')">close</i>
+                        <button class="clear-icon p-1 m-1 text-gray-500"
+                                aria-roledescription="clear"
+                                @click="close('cancel')"
+                                v-html="clearIcon" />
                     </slot>
                 </template>
 
                 <!--Modal Body-->
-                <slot>
-                    {{ body }}
-                </slot>
+                <div class="overflow-y-scroll" style="max-height: 50vh;">
+                    <slot>
+                        {{ body }}
+                    </slot>
+                </div>
 
                 <!--Modal Footer-->
                 <template #footer>
@@ -53,9 +59,10 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UIButton from '@components/button/UIButton.vue';
-import UIPanel from '@components/panel/UIPanel.vue';
+import UIButton from 'components/button/UIButton.vue';
+import UIPanel from 'components/panel/UIPanel.vue';
 import type { PropType } from 'vue';
+import { getIcon } from '@/helpers';
 
 export default defineComponent({
     name: 'UIModal',
@@ -90,7 +97,7 @@ export default defineComponent({
          * Callback to execute on modal cancel.
          */
         closeCallback: {
-            type: Function as PropType<(callback: () => Promise<void>) => Promise<void>>
+            type: Function as PropType<(callback: () => Promise<void>, accepted: boolean) => Promise<void>>
         },
 
         /**
@@ -115,24 +122,28 @@ export default defineComponent({
     emits: ['cancel', 'accept'],
 
     setup(props, ctx) {
+        const clearIcon = getIcon('clear');
+
         const isOpen = ref(false);
         const isVisible = ref(false);
 
         const open = async (): Promise<void> => {
             isOpen.value = true;
+
             return new Promise(resolve => setTimeout(() => {
                 isVisible.value = true;
                 resolve();
             }, 100));
         };
-
         const close = async (event: 'accept' | 'cancel' = 'cancel'): Promise<void> => {
-            // filter out events if user doesn't define the argument
+            // filter out events if user doesn't define the argument.
             event = ['accept', 'cancel'].includes(event) ? event : 'cancel';
 
+            // Callback to close the modal.
             const closeModal = async (): Promise<void> => {
                 isVisible.value = false;
                 ctx.emit(event);
+
                 return new Promise(resolve => setTimeout(() => {
                     isOpen.value = false;
                     resolve();
@@ -140,13 +151,14 @@ export default defineComponent({
             };
 
             if (typeof props.closeCallback === 'function') {
-                return props.closeCallback(closeModal);
+                return props.closeCallback(closeModal, event === 'accept');
             }
 
             return closeModal();
         };
 
         return {
+            clearIcon,
             isOpen,
             isVisible,
             open,
@@ -155,30 +167,3 @@ export default defineComponent({
     }
 });
 </script>
-
-<style scoped lang="scss">
-.overlay {
-    background: #00000061;
-}
-
-.wrapper {
-    opacity: 0;
-    transition: opacity 200ms linear;
-    overflow: hidden;
-}
-
-.modal {
-    max-width: 700px;
-    max-height: 80%;
-    transition: transform 300ms ease-out, opacity 100ms linear;
-}
-
-.wrapper.visible {
-    opacity: 1;
-
-    .modal {
-        transform: translateY(70px);
-        opacity: 1;
-    }
-}
-</style>

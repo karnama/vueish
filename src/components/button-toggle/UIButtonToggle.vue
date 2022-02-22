@@ -26,12 +26,13 @@
 <script lang="ts">
 import { defineComponent, watch } from 'vue';
 import type { PropType } from 'vue';
-import UIButtonGroup, { props } from '@components/button-group/UIButtonGroup.vue';
-import { large, category } from '@composables/style';
-import { useVModel, disabled, clearable } from '@composables/input';
-import UIButton from '@components/button/UIButton.vue';
+import UIButtonGroup, { props } from 'components/button-group/UIButtonGroup.vue';
+import { large, category } from 'composables/style';
+import { useVModel, disabled, clearable } from 'composables/input';
+import UIButton from 'components/button/UIButton.vue';
 import { isEqual, uniq } from 'lodash-es';
-import type { MaybeArray, Option } from '@/types';
+import type { MaybeArray } from 'types/utilities';
+import type { Option } from 'types';
 import { wrap } from '@/helpers';
 
 export default defineComponent({
@@ -76,7 +77,7 @@ export default defineComponent({
         const model = useVModel<MaybeArray<Option> | null>(props);
 
         const toggleOption = (option: Option): void => {
-            const values = Array.isArray(model.value)
+            const values: Option[] = Array.isArray(model.value)
                 ? model.value
                 : model.value ? [model.value] : [];
 
@@ -86,8 +87,8 @@ export default defineComponent({
                 if (!props.clearable && optionIndex !== -1 && values.length === 1) return;
 
                 model.value = optionIndex === -1
-                    ? [...(model.value as Option[]), option]
-                    : (model.value as Option[]).filter((option, index) => index !== optionIndex);
+                    ? [...values, option]
+                    : values.filter((option, index) => index !== optionIndex);
                 return;
             }
 
@@ -114,7 +115,7 @@ export default defineComponent({
             () => props.multi,
             val => {
                 if (val) {
-                    model.value = wrap(model.value).filter(v => !!v);
+                    model.value = wrap(model.value).filter(v => !!v) as Option[];
                     return;
                 }
 
@@ -133,12 +134,3 @@ export default defineComponent({
     }
 });
 </script>
-
-<style scoped lang="scss">
-@variants hover {
-    // specificity hack
-    .white-text {
-        @apply text-white;
-    }
-}
-</style>

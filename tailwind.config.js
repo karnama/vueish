@@ -22,8 +22,8 @@ const brandColors = (levels) => {
  * @type {import('@types/tailwindcss').TailwindConfig}
  */
 module.exports = {
+    content: ['./src/**/*.{vue,ts,tsx}'],
     darkMode: 'class',
-    purge: ['./index.html', './src/**/*.{vue,ts,tsx}'],
     theme: {
         borderColor: theme => ({
             ...theme('colors'),
@@ -35,18 +35,10 @@ module.exports = {
             },
             transitionProperty: {
                 'spacing': 'margin, padding'
+            },
+            rotate: {
+                '270': '270deg',
             }
-        }
-    },
-    variants: {
-        extend: {
-            backgroundColor: ['disabled'],
-            opacity: ['disabled'],
-            cursor: ['disabled'],
-            backgroundOpacity: ['disabled'],
-            textColor: ['disabled'],
-            margin: ['group-hover'],
-            boxShadow: ['disabled']
         }
     }
 };

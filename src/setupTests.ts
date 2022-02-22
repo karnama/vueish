@@ -4,14 +4,18 @@ import defaultSettings from '@/defaultSettings';
 import type { ComponentPublicInstance } from 'vue';
 
 beforeAll(() => {
-    if (process.env.IS_CI) {
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        config.global.config.warnHandler = () => {};
-    }
     config.global.config.globalProperties = {
         // eslint-disable-next-line @typescript-eslint/naming-convention
         Vueish: defaultSettings
     };
+
+    const style = document.createElement('style');
+    document.head.appendChild(style);
+
+    // tw classes controlling what's visible
+    style.sheet!.insertRule('.opacity-0 { opacity: 0; }');
+    style.sheet!.insertRule('.hidden { display: none; }');
+    style.sheet!.insertRule('.invisible { visibility: hidden; }');
 });
 
 const lastEventPlugin = (wrapper: VueWrapper<ComponentPublicInstance>) => {
@@ -34,6 +38,6 @@ declare module '@vue/test-utils' {
          *
          * @param {string=} eventName
          */
-        lastEventValue<R extends unknown>(eventName?: string): R | undefined;
+        lastEventValue<R>(eventName?: string): R | undefined;
     }
 }

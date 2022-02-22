@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UILinearLoader should render correctly 1`] = `
+<div
+  class="w-full overflow-hidden ui-linear-loader text-brand-500"
+  style="height: 5px;"
+>
+  <div
+    class="relative h-full"
+  >
+    <div
+      class="progress-background w-full absolute h-full"
+    />
+    <div
+      class="absolute h-full indeterminate"
+      role="progressbar"
+      style="width: 100%;"
+    />
+  </div>
+</div>
+`;
+
+exports[`UILinearLoader should render correctly when set to determinate 1`] = `
+<div
+  class="w-full overflow-hidden ui-linear-loader text-brand-500"
+  style="height: 5px;"
+>
+  <div
+    class="relative h-full"
+  >
+    <div
+      class="progress-background w-full absolute h-full"
+    />
+    <div
+      ariavaluemax="10"
+      ariavaluemin="0"
+      ariavaluenow="1"
+      class="absolute h-full bg-current"
+      role="progressbar"
+      style="width: 10%;"
+    />
+  </div>
+</div>
+`;

@@ -1,112 +1,133 @@
 <template>
-    <transition
-        name="expand"
-        :appear="appear"
-        :mode="mode"
-        @enter="enter"
-        @after-enter="afterEnter"
-        @leave="leave"
-        @before-enter="beforeEnter"
-        @before-leave="beforeLeave"
-        @after-leave="afterLeave">
+    <transition-group v-if="group"
+                      :appear="appear"
+                      :css="false"
+                      @enter="enter"
+                      @leave="leave">
+        <slot />
+    </transition-group>
+
+    <transition v-else
+                :css="false"
+                :appear="appear"
+                :mode="mode"
+                @enter="enter"
+                @leave="leave">
         <slot />
     </transition>
 </template>
 
 <script lang="ts">
-export default {
+import { appear, group, mode, duration } from './props';
+import { defineComponent } from 'vue';
+import type { Duration } from './props';
+
+export default defineComponent({
     name: 'UIExpandTransition',
+
     props: {
         /**
-         * Boolean flag for transition on appear.
+         * Duration expressed as number of milliseconds in either
+         * number format or object format
+         * for the opacity transition.
          */
-        appear: {
-            type: Boolean,
-            default: false
-        },
-
+        opacityDuration: duration,
         /**
-         * The transition mode between elements.
+         * Duration expressed as number of milliseconds in either
+         * number format or object format
+         * for the height transition.
          */
-        mode: {
-            type: String,
-            default: 'out-in',
-            validator: (val: string): boolean => val === 'out-in' || val === 'in-out'
-        }
+        heightDuration: duration,
+        appear,
+        group,
+        mode
     },
 
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    setup() {
-        const beforeEnter = (element: HTMLElement): void => {
-            element.style.willChange = 'height, opacity';
-            requestAnimationFrame(() => {
-                if (!element.style.height) {
-                    element.style.height = '0px';
-                }
-            });
+    setup(props) {
+        const getHeight = (el: HTMLElement): number => {
+            return el.getBoundingClientRect().height || el.scrollHeight || el.offsetHeight || el.clientHeight || 0;
         };
-        const enter = (element: HTMLElement): void => {
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    element.style.height = `${element.scrollHeight}px`;
-                });
-            });
+        const getDuration = (duration: Duration | number, type: keyof Duration): number => {
+            if (typeof duration === 'number') {
+                return duration;
+            }
+
+            return duration[type];
         };
-        const afterEnter = (element: HTMLElement): void => {
+        const clearStyles = (element: HTMLElement) => {
             element.style.height = '';
+            element.style.overflow = '';
+            element.style.transition = '';
+            element.style.opacity = '';
             element.style.willChange = '';
         };
 
-        const beforeLeave = (element: HTMLElement): void => {
-            element.style.willChange = 'height, opacity';
+        const enter = (element: HTMLElement, done: () => void): void => {
+            element.style.willChange = 'height, opacity, overflow, transition';
+            element.style.opacity = '0';
+
+            const height = getHeight(element);
+            const heightDuration = getDuration(props.heightDuration!, 'enter');
+            const opacityDuration = getDuration(props.opacityDuration!, 'enter');
+
             requestAnimationFrame(() => {
-                if (!element.style.height) {
-                    element.style.height = `${element.offsetHeight}px`;
-                }
-            });
-        };
-        const leave = (element: HTMLElement): void => {
-            requestAnimationFrame(() => {
+                element.style.height = '0px';
+                element.style.overflow = 'hidden';
+                element.style.transition = `height ${heightDuration}ms ease,`
+                    + `opacity ${opacityDuration}ms ease ${heightDuration}ms`;
+
                 requestAnimationFrame(() => {
-                    element.style.height = '0px';
+                    element.style.height = `${height}px`;
+                    element.style.opacity = '1';
+
+                    requestAnimationFrame(() => {
+                        setTimeout(
+                            () => {
+                                clearStyles(element);
+                                done();
+                            },
+                            heightDuration + opacityDuration
+                        );
+                    });
                 });
             });
         };
-        const afterLeave = (element: HTMLElement): void => {
-            element.style.height = '';
-            element.style.willChange = '';
+
+        const leave = (element: HTMLElement, done: () => void): void => {
+            element.style.willChange = 'height, opacity, overflow, transition';
+
+            const height = getHeight(element);
+            const heightDuration = getDuration(props.heightDuration!, 'leave');
+            const opacityDuration = getDuration(props.opacityDuration!, 'leave');
+
+            requestAnimationFrame(() => {
+                element.style.opacity = '1';
+                element.style.height = `${height}px`;
+                element.style.overflow = 'hidden';
+                element.style.transition = `opacity ${opacityDuration}ms ease,`
+                    + `height ${heightDuration}ms ease ${opacityDuration}ms`;
+
+                requestAnimationFrame(() => {
+                    element.style.height = '0px';
+                    element.style.opacity = '0';
+
+                    requestAnimationFrame(() => {
+                        setTimeout(
+                            () => {
+                                clearStyles(element);
+                                done();
+                            },
+                            heightDuration + opacityDuration
+                        );
+                    });
+                });
+            });
         };
 
         return {
-            beforeEnter,
             enter,
-            afterEnter,
-            beforeLeave,
-            leave,
-            afterLeave
+            leave
         };
     }
-};
+});
 </script>
-
-<style scoped>
-* {
-    backface-visibility: hidden;
-}
-
-.expand-enter-active {
-    overflow: hidden;
-    transition: height 200ms ease, opacity 200ms ease 100ms;
-}
-
-.expand-leave-active {
-    overflow: hidden;
-    transition: height 200ms ease 100ms, opacity 200ms ease;
-}
-
-.expand-enter,
-.expand-leave-to {
-    height: 0;
-    opacity: 0;
-}
-</style>

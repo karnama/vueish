@@ -66,15 +66,10 @@
 </template>
 
 <script lang="ts">
-import UIPanel from './UIPanel.vue';
 import { defineComponent, ref } from 'vue';
-import UIButton from '../button/UIButton.vue';
-import UICheckbox from '@components/checkbox/UICheckbox.vue';
 
 export default defineComponent({
-    name: 'Panel',
-
-    components: { UICheckbox, UIButton, UIPanel },
+    name: 'PanelDemo',
 
     setup() {
         const loading = ref(false);

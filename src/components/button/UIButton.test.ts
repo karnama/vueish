@@ -1,7 +1,29 @@
 import { mount } from '@vue/test-utils';
 import UIButton from './UIButton.vue';
+import { styleTypes } from 'types';
 
 describe('UIButton', () => {
+    it('should render correctly', async () => {
+        const wrapper = mount(UIButton, {
+            props: {
+                label: 'click me!'
+            }
+        });
+
+        const stylePromises = styleTypes.map(async type => {
+            await wrapper.setProps({ category: type, outline: false, minimal: false });
+            expect(wrapper.element).toMatchSnapshot();
+
+            await wrapper.setProps({ outline: true });
+            expect(wrapper.element).toMatchSnapshot();
+
+            await wrapper.setProps({ outline: false, minimal: true });
+            expect(wrapper.element).toMatchSnapshot();
+        });
+
+        await Promise.all(stylePromises);
+    });
+
     it('should be enabled by default', () => {
         const wrapper = mount(UIButton);
 
@@ -19,7 +41,7 @@ describe('UIButton', () => {
 
         expect(button.attributes().disabled).toBeUndefined();
         await wrapper.setProps({ disabled: true });
-        expect(button.attributes().disabled).not.toBeUndefined();
+        expect(button.attributes().disabled).toBeDefined();
     });
 
     it('should not trigger the click event when disabled', async () => {
@@ -74,9 +96,7 @@ describe('UIButton', () => {
         expect(wrapper.attributes('class')).toContain('pointer-events-none');
     });
 
-    // todo uncomment when https://github.com/vuejs/vue-test-utils-next/pull/454 is merged
-    // eslint-disable-next-line jest/no-disabled-tests
-    it.skip('should not show the button default slot when loading', () => {
+    it('should not show the button default slot when loading', () => {
         const wrapper = mount(UIButton, {
             props: {
                 label: 'hi',
@@ -84,8 +104,8 @@ describe('UIButton', () => {
             }
         });
 
-        expect(wrapper.get('.label').isVisible()).toBe(false);
-        expect(wrapper.get('.loader').isVisible()).toBe(true);
+        expect(wrapper.find('.loader').isVisible()).toBe(true);
+        expect(wrapper.find('.label').exists()).toBe(false);
     });
 
     it('should display the given loading slot', () => {
@@ -100,5 +120,14 @@ describe('UIButton', () => {
         });
 
         expect(wrapper.html()).toContain('loading..');
+    });
+
+    it('should display the loading correctly', () => {
+        const wrapper = mount(UIButton, {
+            props: {
+                loading: true
+            }
+        });
+        expect(wrapper.element).toMatchSnapshot();
     });
 });

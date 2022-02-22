@@ -1,61 +1,83 @@
 <template>
-    <UIPanel closed class="bg-white mb-4">
-        <template #header>
-            Table with slots
-        </template>
-        <UITable :headers="headers" :rows="rows" hover-highlight>
-            <template #header="slotProps">
-                slotted {{ slotProps.header.rowProperty }}
-            </template>
-            <template #name="slotProps">
-                slotted change of {{ slotProps.row.name }}
-            </template>
-            <template #action>
-                <UIButton category="brand">
-                    CTA
-                </UIButton>
-            </template>
-            <template #footer>
-                <span class="font-bold text-gray-700">Slotted footer</span>
-            </template>
-        </UITable>
-    </UIPanel>
+    <div class="space-y-4">
+        <UIPanel closed header="Table with slots">
+            <UITable :headers="headers"
+                     :rows="rows"
+                     hover-highlight
+                     :items-per-page="Number(5)">
+                <template #header="slotProps">
+                    slotted {{ slotProps.header.rowProperty }}
+                </template>
+                <template #name="slotProps">
+                    slotted {{ slotProps.row.name }}
+                </template>
+                <template #action>
+                    <UIButton category="brand">
+                        CTA
+                    </UIButton>
+                </template>
+                <template #footer>
+                    <span class="font-bold text-color">
+                        My wildly
+                        long slotted footer content that I have to
+                        make up words for such as
+                        fubershlung (the act of drinking a beer after a devastating loss)
+                        and shmelolia (a rare type of tulip's petals)
+                    </span>
+                </template>
+            </UITable>
+        </UIPanel>
 
-    <UIPanel closed class="bg-white mb-4">
-        <template #header>
-            Searchable
-        </template>
-        <UITable :headers="headers"
-                 :rows="rows"
-                 search
-                 no-sort />
-    </UIPanel>
+        <UIPanel closed header="Searchable">
+            <UITable :headers="headers"
+                     :rows="rows"
+                     search
+                     disable-sorting />
+        </UIPanel>
 
-    <UIPanel class="bg-white mb-4">
-        <template #header>
-            With Selection
-        </template>
-        <UITable v-model="selectedRows"
-                 :headers="headers"
-                 :rows="rows"
-                 selectable
-                 no-sort />
-    </UIPanel>
+        <UIPanel closed header="With Selection">
+            <UITable v-model="selectedRows"
+                     :headers="headers"
+                     :rows="rows"
+                     selectable
+                     disable-pagination
+                     disable-sorting />
+        </UIPanel>
+
+        <UIPanel closed header="Using custom paginator">
+            <UITable :headers="headers"
+                     :items-per-page="5"
+                     :rows="rows">
+                <template #pagination="slotProps">
+                    <div class="flex justify-end w-full">
+                        <UIPagination :model-value="slotProps.page"
+                                      :length="slotProps.pageCount"
+                                      @update:model-value="val => slotProps.jumpToPage(val)" />
+                    </div>
+                </template>
+            </UITable>
+        </UIPanel>
+    </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UITable from '@components/table/UITable.vue';
-import type { Column, Row } from '@/types/public';
-import UIPanel from '@components/panel/UIPanel.vue';
-import UIButton from '@components/button/UIButton.vue';
+import type { Column, Row } from 'types';
+
+interface Dessert {
+    name: string;
+    calories: number;
+    fat: number;
+    carbs: number;
+    protein: number;
+    iron: string;
+}
 
 export default defineComponent({
-    // eslint-disable-next-line vue/no-reserved-component-names
-    name: 'Table',
-    components: { UIButton, UIPanel, UITable },
+    name: 'TableDemo',
+
     setup() {
-        const headers = ref<Column[]>([
+        const headers = ref<Column<Dessert>[]>([
             { header: 'Dessert (100g serving)', rowProperty: 'name' },
             { header: 'Calories', rowProperty: 'calories' },
             { header: 'Fat (g)', rowProperty: 'fat' },
@@ -144,14 +166,26 @@ export default defineComponent({
                 carbs: 65,
                 protein: 7,
                 iron: '6'
+            },
+            {
+                name: 'Bounty',
+                calories: 497,
+                fat: 29.0,
+                carbs: 72,
+                protein: 12,
+                iron: '3'
             }
         ]);
-        const selectedRows = ref<Row[]>(null);
+        const selectedRows = ref<Row[]>();
+        const page = ref(1);
+        const itemsPerPage = ref(2);
 
         return {
             headers,
             rows,
-            selectedRows
+            selectedRows,
+            page,
+            itemsPerPage
         };
     }
 });

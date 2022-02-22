@@ -2,13 +2,16 @@ import { mount } from '@vue/test-utils';
 import type { DOMWrapper } from '@vue/test-utils';
 import UIRadio from './UIRadio.vue';
 import UIRadioGroup from './UIRadioGroup.vue';
-import { disableConsoleWarn, enableConsoleWarn } from '@helpers/test';
+import { disableConsoleWarn, enableConsoleWarn } from 'helpers/test';
 
 describe('UIRadio', () => {
     it('should bind attributes to the input', () => {
         const foo = 'bar';
 
         const wrapper = mount(UIRadio, {
+            props: {
+                value: 1
+            },
             attrs: {
                 foo
             }
@@ -24,6 +27,7 @@ describe('UIRadio', () => {
 
         const wrapper = mount(UIRadio, {
             props: {
+                value: 1,
                 label
             }
         });
@@ -35,6 +39,9 @@ describe('UIRadio', () => {
         const label = 'text';
 
         const wrapper = mount(UIRadio, {
+            props: {
+                value: 1
+            },
             slots: {
                 default: label
             }
@@ -45,14 +52,27 @@ describe('UIRadio', () => {
 });
 
 describe('UIRadioGroup', () => {
+    it('should display correctly', () => {
+        const wrapper = mount({
+            template: `
+                <UIRadioGroup label="my-label" name="name">
+                <UIRadio value="foo"/>
+                <UIRadio value="bar"/>
+                </UIRadioGroup>`,
+            components: { UIRadioGroup, UIRadio }
+        });
+
+        expect(wrapper.element).toMatchSnapshot();
+    });
+
     it('should display the label when passed as a prop', () => {
         const label = 'text';
 
         const wrapper = mount({
             template: `
                 <UIRadioGroup label="${label}" name="name">
-                <UIRadio value="foo" />
-                <UIRadio value="bar" />
+                  <UIRadio value="foo" />
+                  <UIRadio value="bar" />
                 </UIRadioGroup>`,
             components: { UIRadioGroup, UIRadio }
         });
@@ -67,8 +87,8 @@ describe('UIRadioGroup', () => {
             template: `
                 <UIRadioGroup name="name">
                 <template #label>${label}</template>
-                <UIRadio value="foo" />
-                <UIRadio value="bar" />
+                <UIRadio value="foo"/>
+                <UIRadio value="bar"/>
                 </UIRadioGroup>`,
             components: { UIRadioGroup, UIRadio }
         });
@@ -80,8 +100,8 @@ describe('UIRadioGroup', () => {
         const wrapper = mount({
             template: `
                 <UIRadioGroup name="name">
-                <UIRadio value="foo" />
-                <UIRadio value="bar" />
+                <UIRadio value="foo"/>
+                <UIRadio value="bar"/>
                 </UIRadioGroup>`,
             components: { UIRadioGroup, UIRadio }
         });
@@ -93,8 +113,8 @@ describe('UIRadioGroup', () => {
         const wrapper = mount({
             template: `
                 <UIRadioGroup horizontal name="name">
-                <UIRadio value="foo" />
-                <UIRadio value="bar" />
+                <UIRadio value="foo"/>
+                <UIRadio value="bar"/>
                 </UIRadioGroup>`,
             components: { UIRadioGroup, UIRadio }
         });
@@ -107,8 +127,8 @@ describe('UIRadioGroup', () => {
         const wrapper = mount({
             template: `
                 <UIRadioGroup name="input">
-                <UIRadio value="foo" />
-                <UIRadio value="bar" />
+                <UIRadio value="foo"/>
+                <UIRadio value="bar"/>
                 </UIRadioGroup>`,
             components: { UIRadioGroup, UIRadio }
         });
@@ -121,8 +141,8 @@ describe('UIRadioGroup', () => {
         const wrapper = mount({
             template: `
                 <UIRadioGroup name="name">
-                <UIRadio value="foo" />
-                <UIRadio value="bar" />
+                <UIRadio value="foo"/>
+                <UIRadio value="bar"/>
                 </UIRadioGroup>`,
             components: { UIRadioGroup, UIRadio }
         });
@@ -131,15 +151,15 @@ describe('UIRadioGroup', () => {
 
         inputs.forEach(input => expect(input.attributes().disabled).toBeUndefined());
         await wrapper.setProps({ disabled: true });
-        inputs.forEach(input => expect(input.attributes().disabled).not.toBeUndefined());
+        inputs.forEach(input => expect(input.attributes().disabled).toBeDefined());
     });
 
     it('should bind the required value to the radio inputs', async () => {
         const wrapper = mount({
             template: `
                 <UIRadioGroup name="name">
-                <UIRadio value="foo" />
-                <UIRadio value="bar" />
+                <UIRadio value="foo"/>
+                <UIRadio value="bar"/>
                 </UIRadioGroup>`,
             components: { UIRadioGroup, UIRadio }
         });
@@ -148,15 +168,15 @@ describe('UIRadioGroup', () => {
 
         expect(inputs[0].attributes().required).toBeUndefined();
         await wrapper.setProps({ required: true });
-        expect(inputs[0].attributes().required).not.toBeUndefined();
+        expect(inputs[0].attributes().required).toBeDefined();
     });
 
     it('should bind the modelValue to the radio inputs', async () => {
         const wrapper = mount({
             template: `
                     <UIRadioGroup>
-                    <UIRadio value="foo" />
-                    <UIRadio value="bar" />
+                    <UIRadio value="foo"/>
+                    <UIRadio value="bar"/>
                     </UIRadioGroup>`,
             components: { UIRadioGroup, UIRadio }
         },
@@ -180,8 +200,8 @@ describe('UIRadioGroup', () => {
         const wrapper = mount({
             template: `
                     <UIRadioGroup>
-                    <UIRadio value="foo" />
-                    <UIRadio value="bar" />
+                    <UIRadio value="foo"/>
+                    <UIRadio value="bar"/>
                     </UIRadioGroup>`,
             components: { UIRadioGroup, UIRadio }
         },
@@ -196,7 +216,7 @@ describe('UIRadioGroup', () => {
         const input = wrapper.find('input[type="radio"]');
 
         await input.trigger('click');
-        expect(radioGroup.emitted('update:modelValue')).not.toBeUndefined();
+        expect(radioGroup.emitted('update:modelValue')).toBeDefined();
         expect(radioGroup.emitted('update:modelValue')![0]).toStrictEqual(['foo']);
     });
 

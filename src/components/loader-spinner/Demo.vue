@@ -1,43 +1,54 @@
 <template>
     <UISpinnerLoader class="mx-auto"
-                     :diameter="85"
+                     :diameter="diameter"
+                     :stroke="stroke"
+                     :steps="steps"
                      :progress="Number(progress)"
                      :determinate="determinate">
-        <span v-if="determinate" class="text-sm text-black">{{ progress }} %</span>
+        <span v-if="determinate" class="text-sm text-black">{{ progress + '/' + steps }}</span>
     </UISpinnerLoader>
     <UICheckbox v-model="determinate" name="determinate" label="Determinate" />
-    <div v-show="determinate" class="w-full flex flex-row flex-wrap justify-between items-center content-center">
-        <label class="w-2/12" for="progress">0</label>
-        <input id="progress"
-               v-model="progress"
-               class="w-7/12"
-               type="range"
-               min="0"
-               max="100">
-        <label class="w-2/12 text-right" for="progress">100</label>
-    </div>
+    <template v-if="determinate">
+        <UIRangeSlider v-model="progress"
+                       min="0"
+                       :max="steps"
+                       name="progress"
+                       label="Progress" />
+        <UIRangeSlider v-model="steps"
+                       min="2"
+                       name="steps"
+                       label="Steps" />
+        <UIRangeSlider v-model="diameter"
+                       min="5"
+                       name="diameter"
+                       label="Diameter" />
+        <UIRangeSlider v-model="stroke"
+                       min="1"
+                       max="20"
+                       name="stroke"
+                       label="Stroke width" />
+    </template>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UISpinnerLoader from './UISpinnerLoader.vue';
-import UICheckbox from '@components/checkbox/UICheckbox.vue';
 
 export default defineComponent({
     name: 'SpinnerLoader',
 
-    components: {
-        UICheckbox,
-        UISpinnerLoader
-    },
-
     setup() {
         const determinate = ref(false);
-        const progress = ref(0);
+        const progress = ref(5);
+        const steps = ref(10);
+        const stroke = ref(6);
+        const diameter = ref(85);
 
         return {
             determinate,
-            progress
+            progress,
+            steps,
+            stroke,
+            diameter
         };
     }
 });

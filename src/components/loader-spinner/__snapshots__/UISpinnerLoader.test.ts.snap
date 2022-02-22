@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UISpinner should render correctly 1`] = `
+<transition-stub>
+  <div
+    class="ui-spinner-loader text-brand-400"
+    role="progressbar"
+  >
+    <svg
+      class="spinner-draw stroke-current"
+      focusable="false"
+      preserveAspectRatio="xMidYMid"
+      style="width: 75px; height: 75px;"
+      viewBox="0 0 75 75"
+    >
+      <circle
+        class="spinner-circle stroke-current"
+        cx="50%"
+        cy="50%"
+        r="32.5"
+        stroke-width="10px"
+        style="stroke-dashoffset: 102.10176124166827px; stroke-dasharray: 204.20352248333654px; --spinner-start-value: 193.9933463591697; --spinner-end-value: 40.840704496667314;"
+      />
+    </svg>
+    <!--v-if-->
+  </div>
+</transition-stub>
+`;
+
+exports[`UISpinner should render correctly when set to determinate 1`] = `
+<transition-stub>
+  <div
+    class="ui-spinner-loader indeterminate text-brand-400"
+    role="progressbar"
+  >
+    <svg
+      class="spinner-draw stroke-current"
+      focusable="false"
+      preserveAspectRatio="xMidYMid"
+      style="width: 75px; height: 75px;"
+      viewBox="0 0 75 75"
+    >
+      <circle
+        class="spinner-circle stroke-current"
+        cx="50%"
+        cy="50%"
+        r="32.5"
+        stroke-width="10px"
+        style="stroke-dashoffset: 204.20352248333654px; stroke-dasharray: 204.20352248333654px; --spinner-start-value: 193.9933463591697; --spinner-end-value: 40.840704496667314;"
+      />
+    </svg>
+    <!--v-if-->
+  </div>
+</transition-stub>
+`;

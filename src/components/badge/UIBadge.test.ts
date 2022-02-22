@@ -1,7 +1,19 @@
 import { mount } from '@vue/test-utils';
-import UIBadge from '@components/badge/UIBadge.vue';
+import UIBadge from './UIBadge.vue';
 
 describe('UIBadge', () => {
+    it('should correctly display', () => {
+        const wrapper = mount(UIBadge, {
+            props: {
+                content: 'my-content'
+            },
+            slots: {
+                default: 'my default slot content'
+            }
+        });
+        expect(wrapper.element).toMatchSnapshot();
+    });
+
     it('should display the given prop content', () => {
         const wrapper = mount(UIBadge, {
             props: {

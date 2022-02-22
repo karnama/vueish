@@ -27,9 +27,12 @@ module.exports = {
         ecmaVersion: 2020,
         parser: '@typescript-eslint/parser',
         sourceType: 'module',
-        project: 'tsconfig.dev.json',
+        project: './tsconfig.eslint.json',
         tsconfigRootDir: __dirname,
         extraFileExtensions: ['.vue'],
+    },
+    globals: {
+        __VUEISH_VERSION__: 'readonly'
     },
     rules: {
         // https://eslint.org/docs/rules/
@@ -70,7 +73,7 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 'warn',
         '@typescript-eslint/no-useless-constructor': 'warn',
         '@typescript-eslint/no-explicit-any': 'off',
-        '@typescript-eslint/ban-ts-comment': 'off',
+        '@typescript-eslint/ban-ts-comment': 'warn',
         '@typescript-eslint/no-unsafe-return': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
         '@typescript-eslint/explicit-module-boundary-types': ['error', {
@@ -84,8 +87,8 @@ module.exports = {
         '@typescript-eslint/func-call-spacing': ['error', 'never'],
         '@typescript-eslint/comma-spacing': 'warn',
         '@typescript-eslint/keyword-spacing': 'warn',
-        // '@typescript-eslint/consistent-indexed-object-style': ['error', 'record'], // waiting on dependency updates
-        // '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
+        '@typescript-eslint/consistent-indexed-object-style': ['error', 'record'],
+        '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
         '@typescript-eslint/member-delimiter-style': 'warn',
         '@typescript-eslint/type-annotation-spacing': 'warn',
         '@typescript-eslint/naming-convention': [
@@ -111,10 +114,11 @@ module.exports = {
         'vue/new-line-between-multi-line-property': 'warn',
         'vue/max-attributes-per-line': ['warn', {
             'singleline': 3,
-            'multiline': {
-                'max': 1,
-                'allowFirstLine': true
-            }
+            'multiline': 1
+        }],
+        "vue/first-attribute-linebreak": ["error", {
+            "singleline": "beside",
+            "multiline": "beside"
         }],
         'vue/no-boolean-default': ['error', 'default-false'],
         'vue/no-duplicate-attr-inheritance': 'error',
@@ -192,12 +196,13 @@ module.exports = {
                         "toBeTruthy": 'Use toBe(true) instead to avoid unexpected type coercion.',
                     }
                 ],
-                "jest/lowercase-name": [
+                "jest/prefer-lowercase-title": [
                     "error",
                     {
                         "ignore": ["describe"]
                     }
-                ]
+                ],
+                "jest/no-disabled-tests": "off"
             }
         }
     ]

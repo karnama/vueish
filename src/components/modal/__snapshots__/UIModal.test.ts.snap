@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UIModal should render correctly 1`] = `
+<div
+  class="h-full w-full z-40 fixed top-0 left-0 opacity-0 transition-opacity wrapper opacity-100"
+>
+  <!--Modal overlay-->
+  <div
+    class="overlay absolute h-screen w-screen backdrop-blur-[1px] bg-[#00000061]"
+  />
+  <!--Main modal dialog-->
+  <section
+    aria-expanded="true"
+    aria-modal="true"
+    class="ui-panel rounded shadow-md relative transition-all bg-white dark:bg-gray-600 text-color modal top-0 w-full relative mx-auto shadow-xl rounded bg-white opacity-0 translate-y-0 max-w-[700px] max-h-[80vh] transition translate-y-[70px] opacity-100"
+    role="dialog"
+    style="transition: transform 300ms ease-out, opacity 100ms linear;"
+  >
+    <transition-stub>
+      
+      
+    </transition-stub>
+    <header
+      class="w-full flex items-center px-12 relative transition-all filter blur-none"
+    >
+      <h1
+        class="select-none grow py-8"
+      >
+        
+        
+        Header slot content
+        
+        
+      </h1>
+      <div>
+        
+        
+        Actions slot content
+        
+        
+      </div>
+    </header>
+    <transition-stub>
+      
+      <div
+        class="blur-none"
+      >
+        <main
+          class="w-full px-12 py-6"
+        >
+          
+          <div
+            class="overflow-y-scroll"
+            style="max-height: 50vh;"
+          >
+            
+            Default slot content
+            
+          </div>
+          
+        </main>
+        <footer
+          class="py-8 px-12 flex items-center"
+        >
+          
+          
+          <button
+            class="border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 ring-gray-600 hover:bg-gray-400 hover:border-gray-400 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed ui-modal-close ml-auto mr-2"
+            type="button"
+          >
+            <transition-stub>
+              
+              <span
+                class="label"
+              >
+                
+                Cancel
+                
+              </span>
+              
+            </transition-stub>
+          </button>
+          <button
+            class="border-blue-600 text-white bg-blue-600 ring-blue-300 hover:bg-blue-700 hover:border-blue-700 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed ui-modal-accept"
+            type="button"
+          >
+            <transition-stub>
+              
+              <span
+                class="label"
+              >
+                
+                Confirm
+                
+              </span>
+              
+            </transition-stub>
+          </button>
+          
+          
+        </footer>
+      </div>
+      
+    </transition-stub>
+    <transition-stub>
+      
+      
+    </transition-stub>
+  </section>
+</div>
+`;

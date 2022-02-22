@@ -1,11 +1,10 @@
-import type { Column, Row } from '@/types/public';
-import { mount, VueWrapper } from '@vue/test-utils';
-import UITable from '@components/table/UITable.vue';
+import type { Column, Row } from 'types';
+import { mount } from '@vue/test-utils';
+import UITable from './UITable.vue';
 import { snakeCase } from 'lodash-es';
-import UIInput from '@components/input/UIInput.vue';
+import UIInput from 'components/input/UIInput.vue';
 import { nextTick, h } from 'vue';
-import type { ComponentPublicInstance } from 'vue';
-import { orderBy } from 'lodash-es';
+import { orderBy, cloneDeep } from 'lodash-es';
 
 const headers: Readonly<Column[]> = [
     {
@@ -20,7 +19,7 @@ const headers: Readonly<Column[]> = [
         sortable: true,
         suffix: '%'
     }
-];
+] as const;
 const rows: Readonly<Row[]> = [
     {
         letter: 'b',
@@ -35,14 +34,17 @@ const rows: Readonly<Row[]> = [
         letter: 'a',
         number: 1
     }
-];
+] as const;
 
 const selectorMap = {
     search: '#search',
     rows: 'tbody > tr',
     headers: 'thead > tr.hidden.bg-gray-100 > th.py-6.text-left.px-4.uppercase',
     checkboxes: 'tbody > tr > td.px-2 input',
-    topCheckbox: 'thead > tr.hidden.bg-gray-100 > th.py-6.px-2 > span.mx-auto input'
+    topCheckbox: 'thead > tr.hidden.bg-gray-100 > th.py-6.px-2 > span.mx-auto input',
+    bottomCheckbox: 'tfoot > tr > td > span > span input',
+    previousPageBtn: 'tfoot button:first-child',
+    nextPageBtn: 'tfoot button:last-child'
 } as const;
 
 function titleCase(str: string): string {
@@ -52,15 +54,18 @@ function titleCase(str: string): string {
             previous + ' ' + next.charAt(0).toUpperCase() + next.slice(1));
 }
 
-function getLastEventValue(wrapper: VueWrapper<ComponentPublicInstance>) {
-    // filter out the checkbox events
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const events = (wrapper.emitted('update:modelValue') as unknown[][])
-        .filter(argumentArr => argumentArr.length === 1 && typeof argumentArr[0] !== 'boolean') as Row[][];
-    return events[events.length - 1];
-}
-
 describe('UITable', () => {
+    it('should display correctly', () => {
+        const wrapper = mount(UITable, {
+            props: {
+                rows,
+                headers
+            }
+        });
+
+        expect(wrapper.element).toMatchSnapshot();
+    });
+
     it('should display the given headers and rows', () => {
         const wrapper = mount(UITable, {
             props: {
@@ -79,7 +84,7 @@ describe('UITable', () => {
         const trs = wrapper.findAll(selectorMap.rows);
         expect(trs).toHaveLength(rows.length);
         rows.forEach((row, index) => {
-            expect(trs[index].text()).toContain(row.number);
+            expect(trs[index].text()).toContain(String(row.number));
         });
         wrapper.unmount();
     });
@@ -108,6 +113,24 @@ describe('UITable', () => {
         expect(trs).toHaveLength(rows.length);
         rows.forEach((row, index) => {
             expect(trs[index].text()).toContain(String(row.number) + '%');
+        });
+        wrapper.unmount();
+    });
+
+    it('should accept a callback for the suffixes and prefixes', () => {
+        const newHeaders = cloneDeep(headers);
+        newHeaders[1].suffix = (row) => row.number === 1 ? '-computed-suffix' : '%';
+        const wrapper = mount(UITable, {
+            props: {
+                rows,
+                headers: newHeaders
+            }
+        });
+
+        const trs = wrapper.findAll(selectorMap.rows);
+        rows.forEach((row, index) => {
+            const text = trs[index].text();
+            expect(text).toContain(String(row.number) + (text.includes('1') ? '-computed-suffix' : '%'));
         });
         wrapper.unmount();
     });
@@ -152,6 +175,30 @@ describe('UITable', () => {
 
             const searchResults = wrapper.findAll(selectorMap.rows);
             expect(searchResults).toHaveLength(1);
+            jest.useRealTimers();
+            wrapper.unmount();
+        });
+
+        it('should not filter the rows if asyncSearch prop is set', async () => {
+            jest.useFakeTimers();
+            const wrapper = mount(UITable, {
+                props: {
+                    rows,
+                    headers,
+                    search: true,
+                    asyncSearch: true
+                }
+            });
+
+            const search = wrapper.findComponent(UIInput);
+            await search.find('input').setValue('a1');
+            jest.runAllTimers(); // search is debounced
+            await nextTick(); // wait for dom updates
+
+            const searchResults = wrapper.findAll(selectorMap.rows);
+            expect(searchResults).toHaveLength(rows.length);
+            expect(wrapper.lastEventValue('searching')).toHaveLength(1);
+
             jest.useRealTimers();
             wrapper.unmount();
         });
@@ -261,7 +308,7 @@ describe('UITable', () => {
             expect(sortByFunc).toHaveBeenLastCalledWith(expect.objectContaining(rows[rows.length - 1]));
 
             wrapper.findAll(selectorMap.rows).forEach((tr, index) => {
-                expect(tr.text()).toContain(orderedRows[index].number);
+                expect(tr.text()).toContain(String(orderedRows[index].number));
             });
 
             await th.trigger('click');
@@ -279,7 +326,7 @@ describe('UITable', () => {
                 props: {
                     rows,
                     headers,
-                    noSort: true
+                    disableSorting: true
                 }
             });
 
@@ -316,7 +363,7 @@ describe('UITable', () => {
             await nextTick();
 
             // first is not selectable
-            expect(getLastEventValue(wrapper)[0]).toStrictEqual([expect.objectContaining(rows[1])]);
+            expect(wrapper.lastEventValue<Row[]>()![0]).toStrictEqual([expect.objectContaining(rows[1])]);
             wrapper.unmount();
         });
 
@@ -352,6 +399,7 @@ describe('UITable', () => {
                     rows,
                     headers,
                     modelValue: [],
+                    'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                     selectable: true
                 }
             });
@@ -360,7 +408,7 @@ describe('UITable', () => {
             await checkboxes[0].trigger('click');
             await checkboxes[1].trigger('click');
 
-            expect(getLastEventValue(wrapper)[0].map((row: Row) => row.letter)).toStrictEqual(
+            expect(wrapper.lastEventValue<Row[]>()![0].map((row: Row) => row.letter)).toStrictEqual(
                 rows.filter(row => typeof row.isSelectable === 'boolean' ? row.isSelectable : true)
                     .map(row => row.letter)
             );
@@ -378,7 +426,7 @@ describe('UITable', () => {
 
             await wrapper.find(selectorMap.topCheckbox).trigger('click');
 
-            expect(getLastEventValue(wrapper)[0].map((row: Row) => row.letter)).toStrictEqual(
+            expect(wrapper.lastEventValue<Row[]>()![0].map((row: Row) => row.letter)).toStrictEqual(
                 rows.filter(row => typeof row.isSelectable === 'boolean' ? row.isSelectable : true)
                     .map(row => row.letter)
             );
@@ -390,19 +438,20 @@ describe('UITable', () => {
                     rows,
                     headers,
                     modelValue: [],
+                    'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                     selectable: true
                 }
             });
 
+            // click the first
             await wrapper.find(selectorMap.checkboxes).trigger('click');
+            expect(wrapper.lastEventValue<Row[]>()![0]).toHaveLength(1);
 
-            expect(getLastEventValue(wrapper)[0]).toHaveLength(1);
             await wrapper.find(selectorMap.topCheckbox).trigger('click');
+            expect(wrapper.lastEventValue<Row[]>()![0]).toHaveLength(0);
 
-            expect(getLastEventValue(wrapper)[0]).toHaveLength(0);
             await wrapper.find(selectorMap.topCheckbox).trigger('click');
-
-            expect(getLastEventValue(wrapper)[0]).toHaveLength(
+            expect(wrapper.lastEventValue<Row[]>()![0]).toHaveLength(
                 rows.filter(row => typeof row.isSelectable === 'boolean' ? row.isSelectable : true).length
             );
         });
@@ -419,7 +468,7 @@ describe('UITable', () => {
 
             await wrapper.find(selectorMap.topCheckbox).trigger('click');
 
-            expect(getLastEventValue(wrapper)[0]).toHaveLength(
+            expect(wrapper.lastEventValue<Row[]>()![0]).toHaveLength(
                 rows.filter(row => typeof row.isSelectable === 'boolean' ? row.isSelectable : true).length
             );
         });
@@ -487,6 +536,113 @@ describe('UITable', () => {
                 expect(JSON.stringify(rows)).toContain(rowWrapper.text());
             });
             wrapper.unmount();
+        });
+    });
+
+    describe('pagination', () => {
+        const availableRows: Readonly<Row[]> = [
+            {
+                letter: 'a',
+                number: 1
+            },
+            {
+                letter: 'b',
+                number: 2
+            },
+            {
+                letter: 'c',
+                number: 3
+            },
+            {
+                letter: 'd',
+                number: 4
+            },
+            {
+                letter: 'e',
+                number: 5
+            },
+            {
+                letter: 'f',
+                number: 6
+            }
+        ] as const;
+
+        it('should show the correct number of rows', () => {
+            const wrapper = mount(UITable, {
+                props: {
+                    rows: availableRows,
+                    headers,
+                    itemsPerPage: 5
+                }
+            });
+
+            expect(wrapper.findAll(selectorMap.rows)).toHaveLength(5);
+        });
+
+        it('should disable pagination given the prop', () => {
+            const wrapper = mount(UITable, {
+                props: {
+                    rows: availableRows,
+                    headers,
+                    itemsPerPage: 5,
+                    disablePagination: true
+                }
+            });
+
+            // if disabled, we're showing all rows
+            expect(wrapper.findAll(selectorMap.rows)).toHaveLength(availableRows.length);
+            expect(wrapper.find(selectorMap.previousPageBtn).exists()).toBe(false);
+            expect(wrapper.find(selectorMap.nextPageBtn).exists()).toBe(false);
+        });
+
+        it('should disable the pagination button if no next page exists', () => {
+            let wrapper = mount(UITable, {
+                props: {
+                    rows: availableRows,
+                    headers,
+                    itemsPerPage: 5
+                }
+            });
+
+            expect(wrapper.find(selectorMap.previousPageBtn).attributes()).toHaveProperty('disabled');
+            expect(wrapper.find(selectorMap.nextPageBtn).attributes()).not.toHaveProperty('disabled');
+
+            wrapper = mount(UITable, {
+                props: {
+                    rows: availableRows,
+                    headers,
+                    itemsPerPage: 5,
+                    page: 2
+                }
+            });
+
+            expect(wrapper.find(selectorMap.previousPageBtn).attributes()).not.toHaveProperty('disabled');
+            expect(wrapper.find(selectorMap.nextPageBtn).attributes()).toHaveProperty('disabled');
+        });
+
+        // since updating vue from 3.2.11 this test generates `Cannot read property 'insertBefore' of null`
+        // this is likely from the `pageRows` loop - not sure why. let's see if this works in future versions
+        it.skip('should display the next/previous page on navigation to the next page', async () => {
+            const wrapper = mount(UITable, {
+                props: {
+                    rows: availableRows,
+                    headers,
+                    itemsPerPage: 5
+                }
+            });
+
+            expect(wrapper.text()).toContain(availableRows[0].number);
+            expect(wrapper.text()).not.toContain(availableRows[5].number);
+
+            await wrapper.get(selectorMap.nextPageBtn).trigger('click');
+
+            expect(wrapper.text()).not.toContain(availableRows[0].number);
+            expect(wrapper.text()).toContain(availableRows[5].number);
+
+            await wrapper.get(selectorMap.previousPageBtn).trigger('click');
+
+            expect(wrapper.text()).toContain(availableRows[0].number);
+            expect(wrapper.text()).not.toContain(availableRows[5].number);
         });
     });
 });

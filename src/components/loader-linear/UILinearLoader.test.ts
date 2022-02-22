@@ -1,26 +1,54 @@
 import UILinearLoader from './UILinearLoader.vue';
 import { mount } from '@vue/test-utils';
-import { disableConsoleWarn, enableConsoleWarn } from '@helpers/test';
-
-const wrapper = mount(UILinearLoader, {
-    props: {
-        steps: 10,
-        progress: 1,
-        height: 5
-    }
-});
+import { disableConsoleWarn, enableConsoleWarn } from 'helpers/test';
 
 describe('UILinearLoader', () => {
-    it('should render', () => {
-        expect(wrapper).toBeDefined();
-        expect(wrapper.exists()).toBe(true);
+    it('should render correctly', () => {
+        const wrapper = mount(UILinearLoader, {
+            props: {
+                steps: 10,
+                progress: 1,
+                height: 5
+            }
+        });
+
+        expect(wrapper.element).toMatchSnapshot();
+    });
+
+    it('should render correctly when set to determinate', async () => {
+        const wrapper = mount(UILinearLoader, {
+            props: {
+                steps: 10,
+                progress: 1,
+                height: 5
+            }
+        });
+
+        await wrapper.setProps({ determinate: true });
+        expect(wrapper.element).toMatchSnapshot();
     });
 
     it('should set the height of the element by props', () => {
+        const wrapper = mount(UILinearLoader, {
+            props: {
+                steps: 10,
+                progress: 1,
+                height: 5
+            }
+        });
+
         expect(getComputedStyle(wrapper.element).height).toBe('5px');
     });
 
     it('should calculate the correct width', async () => {
+        const wrapper = mount(UILinearLoader, {
+            props: {
+                steps: 10,
+                progress: 1,
+                height: 5
+            }
+        });
+
         await wrapper.setProps({ determinate: true });
         expect(wrapper.vm.width).toBe('10%');
     });
