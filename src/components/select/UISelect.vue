@@ -133,9 +133,9 @@
                                      || multi && clearable && currentlySelected
                                      || multi && currentlySelected && selectionCount > 1"
                                  class="flex items-center justify-between p-2 px-3">
-                                <span class="clear-icon h-5 w-5 cursor-pointer text-color-muted"
-                                      @click.stop="clearSelection(option)"
-                                      v-html="clearIcon" />
+                                <button class="clear-icon h-5 w-5 text-color-muted"
+                                        @click.stop="clearSelection(option)"
+                                        v-html="clearIcon" />
                             </div>
                         </div>
                     </li>
