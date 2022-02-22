@@ -1,11 +1,24 @@
+# dependencies
 node_modules
-.DS_Store
-dist
-dist-ssr
-*.local
+
+# IDE
 .idea
-vite.config.js.map
-vite.config.js
+
+# generated content
+dist
+
 jest.config.js
 jest.config.js.map
+vite.config.js
+vite.config.js.map
 .eslintcache
+
+# cache
+.eslintcache
+
+# test reports
+junit.xml
+coverage-summary.json
+
+# OS files
+.DS_Store

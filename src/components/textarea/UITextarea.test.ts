@@ -196,12 +196,12 @@ describe('UITextarea', () => {
             }
         });
 
-        expect(wrapper.text()).not.toContain(value.length);
+        expect(wrapper.text()).not.toContain(value.length.toString());
         await wrapper.setProps({ counter: true });
-        expect(wrapper.text()).toContain(value.length);
+        expect(wrapper.text()).toContain(value.length.toString());
 
         await wrapper.get('textarea').setValue(value + ' + 1');
         await wrapper.trigger('input');
-        expect(wrapper.text()).toContain((value + ' + 1').length);
+        expect(wrapper.text()).toContain((value + ' + 1').length.toString());
     });
 });

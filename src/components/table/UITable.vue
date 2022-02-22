@@ -43,7 +43,7 @@
                             </slot>
 
                             <i v-if="!disableSorting && column.sortable"
-                               class="ml-2 transition transform opacity-0 group-hover:opacity-100"
+                               class="ml-2 transition opacity-0 group-hover:opacity-100"
                                :class="{
                                    'opacity-100': !!sortDirection(column.rowProperty),
                                    'rotate-180': sortDirection(column.rowProperty) === 'desc'
@@ -94,7 +94,7 @@
                                 </slot>
 
                                 <i v-if="!disableSorting && col.sortable"
-                                   class="ml-2 transition transform opacity-0 group-hover:opacity-100"
+                                   class="ml-2 transition opacity-0 group-hover:opacity-100"
                                    :class="{
                                        'opacity-100': !!sortDir,
                                        'rotate-180': sortDir=== 'desc'
@@ -104,7 +104,7 @@
 
                             <span class="block p-4">
                                 <slot :name="name" :row="row">
-                                    {{ col.prefix + (row[name] ?? '') + col.suffix }}
+                                    {{ getDisplayName(col, row) }}
                                 </slot>
                             </span>
                         </td>
@@ -130,12 +130,17 @@
                        || selectable && !singleSelect
                        || filteredRows.length > itemsPerPage && !disablePagination"
                    class="border-t border-gray-300 dark:border-gray-500 sticky
-                          bg-white dark:bg-gray-700 bottom-0 sm:relative shadow-up">
+                          bg-white dark:bg-gray-700 bottom-0 sm:relative shadow-up"
+                   :class="{
+                       'sm:hidden': selectable
+                           && !singleSelect
+                           && !(filteredRows.length > itemsPerPage && !disablePagination || $slots.footer)
+                   }">
                 <tr class="w-full flex sm:table-row">
-                    <td class="block flex-grow sm:table-cell"
+                    <td class="block grow sm:table-cell"
                         :colspan="normalisedHeaders.length + ($slots.action ? 1 : 0) + (selectable ? 1 : 0)">
                         <span class="flex flex-col sm:flex-row items-center justify-between
-                                     flex-wrap break-words px-4 py-6">
+                                     flex-wrap break-words px-4 py-6 relative">
                             <slot name="footer" />
                             <span v-if="selectable && !singleSelect" class="block sm:hidden">
                                 <UICheckbox name="selectAll"
@@ -157,10 +162,11 @@
                                       hasPrevious,
                                       jumpToPage
                                   }">
-                                <span class="flex items-center justify-end space-x-2 my-2 flex-grow">
+                                <span class="flex items-center justify-end space-x-2 my-2 grow">
                                     <span class="flex items-center">
                                         <span class="mr-2">Items per page</span>
-                                        <UISelect :model-value="{ id: currentItemsPerPage }"
+                                        <UISelect name="items-per-page"
+                                                  :model-value="{ id: currentItemsPerPage }"
                                                   :options="itemPerPageOptions"
                                                   option-label="id"
                                                   class="mr-2"
@@ -174,12 +180,12 @@
                                     <span class="flex justify-end items-center space-x-2">
                                         <UIButton :disabled="!hasPrevious"
                                                   minimal
-                                                  class="transform rotate-90"
+                                                  class="rotate-90"
                                                   @click="currentPage--"
                                                   v-html="chevronIcon" />
                                         <UIButton :disabled="!hasNext"
                                                   minimal
-                                                  class="transform rotate-270"
+                                                  class="transform -rotate-90"
                                                   @click="currentPage++"
                                                   v-html="chevronIcon" />
                                     </span>
@@ -243,10 +249,18 @@ export default defineComponent({
         },
 
         /**
-         * Boolean flag to enable or callback that os used for searching.
+         * Boolean flag to enable or callback that is used for searching.
          */
         search: {
             type: [Boolean, Function] as PropType<boolean | ((row: Row, searchTerm: string) => boolean)>
+        },
+
+        /**
+         * Flag indicating that the search function should not be used.
+         */
+        asyncSearch: {
+            type: Boolean,
+            default: false
         },
 
         /**
@@ -308,9 +322,9 @@ export default defineComponent({
         }
     },
 
-    emits: ['update:modelValue', 'update:page', 'update:itemsPerPage'],
+    emits: ['update:modelValue', 'update:page', 'update:itemsPerPage', 'searching'],
 
-    setup(props) {
+    setup(props, ctx) {
         const chevronIcon = getIcon('chevron');
         let styleTagId = '';
         const itemPerPageOptions = [
@@ -367,6 +381,10 @@ export default defineComponent({
                 return sortedRows(normalisedRows.value);
             }
 
+            if (props.asyncSearch) {
+                return normalisedRows.value;
+            }
+
             const search: (row: Row, searchString: string) => boolean = props.search instanceof Function
                 ? props.search
                 : (row, str) => Object.values(row).some(value => {
@@ -387,7 +405,7 @@ export default defineComponent({
 
             return filteredRows.value.slice(start, start + currentItemsPerPage.value);
         });
-        const pageCount = computed(() => filteredRows.value.length / currentItemsPerPage.value);
+        const pageCount = computed(() => Math.ceil(filteredRows.value.length / currentItemsPerPage.value));
         const hasNext = computed(() => {
             return !!filteredRows.value
                 .slice((currentPage.value - 1) * currentItemsPerPage.value + currentItemsPerPage.value)
@@ -527,11 +545,22 @@ export default defineComponent({
 
             currentPage.value = input;
         };
+        const getDisplayName = (column: Column, row: Row): string => {
+            const prefix = typeof column.prefix === 'function' ? column.prefix(row) : column.prefix;
+            const suffix = typeof column.suffix === 'function' ? column.suffix(row) : column.suffix;
+
+            // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+            return (prefix ?? '') + (row[column.rowProperty] ?? '') + (suffix ?? '');
+        };
 
         watch(
             [() => normalisedHeaders.value, () => props.hoverHighlight],
             val => addHoverStyles(val),
             { immediate: true }
+        );
+        watch(
+            () => term.value,
+            val => ctx.emit('searching', val)
         );
 
         return {
@@ -557,6 +586,7 @@ export default defineComponent({
             jumpToPage,
             handleHover,
             sortDirection,
+            getDisplayName,
             toggleRowSelection,
             toggleAllRowSelection
         };

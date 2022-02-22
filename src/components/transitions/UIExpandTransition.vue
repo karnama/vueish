@@ -7,13 +7,12 @@
         <slot />
     </transition-group>
 
-    <transition
-        v-else
-        :css="false"
-        :appear="appear"
-        :mode="mode"
-        @enter="enter"
-        @leave="leave">
+    <transition v-else
+                :css="false"
+                :appear="appear"
+                :mode="mode"
+                @enter="enter"
+                @leave="leave">
         <slot />
     </transition>
 </template>

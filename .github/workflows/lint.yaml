@@ -13,7 +13,7 @@ on:
       - main
 
 jobs:
-  build:
+  lint:
     if: github.event.pull_request.draft == false && github.actor != 'dependabot[bot]'
     name: Lint
     runs-on: ubuntu-latest
@@ -22,11 +22,7 @@ jobs:
       - uses: actions/setup-node@v2
       - uses: actions/cache@v2
         with:
-          key: npm-${{ hashFiles('./package-lock.json') }}
-          path: ~/.npm
-          restore-keys: |
-            npm-
-          node-version: 15
+          cache: 'npm'
       - run: npm ci
       - name: ESLint
         run: node node_modules/.bin/eslint . --ext .ts,.vue

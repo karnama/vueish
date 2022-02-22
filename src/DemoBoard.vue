@@ -28,6 +28,7 @@
                             </h3>
                             <router-link v-for="route in routeMap[type]"
                                          :key="route.path"
+                                         class="capitalize"
                                          :to="route.path">
                                 {{ route.meta.label }}
                             </router-link>
@@ -65,19 +66,15 @@
 
 <script lang="ts">
 import { computed, defineComponent, getCurrentInstance, ref, watch } from 'vue';
-import UIToggle from 'components/toggle/UIToggle.vue';
 import LocalCache from '@/helpers/cache/LocalCache';
 import type { Router, RouteRecord } from 'vue-router';
-import UIButton from 'components/button/UIButton.vue';
 import { getIcon } from '@/helpers';
 import { getVersion } from '@/main';
 
 const cache = new LocalCache('demo');
 
 export default defineComponent({
-    name: 'Demo',
-
-    components: { UIButton, UIToggle },
+    name: 'DemoBoard',
 
     setup() {
         const instance = getCurrentInstance()!;

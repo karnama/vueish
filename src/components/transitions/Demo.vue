@@ -69,7 +69,7 @@
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
-    name: 'Transitions',
+    name: 'TransitionsDemo',
 
     setup: () => {
         const components = [

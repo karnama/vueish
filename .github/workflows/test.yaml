@@ -13,7 +13,7 @@ on:
       - main
 
 jobs:
-  unit:
+  test:
     if: github.event.pull_request.draft == false
     name: Unit
     runs-on: ubuntu-latest
@@ -22,11 +22,18 @@ jobs:
       - uses: actions/setup-node@v2
       - uses: actions/cache@v2
         with:
-          key: npm-${{ hashFiles('./package-lock.json') }}
-          path: ~/.npm
-          restore-keys: |
-            npm-
-          node-version: 15
+          cache: 'npm'
       - run: npm ci
       - name: Tests
-        run: IS_CI=true npm run test
+        uses: anuraag016/Jest-Coverage-Diff@master
+        with:
+          runCommand: "JEST_JUNIT_CLASSNAME='{classname}' JEST_JUNIT_TITLE='{title}' npx jest --coverage --coverageReporters='json-summary' --forceExit --detectOpenHandles --ci --reporters=default --reporters=jest-junit"
+          delta: 0.5
+
+      - name: Test Report
+        if: ${{ success() || failure() }}
+        uses: dorny/test-reporter@v1
+        with:
+          name: JEST Tests
+          path: junit.xml
+          reporter: jest-junit

@@ -54,6 +54,10 @@ import { useVModel } from 'composables/input';
 import { disabled, name, label, error } from 'composables/input';
 import { omit } from 'lodash-es';
 
+let timeoutId: ReturnType<typeof setTimeout>;
+
+// todo - add error styles
+// todo - add disappearing label
 export default defineComponent({
     name: 'UIRangeSlider',
 

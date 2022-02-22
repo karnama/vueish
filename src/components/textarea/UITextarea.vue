@@ -36,7 +36,7 @@
                 <div class="flex flex-col justify-center" :class="{ 'text-gray-400 cursor-not-allowed': disabled }">
                     <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
                         <span v-if="disabled"
-                              class="h-5 w-5 mx-2 text-color-muted flex-grow align-middle flex flex-col justify-center"
+                              class="h-5 w-5 mx-2 text-color-muted grow align-middle flex flex-col justify-center"
                               v-html="lockIcon" />
 
                         <button v-else-if="clearable && model"
@@ -51,9 +51,9 @@
         </div>
         <div class="flex flex-row justify-end flex-nowrap">
             <UIExpandTransition>
-                <div v-if="error || $slots.error" class="flex-grow">
+                <div v-if="error || $slots.error" class="grow">
                     <slot name="error">
-                        <p class="text-red-700 dark:text-red-600 text-sm flex-grow">
+                        <p class="text-red-700 dark:text-red-600 text-sm grow">
                             {{ error }}
                         </p>
                     </slot>

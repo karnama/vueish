@@ -69,7 +69,7 @@
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
-    name: 'Panel',
+    name: 'PanelDemo',
 
     setup() {
         const loading = ref(false);

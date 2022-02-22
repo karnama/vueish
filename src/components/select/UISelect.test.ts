@@ -21,6 +21,12 @@ const options = [
     }
 ] as const;
 
+const stringOptions = [
+    'Foo',
+    'Bar',
+    'Baz'
+] as const;
+
 const getList = (): DOMWrapper<HTMLDivElement> | null => {
     const element = document.querySelector<HTMLDivElement>(selectorMap.list);
 
@@ -33,7 +39,9 @@ const selectorMap = {
     list: '.list',
     options: '.option',
     optionClear: '.option .clear-icon',
-    search: '[name="search"]'
+    search: '[name="search"]',
+    selectAllBtn: '.x-select-all',
+    selectNoneBtn: '.x-select-none'
 } as const;
 
 describe('UISelect', () => {
@@ -42,6 +50,7 @@ describe('UISelect', () => {
             const wrapper  = mount(UISelect, {
                 props: {
                     options,
+                    name: 'select',
                     modelValue: null
                 }
             });
@@ -55,6 +64,7 @@ describe('UISelect', () => {
             const wrapper  = mount(UISelect, {
                 props: {
                     options,
+                    name: 'select',
                     modelValue: null
                 }
             });
@@ -67,10 +77,28 @@ describe('UISelect', () => {
             wrapper.unmount();
         });
 
+        it('should display the given string options when open', async () => {
+            const wrapper  = mount(UISelect, {
+                props: {
+                    options: stringOptions,
+                    name: 'select',
+                    modelValue: null
+                }
+            });
+
+            expect(getList()).toBeNull();
+            await wrapper.get(selectorMap.currentSelection).trigger('click');
+            const htmlOptions = getList()!.findAll(selectorMap.options);
+            expect(htmlOptions).toHaveLength(stringOptions.length);
+            expect(htmlOptions[0].html()).toContain(stringOptions[0]);
+            wrapper.unmount();
+        });
+
         it('should display the given placeholder', () => {
             const wrapper = mount(UISelect, {
                 props: {
                     options,
+                    name: 'select',
                     modelValue: [],
                     placeholder: 'my-placeholder'
                 }
@@ -84,6 +112,7 @@ describe('UISelect', () => {
             let wrapper = mount(UISelect, {
                 props: {
                     options,
+                    name: 'select',
                     modelValue: [],
                     header: 'my-header'
                 }
@@ -96,6 +125,7 @@ describe('UISelect', () => {
             wrapper = mount(UISelect, {
                 props: {
                     options,
+                    name: 'select',
                     modelValue: []
                 },
                 slots: {
@@ -114,6 +144,7 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: null,
+                name: 'select',
                 'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
             }
         });
@@ -131,11 +162,35 @@ describe('UISelect', () => {
         wrapper.unmount();
     });
 
+    it('should bind the selected string option to v-model', async () => {
+        const wrapper = mount(UISelect, {
+            props: {
+                options: stringOptions,
+                modelValue: null,
+                name: 'select',
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
+            }
+        });
+
+        await wrapper.get(selectorMap.currentSelection).trigger('click');
+        await getList()!.get(selectorMap.options).trigger('click');
+        expect(wrapper.lastEventValue()).toStrictEqual([stringOptions[0]]);
+
+        await wrapper.get(selectorMap.currentSelection).trigger('click');
+        const selected = getList()!.findAll(selectorMap.options)
+            .filter(option => option.attributes()['aria-selected'] === 'true');
+
+        expect(selected).toHaveLength(1);
+        expect(selected[0].text()).toContain(stringOptions[0]);
+        wrapper.unmount();
+    });
+
     it('should close the list on selection on single select an option', async () => {
         const wrapper = mount(UISelect, {
             props: {
                 options,
                 modelValue: null,
+                name: 'select',
                 'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
             }
         });
@@ -151,6 +206,7 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: null,
+                name: 'select',
                 'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
             }
         });
@@ -175,6 +231,7 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: [],
+                name: 'select',
                 'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                 multi: true
             }
@@ -195,6 +252,7 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: [],
+                name: 'select',
                 'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                 multi: true,
                 clearable: true
@@ -216,6 +274,7 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: [],
+                name: 'select',
                 'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                 multi: true,
                 clearable: true
@@ -238,6 +297,7 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: [],
+                name: 'select',
                 'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                 disabled: true
             }
@@ -253,6 +313,7 @@ describe('UISelect', () => {
             const wrapper = mount(UISelect, {
                 props: {
                     options,
+                    name: 'select',
                     modelValue: [],
                     'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
                 }
@@ -273,6 +334,7 @@ describe('UISelect', () => {
             const wrapper = mount(UISelect, {
                 props: {
                     options,
+                    name: 'select',
                     modelValue: [],
                     'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                     multi: true
@@ -297,6 +359,7 @@ describe('UISelect', () => {
             const wrapper = mount(UISelect, {
                 props: {
                     options,
+                    name: 'select',
                     modelValue: []
                 }
             });
@@ -313,6 +376,7 @@ describe('UISelect', () => {
             const wrapper = mount(UISelect, {
                 props: {
                     options,
+                    name: 'select',
                     modelValue: [],
                     'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                     multi: true
@@ -337,7 +401,8 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: [],
-                autofocus: true
+                autofocus: true,
+                name: 'select'
             }
         });
 
@@ -351,6 +416,7 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: [],
+                name: 'select',
                 'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
             }
         });
@@ -369,6 +435,7 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: [],
+                name: 'select',
                 'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                 multi: true
             }
@@ -385,11 +452,34 @@ describe('UISelect', () => {
         wrapper.unmount();
     });
 
-    describe('key events', () => {
+    it('should display the string options when the input is closed', async () => {
+        const wrapper = mount(UISelect, {
+            props: {
+                options: stringOptions,
+                modelValue: [],
+                name: 'select',
+                'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
+                multi: true
+            }
+        });
+
+        await wrapper.get(selectorMap.currentSelection).trigger('click');
+        const htmlOptions = getList()!.findAll(selectorMap.options);
+
+        for await (const option of htmlOptions) {
+            await option.trigger('click');
+        }
+
+        expect(wrapper.html()).toContain(stringOptions.join(', '));
+        wrapper.unmount();
+    });
+
+    describe('keyboard events', () => {
         it('should open the list on space down when focused', async () => {
             const wrapper = mount(UISelect, {
                 props: {
                     options,
+                    name: 'select',
                     modelValue: []
                 }
             });
@@ -426,6 +516,7 @@ describe('UISelect', () => {
             const wrapper = mount(UISelect, {
                 props: {
                     options,
+                    name: 'select',
                     modelValue: [],
                     multi: true
                 }
@@ -448,6 +539,7 @@ describe('UISelect', () => {
             const wrapper = mount(UISelect, {
                 props: {
                     options,
+                    name: 'select',
                     modelValue: [],
                     multi: true
                 }
@@ -471,6 +563,7 @@ describe('UISelect', () => {
             const wrapper = mount(UISelect, {
                 props: {
                     options,
+                    name: 'select',
                     modelValue: [],
                     'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
                 }
@@ -490,6 +583,7 @@ describe('UISelect', () => {
             const wrapper = mount(UISelect, {
                 props: {
                     options,
+                    name: 'select',
                     modelValue: [],
                     'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
                 }
@@ -509,6 +603,7 @@ describe('UISelect', () => {
             props: {
                 options,
                 modelValue: [],
+                name: 'select',
                 'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
                 multi: true
             }
@@ -519,5 +614,78 @@ describe('UISelect', () => {
         await wrapper.get(selectorMap.currentSelection).trigger('click');
         expect(getList()).toBeNull();
         wrapper.unmount();
+    });
+
+    describe('quick selection', () => {
+        it('should select all if non or some are selected', async () => {
+            const wrapper = mount(UISelect, {
+                props: {
+                    options,
+                    name: 'select',
+                    modelValue: [],
+                    multi: true
+                }
+            });
+
+            await wrapper.get(selectorMap.currentSelection).trigger('click');
+
+            const list = getList()!;
+            await list.get(selectorMap.selectAllBtn).trigger('click');
+            expect(wrapper.lastEventValue()).toStrictEqual([options]);
+
+            await wrapper.setProps({ modelValue: [] });
+            await list.get(selectorMap.options).trigger('click');
+            await list.get(selectorMap.selectAllBtn).trigger('click');
+            expect(wrapper.lastEventValue()).toStrictEqual([options]);
+            wrapper.unmount();
+        });
+
+        it('should select none if some or all are selected', async () => {
+            const wrapper = mount(UISelect, {
+                props: {
+                    options,
+                    name: 'select',
+                    modelValue: options,
+                    multi: true
+                }
+            });
+
+            await wrapper.get(selectorMap.currentSelection).trigger('click');
+
+            const list = getList()!;
+            await list.get(selectorMap.selectNoneBtn).trigger('click');
+            expect(wrapper.lastEventValue()).toStrictEqual([[]]);
+
+            await wrapper.setProps({ modelValue: options });
+            await list.get(selectorMap.options).trigger('click');
+            await list.get(selectorMap.selectNoneBtn).trigger('click');
+            expect(wrapper.lastEventValue()).toStrictEqual([[]]);
+            wrapper.unmount();
+        });
+
+        it('should only be available when multi selection has been set', async () => {
+            const wrapper = mount(UISelect, {
+                props: {
+                    options,
+                    name: 'select',
+                    modelValue: [],
+                    multi: false
+                }
+            });
+
+            await wrapper.get(selectorMap.currentSelection).trigger('click');
+
+            const list = getList()!;
+            expect(list.find(selectorMap.selectNoneBtn).exists()).toBe(false);
+            expect(list.find(selectorMap.selectAllBtn).exists()).toBe(false);
+
+            await wrapper.setProps({ multi: true });
+            await nextTick();
+            await wrapper.setProps({ modelValue: [ options[0] ] });
+            await nextTick();
+            expect(list.find(selectorMap.selectNoneBtn).exists()).toBe(true);
+            expect(list.find(selectorMap.selectAllBtn).exists()).toBe(true);
+            wrapper.unmount();
+        });
     });
 });

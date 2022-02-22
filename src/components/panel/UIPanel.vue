@@ -11,7 +11,7 @@
         <header v-if="hasHeader || $slots.actions"
                 class="w-full flex items-center px-12 relative transition-all filter blur-none"
                 :class="{ 'blur-[1px]': loading && blockingLoader }">
-            <h1 class="select-none flex-grow py-8"
+            <h1 class="select-none grow py-8"
                 :class="{
                     'cursor-pointer': collapsible,
                 }"

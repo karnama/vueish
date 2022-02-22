@@ -7,7 +7,7 @@ import { disableConsoleWarn, enableConsoleWarn } from 'helpers/test';
 describe('input', () => {
     describe('useVModel', () => {
         const Comp = defineComponent({
-            name: 'Comp',
+            name: 'TestComp',
             props: {
                 modelValue: {
                     type: Number,

@@ -59,7 +59,7 @@ import { defineComponent } from 'vue';
 import type { Avatar } from 'types';
 
 export default defineComponent({
-    name: 'Avatar',
+    name: 'AvatarDemo',
 
     setup() {
         return {

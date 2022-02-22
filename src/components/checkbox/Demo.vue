@@ -43,7 +43,7 @@
 import { computed, defineComponent, ref } from 'vue';
 
 export default defineComponent({
-    name: 'Checkbox',
+    name: 'CheckboxDemo',
 
     setup() {
         const isChecked = ref(true);

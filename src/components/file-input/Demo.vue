@@ -31,11 +31,22 @@
                      multiple
                      clearable
                      label="Multiple file input" />
+
+        <UIFileInput v-model="file2"
+                     name="file-input"
+                     :large="large"
+                     :error="error"
+                     :display-name-func="displayName"
+                     button-text="Select attachments or drop here"
+                     multiple
+                     clearable
+                     label="Custom labelled input" />
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import type { MaybeArray } from '../../../types/utilities';
 
 export default defineComponent({
     name: 'FileInput',
@@ -47,9 +58,18 @@ export default defineComponent({
         const large = ref(false);
         const error = ref('');
 
+        const displayName = (files: MaybeArray<File> | null) => {
+            if (!files) return '';
+
+            return Array.isArray(files) && files.length > 1
+                ? String(files.length) + ' files selected'
+                : '1 file selected';
+        };
+
         return {
             file,
             file2,
+            displayName,
             large,
             error
         };

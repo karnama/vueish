@@ -11,13 +11,18 @@
             </UIButton>
         </template>
 
-        <div class="divide-y">
-            <div v-for="index in range(10)"
-                 :key="index"
-                 class="px-4 py-2 text-color transition-colors select-none hover:bg-gray-700">
-                custom content and stuff plus things {{ index }}
+        <template #default="{hide}">
+            <div class="divide-y">
+                <div class="px-4 py-2 text-color transition-colors select-none hover:bg-gray-700" @click="hide">
+                    Item that implements visibility handler on click.
+                </div>
+                <div v-for="index in range(10)"
+                     :key="index"
+                     class="px-4 py-2 text-color transition-colors select-none hover:bg-gray-700">
+                    custom content and stuff plus things {{ index }}
+                </div>
             </div>
-        </div>
+        </template>
     </UIDropdown>
 
     <p class="mt-10 text-color">
@@ -43,7 +48,7 @@ import { defineComponent, ref } from 'vue';
 import { range } from 'lodash-es';
 
 export default defineComponent({
-    name: 'Dropdown',
+    name: 'DropdownDemo',
 
     setup: () => {
         const atMousePosition = ref(false);

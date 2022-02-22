@@ -12,7 +12,7 @@
         </UIExpandTransition>
 
         <div ref="input"
-             class="rounded flex justify-between items-center shadow-sm focus:outline-none
+             class="rounded flex justify-between items-stretch shadow-sm focus:outline-none h-auto
                     transition-colors border-gray-300 dark:border-gray-500 bg-white dark:bg-gray-600 border"
              :title="displayList"
              :class="{
@@ -36,22 +36,14 @@
                    v-bind="omit($attrs, ['class', 'style'])"
                    @change="addFiles">
             <div class="flex items-center flex-wrap w-full" :class="{ 'justify-center' : displayName }">
-                <button title="Choose a file"
-                        :disabled="disabled"
-                        class="focus:outline-none font-bold m-0 text-sm border-none
-                               transition-all rounded-l text-color disabled:cursor-not-allowed
-                               bg-gray-200 dark:bg-gray-700 ring-gray-400 dark:ring-gray-500"
-                        :style="{
-                            'filter': disabled ? 'invert(5%)': 'invert(0%)'
-                        }"
-                        :class="{
-                            'text-color-muted': disabled,
-                            'hover:bg-gray-300 dark:hover:bg-gray-800 focus:ring-1': !disabled,
-                            'py-[1.3125rem] px-6': large,
-                            'px-4 py-[0.938rem]': !large
-                        }">
-                    Choose file
-                </button>
+                <UIButton :large="large"
+                          :disabled="disabled"
+                          title="Choose a file"
+                          class="rounded-none h-full">
+                    <slot name="buttonText">
+                        {{ buttonText }}
+                    </slot>
+                </UIButton>
 
                 <template v-if="displayName">
                     <div class="truncate text-color py-2 px-4 flex-1 select-none break-words value-text"
@@ -60,11 +52,11 @@
 
                     <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
                         <span v-if="disabled"
-                              class="h-5 w-5 mr-2 mx-auto text-color-muted flex-shrink-0"
+                              class="h-5 w-5 mr-2 mx-auto text-color-muted shrink-0"
                               v-html="lockIcon" />
 
                         <button v-else-if="clearable && displayName"
-                                class="clear-icon h-5 w-5 mr-2 cursor-pointer mx-auto text-color-muted flex-shrink-0"
+                                class="clear-icon h-5 w-5 mr-2 cursor-pointer mx-auto text-color-muted shrink-0"
                                 :aria-controls="$attrs.id ?? name"
                                 aria-roledescription="clear"
                                 @click.stop="$emit('update:modelValue', null)"
@@ -96,6 +88,7 @@ import { getIcon } from '@/helpers';
 import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
 import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 import type { FileError } from 'types';
+import type { MaybeArray } from '../../../types/utilities';
 
 export default defineComponent({
     name: 'UIFileInput',
@@ -106,7 +99,7 @@ export default defineComponent({
 
     props: {
         modelValue: {
-            type: [File, Array, null] as PropType<File | File[] | null>
+            type: [File, Array, null] as PropType<MaybeArray<File> | null>
         },
 
         /**
@@ -138,6 +131,24 @@ export default defineComponent({
          */
         maxFiles: positiveOptionalNumber,
 
+        /**
+         * Override files preview output.
+         */
+        displayNameFunc: {
+            default: null,
+            type: Function as PropType<(file: MaybeArray<File> | null) => string>
+        },
+
+        /**
+         * The label for file input.
+         *
+         * @default "Choose file"
+         */
+        buttonText: {
+            type: String,
+            default: 'Choose file'
+        },
+
         name,
         label,
         clearable,
@@ -165,6 +176,10 @@ export default defineComponent({
         const displayName = computed(() => {
             if (!props.modelValue) {
                 return '';
+            }
+
+            if (props.displayNameFunc) {
+                return props.displayNameFunc(props.modelValue);
             }
 
             return (Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue])

@@ -2,7 +2,7 @@
 
 exports[`UILinearLoader should render correctly 1`] = `
 <div
-  class="w-full overflow-hidden ui-linear-loader text-brand-600"
+  class="w-full overflow-hidden ui-linear-loader text-brand-500"
   style="height: 5px;"
 >
   <div
@@ -22,7 +22,7 @@ exports[`UILinearLoader should render correctly 1`] = `
 
 exports[`UILinearLoader should render correctly when set to determinate 1`] = `
 <div
-  class="w-full overflow-hidden ui-linear-loader text-brand-600"
+  class="w-full overflow-hidden ui-linear-loader text-brand-500"
   style="height: 5px;"
 >
   <div

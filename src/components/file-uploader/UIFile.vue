@@ -17,7 +17,7 @@
                         @click="$emit('removed', file)"
                         v-html="clearIcon" />
                 <button v-else-if="failedToUpload"
-                        class="transition transform hover:rotate-180 !duration-200"
+                        class="transition hover:rotate-180 !duration-200"
                         @click="uploadFile"
                         v-html="retryIcon" />
                 <span v-else class="text-green-600 dark:text-green-500" v-html="checkIcon" />
