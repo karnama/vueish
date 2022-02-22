@@ -89,7 +89,7 @@
                     <button :aria-controls="$attrs.id ?? name"
                             aria-roledescription="decrement"
                             class="px-2 transition-colors h-full rounded-br
-                                   bg-gray-50 hover:bg-gray-200
+                                   bg-gray-50 hover:bg-gray-200 focus:z-10
                                    dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400"
                             @click="decrement"
                             v-html="chevronIcon" />
