@@ -29,6 +29,7 @@ module.exports = {
                 'range-slider',
                 'select',
                 'table',
+                'tabs',
                 'textarea',
                 'toggle',
                 'pagination',
