@@ -33,7 +33,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, onBeforeUpdate, watch } from 'vue';
-import { label, disabled, name, error } from 'composables/input';
+import { label, disabled, name, error } from '@/shared-props';
 import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 
 export default defineComponent({
@@ -46,8 +46,27 @@ export default defineComponent({
             type: [String, Boolean, Number, Object, Array]
         },
 
-        horizontal: Boolean,
-        required: Boolean,
+
+        /**
+         * Display the radio buttons horizontally.
+         *
+         * @default false
+         */
+        horizontal: {
+            type: Boolean,
+            default: false
+        },
+
+        /**
+         * Whether the radio input is required.
+         *
+         * @default false
+         */
+        required: {
+            type: Boolean,
+            default: false
+        },
+
         label,
         disabled,
         name,

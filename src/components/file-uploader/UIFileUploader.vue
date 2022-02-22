@@ -77,8 +77,7 @@ import UIButton from 'components/button/UIButton.vue';
 import type { FileError } from 'types';
 import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
 import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
-import { error } from 'composables/input';
-import { positiveOptionalNumber } from 'composables/input';
+import { error, positiveOptionalNumber } from '@/shared-props';
 
 // todo - UIFile may make the uploader overflow if the side menu is open when using files with long titles
 export default defineComponent({
@@ -91,6 +90,8 @@ export default defineComponent({
     props: {
         /**
          * Accepted mimes in an array format.
+         *
+         * @default ['*']
          *
          * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept
          */
@@ -111,6 +112,8 @@ export default defineComponent({
 
         /**
          * Upload as soon as the file(s)' selected.
+         *
+         * @default false
          */
         uploadAsap: {
             type: Boolean,

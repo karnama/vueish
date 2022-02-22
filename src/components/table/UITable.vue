@@ -206,7 +206,7 @@ import type { Column, Row, SortOrder } from 'types';
 import { snakeCase, uniqueId, isEqual, orderBy, cloneDeep } from 'lodash-es';
 import UIInput from 'components/input/UIInput.vue';
 import UICheckbox from 'components/checkbox/UICheckbox.vue';
-import { useVModel } from 'composables/input';
+import { useVModel } from 'composables/reactivity';
 import type { MaybeArray } from 'types/utilities';
 import { getIcon } from '@/helpers';
 import { debouncedRef } from 'composables/reactivity';
@@ -242,6 +242,8 @@ export default defineComponent({
 
         /**
          * Flag indicating whether columns and rows should be highlighted on hover.
+         *
+         * @default false
          */
         hoverHighlight: {
             type: Boolean,
@@ -257,6 +259,8 @@ export default defineComponent({
 
         /**
          * Flag indicating that the search function should not be used.
+         *
+         * @default false
          */
         asyncSearch: {
             type: Boolean,
@@ -265,6 +269,8 @@ export default defineComponent({
 
         /**
          * The string to display if no data provided.
+         *
+         * @default "There's no data available"
          */
         empty: {
             type: String,
@@ -273,6 +279,8 @@ export default defineComponent({
 
         /**
          * Whether the option to select a row is visible or not.
+         *
+         * @default false
          */
         selectable: {
             type: Boolean,
@@ -281,6 +289,8 @@ export default defineComponent({
 
         /**
          * Only allow selecting single a single row.
+         *
+         * @default false
          */
         singleSelect: {
             type: Boolean,
@@ -289,6 +299,8 @@ export default defineComponent({
 
         /**
          * Whether the columns are sortable or not.
+         *
+         * @default false
          */
         disableSorting: {
             type: Boolean,
@@ -297,6 +309,8 @@ export default defineComponent({
 
         /**
          * The current page.
+         *
+         * @default 1
          */
         page: {
             type: Number,
@@ -306,6 +320,8 @@ export default defineComponent({
 
         /**
          * The number of rows on the page.
+         *
+         * @default 10
          */
         itemsPerPage: {
             type: Number,
@@ -315,6 +331,8 @@ export default defineComponent({
 
         /**
          * Flag used for disabling the pagination.
+         *
+         * @default false
          */
         disablePagination: {
             type: Boolean,

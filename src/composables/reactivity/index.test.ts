@@ -1,4 +1,4 @@
-import { useVModel } from 'composables/input/index';
+import { useVModel } from './index';
 import { mount } from '@vue/test-utils';
 import { defineComponent, h } from 'vue';
 import type { PropType } from 'vue';
@@ -138,5 +138,9 @@ describe('input', () => {
             expect(wrapper.lastEventValue()).toStrictEqual([[]]);
             jest.useRealTimers();
         });
+    });
+
+    describe('debouncedRef', () => {
+        //todo - implement
     });
 });

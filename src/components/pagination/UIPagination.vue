@@ -62,7 +62,8 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { useVModel, disabled } from 'composables/input';
+import { disabled } from '@/shared-props';
+import { useVModel } from 'composables/reactivity';
 import { getIcon } from '@/helpers';
 import UIButton from 'components/button/UIButton.vue';
 
@@ -74,6 +75,8 @@ export default defineComponent({
     props: {
         /**
          * The current page.
+         *
+         * @default 1
          */
         modelValue: {
             type: Number,
@@ -95,6 +98,8 @@ export default defineComponent({
 
         /**
          * The total number of page buttons to show.
+         *
+         * @default 3
          */
         visibleCount: {
             type: [Number, String],

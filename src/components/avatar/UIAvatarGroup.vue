@@ -44,6 +44,8 @@ export default defineComponent({
     props: {
         /**
          * The data for the avatars to create.
+         *
+         * @default []
          */
         avatars: {
             type: Array as PropType<Avatar[]>,
@@ -52,6 +54,8 @@ export default defineComponent({
 
         /**
          * The z index order of the avatars.
+         *
+         * @default false
          */
         reverseStacking: {
             type: Boolean,
@@ -60,6 +64,8 @@ export default defineComponent({
 
         /**
          * The maximum number of avatars to show.
+         *
+         * @default 3
          */
         max: {
             type: Number,
