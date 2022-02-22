@@ -69,7 +69,7 @@ export default defineComponent({
 
             // Validate they exist
             if (!inputs || inputs.length < 2) {
-                throw Error('UIRadioGroup requires at least 2 UIRadio components in the default slot.');
+                throw new RangeError('UIRadioGroup requires at least 2 UIRadio components in the default slot.');
             }
 
             const setChecked = (input: HTMLInputElement) => input.checked = props.modelValue === input.value;
