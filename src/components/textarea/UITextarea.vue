@@ -28,8 +28,9 @@
                           :name="name"
                           :disabled="disabled"
                           :aria-placeholder="placeholder"
-                          class="flex-1 p-3 appearance-none bg-transparent outline-none
+                          class="flex-1 p-3.5 appearance-none bg-transparent outline-none
                                  disabled:cursor-not-allowed text-color disabled:text-gray-400"
+                          :class="{ 'px-7 py-5': large }"
                           :style="[
                               disabled || fixed || autoSize ? 'resize: none' : '',
                               counter ? 'min-height: 5rem' : '']" />
@@ -73,8 +74,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, onUpdated, onBeforeUnmount } from 'vue';
-// todo - add large styles
-// todo - add dark styles for resize handle
+
 import {
     autofocus,
     label,
@@ -86,6 +86,7 @@ import {
     error
 } from 'composables/input';
 import { getIcon } from '@/helpers';
+import { large } from 'composables/style';
 import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
 
@@ -124,7 +125,8 @@ export default defineComponent({
         name,
         disabled,
         error,
-        placeholder
+        placeholder,
+        large
     },
 
     emits: ['update:modelValue'],

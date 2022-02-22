@@ -1,5 +1,9 @@
 <template>
     <div class="flex justify-evenly mb-6">
+        <UICheckbox v-model="large"
+                    name="large"
+                    label="Large Style" />
+
         <UIButton category="danger" @click="error ? error = '' : error = 'Error message.'">
             {{ error ? 'Remove' : 'Set' }} Error state
         </UIButton>
@@ -11,14 +15,25 @@
                         placeholder="Write your bio here"
                         name="ui-text"
                         counter
+                        :large="large"
                         :error="error"
                         clearable
                         auto-size
                         label="Standard" />
 
+            <UITextarea v-model="customText"
+                        placeholder="Write your bio here"
+                        name="ui-text"
+                        counter
+                        :large="large"
+                        :error="error"
+                        clearable
+                        label="Resizable" />
+
             <UITextarea v-model="text"
                         name="ui-text"
                         rows="2"
+                        :large="large"
                         :error="error"
                         label="Fixed Height"
                         fixed />
@@ -26,6 +41,7 @@
             <UITextarea v-model="disabled"
                         name="ui-text3"
                         label="Disabled"
+                        :large="large"
                         :error="error"
                         rows="1"
                         disabled />
@@ -46,12 +62,14 @@ export default defineComponent({
         const customText = ref('dgs');
         const disabled = ref('Can\'t touch this!');
         const error = ref('');
+        const large = ref(false);
 
         return {
             text,
             disabled,
             customText,
-            error
+            error,
+            large
         };
     }
 });
