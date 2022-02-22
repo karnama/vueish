@@ -16,7 +16,7 @@
              :style="dropdownStyle"
              role="group"
              @click.stop>
-            <slot />
+            <slot :toggle="toggle" :show="show" :hide="hide" />
         </div>
     </div>
 </template>
@@ -82,6 +82,8 @@ export default defineComponent({
     },
 
     emits: ['open', 'close'],
+
+    expose: ['hide', 'show', 'toggle'],
 
     setup(props, ctx) {
         const isOpen = ref(false);
