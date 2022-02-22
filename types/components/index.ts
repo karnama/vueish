@@ -51,3 +51,10 @@ export interface UIModal {
     close: (event: 'accept' | 'cancel') => Promise<void>;
     isOpen: boolean;
 }
+
+// UIDropdown
+export interface UIDropdown {
+    show: () => void;
+    hide: () => void;
+    toggle: () => void;
+}
