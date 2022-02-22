@@ -160,9 +160,6 @@ import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 type OptionObject = Record<string, any>;
 type Option = OptionObject | string;
 
-// todo - add label
-// todo - add select all clear all
-// todo - clearIcon no semantic indication of interactivity
 export default defineComponent({
     name: 'UISelect',
 
