@@ -7,7 +7,7 @@
     ],
     "main": "./dist/vueish.es.js",
     "module": "./dist/vueish.es.js",
-    "types": "./types/index.d.ts",
+    "types": "./types/index.ts",
     "web-types": "/dist/web-types.json",
     "license": "mit",
     "exports": {
