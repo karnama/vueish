@@ -17,9 +17,7 @@ describe('UIRadio', () => {
             }
         });
 
-        const input = wrapper.get('input');
-
-        expect(input.attributes().foo).toBe(foo);
+        expect(wrapper.get('input').attributes().foo).toBe(foo);
     });
 
     it('should display the label when passed as a prop', () => {
@@ -223,7 +221,8 @@ describe('UIRadioGroup', () => {
     it('should throw an error if there are missing UIRadio components', () => {
         disableConsoleWarn();
         expect(() => mount(UIRadioGroup))
-            .toThrow('UIRadioGroup requires at least 2 UIRadio components in the default slot.');
+            .toThrow(new RangeError('UIRadioGroup requires at least 2 UIRadio components in the default slot.'));
+
         enableConsoleWarn();
     });
 });
