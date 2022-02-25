@@ -1,5 +1,6 @@
 <template>
     <UISelect v-model="component"
+              name="transition"
               option-key="name"
               :options="components"
               class="mb-2" />

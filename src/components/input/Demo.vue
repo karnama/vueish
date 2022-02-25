@@ -135,6 +135,7 @@
         </UIInput>
 
         <UIInput v-model="placeholder"
+                 :error="error"
                  name="ui-text14"
                  class="mt-10"
                  type="number"
@@ -164,7 +165,7 @@ export default defineComponent({
         const prefixSlot = ref('Billions');
         const suffixProp = ref('100');
         const suffixSlot = ref('Feather-weight');
-        const placeholder = ref<number>();
+        const placeholder = ref<number|null>(null);
         const large = ref(false);
         const error = ref('');
 
