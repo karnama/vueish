@@ -15,7 +15,7 @@ exports[`UITextarea should display correctly 1`] = `
       class="flex items-center items-stretch"
     >
       <textarea
-        class="flex-1 p-3 appearance-none bg-transparent outline-none disabled:cursor-not-allowed text-color disabled:text-gray-400"
+        class="flex-1 p-3.5 appearance-none bg-transparent outline-none disabled:cursor-not-allowed text-color disabled:text-gray-400"
         id="input"
         name="input"
         spellcheck="true"

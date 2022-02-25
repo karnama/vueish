@@ -38,7 +38,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { label, disabled, name, error } from 'composables/input';
+import { label, disabled, name, error } from '@/shared-props';
 import { isEqual, omit } from 'lodash-es';
 import { getIcon } from '@/helpers';
 import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';

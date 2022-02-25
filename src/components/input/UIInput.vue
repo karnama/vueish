@@ -89,7 +89,7 @@
                     <button :aria-controls="$attrs.id ?? name"
                             aria-roledescription="decrement"
                             class="px-2 transition-colors h-full rounded-br
-                                   bg-gray-50 hover:bg-gray-200
+                                   bg-gray-50 hover:bg-gray-200 focus:z-10
                                    dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400"
                             @click="decrement"
                             v-html="chevronIcon" />
@@ -118,11 +118,11 @@ import {
     name,
     clearable,
     disabled,
-    useVModel,
     error,
-    placeholder
-} from 'composables/input';
-import { large } from 'composables/style';
+    placeholder,
+    large
+} from '@/shared-props';
+import { useVModel } from 'composables/reactivity';
 import { getIcon, getPrecision } from '@/helpers';
 import { omit } from 'lodash-es';
 import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
@@ -152,6 +152,8 @@ export default defineComponent({
 
         /**
          * The types the component can handle.
+         *
+         * @default 'text'
          */
         type: {
             type: String as PropType<typeof types[number]>,
@@ -161,6 +163,8 @@ export default defineComponent({
 
         /**
          * Whether to disable the functionality to show the password in clear text.
+         *
+         * @default false
          */
         disablePasswordToggle: {
             type: Boolean,
@@ -170,6 +174,8 @@ export default defineComponent({
         /**
          * The time in milliseconds after the visible password turns back to hidden.
          * To disable, set the value to 0.
+         *
+         * @default 4000
          */
         passwordToggleTimeout: {
             type: Number,

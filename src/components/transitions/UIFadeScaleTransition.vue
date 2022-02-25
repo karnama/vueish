@@ -34,6 +34,8 @@ export default defineComponent({
         /**
          * A class containing a transition timing function controlling
          * how long should the transition last when entering.
+         *
+         * @default 'duration-100'
          */
         durationIn: {
             type: String,
@@ -43,6 +45,8 @@ export default defineComponent({
         /**
          * A class containing a transition timing function controlling
          * how long should the transition last when entering.
+         *
+         * @default 'duration-75'
          */
         durationOut: {
             type: String,

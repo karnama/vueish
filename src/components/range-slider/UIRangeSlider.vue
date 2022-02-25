@@ -35,8 +35,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import { useVModel } from 'composables/input';
-import { disabled, name, label } from 'composables/input';
+import { useVModel } from 'composables/reactivity';
+import { disabled, name, label } from '@/shared-props';
 
 let timeoutId: ReturnType<typeof setTimeout>;
 
@@ -55,6 +55,8 @@ export default defineComponent({
 
         /**
          * Minimum value.
+         *
+         * @default 0
          */
         min: {
             type: [Number, String],
@@ -63,6 +65,8 @@ export default defineComponent({
 
         /**
          * Maximum value.
+         *
+         * @default 0
          */
         max: {
             type: [Number, String],
@@ -71,6 +75,8 @@ export default defineComponent({
 
         /**
          * The increment value of the range.
+         *
+         * @default 1
          */
         step: {
             type: [Number, String],

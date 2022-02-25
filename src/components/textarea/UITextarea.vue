@@ -82,11 +82,11 @@ import {
     name,
     disabled,
     placeholder,
-    useVModel,
+    large,
     error
-} from 'composables/input';
+} from '@/shared-props';
 import { getIcon } from '@/helpers';
-import { large } from 'composables/style';
+import { useVModel } from 'composables/reactivity';
 import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
 
@@ -104,6 +104,8 @@ export default defineComponent({
 
         /**
          * Flag to enable auto-sizing the text area's height.
+         *
+         * @default false
          */
         autoSize: {
             type: Boolean,
@@ -112,6 +114,8 @@ export default defineComponent({
 
         /**
          * Display a count of the characters currently in the textarea.
+         *
+         * @default false
          */
         counter: {
             type: Boolean,

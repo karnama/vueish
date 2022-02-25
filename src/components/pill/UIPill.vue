@@ -8,8 +8,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { label } from 'composables/input';
-import { category } from 'composables/style';
+import { label, category } from '@/shared-props';
 import type { StyleType } from 'types';
 
 const categoryClasses = {

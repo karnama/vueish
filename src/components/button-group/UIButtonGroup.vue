@@ -10,6 +10,8 @@ import { defineComponent } from 'vue';
 export const props = {
     /**
      * Display the buttons in a vertical order.
+     *
+     * @default false
      */
     vertical: {
         type: Boolean,
@@ -18,6 +20,8 @@ export const props = {
 
     /**
      * Set the width evenly to screen size.
+     *
+     * @default false
      */
     spread: {
         type: Boolean,

@@ -43,7 +43,7 @@
 
                 <!--Modal Footer-->
                 <template #footer>
-                    <slot name="footer" :close="close">
+                    <slot name="footer" :close="close" :open="open">
                         <UIButton class="ui-modal-close ml-auto mr-2" @click="close('cancel')">
                             {{ closeButtonLabel }}
                         </UIButton>
@@ -77,8 +77,6 @@ export default defineComponent({
     props: {
         /**
          * Header string
-         *
-         * @type {String|Object}
          */
         header: {
             type: String
@@ -86,8 +84,6 @@ export default defineComponent({
 
         /**
          * Body string
-         *
-         * @type {String|Object}
          */
         body: {
             type: String
@@ -103,7 +99,7 @@ export default defineComponent({
         /**
          * The label for the close button.
          *
-         * @type {String|Object}
+         * @default 'Cancel'
          */
         closeButtonLabel: {
             type: String,
@@ -112,6 +108,8 @@ export default defineComponent({
 
         /**
          * The label for the accept button.
+         *
+         * @default 'Confirm'
          */
         acceptButtonLabel: {
             type: String,
@@ -120,6 +118,8 @@ export default defineComponent({
     },
 
     emits: ['cancel', 'accept'],
+
+    expose: ['open', 'close', 'isOpen'],
 
     setup(props, ctx) {
         const clearIcon = getIcon('clear');
