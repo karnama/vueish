@@ -63,6 +63,8 @@ export const group: Prop<boolean, false> = {
 
 /**
  * The transition mode between elements.
+ *
+ * @default 'out-in'
  */
 export const mode: Prop<'out-in' | 'in-out', 'out-in'> = {
     type: String as PropType<'out-in' | 'in-out'>,
