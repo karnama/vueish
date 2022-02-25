@@ -334,11 +334,11 @@ export default defineComponent({
         },
 
         /**
-         * The number of rows in total that is available
+         * The total number of rows that will be visible (across all pages).
          *
          * @default rows.length
          */
-        totalRecords: {
+        totalItems: {
             type: Number,
             default: (props: Record<string, any> & { rows: Row[] }) => {
                 return props.rows.length;
@@ -428,7 +428,7 @@ export default defineComponent({
             return sortedRows(normalisedRows.value.filter(row => search(row, term.value)));
         });
         const totalRowCount = computed(() => {
-            return props.totalRecords ?? filteredRows.value.length;
+            return props.totalItems ?? filteredRows.value.length;
         });
 
         const currentPage = useVModel<number>(props, 'page');

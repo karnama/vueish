@@ -35,7 +35,6 @@ export function debouncedRef<T = unknown>(value: T, delay = 200): Ref<T> {
  * @param {object} props
  * @param {string} name - the string to append to the emitted event eg.: 'option' will be used for v-model:option=""
  */
-// todo - make deep an argument
 export function useVModel<T>(props: Record<string, any>, name = 'modelValue'): Ref<T> {
     const instance = getCurrentInstance();
     if (!instance) {

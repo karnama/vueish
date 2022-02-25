@@ -1,6 +1,6 @@
-import { useVModel } from './index';
+import { debouncedRef, useVModel } from './index';
 import { mount } from '@vue/test-utils';
-import { defineComponent, h } from 'vue';
+import { defineComponent, h, nextTick } from 'vue';
 import type { PropType } from 'vue';
 import { disableConsoleWarn, enableConsoleWarn } from 'helpers/test';
 
@@ -141,6 +141,14 @@ describe('input', () => {
     });
 
     describe('debouncedRef', () => {
-        //todo - implement
+        it('should update the ref only after the timeout', async () => {
+            jest.useFakeTimers();
+            const myRef = debouncedRef(1);
+            myRef.value = 2;
+            await nextTick();
+            expect(myRef.value).toBe(1);
+            jest.runAllTimers();
+            expect(myRef.value).toBe(2);
+        });
     });
 });

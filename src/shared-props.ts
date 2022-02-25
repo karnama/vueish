@@ -53,23 +53,32 @@ export const autofocus: Prop<boolean, false> = {
 
 /**
  * The placeholder the input should display.
+ *
+ * @default ""
  */
 export const placeholder: Prop<string> = {
-    type: String
+    type: String,
+    default: ''
 };
 
 /**
  * String to prefix the input with, eg: £.
+ *
+ * @default ""
  */
 export const prefix: Prop<string> = {
-    type: String
+    type: String,
+    default: ''
 };
 
 /**
- * String to suffix the input with, eg: £.
+ * String to suffix the input with, eg: $.
+ *
+ * @default ""
  */
 export const suffix: Prop<string> = {
-    type: String
+    type: String,
+    default: ''
 };
 
 /**
