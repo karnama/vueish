@@ -3,7 +3,7 @@
 exports[`UIDropdown should correctly display 1`] = `
 <div
   aria-haspopup="true"
-  class="ui-dropdown w-full relative"
+  class="ui-dropdown w-max relative"
 >
   
   <div
