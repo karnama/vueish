@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, watch, onMounted, onUnmounted } from 'vue';
-import { inheritColor, determinate, steps, progress } from 'composables/style';
+import { inheritColor, determinate, steps, progress } from '@/shared-props';
 
 export default defineComponent({
     name: 'UISpinnerLoader',
@@ -35,6 +35,8 @@ export default defineComponent({
     props: {
         /**
          * The diameter of the circle in pixels.
+         *
+         * @default 60
          */
         diameter: {
             type: [Number, String],
@@ -43,6 +45,8 @@ export default defineComponent({
 
         /**
          * The width of the stroke in pixels.
+         *
+         * @default 6
          */
         stroke: {
             type: [Number, String],

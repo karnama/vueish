@@ -25,6 +25,8 @@ export default defineComponent({
     props: {
         /**
          * The horizontal position of the badge.
+         *
+         * @default 'right'
          */
         horizontal: {
             type: String as PropType<typeof horizontal[number]>,
@@ -34,6 +36,8 @@ export default defineComponent({
 
         /**
          * The vertical position of the badge.
+         *
+         * @default 'top'
          */
         vertical: {
             type: String as PropType<typeof vertical[number]>,
@@ -41,6 +45,9 @@ export default defineComponent({
             validator: (val: typeof vertical[number]) => vertical.includes(val)
         },
 
+        /**
+         * The content to display if no default slot set.
+         */
         content: {
             type: [String, Number]
         }

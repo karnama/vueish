@@ -36,7 +36,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { name, useVModel, disabled, label, error } from 'composables/input';
+import { name, disabled, label, error } from '@/shared-props';
+import { useVModel } from 'composables/reactivity';
 import { omit } from 'lodash-es';
 import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 

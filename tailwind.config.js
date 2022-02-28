@@ -21,7 +21,7 @@ const brandColors = (levels) => {
 /**
  * @type {import('@types/tailwindcss').TailwindConfig}
  */
-module.exports = {
+const tailwindConfig = {
     content: ['./src/**/*.{vue,ts,tsx}'],
     darkMode: 'class',
     theme: {
@@ -42,3 +42,9 @@ module.exports = {
         }
     }
 };
+
+if (process.env.NODE_ENV === 'production') {
+    tailwindConfig.content.push('!./src/**/Demo*.vue')
+}
+
+module.exports = tailwindConfig;

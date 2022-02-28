@@ -128,13 +128,13 @@
 
             <tfoot v-if="$slots.footer
                        || selectable && !singleSelect
-                       || filteredRows.length > itemsPerPage && !disablePagination"
+                       || totalRowCount > itemsPerPage && !disablePagination"
                    class="border-t border-gray-300 dark:border-gray-500 sticky
                           bg-white dark:bg-gray-700 bottom-0 sm:relative shadow-up"
                    :class="{
                        'sm:hidden': selectable
                            && !singleSelect
-                           && !(filteredRows.length > itemsPerPage && !disablePagination || $slots.footer)
+                           && !(totalRowCount > itemsPerPage && !disablePagination || $slots.footer)
                    }">
                 <tr class="w-full flex sm:table-row">
                     <td class="block grow sm:table-cell"
@@ -152,7 +152,7 @@
                                             :model-value="Array.isArray(selected) && !!selected.length"
                                             @update:model-value="toggleAllRowSelection" />
                             </span>
-                            <slot v-if="!disablePagination && filteredRows.length > itemsPerPage"
+                            <slot v-if="totalRowCount > itemsPerPage && !disablePagination"
                                   name="pagination"
                                   v-bind="{
                                       itemsPerPage: currentItemsPerPage,
@@ -206,7 +206,7 @@ import type { Column, Row, SortOrder } from 'types';
 import { snakeCase, uniqueId, isEqual, orderBy, cloneDeep } from 'lodash-es';
 import UIInput from 'components/input/UIInput.vue';
 import UICheckbox from 'components/checkbox/UICheckbox.vue';
-import { useVModel } from 'composables/input';
+import { useVModel } from 'composables/reactivity';
 import type { MaybeArray } from 'types/utilities';
 import { getIcon } from '@/helpers';
 import { debouncedRef } from 'composables/reactivity';
@@ -219,6 +219,9 @@ export default defineComponent({
     components: { UIButton, UISelect, UIInput, UICheckbox },
 
     props: {
+        /**
+         * @default []
+         */
         modelValue: {
             type: [Array, Object] as PropType<MaybeArray<Row>>,
             default: () => []
@@ -242,6 +245,8 @@ export default defineComponent({
 
         /**
          * Flag indicating whether columns and rows should be highlighted on hover.
+         *
+         * @default false
          */
         hoverHighlight: {
             type: Boolean,
@@ -256,7 +261,10 @@ export default defineComponent({
         },
 
         /**
-         * Flag indicating that the search function should not be used.
+         * Flag indicating that the search function should not be used,
+         * as the updated rows will be provided by the prop.
+         *
+         * @default false
          */
         asyncSearch: {
             type: Boolean,
@@ -265,6 +273,8 @@ export default defineComponent({
 
         /**
          * The string to display if no data provided.
+         *
+         * @default "There's no data available."
          */
         empty: {
             type: String,
@@ -273,6 +283,8 @@ export default defineComponent({
 
         /**
          * Whether the option to select a row is visible or not.
+         *
+         * @default false
          */
         selectable: {
             type: Boolean,
@@ -281,6 +293,8 @@ export default defineComponent({
 
         /**
          * Only allow selecting single a single row.
+         *
+         * @default false
          */
         singleSelect: {
             type: Boolean,
@@ -289,6 +303,8 @@ export default defineComponent({
 
         /**
          * Whether the columns are sortable or not.
+         *
+         * @default false
          */
         disableSorting: {
             type: Boolean,
@@ -297,6 +313,8 @@ export default defineComponent({
 
         /**
          * The current page.
+         *
+         * @default 1
          */
         page: {
             type: Number,
@@ -306,6 +324,8 @@ export default defineComponent({
 
         /**
          * The number of rows on the page.
+         *
+         * @default 10
          */
         itemsPerPage: {
             type: Number,
@@ -314,7 +334,21 @@ export default defineComponent({
         },
 
         /**
+         * The total number of rows that will be visible (across all pages).
+         *
+         * @default rows.length
+         */
+        totalItems: {
+            type: Number,
+            default: (props: Record<string, any> & { rows: Row[] }) => {
+                return props.rows.length;
+            }
+        },
+
+        /**
          * Flag used for disabling the pagination.
+         *
+         * @default false
          */
         disablePagination: {
             type: Boolean,
@@ -361,7 +395,7 @@ export default defineComponent({
                 };
             });
         });
-        const rowProperties = computed<string[]>(() => normalisedHeaders.value.map(header => header.rowProperty));
+        const rowProperties = computed(() => normalisedHeaders.value.map(header => header.rowProperty));
         const filteredRows = computed(() => {
             const sortedRows = (rows: Required<Row>[]): Required<Row>[] => {
                 if (!sortOrder.value.length) return rows;
@@ -393,6 +427,9 @@ export default defineComponent({
 
             return sortedRows(normalisedRows.value.filter(row => search(row, term.value)));
         });
+        const totalRowCount = computed(() => {
+            return props.totalItems ?? filteredRows.value.length;
+        });
 
         const currentPage = useVModel<number>(props, 'page');
         const currentItemsPerPage = useVModel<number>(props, 'itemsPerPage');
@@ -405,7 +442,7 @@ export default defineComponent({
 
             return filteredRows.value.slice(start, start + currentItemsPerPage.value);
         });
-        const pageCount = computed(() => Math.ceil(filteredRows.value.length / currentItemsPerPage.value));
+        const pageCount = computed(() => Math.ceil(totalRowCount.value / currentItemsPerPage.value));
         const hasNext = computed(() => {
             return !!filteredRows.value
                 .slice((currentPage.value - 1) * currentItemsPerPage.value + currentItemsPerPage.value)
@@ -569,6 +606,7 @@ export default defineComponent({
             normalisedHeaders,
             normalisedRows,
             selectableRows,
+            totalRowCount,
             rowProperties,
             filteredRows,
             chevronIcon,

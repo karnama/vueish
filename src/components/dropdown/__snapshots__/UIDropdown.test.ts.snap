@@ -3,23 +3,27 @@
 exports[`UIDropdown should correctly display 1`] = `
 <div
   aria-haspopup="true"
-  class="ui-dropdown w-max relative"
+  class="ui-dropdown w-full relative"
 >
   
   <div
     id="trigger"
   />
   
-  <div
-    class="dropdown absolute z-50 rounded overflow-scroll flex flex-col items-stretch shadow-lg bg-white dark:bg-gray-600 ring-1 ring-opacity-5 ring-black dark:ring-white dark:ring-opacity-5"
-    role="group"
-    style="max-height: 35vh; width: 250px; right: 0px; top: 0px;"
-  >
+  <transition-stub>
     
     <div
-      id="content"
-    />
+      class="dropdown absolute z-50 rounded overflow-scroll flex flex-col items-stretch shadow-lg bg-white dark:bg-gray-600 h-max ring-1 ring-opacity-5 ring-black dark:ring-white dark:ring-opacity-5"
+      role="group"
+      style="max-height: 35vh; width: 250px; right: 0px; top: 0px;"
+    >
+      
+      <div
+        id="content"
+      />
+      
+    </div>
     
-  </div>
+  </transition-stub>
 </div>
 `;

@@ -23,12 +23,14 @@
                           v-bind="$attrs"
                           ref="input"
                           v-model="model"
+                          :placeholder="placeholder"
                           spellcheck="true"
                           :name="name"
                           :disabled="disabled"
-                          :aria-placeholder="$attrs.placeholder"
-                          class="flex-1 p-3 appearance-none bg-transparent outline-none
+                          :aria-placeholder="placeholder"
+                          class="flex-1 p-3.5 appearance-none bg-transparent outline-none
                                  disabled:cursor-not-allowed text-color disabled:text-gray-400"
+                          :class="{ 'px-7 py-5': large }"
                           :style="[
                               disabled || fixed || autoSize ? 'resize: none' : '',
                               counter ? 'min-height: 5rem' : '']" />
@@ -72,18 +74,19 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, onUpdated, onBeforeUnmount } from 'vue';
-// todo - add large styles
-// todo - add dark styles for resize handle
+
 import {
     autofocus,
     label,
     clearable,
     name,
     disabled,
-    useVModel,
+    placeholder,
+    large,
     error
-} from 'composables/input';
+} from '@/shared-props';
 import { getIcon } from '@/helpers';
+import { useVModel } from 'composables/reactivity';
 import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
 
@@ -100,7 +103,9 @@ export default defineComponent({
         },
 
         /**
-         * Flag to enable auto-sizing the the text area's height.
+         * Flag to enable auto-sizing the text area's height.
+         *
+         * @default false
          */
         autoSize: {
             type: Boolean,
@@ -109,6 +114,8 @@ export default defineComponent({
 
         /**
          * Display a count of the characters currently in the textarea.
+         *
+         * @default false
          */
         counter: {
             type: Boolean,
@@ -121,7 +128,9 @@ export default defineComponent({
         clearable,
         name,
         disabled,
-        error
+        error,
+        placeholder,
+        large
     },
 
     emits: ['update:modelValue'],

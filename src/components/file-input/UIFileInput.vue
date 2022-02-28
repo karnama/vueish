@@ -77,12 +77,10 @@
 </template>
 
 <script lang="ts">
-
 import { computed, defineComponent, ref, watch } from 'vue';
 import type { PropType } from 'vue';
 import { createFileList, getSizeString } from 'composables/utils';
-import { name, label, clearable, autofocus, disabled, positiveOptionalNumber, error } from 'composables/input';
-import { large } from 'composables/style';
+import { name, label, clearable, autofocus, disabled, positiveOptionalNumber, error, large } from '@/shared-props';
 import { omit } from 'lodash-es';
 import { getIcon } from '@/helpers';
 import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
@@ -104,6 +102,8 @@ export default defineComponent({
 
         /**
          * Whether multiple files are accepted.
+         *
+         * @default false
          */
         multiple: {
             type: Boolean,
@@ -113,6 +113,8 @@ export default defineComponent({
 
         /**
          * Accepted mimes in an array format.
+         *
+         * @default ['*']
          *
          * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept
          */

@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
-import { inheritColor, progress, steps, determinate } from 'composables/style';
+import { inheritColor, progress, steps, determinate } from '@/shared-props';
 
 export default defineComponent({
     name: 'UILinearLoader',
@@ -23,6 +23,8 @@ export default defineComponent({
     props: {
         /**
          * The height of the component in px.
+         *
+         * @default 4
          */
         height: {
             type: Number,

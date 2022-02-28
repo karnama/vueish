@@ -27,8 +27,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 import type { StyleType } from 'types';
-import { category, large } from 'composables/style';
-import { label, disabled } from 'composables/input';
+import { category, large, label, disabled, loading } from '@/shared-props';
 import UISpinnerLoader from 'components/loader-spinner/UISpinnerLoader.vue';
 import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
 
@@ -39,15 +38,9 @@ export default defineComponent({
 
     props: {
         /**
-         * Indication whether button is currently loading or not.
-         */
-        loading: {
-            type: Boolean,
-            default: false
-        },
-
-        /**
          * Use the outline (/secondary) styles.
+         *
+         * @default false
          */
         outline: {
             type: Boolean,
@@ -56,6 +49,8 @@ export default defineComponent({
 
         /**
          * Use the minimal (/ternary) styles.
+         *
+         * @default false
          */
         minimal: {
             type: Boolean,
@@ -65,7 +60,8 @@ export default defineComponent({
         disabled,
         large,
         label,
-        category
+        category,
+        loading
     },
 
     setup(props) {

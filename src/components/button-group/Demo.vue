@@ -1,7 +1,7 @@
 <template>
     <div class="space-y-2 mb-4">
-        <UICheckbox v-model="vertical" label="Vertical" />
-        <UICheckbox v-model="spread" label="Spread" />
+        <UICheckbox v-model="vertical" label="Vertical" name="vertical" />
+        <UICheckbox v-model="spread" label="Spread" name="spread" />
     </div>
 
     <UIButtonGroup :spread="spread" :vertical="vertical">

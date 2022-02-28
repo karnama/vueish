@@ -49,5 +49,12 @@ export interface FileError extends UIError {
 export interface UIModal {
     open: () => Promise<void>;
     close: (event: 'accept' | 'cancel') => Promise<void>;
-    isOpen: boolean;
+    isOpen: Readonly<boolean>;
+}
+
+// UIDropdown
+export interface UIDropdown {
+    show: () => void;
+    hide: () => void;
+    toggle: () => void;
 }

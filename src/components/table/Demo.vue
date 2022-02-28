@@ -44,15 +44,16 @@
                      disable-sorting />
         </UIPanel>
 
-        <UIPanel closed header="Using custom paginator">
+        <UIPanel closed header="Using async custom paginator" :loading="loading">
             <UITable :headers="headers"
                      :items-per-page="5"
-                     :rows="rows">
+                     :total-records="100"
+                     :rows="asyncRows">
                 <template #pagination="slotProps">
                     <div class="flex justify-end w-full">
                         <UIPagination :model-value="slotProps.page"
                                       :length="slotProps.pageCount"
-                                      @update:model-value="val => slotProps.jumpToPage(val)" />
+                                      @update:model-value="goToPage" />
                     </div>
                 </template>
             </UITable>
@@ -85,7 +86,7 @@ export default defineComponent({
             { header: 'Protein (g)', rowProperty: 'protein' },
             { header: 'Iron (%)', rowProperty: 'iron', suffix: '%', sortable: true }
         ]);
-        const rows = ref<Row[]>([
+        const rows = ref<Row & Dessert[]>([
             {
                 name: 'Frozen Yogurt',
                 calories: 159,
@@ -176,16 +177,30 @@ export default defineComponent({
                 iron: '3'
             }
         ]);
-        const selectedRows = ref<Row[]>();
+        const selectedRows = ref<Row & Dessert[]>();
         const page = ref(1);
         const itemsPerPage = ref(2);
+        const loading = ref(false);
+        const asyncRows = ref<Row & Dessert[]>(rows.value.slice(0, 5));
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const goToPage = async (_page: number) => {
+            loading.value = true;
+            Math.floor(Math.random() * rows.value.length);
+            await new Promise(resolve => setTimeout(resolve, 400));
+            const start = Math.max(Math.floor(Math.random() * 5), Math.floor(Math.random() * rows.value.length - 5));
+            asyncRows.value = rows.value.slice(start, start + 5);
+            loading.value = false;
+        };
 
         return {
             headers,
             rows,
             selectedRows,
             page,
-            itemsPerPage
+            itemsPerPage,
+            goToPage,
+            loading,
+            asyncRows
         };
     }
 });

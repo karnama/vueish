@@ -76,6 +76,8 @@ export default defineComponent({
     props: {
         /**
          * Boolean flag to indicate the panel should start closed.
+         *
+         * @default false
          */
         closed: {
             type: Boolean,
@@ -84,6 +86,8 @@ export default defineComponent({
 
         /**
          * Boolean flag to indicate if the panel is collapsible.
+         *
+         * @default false
          */
         noCollapse: {
             type: Boolean,
@@ -95,12 +99,13 @@ export default defineComponent({
          * and as a namespace for saved closed status.
          */
         id: {
-            type: String,
-            required: false
+            type: String
         },
 
         /**
          * Boolean flag for transition on appear.
+         *
+         * @default false
          */
         appear: {
             type: Boolean,
@@ -109,6 +114,8 @@ export default defineComponent({
 
         /**
          * Boolean flag to indicate if loader is visible.
+         *
+         * @default false
          */
         loading: {
             type: Boolean,
@@ -117,6 +124,8 @@ export default defineComponent({
 
         /**
          * Use the spinner loading in the middle of the panel instead of the linear loader.
+         *
+         * @default false
          */
         blockingLoader: {
             type: Boolean,

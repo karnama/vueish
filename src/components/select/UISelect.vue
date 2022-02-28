@@ -133,9 +133,9 @@
                                      || multi && clearable && currentlySelected
                                      || multi && currentlySelected && selectionCount > 1"
                                  class="flex items-center justify-between p-2 px-3">
-                                <span class="clear-icon h-5 w-5 cursor-pointer text-color-muted"
-                                      @click.stop="clearSelection(option)"
-                                      v-html="clearIcon" />
+                                <button class="clear-icon h-5 w-5 text-color-muted"
+                                        @click.stop="clearSelection(option)"
+                                        v-html="clearIcon" />
                             </div>
                         </div>
                     </li>
@@ -149,8 +149,8 @@
 import { computed, defineComponent, onMounted, ref, onUnmounted, nextTick, onBeforeUpdate } from 'vue';
 import { isEqual as _isEqual, cloneDeep } from 'lodash-es';
 import type { PropType } from 'vue';
-import { placeholder, autofocus, clearable, disabled, useVModel, label, name, error } from 'composables/input';
-import { large } from 'composables/style';
+import { placeholder, autofocus, clearable, disabled, label, name, error, large } from '@/shared-props';
+import { useVModel } from 'composables/reactivity';
 import { getIcon, wrap } from '@/helpers';
 import type { MaybeArray } from 'types/utilities';
 import clickAway from '@/directives/click-away';
@@ -169,7 +169,7 @@ export default defineComponent({
 
     props: {
         modelValue: {
-            type: [Object, Array] as PropType<MaybeArray<Option> | MaybeArray<string> | null>
+            type: [Object, Array, String] as PropType<MaybeArray<Option> | MaybeArray<string> | null>
         },
 
         /**
@@ -182,6 +182,8 @@ export default defineComponent({
 
         /**
          * The key to find the label by on the options.
+         *
+         * @default 'name'
          */
         optionLabel: {
             type: String,
@@ -192,6 +194,8 @@ export default defineComponent({
          * The key on the options to compare the objects by.
          * Otherwise, if set to 'whole' The objects will
          * be compared based on deep equality.
+         *
+         * @default 'id'
          */
         optionKey: {
             type: String,
@@ -201,6 +205,8 @@ export default defineComponent({
         /**
          * String to display at the top of the
          * open list.
+         *
+         * @default 'Select an option'
          */
         header: {
             type: String,
@@ -209,6 +215,8 @@ export default defineComponent({
 
         /**
          * Disable the searching feature.
+         *
+         * @default false
          */
         noSearch: {
             type: Boolean,
@@ -224,6 +232,8 @@ export default defineComponent({
 
         /**
          * Property indicating whether multiple values can be selected or not.
+         *
+         * @default false
          */
         multi: {
             type: Boolean,
@@ -232,6 +242,8 @@ export default defineComponent({
 
         /**
          * The placeholder the input should display.
+         *
+         * @default 'Please select...'
          */
         // eslint-disable-next-line vue/require-prop-types
         placeholder: {
