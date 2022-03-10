@@ -200,16 +200,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from 'vue';
+import { computed, defineComponent, markRaw, ref, watch } from 'vue';
 import type { PropType } from 'vue';
 import type { Column, Row, SortOrder } from 'types';
 import { snakeCase, uniqueId, isEqual, orderBy, cloneDeep } from 'lodash-es';
 import UIInput from 'components/input/UIInput.vue';
 import UICheckbox from 'components/checkbox/UICheckbox.vue';
-import { useVModel } from 'composables/reactivity';
+import { useVModel, debouncedRef } from 'composables/reactivity';
 import type { MaybeArray } from 'types/utilities';
 import { getIcon } from '@/helpers';
-import { debouncedRef } from 'composables/reactivity';
 import UISelect from 'components/select/UISelect.vue';
 import UIButton from 'components/button/UIButton.vue';
 
@@ -361,13 +360,13 @@ export default defineComponent({
     setup(props, ctx) {
         const chevronIcon = getIcon('chevron');
         let styleTagId = '';
-        const itemPerPageOptions = [
+        const itemPerPageOptions = markRaw([
             { name: 5, id: 5 },
             { name: 10, id: 10 },
             { name: 25, id: 25 },
             { name: 50, id: 50 },
             { name: 100, id: 100 }
-        ];
+        ]);
 
         const normalisedHeaders = computed<Required<Column>[]>(() => {
             return props.headers.map((col: Column) => {
