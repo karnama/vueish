@@ -25,7 +25,8 @@
              :aria-valuetext="selectionDisplay"
              :class="{
                  'bg-gray-200 dark:!bg-gray-700 text-color-muted cursor-not-allowed': disabled,
-                 'focus-within:border-blue-400 dark:focus-within:border-blue-500': !(error || $slots.error) && !disabled,
+                 'focus-within:border-blue-400 dark:focus-within:border-blue-500':
+                     !(error || $slots.error) && !disabled,
                  'px-7 py-5': large
              }"
              tabindex="0"
@@ -37,7 +38,7 @@
                     {{ selectionDisplay }}
                 </span>
 
-                <span v-else class="text-color-muted">
+                <span v-else class="text-gray-400">
                     {{ placeholder }}
                 </span>
             </slot>
