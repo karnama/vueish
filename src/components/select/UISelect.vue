@@ -30,6 +30,7 @@
                  'px-7 py-5': large
              }"
              tabindex="0"
+             @keydown.down="() => noSearch ? listElements[0]?.focus() : undefined"
              @keydown.space="openList"
              @keydown.esc="closeList"
              @click="open ? closeList() : openList()">
