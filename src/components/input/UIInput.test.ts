@@ -280,4 +280,22 @@ describe('UIInput', () => {
 
         jest.useRealTimers();
     });
+
+    describe('type number', () => {
+        it('should not increment/decrement value when disabled', async () => {
+            const wrapper = mount(UIInput, {
+                props: {
+                    modelValue: 1,
+                    name: 'input',
+                    type: 'number',
+                    disabled: true
+                }
+            });
+
+            await wrapper.find('[aria-roledescription="increment"]').trigger('click');
+            expect(wrapper.lastEventValue()).toBeUndefined();
+            await wrapper.find('[aria-roledescription="decrement"]').trigger('click');
+            expect(wrapper.lastEventValue()).toBeUndefined();
+        });
+    });
 });
