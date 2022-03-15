@@ -32,9 +32,9 @@
                      v-if="open"
                      class="blur-none"
                      :class="{ 'blur-[1px]': loading && blockingLoader }">
-                    <main class="w-full px-12 py-6">
+                    <div class="w-full px-12 py-6">
                         <slot />
-                    </main>
+                    </div>
 
                     <footer v-if="$slots.footer" class="py-8 px-12 flex items-center">
                         <slot name="footer" />
