@@ -1,4 +1,4 @@
-import { createApp } from 'vue';
+import { createApp, h } from 'vue';
 import DemoBoard from './DemoBoard.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import './assets/styles/main.scss';
@@ -30,6 +30,18 @@ const routes = Object.keys(demos)
             }
         } as RouteRecordRaw;
     });
+
+routes.push({
+    path: '/',
+    name: 'landing',
+    component: {
+        render: () => h(
+            'h1',
+            { classList: 'text-color-muted text-center text-2xl select-none' },
+            'No component found at this route.'
+        )
+    }
+});
 
 const router = createRouter({ history: createWebHistory(), routes });
 
