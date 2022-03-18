@@ -3,24 +3,20 @@
             :class="classes"
             :disabled="disabled"
             class="ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed">
-        <UIFadeTransition>
-            <span v-if="loading" class="loader">
-                <slot name="loader">
-                    <UISpinnerLoader v-if="loading"
-                                     inherit-color
-                                     class="px-4 mx-auto"
-                                     :class="loaderColor"
-                                     :stroke="2"
-                                     :diameter="25" />
-                </slot>
-            </span>
-
-            <span v-else class="label">
-                <slot>
-                    {{ label }}
-                </slot>
-            </span>
-        </UIFadeTransition>
+        <span v-if="loading" class="loader">
+            <slot name="loader">
+                <UISpinnerLoader inherit-color
+                                 class="px-4 mx-auto"
+                                 :class="loaderColor"
+                                 :stroke="2"
+                                 :diameter="25" />
+            </slot>
+        </span>
+        <template v-else>
+            <slot>
+                {{ label }}
+            </slot>
+        </template>
     </button>
 </template>
 
@@ -29,12 +25,11 @@ import { computed, defineComponent } from 'vue';
 import type { StyleType } from 'types';
 import { category, large, label, disabled, loading } from '@/shared-props';
 import UISpinnerLoader from 'components/loader-spinner/UISpinnerLoader.vue';
-import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
 
 export default defineComponent({
     name: 'UIButton',
 
-    components: { UIFadeTransition, UISpinnerLoader },
+    components: { UISpinnerLoader },
 
     props: {
         /**
