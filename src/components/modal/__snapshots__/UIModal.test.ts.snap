@@ -45,7 +45,7 @@ exports[`UIModal should render correctly 1`] = `
       <div
         class="blur-none"
       >
-        <main
+        <div
           class="w-full px-12 py-6"
         >
           
@@ -58,7 +58,7 @@ exports[`UIModal should render correctly 1`] = `
             
           </div>
           
-        </main>
+        </div>
         <footer
           class="py-8 px-12 flex items-center"
         >
@@ -68,33 +68,17 @@ exports[`UIModal should render correctly 1`] = `
             class="border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 ring-gray-600 hover:bg-gray-400 hover:border-gray-400 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed ui-modal-close ml-auto mr-2"
             type="button"
           >
-            <transition-stub>
-              
-              <span
-                class="label"
-              >
-                
-                Cancel
-                
-              </span>
-              
-            </transition-stub>
+            
+            Cancel
+            
           </button>
           <button
             class="border-blue-600 text-white bg-blue-600 ring-blue-300 hover:bg-blue-700 hover:border-blue-700 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed ui-modal-accept"
             type="button"
           >
-            <transition-stub>
-              
-              <span
-                class="label"
-              >
-                
-                Confirm
-                
-              </span>
-              
-            </transition-stub>
+            
+            Confirm
+            
           </button>
           
           

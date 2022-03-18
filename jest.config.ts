@@ -2,6 +2,7 @@ import { pathsToModuleNameMapper } from 'ts-jest';
 import { compilerOptions } from './tsconfig.json';
 import type { InitialOptionsTsJest } from 'ts-jest/dist/types';
 
+/* eslint-disable @typescript-eslint/naming-convention */
 export default {
     clearMocks: true,
     testEnvironment: 'jsdom',
