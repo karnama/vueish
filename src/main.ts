@@ -32,7 +32,7 @@ export default {
         }
 
         // todo - investigate if there's a more elegant solution
-        // UIRadioGroup needs to have access to it's mounted subcomponents so it can't ba an async component
+        // UIRadioGroup needs to have access to it's mounted subcomponents so it can't be an async component
         app.component('UIRadio', uIRadioImport[Object.keys(uIRadioImport)[0]].default as DefineComponent);
 
         Object.keys(componentModules).forEach(path => {
