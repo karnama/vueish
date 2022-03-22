@@ -489,6 +489,39 @@ describe('UISelect', () => {
             wrapper.unmount();
         });
 
+        it('should focus the first element on arrow down key when select isn\'t searchable', async () => {
+            const wrapper = mount(UISelect, {
+                props: {
+                    options,
+                    name: 'select',
+                    noSearch: true,
+                    modelValue: []
+                }
+            });
+
+            await wrapper.get(selectorMap.currentSelection).trigger('keydown', { key: 'space' });
+            await wrapper.get(selectorMap.currentSelection).trigger('keydown', { key: 'down' });
+            expect(document.activeElement?.isSameNode(getList()!.findAll('ul')[0].element.firstElementChild))
+                .toBe(true);
+            wrapper.unmount();
+        });
+
+        it('should focus not the first element on arrow down key when select is searchable', async () => {
+            const wrapper = mount(UISelect, {
+                props: {
+                    options,
+                    name: 'select',
+                    modelValue: []
+                }
+            });
+
+            await wrapper.get(selectorMap.currentSelection).trigger('keydown', { key: 'space' });
+            await wrapper.get(selectorMap.currentSelection).trigger('keydown', { key: 'down' });
+            expect(document.activeElement?.isSameNode(getList()!.findAll('ul')[0].element.firstElementChild))
+                .toBe(false);
+            wrapper.unmount();
+        });
+
         // elements don't have event listeners only tabindexes
         it.todo('should focus the next element on tab'
         //     , async () => {

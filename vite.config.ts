@@ -8,6 +8,7 @@ export default defineConfig({
     resolve: {
         alias: {
             'types': path.resolve(__dirname, '/types'),
+            // eslint-disable-next-line @typescript-eslint/naming-convention
             '@': path.resolve(__dirname, '/src'),
             'components': path.resolve(__dirname, 'src/components'),
             'helpers': path.resolve(__dirname, 'src/helpers'),

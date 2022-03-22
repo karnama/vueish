@@ -27,12 +27,12 @@ export default {
     install: (app: App, setting: DeepPartial<Settings> = {}): void => {
         app.config.globalProperties.Vueish = merge(defaultSettings, setting);
 
-        if (document && getComputedStyle(document.body).position !== 'relative') {
+        if (globalThis.document && getComputedStyle(document.body).position !== 'relative') {
             document.body.style.position = 'relative';
         }
 
         // todo - investigate if there's a more elegant solution
-        // UIRadioGroup needs to have access to it's mounted subcomponents
+        // UIRadioGroup needs to have access to it's mounted subcomponents so it can't be an async component
         app.component('UIRadio', uIRadioImport[Object.keys(uIRadioImport)[0]].default as DefineComponent);
 
         Object.keys(componentModules).forEach(path => {

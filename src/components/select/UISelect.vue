@@ -17,25 +17,29 @@
              ref="selectComp"
              class="current-selection text-color cursor-pointer select-none flex items-center justify-between
                     shadow-sm dark:shadow-md border border-gray-300 dark:border-gray-500 rounded
-                    bg-white dark:bg-gray-600 transition p-3.5"
+                    bg-white dark:bg-gray-600 transition p-3.5 focus-visible:outline-none"
              role="textbox"
              contenteditable="false"
              aria-multiline="false"
              :aria-disabled="disabled"
              :aria-valuetext="selectionDisplay"
              :class="{
-                 'bg-gray-200 dark:!bg-gray-700 text-color-muted cursor-not-allowed focus:outline-none': disabled,
+                 'bg-gray-200 dark:!bg-gray-700 text-color-muted cursor-not-allowed': disabled,
+                 'focus-within:border-blue-400 dark:focus-within:border-blue-500':
+                     !(error || $slots.error) && !disabled,
                  'px-7 py-5': large
              }"
              tabindex="0"
+             @keydown.down="() => noSearch ? listElements[0]?.focus() : undefined"
              @keydown.space="openList"
+             @keydown.esc="closeList"
              @click="open ? closeList() : openList()">
             <slot name="selected" :selected="selected">
-                <span v-if="selectionDisplay">
+                <span v-if="selectionDisplay" :class="{ 'truncate': multi }">
                     {{ selectionDisplay }}
                 </span>
 
-                <span v-else class="text-color-muted">
+                <span v-else class="text-gray-400">
                     {{ placeholder }}
                 </span>
             </slot>

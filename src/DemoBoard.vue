@@ -57,7 +57,7 @@
                     <h1 v-if="$route.meta.label" class="text-2xl mb-2 text-center text-color">
                         {{ $route.meta.label }}
                     </h1>
-                    <router-view />
+                    <RouterView />
                 </div>
             </div>
         </div>
@@ -87,6 +87,8 @@ export default defineComponent({
             const map: { Directives?: RouteRecord[]; Components?: RouteRecord[] } = {};
 
             routes.forEach(route => {
+                if (route.path === '/') return;
+
                 if (!Array.isArray(map[route.meta.type])) {
                     map[route.meta.type] = [];
                 }

@@ -5,40 +5,36 @@ exports[`UIButton should display the loading correctly 1`] = `
   class="border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 ring-gray-600 hover:bg-gray-400 hover:border-gray-400 border px-3.5 py-2 pointer-events-none focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed"
   type="button"
 >
-  <transition-stub>
+  <span
+    class="loader"
+  >
     
-    <span
-      class="loader"
-    >
-      
-      <transition-stub>
-        <div
-          class="ui-spinner-loader indeterminate px-4 mx-auto"
-          role="progressbar"
+    <transition-stub>
+      <div
+        class="ui-spinner-loader indeterminate px-4 mx-auto"
+        role="progressbar"
+      >
+        <svg
+          class="spinner-draw stroke-current"
+          focusable="false"
+          preserveAspectRatio="xMidYMid"
+          style="width: 25px; height: 25px;"
+          viewBox="0 0 25 25"
         >
-          <svg
-            class="spinner-draw stroke-current"
-            focusable="false"
-            preserveAspectRatio="xMidYMid"
-            style="width: 25px; height: 25px;"
-            viewBox="0 0 25 25"
-          >
-            <circle
-              class="spinner-circle stroke-current"
-              cx="50%"
-              cy="50%"
-              r="11.5"
-              stroke-width="2px"
-              style="stroke-dashoffset: 72.25663103256524px; stroke-dasharray: 72.25663103256524px; --spinner-start-value: 68.64379948093698; --spinner-end-value: 14.451326206513048;"
-            />
-          </svg>
-          <!--v-if-->
-        </div>
-      </transition-stub>
-      
-    </span>
+          <circle
+            class="spinner-circle stroke-current"
+            cx="50%"
+            cy="50%"
+            r="11.5"
+            stroke-width="2px"
+            style="stroke-dashoffset: 72.25663103256524px; stroke-dasharray: 72.25663103256524px; --spinner-start-value: 68.64379948093698; --spinner-end-value: 14.451326206513048;"
+          />
+        </svg>
+        <!--v-if-->
+      </div>
+    </transition-stub>
     
-  </transition-stub>
+  </span>
 </button>
 `;
 
@@ -47,17 +43,9 @@ exports[`UIButton should render correctly 1`] = `
   class="border-brand-400 text-white bg-brand-400 ring-brand-700 hover:bg-brand-500 hover:border-brand-500 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed"
   type="button"
 >
-  <transition-stub>
-    
-    <span
-      class="label"
-    >
-      
-      click me!
-      
-    </span>
-    
-  </transition-stub>
+  
+  click me!
+  
 </button>
 `;
 
@@ -66,17 +54,9 @@ exports[`UIButton should render correctly 2`] = `
   class="border-brand-400 text-white bg-brand-400 ring-brand-700 hover:bg-brand-500 hover:border-brand-500 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed"
   type="button"
 >
-  <transition-stub>
-    
-    <span
-      class="label"
-    >
-      
-      click me!
-      
-    </span>
-    
-  </transition-stub>
+  
+  click me!
+  
 </button>
 `;
 
@@ -85,17 +65,9 @@ exports[`UIButton should render correctly 3`] = `
   class="border-brand-400 text-white bg-brand-400 ring-brand-700 hover:bg-brand-500 hover:border-brand-500 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed"
   type="button"
 >
-  <transition-stub>
-    
-    <span
-      class="label"
-    >
-      
-      click me!
-      
-    </span>
-    
-  </transition-stub>
+  
+  click me!
+  
 </button>
 `;
 
@@ -104,17 +76,9 @@ exports[`UIButton should render correctly 4`] = `
   class="border-brand-400 text-white bg-brand-400 ring-brand-700 hover:bg-brand-500 hover:border-brand-500 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed"
   type="button"
 >
-  <transition-stub>
-    
-    <span
-      class="label"
-    >
-      
-      click me!
-      
-    </span>
-    
-  </transition-stub>
+  
+  click me!
+  
 </button>
 `;
 
@@ -123,17 +87,9 @@ exports[`UIButton should render correctly 5`] = `
   class="border-brand-400 text-white bg-brand-400 ring-brand-700 hover:bg-brand-500 hover:border-brand-500 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed"
   type="button"
 >
-  <transition-stub>
-    
-    <span
-      class="label"
-    >
-      
-      click me!
-      
-    </span>
-    
-  </transition-stub>
+  
+  click me!
+  
 </button>
 `;
 
@@ -142,17 +98,9 @@ exports[`UIButton should render correctly 6`] = `
   class="border-brand-400 text-white bg-brand-400 ring-brand-700 hover:bg-brand-500 hover:border-brand-500 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed"
   type="button"
 >
-  <transition-stub>
-    
-    <span
-      class="label"
-    >
-      
-      click me!
-      
-    </span>
-    
-  </transition-stub>
+  
+  click me!
+  
 </button>
 `;
 
@@ -161,17 +109,9 @@ exports[`UIButton should render correctly 7`] = `
   class="border-brand-400 text-white bg-brand-400 ring-brand-700 hover:bg-brand-500 hover:border-brand-500 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed"
   type="button"
 >
-  <transition-stub>
-    
-    <span
-      class="label"
-    >
-      
-      click me!
-      
-    </span>
-    
-  </transition-stub>
+  
+  click me!
+  
 </button>
 `;
 
@@ -180,17 +120,9 @@ exports[`UIButton should render correctly 8`] = `
   class="text-brand-600 shadow-sm border-brand-400 disabled:bg-gray-200 disabled:shadow-none ring-brand-400 hover:text-white hover:bg-brand-400 hover:border-brand-400 border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed"
   type="button"
 >
-  <transition-stub>
-    
-    <span
-      class="label"
-    >
-      
-      click me!
-      
-    </span>
-    
-  </transition-stub>
+  
+  click me!
+  
 </button>
 `;
 
@@ -199,17 +131,9 @@ exports[`UIButton should render correctly 9`] = `
   class="text-brand-600 shadow-sm border-brand-400 disabled:bg-gray-200 disabled:shadow-none ring-brand-400 hover:text-white hover:bg-brand-400 hover:border-brand-400 border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed"
   type="button"
 >
-  <transition-stub>
-    
-    <span
-      class="label"
-    >
-      
-      click me!
-      
-    </span>
-    
-  </transition-stub>
+  
+  click me!
+  
 </button>
 `;
 
@@ -218,17 +142,9 @@ exports[`UIButton should render correctly 10`] = `
   class="text-brand-600 shadow-sm border-brand-400 disabled:bg-gray-200 disabled:shadow-none ring-brand-400 hover:text-white hover:bg-brand-400 hover:border-brand-400 border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed"
   type="button"
 >
-  <transition-stub>
-    
-    <span
-      class="label"
-    >
-      
-      click me!
-      
-    </span>
-    
-  </transition-stub>
+  
+  click me!
+  
 </button>
 `;
 
@@ -237,17 +153,9 @@ exports[`UIButton should render correctly 11`] = `
   class="text-brand-600 shadow-sm border-brand-400 disabled:bg-gray-200 disabled:shadow-none ring-brand-400 hover:text-white hover:bg-brand-400 hover:border-brand-400 border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed"
   type="button"
 >
-  <transition-stub>
-    
-    <span
-      class="label"
-    >
-      
-      click me!
-      
-    </span>
-    
-  </transition-stub>
+  
+  click me!
+  
 </button>
 `;
 
@@ -256,17 +164,9 @@ exports[`UIButton should render correctly 12`] = `
   class="text-brand-600 shadow-sm border-brand-400 disabled:bg-gray-200 disabled:shadow-none ring-brand-400 hover:text-white hover:bg-brand-400 hover:border-brand-400 border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed"
   type="button"
 >
-  <transition-stub>
-    
-    <span
-      class="label"
-    >
-      
-      click me!
-      
-    </span>
-    
-  </transition-stub>
+  
+  click me!
+  
 </button>
 `;
 
@@ -275,17 +175,9 @@ exports[`UIButton should render correctly 13`] = `
   class="text-brand-600 shadow-sm border-brand-400 disabled:bg-gray-200 disabled:shadow-none ring-brand-400 hover:text-white hover:bg-brand-400 hover:border-brand-400 border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed"
   type="button"
 >
-  <transition-stub>
-    
-    <span
-      class="label"
-    >
-      
-      click me!
-      
-    </span>
-    
-  </transition-stub>
+  
+  click me!
+  
 </button>
 `;
 
@@ -294,17 +186,9 @@ exports[`UIButton should render correctly 14`] = `
   class="text-brand-600 shadow-sm border-brand-400 disabled:bg-gray-200 disabled:shadow-none ring-brand-400 hover:text-white hover:bg-brand-400 hover:border-brand-400 border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed"
   type="button"
 >
-  <transition-stub>
-    
-    <span
-      class="label"
-    >
-      
-      click me!
-      
-    </span>
-    
-  </transition-stub>
+  
+  click me!
+  
 </button>
 `;
 
@@ -313,17 +197,9 @@ exports[`UIButton should render correctly 15`] = `
   class="text-brand-600 disabled:bg-gray-300 ring-brand-300 hover:bg-brand-200 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed"
   type="button"
 >
-  <transition-stub>
-    
-    <span
-      class="label"
-    >
-      
-      click me!
-      
-    </span>
-    
-  </transition-stub>
+  
+  click me!
+  
 </button>
 `;
 
@@ -332,17 +208,9 @@ exports[`UIButton should render correctly 16`] = `
   class="text-brand-600 disabled:bg-gray-300 ring-brand-300 hover:bg-brand-200 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed"
   type="button"
 >
-  <transition-stub>
-    
-    <span
-      class="label"
-    >
-      
-      click me!
-      
-    </span>
-    
-  </transition-stub>
+  
+  click me!
+  
 </button>
 `;
 
@@ -351,17 +219,9 @@ exports[`UIButton should render correctly 17`] = `
   class="text-brand-600 disabled:bg-gray-300 ring-brand-300 hover:bg-brand-200 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed"
   type="button"
 >
-  <transition-stub>
-    
-    <span
-      class="label"
-    >
-      
-      click me!
-      
-    </span>
-    
-  </transition-stub>
+  
+  click me!
+  
 </button>
 `;
 
@@ -370,17 +230,9 @@ exports[`UIButton should render correctly 18`] = `
   class="text-brand-600 disabled:bg-gray-300 ring-brand-300 hover:bg-brand-200 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed"
   type="button"
 >
-  <transition-stub>
-    
-    <span
-      class="label"
-    >
-      
-      click me!
-      
-    </span>
-    
-  </transition-stub>
+  
+  click me!
+  
 </button>
 `;
 
@@ -389,17 +241,9 @@ exports[`UIButton should render correctly 19`] = `
   class="text-brand-600 disabled:bg-gray-300 ring-brand-300 hover:bg-brand-200 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed"
   type="button"
 >
-  <transition-stub>
-    
-    <span
-      class="label"
-    >
-      
-      click me!
-      
-    </span>
-    
-  </transition-stub>
+  
+  click me!
+  
 </button>
 `;
 
@@ -408,17 +252,9 @@ exports[`UIButton should render correctly 20`] = `
   class="text-brand-600 disabled:bg-gray-300 ring-brand-300 hover:bg-brand-200 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed"
   type="button"
 >
-  <transition-stub>
-    
-    <span
-      class="label"
-    >
-      
-      click me!
-      
-    </span>
-    
-  </transition-stub>
+  
+  click me!
+  
 </button>
 `;
 
@@ -427,16 +263,8 @@ exports[`UIButton should render correctly 21`] = `
   class="text-brand-600 disabled:bg-gray-300 ring-brand-300 hover:bg-brand-200 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed"
   type="button"
 >
-  <transition-stub>
-    
-    <span
-      class="label"
-    >
-      
-      click me!
-      
-    </span>
-    
-  </transition-stub>
+  
+  click me!
+  
 </button>
 `;

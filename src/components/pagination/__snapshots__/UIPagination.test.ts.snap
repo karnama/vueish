@@ -34,17 +34,9 @@ exports[`UIPagination should render correctly 1`] = `
     title="Go to page 1"
     type="button"
   >
-    <transition-stub>
-      
-      <span
-        class="label"
-      >
-        
-         1 
-        
-      </span>
-      
-    </transition-stub>
+    
+     1 
+    
   </button>
   <div
     class="select-none"
@@ -60,17 +52,9 @@ exports[`UIPagination should render correctly 1`] = `
     title="Go to page 4"
     type="button"
   >
-    <transition-stub>
-      
-      <span
-        class="label"
-      >
-        
-        4
-        
-      </span>
-      
-    </transition-stub>
+    
+    4
+    
   </button>
   <button
     aria-current="true"
@@ -80,17 +64,9 @@ exports[`UIPagination should render correctly 1`] = `
     title="Current Page, Page 5"
     type="button"
   >
-    <transition-stub>
-      
-      <span
-        class="label"
-      >
-        
-        5
-        
-      </span>
-      
-    </transition-stub>
+    
+    5
+    
   </button>
   <button
     aria-current="false"
@@ -100,17 +76,9 @@ exports[`UIPagination should render correctly 1`] = `
     title="Go to page 6"
     type="button"
   >
-    <transition-stub>
-      
-      <span
-        class="label"
-      >
-        
-        6
-        
-      </span>
-      
-    </transition-stub>
+    
+    6
+    
   </button>
   
   <div
@@ -126,17 +94,9 @@ exports[`UIPagination should render correctly 1`] = `
     title="Go to page 10"
     type="button"
   >
-    <transition-stub>
-      
-      <span
-        class="label"
-      >
-        
-        10
-        
-      </span>
-      
-    </transition-stub>
+    
+    10
+    
   </button>
   <button
     aria-label="Next Page"

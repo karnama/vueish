@@ -97,7 +97,7 @@ module.exports = {
                 "selector": "objectLiteralProperty",
                 "format": ["camelCase"],
                 "filter": {
-                    "regex": "^(UI)",
+                    "regex": "(^(UI)|(vue-(argument|modifier))|(doc-url))",
                     "match": false
                 }
             }
@@ -202,7 +202,9 @@ module.exports = {
                         "ignore": ["describe"]
                     }
                 ],
-                "jest/no-disabled-tests": "off"
+                "jest/no-disabled-tests": "off",
+                "jest/no-conditional-in-test": "off",
+                "jest/prefer-snapshot-hint": "off"
             }
         }
     ]

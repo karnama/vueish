@@ -43,7 +43,7 @@
 
                 <!--Modal Footer-->
                 <template #footer>
-                    <slot name="footer" :close="close" :open="open">
+                    <slot name="footer" :close="close">
                         <UIButton class="ui-modal-close ml-auto mr-2" @click="close('cancel')">
                             {{ closeButtonLabel }}
                         </UIButton>

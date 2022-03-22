@@ -13,19 +13,11 @@ exports[`UIButtonToggle should correctly display 1`] = `
     role="switch"
     type="button"
   >
-    <transition-stub>
-      
-      <span
-        class="label"
-      >
-        
-        
-        Places
-        
-        
-      </span>
-      
-    </transition-stub>
+    
+    
+    Places
+    
+    
   </button>
   <button
     aria-checked="false"
@@ -33,19 +25,11 @@ exports[`UIButtonToggle should correctly display 1`] = `
     role="switch"
     type="button"
   >
-    <transition-stub>
-      
-      <span
-        class="label"
-      >
-        
-        
-        List
-        
-        
-      </span>
-      
-    </transition-stub>
+    
+    
+    List
+    
+    
   </button>
   <button
     aria-checked="false"
@@ -53,19 +37,11 @@ exports[`UIButtonToggle should correctly display 1`] = `
     role="switch"
     type="button"
   >
-    <transition-stub>
-      
-      <span
-        class="label"
-      >
-        
-        
-        Map
-        
-        
-      </span>
-      
-    </transition-stub>
+    
+    
+    Map
+    
+    
   </button>
   
   

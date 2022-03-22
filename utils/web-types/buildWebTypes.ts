@@ -125,7 +125,9 @@ const webTypes: JSONSchemaForWebTypes = {
     version: version,
     contributions: {
         html: {
+            // eslint-disable-next-line @typescript-eslint/naming-convention
             'description-markup': 'markdown',
+            // eslint-disable-next-line @typescript-eslint/naming-convention
             'types-syntax': 'typescript',
             tags: []
         }
