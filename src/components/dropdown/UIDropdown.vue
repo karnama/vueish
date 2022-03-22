@@ -1,7 +1,7 @@
 <template>
     <div ref="uiDropdown"
          aria-haspopup="true"
-         class="ui-dropdown w-full relative">
+         class="ui-dropdown w-max relative">
         <slot name="trigger"
               :toggle="toggle"
               :show="show"
