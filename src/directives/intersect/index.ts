@@ -36,7 +36,16 @@ const setUpObserver: DirectiveHook = (
                 initiate(el);
 
                 if (el._intersectionObserver?.initiated) {
-                    cb();
+                    if (modifiers.enter === undefined && modifiers.leave === undefined) {
+                        cb();
+                    }
+                    // when using both enter and leave, it is redundant to specify them at all
+                    if (modifiers.enter && !!entry) {
+                        cb();
+                    }
+                    if (modifiers.leave && !entry) {
+                        cb();
+                    }
 
                     if (binding.modifiers.once) {
                         unbindObserver(el);
@@ -69,7 +78,16 @@ const setUpObserver: DirectiveHook = (
                 initiate(el);
 
                 if (el._intersectionObserver?.initiated) {
-                    cb();
+                    if (!enter && !leave) {
+                        cb();
+                    }
+                    // when using both enter and leave, it is redundant to specify them at all
+                    if (enter && !!entry) {
+                        cb();
+                    }
+                    if (leave && !entry) {
+                        cb();
+                    }
 
                     if (binding.modifiers.once) {
                         unbindObserver(el);
