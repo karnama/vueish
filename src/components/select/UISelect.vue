@@ -103,6 +103,7 @@
                     <input ref="searchInput"
                            v-model="search"
                            tabindex="-1"
+                           autocomplete="off"
                            class="appearance-none bg-transparent w-full leading-tight
                                   focus:outline-none transition-text-color"
                            name="search">
