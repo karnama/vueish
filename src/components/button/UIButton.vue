@@ -2,7 +2,8 @@
     <button type="button"
             :class="classes"
             :disabled="disabled"
-            class="ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed">
+            class="ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0
+                   disabled:cursor-not-allowed disabled:shadow-none">
         <span v-if="loading" class="loader">
             <slot name="loader">
                 <UISpinnerLoader inherit-color
@@ -67,33 +68,30 @@ export default defineComponent({
                 + (props.disabled ? '' : ' hover:bg-blue-700 hover:border-blue-700'),
             info: 'border-blue-400 text-white bg-blue-400 ring-blue-600'
                 + (props.disabled ? '' : ' hover:bg-blue-500 hover:border-blue-500'),
-            success: 'border-green-400 text-white bg-green-400 ring-green-600'
-                + (props.disabled ? '' : ' hover:bg-green-500 hover:border-green-500'),
+            success: 'border-green-500 text-white bg-green-500 ring-green-400'
+                + (props.disabled ? '' : ' hover:bg-green-600 hover:border-green-600'),
             warning: 'border-yellow-400 bg-yellow-400 ring-yellow-600'
                 + (props.disabled ? '' : ' hover:bg-yellow-500 hover:border-yellow-500'),
-            danger: 'border-red-400 text-white bg-red-400 ring-red-700'
-                + (props.disabled ? '' : ' hover:bg-red-500 hover:border-red-500'),
-            brand: 'border-brand-400 text-white bg-brand-400 ring-brand-700'
-                + (props.disabled ? '' : ' hover:bg-brand-500 hover:border-brand-500')
+            danger: 'border-red-600 text-white bg-red-600 ring-red-500'
+                + (props.disabled ? '' : ' hover:bg-red-700 hover:border-red-700'),
+            brand: 'border-brand-600 text-white bg-brand-600 ring-brand-500'
+                + (props.disabled ? '' : ' hover:bg-brand-700 hover:border-brand-700')
         }));
         const outlineTypeClasses = computed<{ [key in StyleType]: string; }>(() => ({
-            default: 'text-gray-600 dark:text-gray-400 shadow-sm border-gray-400 disabled:bg-gray-300' +
-                'disabled:shadow-none ring-gray-600'
+            default: 'text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600'
                 + (props.disabled ? '' : ' hover:text-white dark:hover:text-white hover:bg-gray-400'),
-            primary: 'text-blue-600 shadow-sm border-blue-500 disabled:bg-gray-200 disabled:shadow-none ring-blue-600'
+            primary: 'text-blue-600 border-blue-500 disabled:bg-gray-200 ring-blue-600'
                 + (props.disabled ? '' : ' hover:text-white hover:bg-blue-500 hover:border-blue-500'),
-            info: 'text-blue-300 shadow-sm border-blue-300 disabled:bg-gray-200 disabled:shadow-none ring-blue-300'
+            info: 'text-blue-400 border-blue-300 disabled:bg-gray-200 ring-blue-300'
                 + (props.disabled ? '' : ' hover:text-white hover:bg-blue-300 hover:border-blue-300'),
-            success: 'text-green-600 shadow-sm border-green-400 disabled:bg-gray-200 disabled:shadow-none' +
-                'ring-green-400'
-                + (props.disabled ? '' : ' hover:text-white hover:bg-green-400 hover:border-green-400'),
-            warning: 'text-yellow-500 shadow-sm border-yellow-300 disabled:bg-gray-200 disabled:shadow-none' +
-                'ring-yellow-400'
-                + (props.disabled ? '' : ' hover:text-white hover:bg-yellow-300 hover:border-yellow-300'),
-            danger: 'text-red-600 shadow-sm border-red-400 disabled:bg-gray-200 disabled:shadow-none ring-red-400'
-                + (props.disabled ? '' : ' hover:text-white hover:bg-red-400 hover:border-red-400'),
-            brand: 'text-brand-600 shadow-sm border-brand-400 disabled:bg-gray-200 disabled:shadow-none ring-brand-400'
-                + (props.disabled ? '' : ' hover:text-white hover:bg-brand-400 hover:border-brand-400')
+            success: 'text-green-600 border-green-500 disabled:bg-gray-200 ring-green-400'
+                + (props.disabled ? '' : ' hover:text-white hover:bg-green-600 hover:border-green-600'),
+            warning: 'text-yellow-500 border-yellow-300 disabled:bg-gray-200 ring-yellow-400'
+                + (props.disabled ? '' : ' hover:text-black hover:bg-yellow-400 hover:border-yellow-300'),
+            danger: 'text-red-600 border-red-600 disabled:bg-gray-200 ring-red-400'
+                + (props.disabled ? '' : ' hover:text-white hover:bg-red-600 hover:border-red-600'),
+            brand: 'text-brand-600 border-brand-600 disabled:bg-gray-200 ring-brand-400'
+                + (props.disabled ? '' : ' hover:text-white hover:bg-brand-600 hover:border-brand-600')
         }));
         const minimalTypeClasses = computed<{ [key in StyleType]: string; }>(() => ({
             default: 'text-gray-600 dark:text-gray-500 disabled:bg-gray-300 ring-gray-300'
@@ -103,7 +101,7 @@ export default defineComponent({
             success: 'text-green-600 disabled:bg-gray-300 ring-green-300'
                 + (props.disabled ? '' : ' hover:bg-green-200'),
             warning: 'text-yellow-500 disabled:bg-gray-300 ring-yellow-300'
-                + (props.disabled ? '' : ' hover:bg-yellow-200'),
+                + (props.disabled ? '' : ' hover:bg-yellow-200 hover:text-yellow-600'),
             danger: 'text-red-600 disabled:bg-gray-300 ring-red-300' + (props.disabled ? '' : ' hover:bg-red-200'),
             brand: 'text-brand-600 disabled:bg-gray-300 ring-brand-300' + (props.disabled ? '' : ' hover:bg-brand-200')
         }));
@@ -113,11 +111,11 @@ export default defineComponent({
             let classes: string;
 
             if (props.outline) {
-                classes = outlineTypeClasses.value[category] + ' border focus:ring-offset-2';
+                classes = outlineTypeClasses.value[category] + ' shadow-sm border focus:ring-offset-2';
             } else if (props.minimal) {
                 classes = minimalTypeClasses.value[category];
             } else {
-                classes = primaryTypeClasses.value[category] + ' border';
+                classes = primaryTypeClasses.value[category] + ' shadow-sm border';
             }
 
             classes += props.large ? ' px-7 py-3.5' : ' px-3.5 py-2';
