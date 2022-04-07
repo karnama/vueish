@@ -47,7 +47,7 @@
         <UIPanel closed header="Using async custom paginator" :loading="loading">
             <UITable :headers="headers"
                      :items-per-page="5"
-                     :total-records="100"
+                     :total-items="100"
                      :rows="asyncRows">
                 <template #pagination="slotProps">
                     <div class="flex justify-end w-full">
