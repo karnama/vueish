@@ -12,7 +12,7 @@
         </UIExpandTransition>
         <div class="toggle-wrapper relative rounded-full
                     flex ring-0 ring-red-700 transition"
-             :class="{ 'ring-2 mt-1': error || $slots.error }">
+             :class="{ 'ring-1 mt-1': error || $slots.error }">
             <input :id="$attrs.id ?? name"
                    :checked="model"
                    type="checkbox"
