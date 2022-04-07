@@ -8,7 +8,7 @@
                  @click="close('cancel')" />
 
             <!--Main modal dialog-->
-            <UIPanel class="modal top-0 w-full relative mx-auto shadow-xl rounded bg-white opacity-0
+            <UIPanel class="modal top-0 w-full relative mx-auto shadow-xl rounded-xl bg-white opacity-0
                             translate-y-0 max-w-[700px] max-h-[80vh] transition"
                      :class="{ 'translate-y-[70px] opacity-100': isVisible }"
                      style="transition: transform 300ms ease-out, opacity 100ms linear"

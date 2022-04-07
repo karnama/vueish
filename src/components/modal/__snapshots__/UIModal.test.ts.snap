@@ -12,7 +12,7 @@ exports[`UIModal should render correctly 1`] = `
   <section
     aria-expanded="true"
     aria-modal="true"
-    class="ui-panel rounded shadow-md relative transition-all bg-white dark:bg-gray-600 text-color modal top-0 w-full relative mx-auto shadow-xl rounded bg-white opacity-0 translate-y-0 max-w-[700px] max-h-[80vh] transition translate-y-[70px] opacity-100"
+    class="ui-panel rounded shadow-md relative transition-all bg-white dark:bg-gray-600 text-color modal top-0 w-full relative mx-auto shadow-xl rounded-xl bg-white opacity-0 translate-y-0 max-w-[700px] max-h-[80vh] transition translate-y-[70px] opacity-100"
     role="dialog"
     style="transition: transform 300ms ease-out, opacity 100ms linear;"
   >
@@ -65,7 +65,7 @@ exports[`UIModal should render correctly 1`] = `
           
           
           <button
-            class="border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 ring-gray-600 hover:bg-gray-400 hover:border-gray-400 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed ui-modal-close ml-auto mr-2"
+            class="border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 ring-gray-600 hover:bg-gray-400 hover:border-gray-400 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none ui-modal-close ml-auto mr-2"
             type="button"
           >
             
@@ -73,7 +73,7 @@ exports[`UIModal should render correctly 1`] = `
             
           </button>
           <button
-            class="border-blue-600 text-white bg-blue-600 ring-blue-300 hover:bg-blue-700 hover:border-blue-700 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed ui-modal-accept"
+            class="border-blue-600 text-white bg-blue-600 ring-blue-300 hover:bg-blue-700 hover:border-blue-700 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none ui-modal-accept"
             type="button"
           >
             
