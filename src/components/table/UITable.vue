@@ -483,7 +483,7 @@ export default defineComponent({
                 }
             }
 
-            let style = document.getElementById(styleTagId) as HTMLStyleElement;
+            let style = globalThis?.document.getElementById(styleTagId) as HTMLStyleElement;
 
             if (!hoverHighlight) {
                 style?.parentElement?.removeChild(style);
@@ -491,10 +491,10 @@ export default defineComponent({
             }
 
             if (!style) {
-                style = document.createElement('style');
+                style = globalThis?.document.createElement('style');
                 style.type = 'text/css';
                 style.id = styleTagId;
-                document.head.appendChild(style);
+                globalThis?.document.head.appendChild(style);
             }
 
             if (style.sheet!.cssRules.length) {

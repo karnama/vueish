@@ -327,7 +327,7 @@ export default defineComponent({
             await nextTick();
             open.value = false;
             search.value = '';
-            window.removeEventListener('resize', setPosition);
+            globalThis?.window.removeEventListener('resize', setPosition);
         };
         const openList = async () => {
             if (props.disabled) return;
@@ -336,7 +336,7 @@ export default defineComponent({
             await nextTick();
             setPosition();
             searchInput.value?.focus({ preventScroll: true });
-            window.addEventListener('resize', setPosition);
+            globalThis?.window.addEventListener('resize', setPosition);
         };
         const clearSelection = (option?: OptionObject) => {
             if (
@@ -433,7 +433,7 @@ export default defineComponent({
 
         onUnmounted(() => {
             // in case it's unmounted while open
-            window.removeEventListener('resize', setPosition);
+            globalThis?.window.removeEventListener('resize', setPosition);
         });
 
         return {

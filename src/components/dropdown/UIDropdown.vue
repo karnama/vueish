@@ -151,14 +151,16 @@ export default defineComponent({
                 const maxHeight = getPxValue(props.width);
 
                 // doesn't fit on the right
-                if (document.documentElement.clientWidth - (contentParameters.x + mousePos.x) <= width) {
+                if (globalThis?.document.documentElement.clientWidth - (contentParameters.x + mousePos.x) <= width) {
                     style.left = `${mousePos.x - width}px`;
                 } else {
                     style.left = `${mousePos.x}px`;
                 }
 
                 // doesn't fit on the bottom
-                if (document.documentElement.clientHeight - (contentParameters.y + mousePos.y) <= maxHeight) {
+                if (
+                    globalThis?.document.documentElement.clientHeight - (contentParameters.y + mousePos.y) <= maxHeight
+                ) {
                     style.top = `${mousePos.y - (dropdownParameters ? dropdownParameters.height : maxHeight)}px`;
                 } else {
                     style.top = `${mousePos.y}px`;
