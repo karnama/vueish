@@ -42,7 +42,9 @@
                         @click="sortBy(column.rowProperty)">
                         <span class="flex items-center justify-between">
                             <slot name="header" :header="column">
-                                {{ column.header }}
+                                <span class="font-bold">
+                                    {{ column.header }}
+                                </span>
                             </slot>
 
                             <i v-if="!disableSorting && column.sortable"
