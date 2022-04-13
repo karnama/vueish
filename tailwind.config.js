@@ -33,8 +33,10 @@ const tailwindConfig = {
             colors: {
                 ...brandColors([50, 100, 200, 300, 400, 500, 600, 700, 800, 900]),
                 gray: {
+                    250: '#DBDEE3',
                     650: '#414B5A',
-                    750: '#2B3544'
+                    750: '#2B3544',
+                    850: '#242D3C'
                 }
             },
             transitionProperty: {

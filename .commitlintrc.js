@@ -28,6 +28,7 @@ module.exports = {
                 'radio',
                 'range-slider',
                 'select',
+                'skeleton',
                 'table',
                 'textarea',
                 'toggle',
