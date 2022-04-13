@@ -84,7 +84,8 @@
                             aria-roledescription="increment"
                             class="px-2 transition-colors h-full rounded-bl rotate-180
                                    bg-gray-50 hover:bg-gray-200 disabled:bg-gray-300 disabled:cursor-not-allowed
-                                   dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400"
+                                   dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400 dark:disabled:bg-gray-600
+                                   disabled:text-gray-400 dark:disabled:text-gray-400"
                             @click="increment"
                             v-html="chevronIcon" />
                     <button :aria-controls="$attrs.id ?? name"
@@ -92,7 +93,8 @@
                             aria-roledescription="decrement"
                             class="px-2 transition-colors h-full rounded-br disabled:cursor-not-allowed
                                    bg-gray-50 hover:bg-gray-200 focus:z-10 disabled:bg-gray-300
-                                   dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400"
+                                   dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400 dark:disabled:bg-gray-600
+                                   disabled:text-gray-400 dark:disabled:text-gray-400"
                             @click="decrement"
                             v-html="chevronIcon" />
                 </div>
