@@ -23,7 +23,11 @@ exports[`UITable should display correctly 1`] = `
             class="flex items-center justify-between"
           >
             
-            Letter
+            <span
+              class="font-bold"
+            >
+              Letter
+            </span>
             
             <i
               class="ml-2 transition opacity-0 group-hover:opacity-100"
@@ -51,7 +55,11 @@ exports[`UITable should display correctly 1`] = `
             class="flex items-center justify-between"
           >
             
-            number
+            <span
+              class="font-bold"
+            >
+              number
+            </span>
             
             <i
               class="ml-2 transition opacity-0 group-hover:opacity-100"
@@ -368,7 +376,11 @@ exports[`UITable should display in its compact form 1`] = `
             class="flex items-center justify-between"
           >
             
-            Letter
+            <span
+              class="font-bold"
+            >
+              Letter
+            </span>
             
             <i
               class="ml-2 transition opacity-0 group-hover:opacity-100"
@@ -396,7 +408,11 @@ exports[`UITable should display in its compact form 1`] = `
             class="flex items-center justify-between"
           >
             
-            number
+            <span
+              class="font-bold"
+            >
+              number
+            </span>
             
             <i
               class="ml-2 transition opacity-0 group-hover:opacity-100"
