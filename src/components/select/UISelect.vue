@@ -35,11 +35,12 @@
              @keydown.esc="closeList"
              @click="open ? closeList() : openList()">
             <slot name="selected" :selected="selected">
-                <span v-if="selectionDisplay" :class="{ 'truncate': multi }">
+                <span :class="{ 'truncate': multi }">
                     {{ selectionDisplay }}
                 </span>
-
-                <span v-else class="text-gray-400">
+            </slot>
+            <slot name="placeholder" :selectionCount="selectionCount">
+                <span v-if="selectionCount === 0" class="text-gray-400">
                     {{ placeholder }}
                 </span>
             </slot>
