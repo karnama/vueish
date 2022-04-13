@@ -3,6 +3,9 @@
         <UICheckbox v-model="large"
                     name="large"
                     label="Large Style" />
+        <UICheckbox v-model="loading"
+                    name="loading"
+                    label="Loading" />
 
         <UIButton category="danger" @click="error ? error = '' : error = 'Error message.'">
             {{ error ? 'Remove' : 'Set' }} Error state
@@ -15,6 +18,7 @@
                   :error="error"
                   :large="large"
                   label="Clearable select"
+                  :loading="loading"
                   name="select-1" />
         <span class="text-sm text-gray-400">
             Bound: {{ selected }}
@@ -27,6 +31,7 @@
                   disabled
                   :large="large"
                   label="Disabled multi select"
+                  :loading="loading"
                   name="select-2" />
         <span class="text-sm text-gray-400">
             Bound: {{ multiSelected }}
@@ -38,6 +43,7 @@
                   label="Multi select"
                   :error="error"
                   :large="large"
+                  :loading="loading"
                   name="select-2" />
         <span class="text-sm text-gray-400">
             Bound: {{ multiSelected }}
@@ -47,6 +53,7 @@
                   multi
                   clearable
                   label="Clearable multi select"
+                  :loading="loading"
                   name="select-3"
                   :error="error"
                   :large="large"
@@ -60,6 +67,7 @@
                   clearable
                   :large="large"
                   label="Array of strings as select"
+                  :loading="loading"
                   name="select-4" />
         <span class="text-sm text-gray-400">
             Bound: {{ selectedSimple }}
@@ -71,6 +79,7 @@
                   clearable
                   :large="large"
                   label="Array of strings as multi-select"
+                  :loading="loading"
                   name="select-4" />
         <span class="text-sm text-gray-400">
             Bound: {{ multiSelectedSimple }}
@@ -110,6 +119,7 @@ export default defineComponent({
         const multiSelectedSimple = ref(['Foo', 'Bar']);
         const large = ref(false);
         const error = ref('');
+        const loading = ref(false);
 
         return {
             selected,
@@ -118,7 +128,8 @@ export default defineComponent({
             multiSelectedSimple,
             options,
             large,
-            error
+            error,
+            loading
         };
     }
 });

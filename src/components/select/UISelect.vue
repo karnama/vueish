@@ -46,7 +46,12 @@
             </slot>
 
             <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
-                <span v-if="disabled"
+                <UISpinnerLoader v-if="loading"
+                                 :diameter="20"
+                                 :stroke="2"
+                                 :class="{ '-mr-3.5': large }" />
+
+                <span v-else-if="disabled"
                       class="h-5 w-5 text-color-muted"
                       :class="{ '-mr-3.5': large }"
                       v-html="lockIcon" />
@@ -155,7 +160,17 @@
 import { computed, defineComponent, onMounted, ref, onUnmounted, nextTick, onBeforeUpdate } from 'vue';
 import { isEqual as _isEqual, cloneDeep } from 'lodash-es';
 import type { PropType } from 'vue';
-import { placeholder, autofocus, clearable, disabled, label, name, error, large } from '@/shared-props';
+import {
+    placeholder,
+    autofocus,
+    clearable,
+    disabled,
+    label,
+    name,
+    error,
+    large,
+    loading
+} from '@/shared-props';
 import { useVModel } from 'composables/reactivity';
 import { getIcon, wrap } from '@/helpers';
 import type { MaybeArray } from 'types/utilities';
@@ -262,7 +277,8 @@ export default defineComponent({
         disabled,
         name,
         large,
-        error
+        error,
+        loading
     },
 
     emits: ['update:modelValue'],
