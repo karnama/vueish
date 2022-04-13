@@ -142,11 +142,11 @@ export default defineComponent({
 }
 
 .menu {
-    width: 300px;
+    width: 250px;
     transition: margin-left 300ms ease;
 
     &.closed {
-        margin-left: -300px;
+        margin-left: -250px;
         transition: margin-left 300ms ease, opacity 300ms ease-out;
         opacity: 0;
     }
