@@ -130,7 +130,7 @@
                         @click.stop="select(option)">
                         <div class="flex justify-between">
                             <div class="p-2">
-                                <slot name="option" :option="option">
+                                <slot name="option" :option="option" :isSelected="currentlySelected">
                                     {{ option[optionLabel] }}
                                 </slot>
                             </div>
