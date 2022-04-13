@@ -7,6 +7,7 @@ import fs from 'fs';
 import { name, version } from '../../package.json';
 import { parse as parseVueComponent } from 'vue-docgen-api';
 import { wrap } from '../../src/helpers';
+import { merge } from 'lodash';
 
 // todo - add watch option
 
@@ -87,7 +88,7 @@ async function buildTag(fullPath: string, webTypesFile = 'web-types.ts'): Promis
 
     // merge in the user defined web-types if exists
     if (fs.existsSync(parentFolder + path.sep + webTypesFile)) {
-        Object.assign(
+        merge(
             tag,
             // eslint-disable-next-line @typescript-eslint/no-var-requires
             (require(parentFolder + path.sep + webTypesFile) as Record<'default', HtmlTag>).default
@@ -108,7 +109,7 @@ async function buildAttribute(fullPath: string, webTypesFile = 'web-types.ts'): 
 
     // merge in the user defined web-types if exists
     if (fs.existsSync(parentFolder + path.sep + webTypesFile)) {
-        Object.assign(
+        merge(
             attribute,
             // eslint-disable-next-line @typescript-eslint/no-var-requires
             (require(parentFolder + path.sep + webTypesFile) as Record<'default', HtmlAttribute>).default
