@@ -163,8 +163,7 @@ import clickAway from '@/directives/click-away';
 import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
 import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 
-type OptionObject = Record<string, any>;
-type Option = OptionObject | string;
+type Option = Record<string, any>;
 
 export default defineComponent({
     name: 'UISelect',
@@ -182,7 +181,7 @@ export default defineComponent({
          * Array of option objects.
          */
         options: {
-            type: Array as PropType<Option[]>,
+            type: Array as PropType<(Option | string)[]>,
             required: true
         },
 
@@ -233,7 +232,7 @@ export default defineComponent({
          * Function to use when evaluating a search term.
          */
         searchClosure: {
-            type: Function as PropType<(o: OptionObject, term: string) => boolean>
+            type: Function as PropType<(o: Option, term: string) => boolean>
         },
 
         /**
@@ -286,7 +285,7 @@ export default defineComponent({
 
             return options.map(option => typeof option === 'string' ? option : option[props.optionLabel]).join(', ');
         });
-        const filteredOptions = computed<OptionObject[]>(() => {
+        const filteredOptions = computed<Option[]>(() => {
             const formattedOptions = props.options.map(option =>
                 typeof option === 'string' ? { [props.optionKey]: option, [props.optionLabel]: option } : option
             );
@@ -339,27 +338,27 @@ export default defineComponent({
             searchInput.value?.focus({ preventScroll: true });
             globalThis?.window.addEventListener('resize', setPosition);
         };
-        const clearSelection = (option?: OptionObject) => {
+        const clearSelection = (option?: Option) => {
             if (
                 // nothing to clear
                 selectionCount.value === 0
                 // or not clearable single select
                 || !props.clearable && !props.multi
                 // or not clearable multi-select with only one value
-                || !props.clearable && props.multi && (selected.value as Option[]).length === 1
+                || !props.clearable && props.multi && (selected.value as Option[] | string[]).length === 1
             ) {
                 return;
             }
 
             if (option && props.multi) {
-                selected.value = (selected.value as Option[]).filter(opt => !isEqual(opt, option));
+                selected.value = (selected.value as (Option | string)[]).filter(opt => !isEqual(opt, option));
                 return;
             }
 
             selected.value = props.multi ? [] : null;
         };
 
-        const isEqual = (previous: Option, next: Option): boolean => {
+        const isEqual = (previous: Option | string, next: Option | string): boolean => {
             // Compare as strings options (checking type of previous/next to satisfy TS).
             if (typeof previous === 'string' || typeof next === 'string') {
                 const previousString: string = typeof previous === 'string' ? previous : previous[props.optionKey];
@@ -373,12 +372,12 @@ export default defineComponent({
                 ? _isEqual(previous, next)
                 : _isEqual(previous[props.optionKey], next[props.optionKey]);
         };
-        const isSelected = (option: OptionObject) => {
+        const isSelected = (option: Option) => {
             const values = selected.value ? wrap(cloneDeep(selected.value)) : [];
 
             return values.findIndex(selectedOption => isEqual(selectedOption, option)) !== -1;
         };
-        const select = async (option: OptionObject) => {
+        const select = async (option: Option) => {
             if (isSelected(option)) {
                 return;
             }
