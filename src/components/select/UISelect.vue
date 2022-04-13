@@ -35,7 +35,7 @@
              @keydown.esc="closeList"
              @click="open ? closeList() : openList()">
             <slot name="selected" :selected="selected">
-                <span :class="{ 'truncate': multi }">
+                <span v-if="selectionCount > 0" :class="{ 'truncate': multi }">
                     {{ selectionDisplay }}
                 </span>
             </slot>
