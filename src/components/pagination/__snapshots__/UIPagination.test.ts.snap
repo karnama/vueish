@@ -8,7 +8,7 @@ exports[`UIPagination should render correctly 1`] = `
 >
   <button
     aria-label="Previous Page"
-    class="border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 ring-gray-600 hover:bg-gray-400 hover:border-gray-400 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed rotate-90 !p-1 mt-2"
+    class="border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 ring-gray-600 hover:bg-gray-400 hover:border-gray-400 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none rotate-90 !p-1 mt-2"
     id="previous-page-button"
     type="button"
   >
@@ -29,7 +29,7 @@ exports[`UIPagination should render correctly 1`] = `
   <button
     aria-current="false"
     aria-label="Go to page 1"
-    class="text-gray-600 dark:text-gray-400 shadow-sm border-gray-400 disabled:bg-gray-300disabled:shadow-none ring-gray-600 hover:text-white dark:hover:text-white hover:bg-gray-400 border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed page-button"
+    class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 hover:text-white dark:hover:text-white hover:bg-gray-400 shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none page-button"
     id="page-1-button"
     title="Go to page 1"
     type="button"
@@ -47,7 +47,7 @@ exports[`UIPagination should render correctly 1`] = `
   <button
     aria-current="false"
     aria-label="Go to page 4"
-    class="text-gray-600 dark:text-gray-400 shadow-sm border-gray-400 disabled:bg-gray-300disabled:shadow-none ring-gray-600 hover:text-white dark:hover:text-white hover:bg-gray-400 border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed page-button"
+    class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 hover:text-white dark:hover:text-white hover:bg-gray-400 shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none page-button"
     id="page-4-button"
     title="Go to page 4"
     type="button"
@@ -59,7 +59,7 @@ exports[`UIPagination should render correctly 1`] = `
   <button
     aria-current="true"
     aria-label="Current Page, Page 5"
-    class="border-blue-600 text-white bg-blue-600 ring-blue-300 hover:bg-blue-700 hover:border-blue-700 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed page-button"
+    class="border-brand-600 text-white bg-brand-600 ring-brand-500 hover:bg-brand-700 hover:border-brand-700 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none page-button"
     id="page-5-button"
     title="Current Page, Page 5"
     type="button"
@@ -71,7 +71,7 @@ exports[`UIPagination should render correctly 1`] = `
   <button
     aria-current="false"
     aria-label="Go to page 6"
-    class="text-gray-600 dark:text-gray-400 shadow-sm border-gray-400 disabled:bg-gray-300disabled:shadow-none ring-gray-600 hover:text-white dark:hover:text-white hover:bg-gray-400 border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed page-button"
+    class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 hover:text-white dark:hover:text-white hover:bg-gray-400 shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none page-button"
     id="page-6-button"
     title="Go to page 6"
     type="button"
@@ -89,7 +89,7 @@ exports[`UIPagination should render correctly 1`] = `
   <button
     aria-current="false"
     aria-label="Go to page 10"
-    class="text-gray-600 dark:text-gray-400 shadow-sm border-gray-400 disabled:bg-gray-300disabled:shadow-none ring-gray-600 hover:text-white dark:hover:text-white hover:bg-gray-400 border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed page-button"
+    class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 hover:text-white dark:hover:text-white hover:bg-gray-400 shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none page-button"
     id="page-10-button"
     title="Go to page 10"
     type="button"
@@ -100,7 +100,7 @@ exports[`UIPagination should render correctly 1`] = `
   </button>
   <button
     aria-label="Next Page"
-    class="border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 ring-gray-600 hover:bg-gray-400 hover:border-gray-400 border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed transform -rotate-90 !p-1"
+    class="border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 ring-gray-600 hover:bg-gray-400 hover:border-gray-400 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none transform -rotate-90 !p-1"
     id="next-page-button"
     type="button"
   >
