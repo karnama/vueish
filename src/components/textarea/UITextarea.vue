@@ -28,9 +28,12 @@
                           :name="name"
                           :disabled="disabled"
                           :aria-placeholder="placeholder"
-                          class="flex-1 p-3.5 appearance-none bg-transparent outline-none
+                          class="flex-1 p-3.5 appearance-none bg-transparent outline-none caret-blue-500
                                  disabled:cursor-not-allowed text-color disabled:text-gray-400"
-                          :class="{ 'px-7 py-5': large }"
+                          :class="{
+                              'px-7 py-5': large,
+                              'caret-red-500 dark:caret-red-600': error || $slots.error
+                          }"
                           :style="[
                               disabled || fixed || autoSize ? 'resize: none' : '',
                               counter ? 'min-height: 5rem' : '']" />
