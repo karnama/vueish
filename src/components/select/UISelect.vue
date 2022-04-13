@@ -116,7 +116,7 @@
                         :key="option[optionLabel] + '-' + index"
                         :ref="el => { if (el) listElements[index] = el }"
                         :aria-selected="currentlySelected = isSelected(option)"
-                        class="option cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500 relative
+                        class="option cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500 relative transition-colors
                                justify-center focus:bg-brand-200 dark:focus:bg-brand-500 outline-none"
                         :class="{
                             'selected-option bg-gray-200 dark:bg-gray-500 dark:hover:bg-gray-500': currentlySelected,
