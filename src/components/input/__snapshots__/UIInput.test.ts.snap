@@ -17,7 +17,7 @@ exports[`UIInput should correctly display 1`] = `
       <!--v-if-->
       <!--v-if-->
       <input
-        class="flex-1 p-3.5 appearance-none bg-transparent outline-none text-color disabled:text-gray-400 overflow-x-scroll"
+        class="flex-1 p-3.5 appearance-none bg-transparent outline-none text-color disabled:text-gray-400 overflow-x-scroll caret-blue-500"
         id="input"
         name="input"
         type="text"
