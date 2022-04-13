@@ -20,6 +20,7 @@ exports[`UISelect display should display correctly 1`] = `
     class="p-2"
   >
     <input
+      autocomplete="off"
       class="appearance-none bg-transparent w-full leading-tight focus:outline-none transition-text-color"
       name="search"
       tabindex="-1"
@@ -32,7 +33,7 @@ exports[`UISelect display should display correctly 1`] = `
     
     <li
       aria-selected="false"
-      class="option cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500 relative justify-center focus:bg-brand-200 dark:focus:bg-brand-500 outline-none border-t border-gray-300 dark:border-gray-500"
+      class="option cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500 relative transition-colors justify-center focus:bg-brand-200 dark:focus:bg-brand-500 outline-none border-t border-gray-300 dark:border-gray-500"
       role="option"
       tabindex="0"
     >
@@ -51,7 +52,7 @@ exports[`UISelect display should display correctly 1`] = `
     </li>
     <li
       aria-selected="false"
-      class="option cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500 relative justify-center focus:bg-brand-200 dark:focus:bg-brand-500 outline-none border-t border-gray-300 dark:border-gray-500"
+      class="option cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500 relative transition-colors justify-center focus:bg-brand-200 dark:focus:bg-brand-500 outline-none border-t border-gray-300 dark:border-gray-500"
       role="option"
       tabindex="0"
     >
@@ -70,7 +71,7 @@ exports[`UISelect display should display correctly 1`] = `
     </li>
     <li
       aria-selected="false"
-      class="option cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500 relative justify-center focus:bg-brand-200 dark:focus:bg-brand-500 outline-none border-t border-gray-300 dark:border-gray-500"
+      class="option cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500 relative transition-colors justify-center focus:bg-brand-200 dark:focus:bg-brand-500 outline-none border-t border-gray-300 dark:border-gray-500"
       role="option"
       tabindex="0"
     >
@@ -89,7 +90,7 @@ exports[`UISelect display should display correctly 1`] = `
     </li>
     <li
       aria-selected="false"
-      class="option cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500 relative justify-center focus:bg-brand-200 dark:focus:bg-brand-500 outline-none border-t border-gray-300 dark:border-gray-500"
+      class="option cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500 relative transition-colors justify-center focus:bg-brand-200 dark:focus:bg-brand-500 outline-none border-t border-gray-300 dark:border-gray-500"
       role="option"
       tabindex="0"
     >
