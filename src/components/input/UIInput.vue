@@ -67,7 +67,13 @@
                 </span>
 
                 <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
-                    <span v-if="disabled"
+                    <UISpinnerLoader v-if="loading"
+                                     :diameter="20"
+                                     :stroke="2"
+                                     class="mr-3"
+                                     :class="{ 'mr-5': large }" />
+
+                    <span v-else-if="disabled"
                           class="h-5 w-5 mr-3 text-color-muted"
                           :class="{ 'mr-5': large }"
                           v-html="lockIcon" />
@@ -127,19 +133,21 @@ import {
     disabled,
     error,
     placeholder,
-    large
+    large,
+    loading
 } from '@/shared-props';
 import { useVModel } from 'composables/reactivity';
 import { getIcon, getPrecision } from '@/helpers';
 import { omit } from 'lodash-es';
 import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
 import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
+import UISpinnerLoader from 'components/loader-spinner/UISpinnerLoader.vue';
 
 const types = [
     'text',
     'tel',
     'number',
-    'password',
+    'password', // todo add warning that capslock is on
     'url',
     'email',
     'search'
@@ -148,7 +156,7 @@ const types = [
 export default defineComponent({
     name: 'UIInput',
 
-    components: { UIFadeTransition, UIExpandTransition },
+    components: { UIFadeTransition, UIExpandTransition, UISpinnerLoader },
 
     inheritAttrs: false,
 
@@ -219,7 +227,8 @@ export default defineComponent({
         name,
         disabled,
         error,
-        placeholder
+        placeholder,
+        loading
     },
 
     emits: ['update:modelValue'],
