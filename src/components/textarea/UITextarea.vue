@@ -40,7 +40,12 @@
 
                 <div class="flex flex-col justify-center" :class="{ 'text-gray-400 cursor-not-allowed': disabled }">
                     <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
-                        <span v-if="disabled"
+                        <UISpinnerLoader v-if="loading"
+                                         :diameter="20"
+                                         :stroke="2"
+                                         class="mx-2" />
+
+                        <span v-else-if="disabled"
                               class="h-5 w-5 mx-2 text-color-muted grow align-middle flex flex-col justify-center"
                               v-html="lockIcon" />
 
@@ -77,7 +82,6 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, onUpdated, onBeforeUnmount } from 'vue';
-
 import {
     autofocus,
     label,
@@ -86,17 +90,19 @@ import {
     disabled,
     placeholder,
     large,
-    error
+    error,
+    loading
 } from '@/shared-props';
 import { getIcon } from '@/helpers';
 import { useVModel } from 'composables/reactivity';
 import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
+import UISpinnerLoader from 'components/loader-spinner/UISpinnerLoader.vue';
 
 export default defineComponent({
     name: 'UITextarea',
 
-    components: { UIExpandTransition, UIFadeTransition },
+    components: { UIExpandTransition, UIFadeTransition, UISpinnerLoader },
 
     inheritAttrs: false,
 
@@ -133,7 +139,8 @@ export default defineComponent({
         disabled,
         error,
         placeholder,
-        large
+        large,
+        loading
     },
 
     emits: ['update:modelValue'],

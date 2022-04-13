@@ -3,6 +3,9 @@
         <UICheckbox v-model="large"
                     name="large"
                     label="Large Style" />
+        <UICheckbox v-model="loading"
+                    name="loading"
+                    label="Loading" />
 
         <UIButton category="danger" @click="error ? error = '' : error = 'Error message.'">
             {{ error ? 'Remove' : 'Set' }} Error state
@@ -13,6 +16,7 @@
         <div class="space-y-10">
             <UITextarea v-model="customText"
                         placeholder="Write your bio here"
+                        :loading="loading"
                         name="ui-text"
                         counter
                         :large="large"
@@ -23,6 +27,7 @@
 
             <UITextarea v-model="customText"
                         placeholder="Write your bio here"
+                        :loading="loading"
                         name="ui-text"
                         counter
                         :large="large"
@@ -31,6 +36,7 @@
                         label="Resizable" />
 
             <UITextarea v-model="text"
+                        :loading="loading"
                         name="ui-text"
                         rows="2"
                         :large="large"
@@ -39,6 +45,7 @@
                         fixed />
 
             <UITextarea v-model="disabled"
+                        :loading="loading"
                         name="ui-text3"
                         label="Disabled"
                         :large="large"
@@ -63,13 +70,15 @@ export default defineComponent({
         const disabled = ref('Can\'t touch this!');
         const error = ref('');
         const large = ref(false);
+        const loading = ref(false);
 
         return {
             text,
             disabled,
             customText,
             error,
-            large
+            large,
+            loading
         };
     }
 });
