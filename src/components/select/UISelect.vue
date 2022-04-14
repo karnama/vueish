@@ -39,7 +39,7 @@
                     {{ selectionDisplay }}
                 </span>
             </slot>
-            <slot name="placeholder" :selectionCount="selectionCount">
+            <slot name="placeholder" :selection-count="selectionCount">
                 <span v-if="selectionCount === 0" class="text-gray-400">
                     {{ placeholder }}
                 </span>
@@ -135,7 +135,7 @@
                         @click.stop="select(option)">
                         <div class="flex justify-between">
                             <div class="p-2">
-                                <slot name="option" :option="option" :isSelected="currentlySelected">
+                                <slot name="option" :option="option" :is-selected="currentlySelected">
                                     {{ option[optionLabel] }}
                                 </slot>
                             </div>
@@ -177,6 +177,7 @@ import type { MaybeArray } from 'types/utilities';
 import clickAway from '@/directives/click-away';
 import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
 import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
+import UISpinnerLoader from 'components/loader-spinner/UISpinnerLoader.vue';
 
 type Option = Record<string, any>;
 
@@ -185,7 +186,7 @@ export default defineComponent({
 
     directives: { clickAway },
 
-    components: { UIFadeTransition, UIExpandTransition },
+    components: { UIFadeTransition, UIExpandTransition, UISpinnerLoader },
 
     props: {
         modelValue: {
