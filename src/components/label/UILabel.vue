@@ -1,5 +1,5 @@
 <template>
-    <span :class="classes" class="rounded px-2">
+    <span :class="classes" class="rounded-full px-3 py-1">
         <slot>
             {{ label }}
         </slot>
@@ -22,7 +22,7 @@ const categoryClasses = {
 } as { [key in StyleType]: string; };
 
 export default defineComponent({
-    name: 'UIPill',
+    name: 'UILabel',
 
     props: {
         category,
