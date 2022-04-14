@@ -17,9 +17,7 @@
                  :loading="loading"
                  name="ui-text1"
                  :large="large"
-                 autofocus
                  :error="error"
-                 class="text-blue-800"
                  placeholder="Some instructions..."
                  label="Default Field" />
 

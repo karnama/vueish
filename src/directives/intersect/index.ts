@@ -10,7 +10,6 @@ interface ElementToObserve extends Element {
 
 type Modifiers = Omit<IntersectObject, 'callback' | 'root' | 'rootMargin' | 'threshold'>;
 
-// todo - modifiers for enter,leave
 const setUpObserver: DirectiveHook = (
     el: ElementToObserve,
     binding: DirectiveBinding<IntersectArgument>
