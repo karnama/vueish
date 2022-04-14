@@ -2,7 +2,7 @@
 
 exports[`UILabel should display correctly 1`] = `
 <span
-  class="text-gray-700 bg-gray-200 rounded-full px-3 py-1"
+  class="bg-gray-600 text-white px-3 py-1 font-bold text-sm rounded select-none"
 >
   
   my-string
