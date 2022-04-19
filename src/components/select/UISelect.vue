@@ -436,6 +436,11 @@ export default defineComponent({
                 zIndex: '9999',
                 top: `${fitsOnTheBottom ? below : above}px`
             };
+
+            if (!fitsOnTheBottom && selectRect.top - offset <= listRect.height) {
+                style.value.height = `${selectRect.top - offset}px`;
+                style.value.top = '0px';
+            }
         };
 
         onMounted(async () => {

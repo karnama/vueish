@@ -106,6 +106,18 @@ const options = [
     {
         id: 4,
         name: 'Brucie Bonus'
+    },
+    {
+        id: 5,
+        name: 'Bruce Nolan'
+    },
+    {
+        id: 6,
+        name: 'Bruce Norris'
+    },
+    {
+        id: 7,
+        name: 'Bruce Baxter'
     }
 ];
 
