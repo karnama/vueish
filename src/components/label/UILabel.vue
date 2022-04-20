@@ -76,7 +76,7 @@ export default defineComponent({
             if (props.secondary) {
                 classes = secondaryClasses[props.category as StyleType];
             } else {
-                classes = primaryClasses[props.category as StyleType]+ ' text-white';
+                classes = primaryClasses[props.category as StyleType] + ' text-white';
             }
 
             if (props.sm) {

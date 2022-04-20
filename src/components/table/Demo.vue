@@ -1,8 +1,15 @@
 <template>
+    <div class="flex justify-evenly mb-6">
+        <UICheckbox v-model="compact"
+                    name="compact"
+                    label="Compact Style" />
+    </div>
+
     <div class="space-y-4">
         <UIPanel closed header="Table with slots">
             <UITable :headers="headers"
                      :rows="rows"
+                     :compact="compact"
                      hover-highlight
                      :items-per-page="Number(5)">
                 <template #header="slotProps">
@@ -31,6 +38,7 @@
         <UIPanel closed header="Searchable">
             <UITable :headers="headers"
                      :rows="rows"
+                     :compact="compact"
                      search
                      disable-sorting />
         </UIPanel>
@@ -39,6 +47,7 @@
             <UITable v-model="selectedRows"
                      :headers="headers"
                      :rows="rows"
+                     :compact="compact"
                      selectable
                      disable-pagination
                      disable-sorting />
@@ -48,6 +57,7 @@
             <UITable :headers="headers"
                      :items-per-page="5"
                      :total-items="100"
+                     :compact="compact"
                      :rows="asyncRows">
                 <template #pagination="slotProps">
                     <div class="flex justify-end w-full">
@@ -62,7 +72,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, markRaw, ref } from 'vue';
 import type { Column, Row } from 'types';
 
 interface Dessert {
@@ -78,7 +88,7 @@ export default defineComponent({
     name: 'TableDemo',
 
     setup() {
-        const headers = ref<Column<Dessert>[]>([
+        const headers = markRaw<Column<Dessert>[]>([
             { header: 'Dessert (100g serving)', rowProperty: 'name' },
             { header: 'Calories', rowProperty: 'calories' },
             { header: 'Fat (g)', rowProperty: 'fat' },
@@ -86,7 +96,7 @@ export default defineComponent({
             { header: 'Protein (g)', rowProperty: 'protein' },
             { header: 'Iron (%)', rowProperty: 'iron', suffix: '%', sortable: true }
         ]);
-        const rows = ref<Row & Dessert[]>([
+        const rows = markRaw<Row & Dessert[]>([
             {
                 name: 'Frozen Yogurt',
                 calories: 159,
@@ -178,19 +188,21 @@ export default defineComponent({
             }
         ]);
         const selectedRows = ref<Row & Dessert[]>();
+        const compact = ref(false);
         const page = ref(1);
         const itemsPerPage = ref(2);
         const loading = ref(false);
-        const asyncRows = ref<Row & Dessert[]>(rows.value.slice(0, 5));
+        const asyncRows = ref<Row & Dessert[]>(rows.slice(0, 5));
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const goToPage = async (_page: number) => {
             loading.value = true;
-            Math.floor(Math.random() * rows.value.length);
+            Math.floor(Math.random() * rows.length);
             await new Promise(resolve => setTimeout(resolve, 400));
-            const start = Math.max(Math.floor(Math.random() * 5), Math.floor(Math.random() * rows.value.length - 5));
-            asyncRows.value = rows.value.slice(start, start + 5);
+            const start = Math.max(Math.floor(Math.random() * 5), Math.floor(Math.random() * rows.length - 5));
+            asyncRows.value = rows.slice(start, start + 5);
             loading.value = false;
         };
+
 
         return {
             headers,
@@ -200,7 +212,8 @@ export default defineComponent({
             itemsPerPage,
             goToPage,
             loading,
-            asyncRows
+            asyncRows,
+            compact
         };
     }
 });

@@ -97,8 +97,8 @@
                         <button v-if="notAllSelected" class="x-select-all" @click="selected = options">
                             Select All
                         </button>
-                        <span v-if="notAllSelected && hasSelected"> / </span>
-                        <button v-if="hasSelected" class="x-select-none" @click="selected = []">
+                        <span v-if="notAllSelected && hasSelected && clearable"> / </span>
+                        <button v-if="clearable && hasSelected" class="x-select-none" @click="selected = []">
                             Select None
                         </button>
                     </div>

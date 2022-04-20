@@ -1,9 +1,16 @@
 <template>
+    <div class="flex justify-evenly mb-6">
+        <UICheckbox v-model="sm"
+                    name="sm"
+                    label="Small Style" />
+    </div>
+
     <h2>Primary</h2>
     <div class="flex justify-evenly flex-wrap">
         <UILabel v-for="category in styleTypes"
                  :key="category"
                  :category="category"
+                 :sm="sm"
                  class="m-2">
             {{ category.charAt(0).toUpperCase() + category.slice(1) }}
         </UILabel>
@@ -14,6 +21,7 @@
                  :key="category"
                  secondary
                  rounded
+                 :sm="sm"
                  :category="category"
                  class="m-2">
             {{ category.charAt(0).toUpperCase() + category.slice(1) }}
@@ -22,12 +30,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { styleTypes } from 'types';
 
 export default defineComponent({
-    name: 'PillDemo',
+    name: 'LabelDemo',
 
-    setup: () => ({ styleTypes })
+    setup: () => ({ styleTypes, sm: ref(false) })
 });
 </script>

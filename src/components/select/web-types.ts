@@ -21,7 +21,7 @@ export default {
         },
         {
             name: 'selected',
-            description: 'The slot to selection displayed.',
+            description: 'The slot to customise the current selection.',
             // eslint-disable-next-line @typescript-eslint/naming-convention
             'vue-properties': [
                 { name: 'selected', description: 'The selected option(s)' }

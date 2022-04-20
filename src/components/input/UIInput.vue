@@ -147,7 +147,7 @@ const types = [
     'text',
     'tel',
     'number',
-    'password', // todo add warning that capslock is on
+    'password',
     'url',
     'email',
     'search'

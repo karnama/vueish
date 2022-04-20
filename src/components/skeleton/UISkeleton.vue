@@ -13,6 +13,8 @@ export default defineComponent({
     props: {
         /**
          * Use pulse animation instead of default shimmer.
+         *
+         * @default false
          */
         pulse: {
             type: Boolean,
@@ -21,6 +23,8 @@ export default defineComponent({
 
         /**
          * The duration of the animation.
+         *
+         * @default 1300
          */
         duration: {
             type: [Number, String],

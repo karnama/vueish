@@ -6,6 +6,9 @@
         <UICheckbox v-model="loading"
                     name="loading"
                     label="Loading" />
+        <UICheckbox v-model="clearable"
+                    name="clearable"
+                    label="Clearable" />
 
         <UIButton category="danger" @click="error ? error = '' : error = 'Error message.'">
             {{ error ? 'Remove' : 'Set' }} Error state
@@ -14,10 +17,10 @@
     <div class="space-y-10">
         <UISelect v-model="selected"
                   :options="options"
-                  clearable
+                  :clearable="clearable"
                   :error="error"
                   :large="large"
-                  label="Clearable select"
+                  label="Single select"
                   :loading="loading"
                   name="select-1" />
         <span class="text-sm text-gray-400">
@@ -28,6 +31,7 @@
                   multi
                   :options="options"
                   :error="error"
+                  :clearable="clearable"
                   disabled
                   :large="large"
                   label="Disabled multi select"
@@ -40,6 +44,7 @@
         <UISelect v-model="multiSelected"
                   multi
                   :options="options"
+                  :clearable="clearable"
                   label="Multi select"
                   :error="error"
                   :large="large"
@@ -49,22 +54,9 @@
             Bound: {{ multiSelected }}
         </span>
 
-        <UISelect v-model="multiSelected"
-                  multi
-                  clearable
-                  label="Clearable multi select"
-                  :loading="loading"
-                  name="select-3"
-                  :error="error"
-                  :large="large"
-                  :options="options" />
-        <span class="text-sm text-gray-400">
-            Bound: {{ multiSelected }}
-        </span>
-
         <UISelect v-model="selectedSimple"
                   :options="['Foo', 'Bar', 'Baz']"
-                  clearable
+                  :clearable="clearable"
                   :large="large"
                   label="Array of strings as select"
                   :loading="loading"
@@ -76,9 +68,9 @@
         <UISelect v-model="multiSelectedSimple"
                   :options="['Foo', 'Bar', 'Baz']"
                   multi
-                  clearable
+                  :clearable="clearable"
                   :large="large"
-                  label="Array of strings as multi-select"
+                  label="Array of strings as multi select"
                   :loading="loading"
                   name="select-4" />
         <span class="text-sm text-gray-400">
@@ -132,6 +124,7 @@ export default defineComponent({
         const large = ref(false);
         const error = ref('');
         const loading = ref(false);
+        const clearable = ref(false);
 
         return {
             selected,
@@ -141,7 +134,8 @@ export default defineComponent({
             options,
             large,
             error,
-            loading
+            loading,
+            clearable
         };
     }
 });
