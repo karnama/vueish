@@ -6,10 +6,11 @@
         <UIButton id="previous-page-button"
                   :disabled="disabled || !hasPrevious"
                   aria-label="Previous Page"
-                  class="rotate-90 mt-2"
-                  :class="[large ? '!p-2' : '!p-1']"
-                  @click="page === 1 ? undefined : setPage(page - 1)"
-                  v-html="chevronIcon" />
+                  class="mt-2 flex flex-col justify-center items-center"
+                  :style="buttonStyle"
+                  @click="page === 1 ? undefined : setPage(page - 1)">
+            <span class="rotate-90" v-html="chevronIcon" />
+        </UIButton>
         <UIButton id="page-1-button"
                   :aria-current="isCurrent = page === 1"
                   :category="isCurrent ? 'brand' : 'default'"
@@ -59,10 +60,11 @@
         <UIButton id="next-page-button"
                   :disabled="disabled || !hasNext"
                   aria-label="Next Page"
-                  class="transform -rotate-90"
-                  :class="[large ? '!p-2' : '!p-1']"
-                  @click="page === Number(length) ? undefined : setPage(page + 1)"
-                  v-html="chevronIcon" />
+                  :style="buttonStyle"
+                  class="flex flex-col justify-center items-center"
+                  @click="page === Number(length) ? undefined : setPage(page + 1)">
+            <span class="-rotate-90" v-html="chevronIcon" />
+        </UIButton>
     </div>
 </template>
 

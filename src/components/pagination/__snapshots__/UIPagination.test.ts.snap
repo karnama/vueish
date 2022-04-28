@@ -8,29 +8,37 @@ exports[`UIPagination should render correctly 1`] = `
 >
   <button
     aria-label="Previous Page"
-    class="border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 ring-gray-600 hover:bg-gray-400 hover:border-gray-400 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none rotate-90 !p-1 mt-2"
+    class="border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 ring-gray-600 hover:bg-gray-400 hover:border-gray-400 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none mt-2 flex flex-col justify-center items-center"
     id="previous-page-button"
+    style="padding: 0px 5px !important; min-width: 40px; height: 38px;"
     type="button"
   >
-    <svg
-      fill="currentColor"
-      height="15px"
-      viewBox="0 0 407.437 407.437"
-      x="0px"
-      xml:space="preserve"
-      xmlns="http://www.w3.org/2000/svg"
-      y="0px"
+    
+    <span
+      class="rotate-90"
     >
-      <polygon
-        points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 "
-      />
-    </svg>
+      <svg
+        fill="currentColor"
+        height="15px"
+        viewBox="0 0 407.437 407.437"
+        x="0px"
+        xml:space="preserve"
+        xmlns="http://www.w3.org/2000/svg"
+        y="0px"
+      >
+        <polygon
+          points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 "
+        />
+      </svg>
+    </span>
+    
   </button>
   <button
     aria-current="false"
     aria-label="Go to page 1"
-    class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 hover:text-white dark:hover:text-white hover:bg-gray-400 shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none page-button"
+    class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 hover:text-white dark:hover:text-white hover:bg-gray-400 shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
     id="page-1-button"
+    style="padding: 0px 5px !important; min-width: 40px; height: 38px;"
     title="Go to page 1"
     type="button"
   >
@@ -39,7 +47,7 @@ exports[`UIPagination should render correctly 1`] = `
     
   </button>
   <div
-    class="select-none"
+    class="select-none dark:text-gray-300"
   >
      ... 
   </div>
@@ -47,8 +55,9 @@ exports[`UIPagination should render correctly 1`] = `
   <button
     aria-current="false"
     aria-label="Go to page 4"
-    class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 hover:text-white dark:hover:text-white hover:bg-gray-400 shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none page-button"
+    class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 hover:text-white dark:hover:text-white hover:bg-gray-400 shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
     id="page-4-button"
+    style="padding: 0px 5px !important; min-width: 40px; height: 38px;"
     title="Go to page 4"
     type="button"
   >
@@ -59,8 +68,9 @@ exports[`UIPagination should render correctly 1`] = `
   <button
     aria-current="true"
     aria-label="Current Page, Page 5"
-    class="border-brand-600 text-white bg-brand-600 ring-brand-500 hover:bg-brand-700 hover:border-brand-700 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none page-button"
+    class="border-brand-600 text-white bg-brand-600 ring-brand-500 hover:bg-brand-700 hover:border-brand-700 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
     id="page-5-button"
+    style="padding: 0px 5px !important; min-width: 40px; height: 38px;"
     title="Current Page, Page 5"
     type="button"
   >
@@ -71,8 +81,9 @@ exports[`UIPagination should render correctly 1`] = `
   <button
     aria-current="false"
     aria-label="Go to page 6"
-    class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 hover:text-white dark:hover:text-white hover:bg-gray-400 shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none page-button"
+    class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 hover:text-white dark:hover:text-white hover:bg-gray-400 shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
     id="page-6-button"
+    style="padding: 0px 5px !important; min-width: 40px; height: 38px;"
     title="Go to page 6"
     type="button"
   >
@@ -82,15 +93,16 @@ exports[`UIPagination should render correctly 1`] = `
   </button>
   
   <div
-    class="select-none"
+    class="select-none dark:text-gray-300"
   >
      ... 
   </div>
   <button
     aria-current="false"
     aria-label="Go to page 10"
-    class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 hover:text-white dark:hover:text-white hover:bg-gray-400 shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none page-button"
+    class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 hover:text-white dark:hover:text-white hover:bg-gray-400 shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
     id="page-10-button"
+    style="padding: 0px 5px !important; min-width: 40px; height: 38px;"
     title="Go to page 10"
     type="button"
   >
@@ -100,23 +112,30 @@ exports[`UIPagination should render correctly 1`] = `
   </button>
   <button
     aria-label="Next Page"
-    class="border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 ring-gray-600 hover:bg-gray-400 hover:border-gray-400 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none transform -rotate-90 !p-1"
+    class="border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 ring-gray-600 hover:bg-gray-400 hover:border-gray-400 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none flex flex-col justify-center items-center"
     id="next-page-button"
+    style="padding: 0px 5px !important; min-width: 40px; height: 38px;"
     type="button"
   >
-    <svg
-      fill="currentColor"
-      height="15px"
-      viewBox="0 0 407.437 407.437"
-      x="0px"
-      xml:space="preserve"
-      xmlns="http://www.w3.org/2000/svg"
-      y="0px"
+    
+    <span
+      class="-rotate-90"
     >
-      <polygon
-        points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 "
-      />
-    </svg>
+      <svg
+        fill="currentColor"
+        height="15px"
+        viewBox="0 0 407.437 407.437"
+        x="0px"
+        xml:space="preserve"
+        xmlns="http://www.w3.org/2000/svg"
+        y="0px"
+      >
+        <polygon
+          points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 "
+        />
+      </svg>
+    </span>
+    
   </button>
 </div>
 `;
