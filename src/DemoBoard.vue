@@ -112,7 +112,7 @@ export default defineComponent({
         };
 
         document.body.classList.add(cache.get('theme', 'light')!);
-        setBg(cache.get('theme', 'light') === 'dark');
+        setBg(cache.get<'light' | 'dark'>('theme', 'light') === 'dark');
 
         watch(() => isOpen.value, val => cache.set('menuOpen', val));
         watch(() => darkMode.value, val => {
@@ -132,13 +132,13 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .router-link-active {
-    @apply text-green-600;
+    @apply text-brand-600;
 }
 
 .dark .router-link-active {
-    @apply text-green-400;
+    @apply text-brand-400;
 }
 
 .menu {
