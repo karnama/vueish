@@ -6,7 +6,8 @@
         <UIButton id="previous-page-button"
                   :disabled="disabled || !hasPrevious"
                   aria-label="Previous Page"
-                  class="rotate-90 !p-1 mt-2"
+                  class="rotate-90 mt-2"
+                  :class="[large ? '!p-2' : '!p-1']"
                   @click="page === 1 ? undefined : setPage(page - 1)"
                   v-html="chevronIcon" />
         <UIButton id="page-1-button"
@@ -14,13 +15,15 @@
                   :category="isCurrent ? 'brand' : 'default'"
                   :disabled="disabled"
                   :outline="!isCurrent"
-                  class="page-button"
+                  :style="buttonStyle"
                   :aria-label="isCurrent ? 'Current Page, Page 1' : 'Go to page 1'"
                   :title="isCurrent ? 'Current Page, Page 1' : 'Go to page 1'"
                   @click="setPage(1)">
             1
         </UIButton>
-        <div v-if="pages[0] !== 2" class="select-none">
+        <div v-if="pages[0] !== 2"
+             class="select-none dark:text-gray-300"
+             :class="{ 'tracking-widest': large }">
             ...
         </div>
         <UIButton v-for="pageNum in pages"
@@ -29,14 +32,16 @@
                   :aria-current="isCurrent = pageNum === page"
                   :category="isCurrent ? 'brand' : 'default'"
                   :outline="!isCurrent"
-                  class="page-button"
+                  :style="buttonStyle"
                   :aria-label="isCurrent ? 'Current Page, Page ' + pageNum : 'Go to page ' + pageNum"
                   :title="isCurrent ? 'Current Page, Page ' + pageNum : 'Go to page ' + pageNum"
                   :disabled="disabled"
                   @click="setPage(pageNum)">
             {{ pageNum }}
         </UIButton>
-        <div v-if="startPagesFrom + Number(visibleCount) < Number(length)" class="select-none">
+        <div v-if="startPagesFrom + Number(visibleCount) < Number(length)"
+             class="select-none dark:text-gray-300"
+             :class="{ 'tracking-widest': large }">
             ...
         </div>
         <UIButton v-if="Number(length) > 1"
@@ -44,7 +49,7 @@
                   :aria-current="isCurrent = page === Number(length)"
                   :category="isCurrent ? 'brand' : 'default'"
                   :disabled="disabled"
-                  class="page-button"
+                  :style="buttonStyle"
                   :outline="!isCurrent"
                   :aria-label="isCurrent ? 'Current Page, Page ' + length : 'Go to page ' + length"
                   :title="isCurrent ? 'Current Page, Page ' + length : 'Go to page ' + length"
@@ -54,7 +59,8 @@
         <UIButton id="next-page-button"
                   :disabled="disabled || !hasNext"
                   aria-label="Next Page"
-                  class="transform -rotate-90 !p-1"
+                  class="transform -rotate-90"
+                  :class="[large ? '!p-2' : '!p-1']"
                   @click="page === Number(length) ? undefined : setPage(page + 1)"
                   v-html="chevronIcon" />
     </div>
@@ -62,7 +68,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { disabled } from '@/shared-props';
+import { disabled, large } from '@/shared-props';
 import { useVModel } from 'composables/reactivity';
 import { getIcon } from '@/helpers';
 import UIButton from 'components/button/UIButton.vue';
@@ -116,7 +122,8 @@ export default defineComponent({
             }
         },
 
-        disabled
+        disabled,
+        large
     },
 
     emits: ['update:modelValue'],
@@ -150,6 +157,11 @@ export default defineComponent({
             )
                 .filter(pageNum => pageNum > 1 && pageNum < Number(props.length));
         });
+        const buttonStyle = computed<Partial<CSSStyleDeclaration>>(() => ({
+            padding: '0 5px !important',
+            minWidth: props.large ? '50px' : '40px',
+            height: props.large ? '47px' : '38px'
+        }));
 
         const setPage = (pageNum: number) => {
             if (pageNum === page.value) return;
@@ -164,16 +176,9 @@ export default defineComponent({
             setPage,
             hasNext,
             chevronIcon,
-            pages
+            pages,
+            buttonStyle
         };
     }
 });
 </script>
-
-<style>
-.page-button {
-    min-width: 40px;
-    padding: 0 5px !important;
-    height: 38px;
-}
-</style>

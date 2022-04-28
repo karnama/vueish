@@ -4,6 +4,8 @@
                     name="disabled"
                     label="Disabled"
                     class="mb-2" />
+        <UICheckbox v-model="large" label="Large Style" name="large" />
+
         <label>
             Page count ({{ length }})
             <input v-model="length"
@@ -26,6 +28,7 @@
 
     <UIPagination v-model="page"
                   :length="length"
+                  :large="large"
                   :disabled="disabled"
                   :visible-count="visible" />
 </template>
@@ -41,12 +44,14 @@ export default defineComponent({
         const page = ref(5);
         const length = ref(10);
         const visible = ref(3);
+        const large = ref(false);
 
         return {
             disabled,
             page,
             length,
-            visible
+            visible,
+            large
         };
     }
 });
