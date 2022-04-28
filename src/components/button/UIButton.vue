@@ -94,16 +94,15 @@ export default defineComponent({
                 + (props.disabled ? '' : ' hover:text-white hover:bg-brand-600 hover:border-brand-600')
         }));
         const minimalTypeClasses = computed<{ [key in StyleType]: string; }>(() => ({
-            default: 'text-gray-600 dark:text-gray-500 disabled:bg-gray-300 ring-gray-300'
+            default: 'text-gray-600 dark:text-gray-500 ring-gray-300'
                 + (props.disabled ? '' : ' dark:hover:text-gray-600 hover:bg-gray-200'),
-            primary: 'text-blue-600 disabled:bg-gray-300 ring-blue-400' + (props.disabled ? '' : ' hover:bg-blue-200'),
-            info: 'text-blue-400 disabled:bg-gray-300 ring-blue-300' + (props.disabled ? '' : ' hover:bg-blue-200'),
-            success: 'text-green-600 disabled:bg-gray-300 ring-green-300'
-                + (props.disabled ? '' : ' hover:bg-green-200'),
-            warning: 'text-yellow-500 disabled:bg-gray-300 ring-yellow-300'
+            primary: 'text-blue-600 ring-blue-400' + (props.disabled ? '' : ' hover:bg-blue-200'),
+            info: 'text-blue-400 ring-blue-300' + (props.disabled ? '' : ' hover:bg-blue-200'),
+            success: 'text-green-600 ring-green-300' + (props.disabled ? '' : ' hover:bg-green-200'),
+            warning: 'text-yellow-500 ring-yellow-300'
                 + (props.disabled ? '' : ' hover:bg-yellow-200 hover:text-yellow-600'),
-            danger: 'text-red-600 disabled:bg-gray-300 ring-red-300' + (props.disabled ? '' : ' hover:bg-red-200'),
-            brand: 'text-brand-600 disabled:bg-gray-300 ring-brand-300' + (props.disabled ? '' : ' hover:bg-brand-200')
+            danger: 'text-red-600 ring-red-300' + (props.disabled ? '' : ' hover:bg-red-200'),
+            brand: 'text-brand-600 ring-brand-300' + (props.disabled ? '' : ' hover:bg-brand-200')
         }));
 
         const classes = computed(() => {
