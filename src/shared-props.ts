@@ -145,6 +145,16 @@ export const large: Prop<boolean, false> = {
 };
 
 /**
+ * Apply small styles.
+ *
+ * @default false
+ */
+export const small: Prop<boolean, false> = {
+    type: Boolean,
+    default: false
+};
+
+/**
  * Flag indicating that the loader will run
  * until it's set to false.
  *

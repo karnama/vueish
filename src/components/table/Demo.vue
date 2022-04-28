@@ -1,7 +1,7 @@
 <template>
     <div class="flex justify-evenly mb-6">
-        <UICheckbox v-model="compact"
-                    name="compact"
+        <UICheckbox v-model="small"
+                    name="small"
                     label="Compact Style" />
     </div>
 
@@ -9,7 +9,7 @@
         <UIPanel closed header="Table with slots">
             <UITable :headers="headers"
                      :rows="rows"
-                     :compact="compact"
+                     :small="small"
                      hover-highlight
                      :items-per-page="Number(5)">
                 <template #header="slotProps">
@@ -38,7 +38,7 @@
         <UIPanel closed header="Searchable">
             <UITable :headers="headers"
                      :rows="rows"
-                     :compact="compact"
+                     :small="small"
                      search
                      disable-sorting />
         </UIPanel>
@@ -47,7 +47,7 @@
             <UITable v-model="selectedRows"
                      :headers="headers"
                      :rows="rows"
-                     :compact="compact"
+                     :small="small"
                      selectable
                      disable-pagination
                      disable-sorting />
@@ -57,7 +57,7 @@
             <UITable :headers="headers"
                      :items-per-page="5"
                      :total-items="100"
-                     :compact="compact"
+                     :small="small"
                      :rows="asyncRows">
                 <template #pagination="slotProps">
                     <div class="flex justify-end w-full">
@@ -188,7 +188,7 @@ export default defineComponent({
             }
         ]);
         const selectedRows = ref<Row & Dessert[]>();
-        const compact = ref(false);
+        const small = ref(false);
         const page = ref(1);
         const itemsPerPage = ref(2);
         const loading = ref(false);
@@ -213,7 +213,7 @@ export default defineComponent({
             goToPage,
             loading,
             asyncRows,
-            compact
+            small
         };
     }
 });

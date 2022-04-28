@@ -9,7 +9,7 @@
                           shadow-sm dark:shadow-lg sm:!shadow-none z-10">
                 <tr v-if="!!search" class="block sm:table-row">
                     <th :colspan=" normalisedHeaders.length + ($slots.action ? 1 : 0) + (selectable ? 1 : 0)"
-                        :class="[compact ? 'p-2' : 'px-4 py-8 ']"
+                        :class="[small ? 'p-2' : 'px-4 py-8 ']"
                         class="block sm:table-cell">
                         <span class="block">
                             <UIInput v-model="term" name="search" placeholder="Search..." />
@@ -18,7 +18,7 @@
                 </tr>
 
                 <tr class="hidden sm:table-row">
-                    <th v-if="selectable && !singleSelect" :class="[compact ? 'p-2' : 'py-6 px-2 ']">
+                    <th v-if="selectable && !singleSelect" :class="[small ? 'p-2' : 'py-6 px-2 ']">
                         <UICheckbox name="selectAll"
                                     :indeterminate="Array.isArray(selected)
                                         ? selected.length !== selectableRows.length
@@ -34,8 +34,8 @@
                             'cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-500':
                                 !disableSorting && column.sortable,
                             'bg-gray-200 dark:bg-gray-600': !!sortDirection(column.rowProperty),
-                            'py-6 px-4': !compact,
-                            'px-2 py-3': compact
+                            'py-6 px-4': !small,
+                            'px-2 py-3': small
                         }"
                         class="text-left uppercase font-light text-color-muted text-sm
                                select-none group transition-colors"
@@ -92,8 +92,8 @@
                                   :class="{
                                       'cursor-pointer hover:bg-gray-300': !disableSorting && col.sortable,
                                       'bg-gray-200': !!sortDir,
-                                      'p-4': !compact,
-                                      'px-2 py-1': compact
+                                      'p-4': !small,
+                                      'px-2 py-1': small
                                   }"
                                   @click="sortBy(name)">
                                 <slot name="header" :header="col">
@@ -109,14 +109,14 @@
                                    v-html="chevronIcon" />
                             </span>
 
-                            <span class="block" :class="[compact ? 'px-2 py-1' : 'p-4']">
+                            <span class="block" :class="[small ? 'px-2 py-1' : 'p-4']">
                                 <slot :name="name" :row="row">
                                     {{ getDisplayName(col, row) }}
                                 </slot>
                             </span>
                         </td>
 
-                        <td v-if="$slots.action" :class="[compact ? 'px-2 py-1' : 'p-4']">
+                        <td v-if="$slots.action" :class="[small ? 'px-2 py-1' : 'p-4']">
                             <slot name="action" :row="row" />
                         </td>
                     </tr>
@@ -124,7 +124,7 @@
 
                 <tr v-else>
                     <td :colspan="selectable ? normalisedHeaders.length + 1 : normalisedHeaders.length">
-                        <span class="block text-center text-gray-400" :class="[compact ? 'px-2 py-3' : 'px-4 py-6']">
+                        <span class="block text-center text-gray-400" :class="[small ? 'px-2 py-3' : 'px-4 py-6']">
                             <slot name="empty">
                                 {{ empty }}
                             </slot>
@@ -148,7 +148,7 @@
                         :colspan="normalisedHeaders.length + ($slots.action ? 1 : 0) + (selectable ? 1 : 0)">
                         <span class="flex flex-col sm:flex-row items-center justify-between
                                      flex-wrap break-words relative"
-                              :class="[compact ? 'p-2' : 'px-4 py-6']">
+                              :class="[small ? 'p-2' : 'px-4 py-6']">
                             <slot name="footer" />
                             <span v-if="selectable && !singleSelect" class="block sm:hidden">
                                 <UICheckbox name="selectAll"
@@ -218,6 +218,7 @@ import type { MaybeArray } from 'types/utilities';
 import { getIcon } from '@/helpers';
 import UISelect from 'components/select/UISelect.vue';
 import UIButton from 'components/button/UIButton.vue';
+import { small } from '@/shared-props';
 
 export default defineComponent({
     name: 'UITable',
@@ -361,15 +362,7 @@ export default defineComponent({
             default: false
         },
 
-        /**
-         * Decrease spacing throughout the table.
-         *
-         * @default false
-         */
-        compact: {
-            type: Boolean,
-            default: false
-        }
+        small
     },
 
     emits: ['update:modelValue', 'update:page', 'update:itemsPerPage', 'searching'],
