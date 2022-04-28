@@ -117,7 +117,7 @@ export default defineComponent({
                 classes = primaryTypeClasses.value[category] + ' shadow-sm border';
             }
 
-            classes += props.large ? ' px-7 py-3.5' : ' px-3.5 py-2';
+            classes += props.large ? ' px-7 py-3.5 text-base' : ' px-3.5 py-2';
 
             if (props.loading) {
                 classes += ' pointer-events-none';
