@@ -186,15 +186,17 @@
                                     </span>
                                     <span class="flex justify-end items-center space-x-2">
                                         <UIButton :disabled="!hasPrevious"
-                                                  minimal
-                                                  class="rotate-90"
-                                                  @click="currentPage--"
-                                                  v-html="chevronIcon" />
+                                                  class="flex flex-col justify-center items-center"
+                                                  style="padding: 0 5px !important; min-width: 38px; height: 38px"
+                                                  @click="currentPage--">
+                                            <span class="rotate-90" v-html="chevronIcon" />
+                                        </UIButton>
                                         <UIButton :disabled="!hasNext"
-                                                  minimal
-                                                  class="transform -rotate-90"
-                                                  @click="currentPage++"
-                                                  v-html="chevronIcon" />
+                                                  class="flex flex-col justify-center items-center"
+                                                  style="padding: 0 5px !important; min-width: 38px; height: 38px"
+                                                  @click="currentPage++">
+                                            <span class="-rotate-90" v-html="chevronIcon" />
+                                        </UIButton>
                                     </span>
                                 </span>
                             </slot>
