@@ -2,7 +2,7 @@
     <div class="ui-radio-group">
         <UIExpandTransition>
             <span v-if="label || $slots.label"
-                  class="label text-sm text-gray-500 transition-colors"
+                  class="font-medium text-color flex items-center mb-1.5"
                   :class="{ 'text-color-error': error || $slots.error }">
                 <slot name="label">
                     {{ label }}
@@ -11,7 +11,7 @@
         </UIExpandTransition>
 
         <div ref="slot"
-             class="slot flex pt-2"
+             class="slot flex"
              role="radiogroup"
              :class="{
                  'space-x-6': horizontal,

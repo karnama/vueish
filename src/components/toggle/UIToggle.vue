@@ -1,5 +1,5 @@
 <template>
-    <div :class="$attrs.class" :style="$attrs.style">
+    <div :class="$attrs.class" :style="$attrs.style" class="space-y-1.5">
         <UIExpandTransition>
             <label v-if="label || $slots.label"
                    :for="$attrs.id ?? name"

@@ -3,7 +3,7 @@
         <UIExpandTransition>
             <label v-if="label"
                    :for="$attrs.id ?? name"
-                   class="font-medium text-color"
+                   class="font-medium text-color mb-1.5"
                    :class="{ 'text-color-error': error || $slots.error }">
                 <slot name="label">
                     {{ label }}
