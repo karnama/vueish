@@ -105,7 +105,7 @@
                 </div>
 
                 <!--Search input to filter the list-->
-                <div v-if="!noSearch" class="p-2">
+                <div v-if="!noSearch" class="p-2 border-b border-gray-300 dark:border-gray-500">
                     <input ref="searchInput"
                            v-model="search"
                            tabindex="-1"
@@ -116,16 +116,15 @@
                 </div>
 
                 <!--Options available for selection-->
-                <ul role="list">
+                <ul role="list" class="divide-gray-300 dark:divide-gray-500 divide-y">
                     <li v-for="(option, index) in filteredOptions"
                         :key="option[optionLabel] + '-' + index"
                         :ref="el => { if (el) listElements[index] = el }"
                         :aria-selected="currentlySelected = isSelected(option)"
-                        class="option cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500 relative transition-colors
+                        class="option cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-450 relative transition-colors
                                justify-center focus:bg-brand-200 dark:focus:bg-brand-500 outline-none"
                         :class="{
-                            'selected-option bg-gray-200 dark:bg-gray-500 dark:hover:bg-gray-500': currentlySelected,
-                            'border-t border-gray-300 dark:border-gray-500': index > 0 || !noSearch && index === 0
+                            'selected-option bg-gray-200 dark:bg-gray-500': currentlySelected,
                         }"
                         role="option"
                         tabindex="0"
