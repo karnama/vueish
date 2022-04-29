@@ -85,7 +85,8 @@
                  :style="style"
                  @keydown.esc="closeList">
                 <!--Header to display instructions-->
-                <div class="flex items-center justify-between px-2 py-1 text-sm
+                <div v-if="multi || header || $slots.header"
+                     class="flex items-center justify-between px-2 py-1 text-sm
                             border-b border-gray-300 dark:border-gray-500 select-none">
                     <slot name="header">
                         {{ header }}
