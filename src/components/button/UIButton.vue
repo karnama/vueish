@@ -24,7 +24,7 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 import type { StyleType } from 'types';
-import { category, large, label, disabled, loading } from '@/shared-props';
+import { category, large, small, label, disabled, loading } from '@/shared-props';
 import UISpinnerLoader from 'components/loader-spinner/UISpinnerLoader.vue';
 
 export default defineComponent({
@@ -55,6 +55,7 @@ export default defineComponent({
 
         disabled,
         large,
+        small,
         label,
         category,
         loading
@@ -117,7 +118,9 @@ export default defineComponent({
                 classes = primaryTypeClasses.value[category] + ' shadow-sm border';
             }
 
-            classes += props.large ? ' px-7 py-3.5 text-base' : ' px-3.5 py-2';
+            classes += props.large
+                ? ' px-7 py-3.5 text-base'
+                : props.small ? ' px-2 py-1' : ' px-3.5 py-2';
 
             if (props.loading) {
                 classes += ' pointer-events-none';

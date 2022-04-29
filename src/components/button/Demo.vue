@@ -5,6 +5,7 @@
         <UICheckbox v-model="loading" label="Loading" name="loading" />
         <UICheckbox v-model="disabled" label="Disabled" name="disabled" />
         <UICheckbox v-model="large" label="Large Style" name="large" />
+        <UICheckbox v-model="small" label="Small Style" name="small" />
     </div>
 
     <div class="flex flex-wrap justify-between space-x-1">
@@ -15,6 +16,7 @@
                   :outline="outline"
                   :minimal="minimal"
                   :large="large"
+                  :small="small"
                   :loading="loading"
                   :label="category"
                   :disabled="disabled"
@@ -43,6 +45,7 @@ export default defineComponent({
         const outline = ref(false);
         const minimal = ref(false);
         const large = ref(false);
+        const small = ref(false);
         const clicked = ref('');
 
         return {
@@ -52,7 +55,8 @@ export default defineComponent({
             clicked,
             outline,
             minimal,
-            large
+            large,
+            small
         };
     }
 });
