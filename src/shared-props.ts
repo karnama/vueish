@@ -1,8 +1,8 @@
 import type { Prop } from 'vue';
 import { getLibrarySettings } from '@/helpers';
 import type { PropType } from 'vue';
-import type { StyleType } from 'types';
-import { styleTypes } from 'types';
+import type { Theme } from 'types';
+import { themes } from 'types';
 
 /**
  * Boolean flag to indicate if the component
@@ -116,10 +116,10 @@ export const error: Prop<string, ''> = {
 /**
  * @default "default"
  */
-export const category: Prop<string, 'default'> = {
-    type: String as PropType<typeof styleTypes[number]>,
+export const theme: Prop<string, 'default'> = {
+    type: String as PropType<typeof themes[number]>,
     default: 'default',
-    validator: (value: StyleType): boolean => styleTypes.includes(value)
+    validator: (value: Theme): boolean => themes.includes(value)
 };
 
 /**
@@ -145,7 +145,7 @@ export const large: Prop<boolean, false> = {
 };
 
 /**
- * Apply small styles.
+ * Apply the small styles.
  *
  * @default false
  */

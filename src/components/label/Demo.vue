@@ -5,26 +5,30 @@
                     label="Small Style" />
     </div>
 
-    <h2>Primary</h2>
+    <h2 class="text-color">
+        Primary
+    </h2>
     <div class="flex justify-evenly flex-wrap">
-        <UILabel v-for="category in styleTypes"
-                 :key="category"
-                 :category="category"
+        <UILabel v-for="theme in themes"
+                 :key="theme"
+                 :theme="theme"
                  :sm="sm"
                  class="m-2">
-            {{ category.charAt(0).toUpperCase() + category.slice(1) }}
+            {{ theme.charAt(0).toUpperCase() + theme.slice(1) }}
         </UILabel>
     </div>
-    <h2>Secondary</h2>
+    <h2 class="text-color">
+        Secondary
+    </h2>
     <div class="flex justify-evenly flex-wrap">
-        <UILabel v-for="category in styleTypes"
-                 :key="category"
+        <UILabel v-for="theme in themes"
+                 :key="theme"
                  secondary
                  rounded
                  :sm="sm"
-                 :category="category"
+                 :theme="theme"
                  class="m-2">
-            {{ category.charAt(0).toUpperCase() + category.slice(1) }}
+            {{ theme.charAt(0).toUpperCase() + theme.slice(1) }}
         </UILabel>
     </div>
 </template>
@@ -36,6 +40,6 @@ import { themes } from 'types';
 export default defineComponent({
     name: 'LabelDemo',
 
-    setup: () => ({ styleTypes: themes, sm: ref(false) })
+    setup: () => ({ themes, sm: ref(false) })
 });
 </script>
