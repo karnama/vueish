@@ -9,18 +9,18 @@
     </div>
 
     <div class="flex flex-wrap justify-between space-x-1">
-        <UIButton v-for="(category, index) in styleTypes"
-                  :key="category"
-                  :category="category"
+        <UIButton v-for="(theme, index) in themes"
+                  :key="theme"
+                  :theme="theme"
                   class="my-2 capitalize"
                   :outline="outline"
                   :minimal="minimal"
                   :large="large"
                   :small="small"
                   :loading="loading"
-                  :label="category"
+                  :label="theme"
                   :disabled="disabled"
-                  @click="clicked = category">
+                  @click="clicked = theme">
             <template v-if="index % 2 === 0" #loader>
                 Loading...
             </template>
@@ -34,7 +34,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { styleTypes } from 'types';
+import { themes } from 'types';
 
 export default defineComponent({
     name: 'ButtonDemo',
@@ -49,7 +49,7 @@ export default defineComponent({
         const clicked = ref('');
 
         return {
-            styleTypes,
+            themes,
             disabled,
             loading,
             clicked,
