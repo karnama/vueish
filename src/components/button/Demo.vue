@@ -2,6 +2,7 @@
     <div class="space-y-2 mb-6">
         <UICheckbox v-model="outline" label="Outline" name="outline" />
         <UICheckbox v-model="minimal" label="Minimal" name="minimal" />
+        <UICheckbox v-model="tinted" label="Tinted" name="tinted" />
         <UICheckbox v-model="loading" label="Loading" name="loading" />
         <UICheckbox v-model="disabled" label="Disabled" name="disabled" />
         <UICheckbox v-model="large" label="Large Style" name="large" />
@@ -15,6 +16,7 @@
                   class="my-2 capitalize"
                   :outline="outline"
                   :minimal="minimal"
+                  :tinted="tinted"
                   :large="large"
                   :small="small"
                   :loading="loading"
@@ -44,6 +46,7 @@ export default defineComponent({
         const loading = ref(false);
         const outline = ref(false);
         const minimal = ref(false);
+        const tinted = ref(true);
         const large = ref(false);
         const small = ref(false);
         const clicked = ref('');
@@ -55,6 +58,7 @@ export default defineComponent({
             clicked,
             outline,
             minimal,
+            tinted,
             large,
             small
         };

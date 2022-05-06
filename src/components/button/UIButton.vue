@@ -200,17 +200,48 @@ export default defineComponent({
                 + (props.disabled ? '' : ' dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800'),
             brand: 'text-brand-600 ring-brand-300' + (props.disabled ? '' : ' hover:bg-brand-200')
         }));
+        const tintedTypeClasses = computed<{ [key in Theme]: string; }>(() => ({
+            slate: 'text-slate-600 ring-slate-400 bg-slate-200' + (props.disabled ? '' : ' hover:bg-slate-100'),
+            gray: 'text-gray-600 ring-gray-400 bg-gray-200' + (props.disabled ? '' : ' hover:bg-gray-100'),
+            zinc: 'text-zinc-600 ring-zinc-400 bg-zinc-200' + (props.disabled ? '' : ' hover:bg-zinc-100'),
+            neutral: 'text-neutral-600 ring-neutral-400 bg-neutral-200'
+                + (props.disabled ? '' : ' hover:bg-neutral-100'),
+            stone: 'text-stone-600 ring-stone-400 bg-stone-200' + (props.disabled ? '' : ' hover:bg-stone-100'),
+            orange: 'text-orange-600 ring-orange-400 bg-orange-200' + (props.disabled ? '' : ' hover:bg-orange-100'),
+            amber: 'text-amber-600 ring-amber-400 bg-amber-200' + (props.disabled ? '' : ' hover:bg-amber-100'),
+            yellow: 'text-yellow-600 ring-yellow-400 bg-yellow-200' + (props.disabled ? '' : ' hover:bg-yellow-100'),
+            lime: 'text-lime-600 ring-lime-400 bg-lime-200' + (props.disabled ? '' : ' hover:bg-lime-100'),
+            green: 'text-green-600 ring-green-400 bg-green-200' + (props.disabled ? '' : ' hover:bg-green-100'),
+            emerald: 'text-emerald-600 ring-emerald-400 bg-emerald-200'
+                + (props.disabled ? '' : ' hover:bg-emerald-100'),
+            teal: 'text-teal-600 ring-teal-400 bg-teal-200' + (props.disabled ? '' : ' hover:bg-teal-100'),
+            cyan: 'text-cyan-600 ring-cyan-400 bg-cyan-200' + (props.disabled ? '' : ' hover:bg-cyan-100'),
+            sky: 'text-sky-600 ring-sky-400 bg-sky-200' + (props.disabled ? '' : ' hover:bg-sky-100'),
+            blue: 'text-blue-600 ring-blue-400 bg-blue-200' + (props.disabled ? '' : ' hover:bg-blue-100'),
+            indigo: 'text-indigo-600 ring-indigo-400 bg-indigo-200' + (props.disabled ? '' : ' hover:bg-indigo-100'),
+            violet: 'text-violet-600 ring-violet-400 bg-violet-200' + (props.disabled ? '' : ' hover:bg-violet-100'),
+            purple: 'text-purple-600 ring-purple-400 bg-purple-200' + (props.disabled ? '' : ' hover:bg-purple-100'),
+            fuchsia: 'text-fuchsia-600 ring-fuchsia-400 bg-fuchsia-200'
+                + (props.disabled ? '' : ' hover:bg-fuchsia-100'),
+            pink: 'text-pink-600 ring-pink-400 bg-pink-200' + (props.disabled ? '' : ' hover:bg-pink-100'),
+            rose: 'text-rose-600 ring-rose-400 bg-rose-200' + (props.disabled ? '' : ' hover:bg-rose-100'),
+            red: 'text-red-600 ring-red-400 bg-red-200' + (props.disabled ? '' : ' hover:bg-red-100'),
+            brand: 'text-brand-600 ring-brand-400 bg-brand-200' + (props.disabled ? '' : ' hover:bg-brand-100'),
+            default: 'text-gray-600 ring-gray-400 bg-gray-200' + (props.disabled ? '' : ' hover:bg-gray-100')
+        }));
 
         const classes = computed(() => {
-            const category = props.theme as Theme;
+            const theme = props.theme as Theme;
             let classes: string;
 
             if (props.outline) {
-                classes = outlineTypeClasses.value[category] + ' shadow-sm border focus:ring-offset-2';
+                classes = outlineTypeClasses.value[theme] + ' shadow-sm border focus:ring-offset-2';
             } else if (props.minimal) {
-                classes = minimalTypeClasses.value[category];
+                classes = minimalTypeClasses.value[theme];
+            } else if (props.tinted) {
+                classes = tintedTypeClasses.value[theme];
             } else {
-                classes = primaryTypeClasses.value[category] + ' shadow-sm border';
+                classes = primaryTypeClasses.value[theme] + ' shadow-sm border';
             }
 
             classes += props.large
