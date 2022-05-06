@@ -112,8 +112,10 @@ export default defineComponent({
                 + (props.disabled ? '' : ' hover:bg-red-700 hover:border-red-700'),
             brand: 'border-brand-600 text-white bg-brand-600 ring-brand-500'
                 + (props.disabled ? '' : ' hover:bg-brand-700 hover:border-brand-700'),
-            default: 'border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 ring-gray-600'
-                + (props.disabled ? '' : ' hover:bg-gray-400 hover:border-gray-400')
+            default: 'border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600' +
+                ' dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600'
+                + (props.disabled ? '' : ' hover:bg-gray-300 hover:border-gray-300 ' +
+                    'dark:hover:bg-gray-800 dark:hover:border-gray-800')
         }));
         const outlineTypeClasses = computed<{ [key in Theme]: string; }>(() => ({
             slate: 'text-slate-600 dark:text-slate-400 border-slate-400 disabled:bg-slate-300 ring-slate-600'
@@ -163,7 +165,7 @@ export default defineComponent({
             brand: 'text-brand-600 border-brand-600 disabled:bg-gray-200 ring-brand-400'
                 + (props.disabled ? '' : ' hover:text-white hover:bg-brand-600 hover:border-brand-600'),
             default: 'text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600'
-                + (props.disabled ? '' : ' hover:text-white dark:hover:text-white hover:bg-gray-400')
+                + (props.disabled ? '' : ' dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white')
         }));
         const minimalTypeClasses = computed<{ [key in Theme]: string; }>(() => ({
             slate: 'text-slate-600 dark:text-slate-500 ring-slate-300'
@@ -194,8 +196,8 @@ export default defineComponent({
             pink: 'text-pink-600 ring-pink-400' + (props.disabled ? '' : ' hover:bg-pink-200'),
             rose: 'text-rose-600 ring-rose-400' + (props.disabled ? '' : ' hover:bg-rose-200'),
             red: 'text-red-600 ring-red-300' + (props.disabled ? '' : ' hover:bg-red-200'),
-            default: 'text-gray-600 dark:text-gray-500 ring-gray-300'
-                + (props.disabled ? '' : ' dark:hover:text-gray-600 hover:bg-gray-200'),
+            default: 'text-gray-600 dark:text-gray-400 ring-gray-300'
+                + (props.disabled ? '' : ' dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800'),
             brand: 'text-brand-600 ring-brand-300' + (props.disabled ? '' : ' hover:bg-brand-200')
         }));
 

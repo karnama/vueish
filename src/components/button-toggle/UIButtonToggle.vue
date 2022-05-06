@@ -3,7 +3,7 @@
         <UIButton v-for="(option, index) in options"
                   :key="option.label"
                   :aria-checked="checked = isChecked(option)"
-                  :category="option.category || category"
+                  :theme="option.theme || theme"
                   :outline="!checked"
                   :large="large"
                   v-bind="$attrs"
@@ -67,7 +67,7 @@ export default defineComponent({
         clearable,
         disabled,
         large,
-        category: theme,
+        theme,
         ...props
     },
 

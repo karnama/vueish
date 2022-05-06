@@ -8,8 +8,8 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { label, category } from '@/shared-props';
-import type { StyleType } from 'types';
+import { label, theme } from '@/shared-props';
+import type { Theme } from 'types';
 
 const primaryClasses = {
     default: 'bg-gray-600',
@@ -19,7 +19,7 @@ const primaryClasses = {
     warning: 'bg-yellow-500',
     danger: 'bg-red-600',
     brand: 'bg-brand-600'
-} as { [key in StyleType]: string; };
+} as { [key in Theme]: string; };
 
 const secondaryClasses = {
     default: 'text-gray-700 bg-gray-200',
@@ -29,7 +29,7 @@ const secondaryClasses = {
     warning: 'text-yellow-700 bg-yellow-200',
     danger: 'text-red-700 bg-red-200',
     brand: 'text-brand-700 bg-brand-200'
-} as { [key in StyleType]: string; };
+} as { [key in Theme]: string; };
 
 export default defineComponent({
     name: 'UILabel',
@@ -65,7 +65,7 @@ export default defineComponent({
             default: false
         },
 
-        category,
+        category: theme,
         label
     },
 
@@ -74,9 +74,9 @@ export default defineComponent({
             let classes;
 
             if (props.secondary) {
-                classes = secondaryClasses[props.category as StyleType];
+                classes = secondaryClasses[props.category as Theme];
             } else {
-                classes = primaryClasses[props.category as StyleType] + ' text-white';
+                classes = primaryClasses[props.category as Theme] + ' text-white';
             }
 
             if (props.sm) {

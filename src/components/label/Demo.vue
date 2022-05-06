@@ -31,11 +31,11 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { styleTypes } from 'types';
+import { themes } from 'types';
 
 export default defineComponent({
     name: 'LabelDemo',
 
-    setup: () => ({ styleTypes, sm: ref(false) })
+    setup: () => ({ styleTypes: themes, sm: ref(false) })
 });
 </script>

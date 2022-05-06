@@ -1,4 +1,4 @@
-import type { StyleType, UIError } from '../';
+import type { Theme, UIError } from '../';
 
 // UIBadge
 export const horizontal = ['left', 'middle', 'right'] as const;
@@ -9,7 +9,7 @@ export type Option = {
     label?: string; // label to use if no slot set
     value: any;
     slot?: string; // name of the slot to use for this option
-    category?: StyleType;
+    theme?: Theme;
 };
 
 // UIAvatar

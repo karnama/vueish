@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils';
 import UIButton from './UIButton.vue';
-import { styleTypes } from 'types';
+import { themes } from 'types';
 
 describe('UIButton', () => {
     it('should render correctly', async () => {
@@ -10,14 +10,14 @@ describe('UIButton', () => {
             }
         });
 
-        const stylePromises = styleTypes.map(async type => {
-            await wrapper.setProps({ category: type, outline: false, minimal: false });
+        const stylePromises = themes.map(async theme => {
+            await wrapper.setProps({ theme, outline: false, minimal: false });
             expect(wrapper.element).toMatchSnapshot();
 
-            await wrapper.setProps({ outline: true });
+            await wrapper.setProps({ theme, outline: true });
             expect(wrapper.element).toMatchSnapshot();
 
-            await wrapper.setProps({ outline: false, minimal: true });
+            await wrapper.setProps({ theme, outline: false, minimal: true });
             expect(wrapper.element).toMatchSnapshot();
         });
 
