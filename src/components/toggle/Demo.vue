@@ -19,10 +19,6 @@
             Disabled Toggle
         </template>
     </UIToggle>
-
-    <p class="text-color mt-8">
-        toggles are {{ value ? '' : 'not ' }}toggled
-    </p>
 </template>
 
 <script lang="ts">
