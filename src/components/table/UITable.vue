@@ -18,7 +18,7 @@
                 </tr>
 
                 <tr class="hidden sm:table-row">
-                    <th v-if="selectable && !singleSelect" :class="[small ? 'p-2' : 'py-6 px-2 ']">
+                    <th v-if="selectable && !singleSelect" :class="[small ? 'p-2' : 'py-6 px-8 ']">
                         <UICheckbox name="selectAll"
                                     :indeterminate="Array.isArray(selected)
                                         ? selected.length !== selectableRows.length
@@ -34,7 +34,7 @@
                             'cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-500':
                                 !disableSorting && column.sortable,
                             'bg-gray-200 dark:bg-gray-600': !!sortDirection(column.rowProperty),
-                            'py-6 px-4': !small,
+                            'py-6 px-8': !small,
                             'px-2 py-3': small
                         }"
                         class="text-left uppercase font-light text-color-muted text-sm
@@ -109,7 +109,7 @@
                                    v-html="chevronIcon" />
                             </span>
 
-                            <span class="block" :class="[small ? 'px-2 py-1' : 'p-4']">
+                            <span class="block" :class="[small ? 'px-2 py-1' : 'px-8 py-5']">
                                 <slot :name="name" :row="row">
                                     {{ getDisplayName(col, row) }}
                                 </slot>
@@ -124,7 +124,7 @@
 
                 <tr v-else>
                     <td :colspan="selectable ? normalisedHeaders.length + 1 : normalisedHeaders.length">
-                        <span class="block text-center text-gray-400" :class="[small ? 'px-2 py-3' : 'px-4 py-6']">
+                        <span class="block text-center text-gray-400" :class="[small ? 'px-2 py-3' : 'py-6 px-8']">
                             <slot name="empty">
                                 {{ empty }}
                             </slot>
@@ -137,7 +137,7 @@
                        || selectable && !singleSelect
                        || totalRowCount > itemsPerPage && !disablePagination"
                    class="border-t border-gray-300 dark:border-gray-500 sticky
-                          bg-white dark:bg-gray-700 bottom-0 sm:relative shadow-up"
+                          bg-white dark:bg-gray-650 bottom-0 sm:relative shadow-up"
                    :class="{
                        'sm:hidden': selectable
                            && !singleSelect
@@ -148,7 +148,7 @@
                         :colspan="normalisedHeaders.length + ($slots.action ? 1 : 0) + (selectable ? 1 : 0)">
                         <span class="flex flex-col sm:flex-row items-center justify-between
                                      flex-wrap break-words relative"
-                              :class="[small ? 'p-2' : 'px-4 py-6']">
+                              :class="[small ? 'p-2' : 'py-6 px-8']">
                             <slot name="footer" />
                             <span v-if="selectable && !singleSelect" class="block sm:hidden">
                                 <UICheckbox name="selectAll"
