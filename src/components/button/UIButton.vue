@@ -52,8 +52,14 @@ export default defineComponent({
             default: false
         },
 
+        /**
+         * Use the tinted (/quaternary) styles
+         *
+         * @default false
+         */
         tinted: {
-            // just like the label secondary styles
+            type: Boolean,
+            default: false
         },
 
         disabled,
@@ -165,7 +171,9 @@ export default defineComponent({
             brand: 'text-brand-600 border-brand-600 disabled:bg-gray-200 ring-brand-400'
                 + (props.disabled ? '' : ' hover:text-white hover:bg-brand-600 hover:border-brand-600'),
             default: 'text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600'
-                + (props.disabled ? '' : ' dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white')
+                + (props.disabled
+                    ? ''
+                    : ' dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white')
         }));
         const minimalTypeClasses = computed<{ [key in Theme]: string; }>(() => ({
             slate: 'text-slate-600 dark:text-slate-500 ring-slate-300'
