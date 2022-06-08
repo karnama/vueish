@@ -50,7 +50,7 @@ exports[`UIModal should render correctly 1`] = `
         >
           
           <div
-            class="overflow-y-scroll"
+            class="overflow-y-auto"
             style="max-height: 50vh;"
           >
             
@@ -65,7 +65,7 @@ exports[`UIModal should render correctly 1`] = `
           
           
           <button
-            class="border-gray-300 text-gray-900 bg-gray-300 disabled:bg-gray-300 ring-gray-600 hover:bg-gray-400 hover:border-gray-400 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none ui-modal-close ml-auto mr-2"
+            class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none ui-modal-close ml-auto mr-2"
             type="button"
           >
             
@@ -73,7 +73,8 @@ exports[`UIModal should render correctly 1`] = `
             
           </button>
           <button
-            class="border-brand-600 text-white bg-brand-600 ring-brand-500 hover:bg-brand-700 hover:border-brand-700 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none ui-modal-accept"
+            category="brand"
+            class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none ui-modal-accept"
             type="button"
           >
             

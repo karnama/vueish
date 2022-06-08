@@ -35,7 +35,7 @@
                 </template>
 
                 <!--Modal Body-->
-                <div class="overflow-y-scroll" style="max-height: 50vh;">
+                <div class="overflow-y-auto" style="max-height: 50vh;">
                     <slot>
                         {{ body }}
                     </slot>
