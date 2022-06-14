@@ -46,7 +46,7 @@ export default defineComponent({
         const loading = ref(false);
         const outline = ref(false);
         const minimal = ref(false);
-        const tinted = ref(true);
+        const tinted = ref(false);
         const large = ref(false);
         const small = ref(false);
         const clicked = ref('');
