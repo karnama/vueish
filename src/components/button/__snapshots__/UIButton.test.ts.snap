@@ -1,5 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`UIButton should display the loading correctly 1`] = `
+<button
+  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 pointer-events-none focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  type="button"
+>
+  <span
+    class="loader"
+  >
+    
+    <transition-stub>
+      <div
+        class="ui-spinner-loader indeterminate px-4 mx-auto"
+        role="progressbar"
+      >
+        <svg
+          class="spinner-draw stroke-current"
+          focusable="false"
+          preserveAspectRatio="xMidYMid"
+          style="width: 25px; height: 25px;"
+          viewBox="0 0 25 25"
+        >
+          <circle
+            class="spinner-circle stroke-current"
+            cx="50%"
+            cy="50%"
+            r="11.5"
+            stroke-width="2px"
+            style="stroke-dashoffset: 72.25663103256524px; stroke-dasharray: 72.25663103256524px; --spinner-start-value: 68.64379948093698; --spinner-end-value: 14.451326206513048;"
+          />
+        </svg>
+        <!--v-if-->
+      </div>
+    </transition-stub>
+    
+  </span>
+</button>
+`;
+
 exports[`UIButton should render correctly 1`] = `
 <button
   class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
