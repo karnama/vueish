@@ -17,7 +17,7 @@
         }
     },
     "engines" : {
-        "node" : ">=12.0.0"
+        "node" : ">=14.13.1"
     },
     "scripts": {
         "dev": "vite",
@@ -34,9 +34,9 @@
     },
     "devDependencies": {
         "@babel/core": "^7.13.16",
-        "@commitlint/config-conventional": "^16.0.0",
-        "@commitlint/prompt-cli": "^16.0.0",
-        "@commitlint/types": "^16.0.0",
+        "@commitlint/config-conventional": "^17.0.2",
+        "@commitlint/prompt-cli": "^17.0.0",
+        "@commitlint/types": "^17.0.0",
         "@types/eslint": "^8.4.1",
         "@types/glob": "^7.1.3",
         "@types/jest": "^27.0.2",
@@ -54,17 +54,17 @@
         "autoprefixer": "^10.4.0",
         "babel-jest": "^27.3.1",
         "babel-loader": "^8.2.2",
-        "commitlint": "^16.0.2",
+        "commitlint": "^17.0.2",
         "eslint": "^8.2.0",
         "eslint-plugin-import": "^2.22.1",
         "eslint-plugin-jest": "^26.1.1",
         "eslint-plugin-vue": "^8.0.3",
         "glob": "^8.0.1",
-        "husky": "^7.0.0",
+        "husky": "^8.0.1",
         "jest": "^27.3.1",
         "jest-junit": "^13.0.0",
         "jest-serializer-vue": "^2.0.2",
-        "lint-staged": "^12.0.2",
+        "lint-staged": "^13.0.1",
         "lodash-es": "^4.17.20",
         "minimist": "^1.2.5",
         "postcss": "^8.4.4",
