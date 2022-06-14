@@ -15,8 +15,9 @@
 
                         <UIButton minimal
                                   class="dark:text-gray-200 dark:hover:text-gray-700"
-                                  @click="isOpen = false"
-                                  v-html="clearIcon" />
+                                  @click="isOpen = false">
+                            <span v-html="clearIcon" />
+                        </UIButton>
                     </div>
                     <div class="flex-col flex">
                         <UIToggle v-model="darkMode"

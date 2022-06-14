@@ -1,4 +1,4 @@
-import type { App, Plugin } from '@vue/runtime-core';
+import type { App, Plugin } from 'vue';
 import type { DeepPartial } from 'types/utilities';
 import type { Settings } from 'types';
 import defaultSettings from './defaultSettings';

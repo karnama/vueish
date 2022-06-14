@@ -311,7 +311,7 @@ export default defineComponent({
                 return formattedOptions;
             }
 
-            let selectedOptions = (selected.value ? wrap(cloneDeep(selected.value)) : []).map(option =>
+            const selectedOptions = (selected.value ? wrap(cloneDeep(selected.value)) : []).map(option =>
                 typeof option === 'string' ? { [props.optionKey]: option, [props.optionLabel]: option } : option
             );
 

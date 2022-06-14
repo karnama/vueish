@@ -544,7 +544,7 @@ export default defineComponent({
                 return;
             }
 
-            let selection: Row[] = Array.isArray(selected.value)
+            const selection: Row[] = Array.isArray(selected.value)
                 ? cloneDeep(selected.value)
                 : selected.value ? [cloneDeep(selected.value)] : [];
 

@@ -63,6 +63,7 @@
             </div>
         </div>
         <div class="col-span-2 flex justify-center mt-4">
+            <!-- eslint-disable max-len -->
             <UISkeleton :pulse="pulse" class="!h-12 w-12" style="clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);" />
             <UISkeleton :pulse="pulse" class="!h-12 w-12" style="clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);" />
             <UISkeleton :pulse="pulse" class="!h-12 w-12" style="clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);" />
