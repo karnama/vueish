@@ -93,7 +93,7 @@ export default class LocalCache {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             storedValue.push(...value);
         } else if (storedValue === Object(storedValue) && value === Object(value)) {
-            storedValue = Object.assign(storedValue, value);
+            storedValue = Object.assign(storedValue as Record<string, any>, value);
         } else {
             // default to Javascript's type coercion
             storedValue += value;
