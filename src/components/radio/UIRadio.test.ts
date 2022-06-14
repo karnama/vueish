@@ -4,6 +4,12 @@ import UIRadio from './UIRadio.vue';
 import UIRadioGroup from './UIRadioGroup.vue';
 import { disableConsoleWarn, enableConsoleWarn } from 'helpers/test';
 
+const selectorMap = {
+    radioGroup: {
+        label: 'span.font-medium.text-color.flex.items-center'
+    }
+} as const;
+
 describe('UIRadio', () => {
     it('should bind attributes to the input', () => {
         const foo = 'bar';
@@ -75,7 +81,7 @@ describe('UIRadioGroup', () => {
             components: { UIRadioGroup, UIRadio }
         });
 
-        expect(wrapper.get('.label').text()).toBe(label);
+        expect(wrapper.get(selectorMap.radioGroup.label).text()).toBe(label);
     });
 
     it('should display the label when passed as a slot', () => {
@@ -91,7 +97,7 @@ describe('UIRadioGroup', () => {
             components: { UIRadioGroup, UIRadio }
         });
 
-        expect(wrapper.get('.label').text()).toBe(label);
+        expect(wrapper.get(selectorMap.radioGroup.label).text()).toBe(label);
     });
 
     it('should bind the correct classes when in default orientation', () => {

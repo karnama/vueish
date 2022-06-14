@@ -679,7 +679,8 @@ describe('UISelect', () => {
                     options,
                     name: 'select',
                     modelValue: options,
-                    multi: true
+                    multi: true,
+                    clearable: true
                 }
             });
 
@@ -702,7 +703,8 @@ describe('UISelect', () => {
                     options,
                     name: 'select',
                     modelValue: [],
-                    multi: false
+                    multi: false,
+                    clearable: true
                 }
             });
 

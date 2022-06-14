@@ -18,7 +18,7 @@
                 </tr>
 
                 <tr class="hidden sm:table-row">
-                    <th v-if="selectable && !singleSelect" :class="[small ? 'p-2' : 'py-6 px-8 ']">
+                    <th v-if="selectable && !singleSelect" :class="[small ? 'p-2' : 'py-6 px-8']">
                         <UICheckbox name="selectAll"
                                     :indeterminate="Array.isArray(selected)
                                         ? selected.length !== selectableRows.length
