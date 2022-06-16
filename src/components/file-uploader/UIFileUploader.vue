@@ -29,7 +29,7 @@
                     <br>
                     or
                 </p>
-                <UIButton category="brand" class="mt-2">
+                <UIButton theme="brand" class="mt-2">
                     Browse
                 </UIButton>
             </div>
@@ -47,7 +47,7 @@
                             @removed="removeFile" />
                 </div>
                 <UIButton v-if="!uploadAsap"
-                          category="brand"
+                          theme="brand"
                           :loading="isLoading"
                           class="mt-4"
                           tabindex="0"

@@ -19,7 +19,7 @@
                     slotted {{ slotProps.row.name }}
                 </template>
                 <template #action>
-                    <UIButton category="brand">
+                    <UIButton theme="brand">
                         CTA
                     </UIButton>
                 </template>

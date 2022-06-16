@@ -20,7 +20,7 @@
                 <UIButton class="ui-modal-close ml-auto mr-2" @click="slotProps.close">
                     Close
                 </UIButton>
-                <UIButton category="primary" class="ui-modal-accept" @click="slotProps.close('accept')">
+                <UIButton theme="blue" class="ui-modal-accept" @click="slotProps.close('accept')">
                     OK
                 </UIButton>
             </div>

@@ -47,7 +47,7 @@
                         <UIButton class="ui-modal-close ml-auto mr-2" @click="close('cancel')">
                             {{ closeButtonLabel }}
                         </UIButton>
-                        <UIButton category="brand" class="ui-modal-accept" @click="close('accept')">
+                        <UIButton theme="brand" class="ui-modal-accept" @click="close('accept')">
                             {{ acceptButtonLabel }}
                         </UIButton>
                     </slot>

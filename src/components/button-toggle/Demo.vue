@@ -23,7 +23,7 @@
                     :options="options"
                     :large="large"
                     :multi="multi"
-                    category="primary"
+                    theme="blue"
                     :clearable="clearable"
                     :disabled="disabled" />
 
@@ -34,7 +34,7 @@
                     :options="slottedOptions"
                     :large="large"
                     :multi="multi"
-                    category="primary"
+                    theme="blue"
                     :clearable="clearable"
                     :disabled="disabled">
         <template #places="slotProps">

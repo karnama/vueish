@@ -5,13 +5,13 @@
     </div>
 
     <UIButtonGroup :spread="spread" :vertical="vertical">
-        <UIButton category="blue">
+        <UIButton theme="blue">
             Places
         </UIButton>
-        <UIButton category="blue">
+        <UIButton theme="blue">
             List
         </UIButton>
-        <UIButton category="blue">
+        <UIButton theme="blue">
             Map
         </UIButton>
     </UIButtonGroup>
