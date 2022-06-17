@@ -439,7 +439,6 @@ describe('UITable', () => {
                 }
             });
 
-            // thead > tr.hidden > th.py-6.px-2 input
             await wrapper.find(selectorMap.topCheckbox).trigger('click');
 
             expect(wrapper.lastEventValue<Row[]>()![0].map((row: Row) => row.letter)).toStrictEqual(
