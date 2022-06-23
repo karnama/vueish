@@ -5,7 +5,7 @@
         "dist",
         "types"
     ],
-    "main": "./dist/vueish.es.js",
+    "main": "./dist/vueish.cjs.js",
     "module": "./dist/vueish.es.js",
     "types": "./types/index.ts",
     "web-types": "/dist/web-types.json",
@@ -13,7 +13,7 @@
     "exports": {
         ".": {
             "import": "./dist/vueish.es.js",
-            "require": "./dist/vueish.es.js"
+            "require": "./dist/vueish.cjs.js"
         }
     },
     "engines": {

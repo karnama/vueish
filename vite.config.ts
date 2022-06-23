@@ -23,7 +23,7 @@ export default defineConfig({
         lib: {
             entry: path.resolve(__dirname, 'src/main.ts'),
             name: 'vueish',
-            formats: ['es']
+            formats: ['es', 'cjs']
         },
         rollupOptions: {
             // make sure to externalize deps that shouldn't be bundled
