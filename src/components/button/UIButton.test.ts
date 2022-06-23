@@ -11,13 +11,16 @@ describe('UIButton', () => {
         });
 
         const stylePromises = themes.map(async theme => {
-            await wrapper.setProps({ theme, outline: false, minimal: false });
+            await wrapper.setProps({ theme, outline: false, minimal: false, tinted: false });
             expect(wrapper.element).toMatchSnapshot();
 
-            await wrapper.setProps({ theme, outline: true });
+            await wrapper.setProps({ theme, outline: true, minimal: false, tinted: false });
             expect(wrapper.element).toMatchSnapshot();
 
-            await wrapper.setProps({ theme, outline: false, minimal: true });
+            await wrapper.setProps({ theme, outline: false, minimal: true, tinted: false });
+            expect(wrapper.element).toMatchSnapshot();
+
+            await wrapper.setProps({ theme, outline: false, minimal: true, tinted: true });
             expect(wrapper.element).toMatchSnapshot();
         });
 
