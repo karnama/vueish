@@ -72,16 +72,16 @@ export default defineComponent({
 
     setup(props) {
         const primaryTypeClasses = computed<{ [key in Theme]: string; }>(() => ({
-            slate: 'border-slate-600 bg-slate-600 text-white disabled:bg-slate-300 ring-slate-500'
-                + (props.disabled ? '' : ' hover:bg-slate-700 hover:border-slate-700'),
-            zinc: 'border-zinc-600 bg-zinc-600 text-white disabled:bg-zinc-300 ring-zinc-500'
-                + (props.disabled ? '' : ' hover:bg-zinc-700 hover:border-zinc-700'),
-            neutral: 'border-neutral-600 bg-neutral-600 text-white disabled:bg-neutral-300 ring-neutral-500'
-                + (props.disabled ? '' : ' hover:bg-neutral-700 hover:border-neutral-700'),
-            stone: 'border-stone-600 bg-stone-600 text-white disabled:bg-stone-300 ring-stone-500'
-                + (props.disabled ? '' : ' hover:bg-stone-700 hover:border-stone-700'),
-            gray: 'border-gray-600 bg-gray-600 text-white disabled:bg-gray-300 ring-gray-500'
-                + (props.disabled ? '' : ' hover:bg-gray-750 hover:border-gray-750'),
+            slate: 'border-slate-600 bg-slate-600 text-white ring-slate-500'
+                + (props.disabled ? ' bg-slate-400 border-slate-400' : ' hover:bg-slate-700 hover:border-slate-700'),
+            zinc: 'border-zinc-600 bg-zinc-600 text-white ring-zinc-500'
+                + (props.disabled ? ' bg-zinc-400 border-zinc-400' : ' hover:bg-zinc-700 hover:border-zinc-700'),
+            neutral: 'border-neutral-600 bg-neutral-600 text-white ring-neutral-500'
+                + (props.disabled ? ' bg-neutral-400 border-neutral-400' : ' hover:bg-neutral-700 hover:border-neutral-700'),
+            stone: 'border-stone-600 bg-stone-600 text-white ring-stone-500'
+                + (props.disabled ? ' bg-stone-400 border-stone-400' : ' hover:bg-stone-700 hover:border-stone-700'),
+            gray: 'border-gray-600 bg-gray-600 text-white ring-gray-500'
+                + (props.disabled ? ' bg-gray-400 border-gray-400' : ' hover:bg-gray-750 hover:border-gray-750'),
             orange: 'border-orange-600 text-white bg-orange-600 ring-orange-400'
                 + (props.disabled ? '' : ' hover:bg-orange-700 hover:border-orange-700'),
             amber: 'border-amber-600 text-white bg-amber-600 ring-amber-500'
