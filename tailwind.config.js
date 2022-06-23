@@ -18,9 +18,7 @@ const brandColors = (levels) => {
     return colors;
 };
 
-/**
- * @type {import('@types/tailwindcss').TailwindConfig}
- */
+/** @type {import('tailwindcss').Config} */
 const tailwindConfig = {
     content: ['./src/**/*.{vue,ts,tsx}'],
     darkMode: 'class',
