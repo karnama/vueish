@@ -23,7 +23,9 @@ export const getPxValue = (value: string | number): number => {
     }
 
     if (value.endsWith('rem')) {
-        return Number(value.slice(0, -3)) * parseFloat(getComputedStyle(globalThis?.document.documentElement).fontSize);
+        return Number(value.slice(0, -3))
+            *
+            parseFloat(globalThis?.window.getComputedStyle(globalThis?.document.documentElement).fontSize);
     }
 
     throw new TypeError('Unexpected argument given.');

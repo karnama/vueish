@@ -2,12 +2,13 @@
     <button type="button"
             :class="classes"
             :disabled="disabled"
+            :style="styles"
             class="ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0
                    disabled:cursor-not-allowed disabled:shadow-none">
         <span v-if="loading" class="loader">
             <slot name="loader">
                 <UISpinnerLoader inherit-color
-                                 class="px-4 mx-auto"
+                                 class="mx-auto"
                                  :stroke="large ? 3 : 2"
                                  :diameter="small ? 20 : 25" />
             </slot>
@@ -21,10 +22,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, getCurrentInstance, watch } from 'vue';
 import type { Theme } from 'types';
 import { theme, large, small, label, disabled, loading } from '@/shared-props';
 import UISpinnerLoader from 'components/loader-spinner/UISpinnerLoader.vue';
+import { getPxValue } from 'composables/style';
 
 export default defineComponent({
     name: 'UIButton',
@@ -71,13 +73,16 @@ export default defineComponent({
     },
 
     setup(props) {
+        const instance = getCurrentInstance()!;
         const primaryTypeClasses = computed<{ [key in Theme]: string; }>(() => ({
             slate: 'border-slate-600 bg-slate-600 text-white ring-slate-500'
                 + (props.disabled ? ' bg-slate-400 border-slate-400' : ' hover:bg-slate-700 hover:border-slate-700'),
             zinc: 'border-zinc-600 bg-zinc-600 text-white ring-zinc-500'
                 + (props.disabled ? ' bg-zinc-400 border-zinc-400' : ' hover:bg-zinc-700 hover:border-zinc-700'),
             neutral: 'border-neutral-600 bg-neutral-600 text-white ring-neutral-500'
-                + (props.disabled ? ' bg-neutral-400 border-neutral-400' : ' hover:bg-neutral-700 hover:border-neutral-700'),
+                + (props.disabled
+                    ? ' bg-neutral-400 border-neutral-400'
+                    : ' hover:bg-neutral-700 hover:border-neutral-700'),
             stone: 'border-stone-600 bg-stone-600 text-white ring-stone-500'
                 + (props.disabled ? ' bg-stone-400 border-stone-400' : ' hover:bg-stone-700 hover:border-stone-700'),
             gray: 'border-gray-600 bg-gray-600 text-white ring-gray-500'
@@ -266,8 +271,22 @@ export default defineComponent({
 
             return classes;
         });
+        const styles: Partial<CSSStyleDeclaration> = {};
 
-        return { classes };
+        watch(() => props.loading, newVal => {
+            // while loading sizing props might change but on
+            // next loading it will set to the correct width
+            if (newVal && !instance.slots.loader) {
+                const computedStyle = getComputedStyle(instance.proxy!.$el as HTMLButtonElement);
+                const minWidthRequirement = (props.small ? 20 : 25) + getPxValue(computedStyle.paddingInline) * 2;
+
+                styles.width = getPxValue(computedStyle.width) < minWidthRequirement ? 'auth' : computedStyle.width;
+            } else {
+                styles.width = 'auto';
+            }
+        });
+
+        return { classes, styles };
     }
 });
 </script>
