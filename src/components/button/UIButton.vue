@@ -280,7 +280,7 @@ export default defineComponent({
                 const computedStyle = getComputedStyle(instance.proxy!.$el as HTMLButtonElement);
                 const minWidthRequirement = (props.small ? 20 : 25) + getPxValue(computedStyle.paddingInline) * 2;
 
-                styles.width = getPxValue(computedStyle.width) < minWidthRequirement ? 'auth' : computedStyle.width;
+                styles.width = getPxValue(computedStyle.width) < minWidthRequirement ? 'auto' : computedStyle.width;
             } else {
                 styles.width = 'auto';
             }
