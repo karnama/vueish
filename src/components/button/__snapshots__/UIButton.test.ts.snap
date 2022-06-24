@@ -2,7 +2,7 @@
 
 exports[`UIButton should display the loading correctly 1`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 pointer-events-none focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 pointer-events-none focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   <span
@@ -40,7 +40,7 @@ exports[`UIButton should display the loading correctly 1`] = `
 
 exports[`UIButton should render correctly 1`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -51,7 +51,7 @@ exports[`UIButton should render correctly 1`] = `
 
 exports[`UIButton should render correctly 2`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -62,7 +62,7 @@ exports[`UIButton should render correctly 2`] = `
 
 exports[`UIButton should render correctly 3`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -73,7 +73,7 @@ exports[`UIButton should render correctly 3`] = `
 
 exports[`UIButton should render correctly 4`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -84,7 +84,7 @@ exports[`UIButton should render correctly 4`] = `
 
 exports[`UIButton should render correctly 5`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -95,7 +95,7 @@ exports[`UIButton should render correctly 5`] = `
 
 exports[`UIButton should render correctly 6`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -106,7 +106,7 @@ exports[`UIButton should render correctly 6`] = `
 
 exports[`UIButton should render correctly 7`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -117,7 +117,7 @@ exports[`UIButton should render correctly 7`] = `
 
 exports[`UIButton should render correctly 8`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -128,7 +128,7 @@ exports[`UIButton should render correctly 8`] = `
 
 exports[`UIButton should render correctly 9`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -139,7 +139,7 @@ exports[`UIButton should render correctly 9`] = `
 
 exports[`UIButton should render correctly 10`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -150,7 +150,7 @@ exports[`UIButton should render correctly 10`] = `
 
 exports[`UIButton should render correctly 11`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -161,7 +161,7 @@ exports[`UIButton should render correctly 11`] = `
 
 exports[`UIButton should render correctly 12`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -172,7 +172,7 @@ exports[`UIButton should render correctly 12`] = `
 
 exports[`UIButton should render correctly 13`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -183,7 +183,7 @@ exports[`UIButton should render correctly 13`] = `
 
 exports[`UIButton should render correctly 14`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -194,7 +194,7 @@ exports[`UIButton should render correctly 14`] = `
 
 exports[`UIButton should render correctly 15`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -205,7 +205,7 @@ exports[`UIButton should render correctly 15`] = `
 
 exports[`UIButton should render correctly 16`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -216,7 +216,7 @@ exports[`UIButton should render correctly 16`] = `
 
 exports[`UIButton should render correctly 17`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -227,7 +227,7 @@ exports[`UIButton should render correctly 17`] = `
 
 exports[`UIButton should render correctly 18`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -238,7 +238,7 @@ exports[`UIButton should render correctly 18`] = `
 
 exports[`UIButton should render correctly 19`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -249,7 +249,7 @@ exports[`UIButton should render correctly 19`] = `
 
 exports[`UIButton should render correctly 20`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -260,7 +260,7 @@ exports[`UIButton should render correctly 20`] = `
 
 exports[`UIButton should render correctly 21`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -271,7 +271,7 @@ exports[`UIButton should render correctly 21`] = `
 
 exports[`UIButton should render correctly 22`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -282,7 +282,7 @@ exports[`UIButton should render correctly 22`] = `
 
 exports[`UIButton should render correctly 23`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -293,7 +293,7 @@ exports[`UIButton should render correctly 23`] = `
 
 exports[`UIButton should render correctly 24`] = `
 <button
-  class="border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm border px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border border-gray-300 text-gray-900 bg-white disabled:bg-gray-300 ring-gray-600 dark:bg-gray-750 dark:shadow-gray-600 dark:text-white dark:border-gray-600 hover:bg-gray-300 hover:border-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-800 shadow-sm px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -304,7 +304,7 @@ exports[`UIButton should render correctly 24`] = `
 
 exports[`UIButton should render correctly 25`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -315,7 +315,7 @@ exports[`UIButton should render correctly 25`] = `
 
 exports[`UIButton should render correctly 26`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -326,7 +326,7 @@ exports[`UIButton should render correctly 26`] = `
 
 exports[`UIButton should render correctly 27`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -337,7 +337,7 @@ exports[`UIButton should render correctly 27`] = `
 
 exports[`UIButton should render correctly 28`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -348,7 +348,7 @@ exports[`UIButton should render correctly 28`] = `
 
 exports[`UIButton should render correctly 29`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -359,7 +359,7 @@ exports[`UIButton should render correctly 29`] = `
 
 exports[`UIButton should render correctly 30`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -370,7 +370,7 @@ exports[`UIButton should render correctly 30`] = `
 
 exports[`UIButton should render correctly 31`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -381,7 +381,7 @@ exports[`UIButton should render correctly 31`] = `
 
 exports[`UIButton should render correctly 32`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -392,7 +392,7 @@ exports[`UIButton should render correctly 32`] = `
 
 exports[`UIButton should render correctly 33`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -403,7 +403,7 @@ exports[`UIButton should render correctly 33`] = `
 
 exports[`UIButton should render correctly 34`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -414,7 +414,7 @@ exports[`UIButton should render correctly 34`] = `
 
 exports[`UIButton should render correctly 35`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -425,7 +425,7 @@ exports[`UIButton should render correctly 35`] = `
 
 exports[`UIButton should render correctly 36`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -436,7 +436,7 @@ exports[`UIButton should render correctly 36`] = `
 
 exports[`UIButton should render correctly 37`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -447,7 +447,7 @@ exports[`UIButton should render correctly 37`] = `
 
 exports[`UIButton should render correctly 38`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -458,7 +458,7 @@ exports[`UIButton should render correctly 38`] = `
 
 exports[`UIButton should render correctly 39`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -469,7 +469,7 @@ exports[`UIButton should render correctly 39`] = `
 
 exports[`UIButton should render correctly 40`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -480,7 +480,7 @@ exports[`UIButton should render correctly 40`] = `
 
 exports[`UIButton should render correctly 41`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -491,7 +491,7 @@ exports[`UIButton should render correctly 41`] = `
 
 exports[`UIButton should render correctly 42`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -502,7 +502,7 @@ exports[`UIButton should render correctly 42`] = `
 
 exports[`UIButton should render correctly 43`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -513,7 +513,7 @@ exports[`UIButton should render correctly 43`] = `
 
 exports[`UIButton should render correctly 44`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -524,7 +524,7 @@ exports[`UIButton should render correctly 44`] = `
 
 exports[`UIButton should render correctly 45`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -535,7 +535,7 @@ exports[`UIButton should render correctly 45`] = `
 
 exports[`UIButton should render correctly 46`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -546,7 +546,7 @@ exports[`UIButton should render correctly 46`] = `
 
 exports[`UIButton should render correctly 47`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -557,7 +557,7 @@ exports[`UIButton should render correctly 47`] = `
 
 exports[`UIButton should render correctly 48`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm border focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 border-gray-400 disabled:bg-gray-300 ring-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white shadow-sm focus:ring-offset-2 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -568,7 +568,7 @@ exports[`UIButton should render correctly 48`] = `
 
 exports[`UIButton should render correctly 49`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -579,7 +579,7 @@ exports[`UIButton should render correctly 49`] = `
 
 exports[`UIButton should render correctly 50`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -590,7 +590,7 @@ exports[`UIButton should render correctly 50`] = `
 
 exports[`UIButton should render correctly 51`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -601,7 +601,7 @@ exports[`UIButton should render correctly 51`] = `
 
 exports[`UIButton should render correctly 52`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -612,7 +612,7 @@ exports[`UIButton should render correctly 52`] = `
 
 exports[`UIButton should render correctly 53`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -623,7 +623,7 @@ exports[`UIButton should render correctly 53`] = `
 
 exports[`UIButton should render correctly 54`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -634,7 +634,7 @@ exports[`UIButton should render correctly 54`] = `
 
 exports[`UIButton should render correctly 55`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -645,7 +645,7 @@ exports[`UIButton should render correctly 55`] = `
 
 exports[`UIButton should render correctly 56`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -656,7 +656,7 @@ exports[`UIButton should render correctly 56`] = `
 
 exports[`UIButton should render correctly 57`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -667,7 +667,7 @@ exports[`UIButton should render correctly 57`] = `
 
 exports[`UIButton should render correctly 58`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -678,7 +678,7 @@ exports[`UIButton should render correctly 58`] = `
 
 exports[`UIButton should render correctly 59`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -689,7 +689,7 @@ exports[`UIButton should render correctly 59`] = `
 
 exports[`UIButton should render correctly 60`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -700,7 +700,7 @@ exports[`UIButton should render correctly 60`] = `
 
 exports[`UIButton should render correctly 61`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -711,7 +711,7 @@ exports[`UIButton should render correctly 61`] = `
 
 exports[`UIButton should render correctly 62`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -722,7 +722,7 @@ exports[`UIButton should render correctly 62`] = `
 
 exports[`UIButton should render correctly 63`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -733,7 +733,7 @@ exports[`UIButton should render correctly 63`] = `
 
 exports[`UIButton should render correctly 64`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -744,7 +744,7 @@ exports[`UIButton should render correctly 64`] = `
 
 exports[`UIButton should render correctly 65`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -755,7 +755,7 @@ exports[`UIButton should render correctly 65`] = `
 
 exports[`UIButton should render correctly 66`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -766,7 +766,7 @@ exports[`UIButton should render correctly 66`] = `
 
 exports[`UIButton should render correctly 67`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -777,7 +777,7 @@ exports[`UIButton should render correctly 67`] = `
 
 exports[`UIButton should render correctly 68`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -788,7 +788,7 @@ exports[`UIButton should render correctly 68`] = `
 
 exports[`UIButton should render correctly 69`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -799,7 +799,7 @@ exports[`UIButton should render correctly 69`] = `
 
 exports[`UIButton should render correctly 70`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -810,7 +810,7 @@ exports[`UIButton should render correctly 70`] = `
 
 exports[`UIButton should render correctly 71`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -821,7 +821,7 @@ exports[`UIButton should render correctly 71`] = `
 
 exports[`UIButton should render correctly 72`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -832,7 +832,7 @@ exports[`UIButton should render correctly 72`] = `
 
 exports[`UIButton should render correctly 73`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -843,7 +843,7 @@ exports[`UIButton should render correctly 73`] = `
 
 exports[`UIButton should render correctly 74`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -854,7 +854,7 @@ exports[`UIButton should render correctly 74`] = `
 
 exports[`UIButton should render correctly 75`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -865,7 +865,7 @@ exports[`UIButton should render correctly 75`] = `
 
 exports[`UIButton should render correctly 76`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -876,7 +876,7 @@ exports[`UIButton should render correctly 76`] = `
 
 exports[`UIButton should render correctly 77`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -887,7 +887,7 @@ exports[`UIButton should render correctly 77`] = `
 
 exports[`UIButton should render correctly 78`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -898,7 +898,7 @@ exports[`UIButton should render correctly 78`] = `
 
 exports[`UIButton should render correctly 79`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -909,7 +909,7 @@ exports[`UIButton should render correctly 79`] = `
 
 exports[`UIButton should render correctly 80`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -920,7 +920,7 @@ exports[`UIButton should render correctly 80`] = `
 
 exports[`UIButton should render correctly 81`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -931,7 +931,7 @@ exports[`UIButton should render correctly 81`] = `
 
 exports[`UIButton should render correctly 82`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -942,7 +942,7 @@ exports[`UIButton should render correctly 82`] = `
 
 exports[`UIButton should render correctly 83`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -953,7 +953,7 @@ exports[`UIButton should render correctly 83`] = `
 
 exports[`UIButton should render correctly 84`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -964,7 +964,7 @@ exports[`UIButton should render correctly 84`] = `
 
 exports[`UIButton should render correctly 85`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -975,7 +975,7 @@ exports[`UIButton should render correctly 85`] = `
 
 exports[`UIButton should render correctly 86`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -986,7 +986,7 @@ exports[`UIButton should render correctly 86`] = `
 
 exports[`UIButton should render correctly 87`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -997,7 +997,7 @@ exports[`UIButton should render correctly 87`] = `
 
 exports[`UIButton should render correctly 88`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -1008,7 +1008,7 @@ exports[`UIButton should render correctly 88`] = `
 
 exports[`UIButton should render correctly 89`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -1019,7 +1019,7 @@ exports[`UIButton should render correctly 89`] = `
 
 exports[`UIButton should render correctly 90`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -1030,7 +1030,7 @@ exports[`UIButton should render correctly 90`] = `
 
 exports[`UIButton should render correctly 91`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -1041,7 +1041,7 @@ exports[`UIButton should render correctly 91`] = `
 
 exports[`UIButton should render correctly 92`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -1052,7 +1052,7 @@ exports[`UIButton should render correctly 92`] = `
 
 exports[`UIButton should render correctly 93`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -1063,7 +1063,7 @@ exports[`UIButton should render correctly 93`] = `
 
 exports[`UIButton should render correctly 94`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -1074,7 +1074,7 @@ exports[`UIButton should render correctly 94`] = `
 
 exports[`UIButton should render correctly 95`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   
@@ -1085,7 +1085,7 @@ exports[`UIButton should render correctly 95`] = `
 
 exports[`UIButton should render correctly 96`] = `
 <button
-  class="text-gray-600 dark:text-gray-400 ring-gray-300 dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
+  class="border text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 hover:border-gray-200 dark:hover:border-gray-800 px-3.5 py-2 focus:ring-2 ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0 disabled:cursor-not-allowed disabled:shadow-none"
   type="button"
 >
   

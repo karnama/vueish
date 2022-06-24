@@ -181,80 +181,119 @@ export default defineComponent({
                     : ' dark:hover:bg-gray-800 dark:hover:text-gray-200 dark:hover:border-gray-800 hover:bg-white')
         }));
         const minimalTypeClasses = computed<{ [key in Theme]: string; }>(() => ({
-            slate: 'text-slate-600 dark:text-slate-500 ring-slate-300'
-                + (props.disabled ? '' : ' dark:hover:text-slate-600 hover:bg-slate-200'),
-            zinc: 'text-zinc-600 dark:text-zinc-500 ring-zinc-300'
-                + (props.disabled ? '' : ' dark:hover:text-zinc-600 hover:bg-zinc-200'),
-            neutral: 'text-neutral-600 dark:text-neutral-500 ring-neutral-300'
-                + (props.disabled ? '' : ' dark:hover:text-neutral-600 hover:bg-neutral-200'),
-            stone: 'text-stone-600 dark:text-stone-500 ring-stone-300'
-                + (props.disabled ? '' : ' dark:hover:text-stone-600 hover:bg-stone-200'),
-            gray: 'text-gray-600 dark:text-gray-500 ring-gray-300'
-                + (props.disabled ? '' : ' dark:hover:text-gray-600 hover:bg-gray-200'),
-            orange: 'text-orange-600 ring-orange-400' + (props.disabled ? '' : ' hover:bg-orange-200'),
-            amber: 'text-amber-600 ring-amber-400' + (props.disabled ? '' : ' hover:bg-amber-200'),
-            yellow: 'text-yellow-500 ring-yellow-300'
-                + (props.disabled ? '' : ' hover:bg-yellow-200 hover:text-yellow-600'),
-            lime: 'text-lime-600 ring-lime-400' + (props.disabled ? '' : ' hover:bg-lime-200'),
-            green: 'text-green-600 ring-green-400' + (props.disabled ? '' : ' hover:bg-green-200'),
-            emerald: 'text-emerald-600 ring-emerald-400' + (props.disabled ? '' : ' hover:bg-emerald-200'),
-            teal: 'text-teal-600 ring-teal-400' + (props.disabled ? '' : ' hover:bg-teal-200'),
-            cyan: 'text-cyan-600 ring-cyan-400' + (props.disabled ? '' : ' hover:bg-cyan-200'),
-            sky: 'text-sky-600 ring-sky-400' + (props.disabled ? '' : ' hover:bg-sky-200'),
-            blue: 'text-blue-600 ring-blue-400' + (props.disabled ? '' : ' hover:bg-blue-200'),
-            indigo: 'text-indigo-600 ring-indigo-400' + (props.disabled ? '' : ' hover:bg-indigo-200'),
-            violet: 'text-violet-600 ring-violet-400' + (props.disabled ? '' : ' hover:bg-violet-200'),
-            purple: 'text-purple-600 ring-purple-400' + (props.disabled ? '' : ' hover:bg-purple-200'),
-            fuchsia: 'text-fuchsia-600 ring-fuchsia-400' + (props.disabled ? '' : ' hover:bg-fuchsia-200'),
-            pink: 'text-pink-600 ring-pink-400' + (props.disabled ? '' : ' hover:bg-pink-200'),
-            rose: 'text-rose-600 ring-rose-400' + (props.disabled ? '' : ' hover:bg-rose-200'),
-            red: 'text-red-600 ring-red-300' + (props.disabled ? '' : ' hover:bg-red-200'),
-            default: 'text-gray-600 dark:text-gray-400 ring-gray-300'
-                + (props.disabled ? '' : ' dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800'),
-            brand: 'text-brand-600 ring-brand-300' + (props.disabled ? '' : ' hover:bg-brand-200')
+            slate: 'text-slate-600 dark:text-slate-500 ring-slate-300 border-transparent'
+                + (props.disabled ? '' : ' dark:hover:text-slate-600 hover:bg-slate-200 hover:border-slate-200'),
+            zinc: 'text-zinc-600 dark:text-zinc-500 ring-zinc-300 border-transparent'
+                + (props.disabled ? '' : ' dark:hover:text-zinc-600 hover:bg-zinc-200 hover:border-zinc-200'),
+            neutral: 'text-neutral-600 dark:text-neutral-500 ring-neutral-300 border-transparent'
+                + (props.disabled ? '' : ' dark:hover:text-neutral-600 hover:bg-neutral-200 hover:border-neutral-200'),
+            stone: 'text-stone-600 dark:text-stone-500 ring-stone-300 border-transparent'
+                + (props.disabled ? '' : ' dark:hover:text-stone-600 hover:bg-stone-200 hover:border-stone-200'),
+            gray: 'text-gray-600 dark:text-gray-500 ring-gray-300 border-transparent'
+                + (props.disabled ? '' : ' dark:hover:text-gray-600 hover:bg-gray-200  hover:border-gray-200'),
+            orange: 'text-orange-600 ring-orange-400 border-transparent'
+                + (props.disabled ? '' : ' hover:bg-orange-200 hover:border-orange-200'),
+            amber: 'text-amber-600 ring-amber-400 border-transparent'
+                + (props.disabled ? '' : ' hover:bg-amber-200  hover:border-amber-200'),
+            yellow: 'text-yellow-500 ring-yellow-300 border-transparent'
+                + (props.disabled ? '' : ' hover:bg-yellow-200 hover:text-yellow-600  hover:border-yellow-200'),
+            lime: 'text-lime-600 ring-lime-400 border-transparent'
+                + (props.disabled ? '' : ' hover:bg-lime-200 hover:border-lime-200'),
+            green: 'text-green-600 ring-green-400 border-transparent'
+                + (props.disabled ? '' : ' hover:bg-green-200 hover:border-green-200' ),
+            emerald: 'text-emerald-600 ring-emerald-400 border-transparent'
+                + (props.disabled ? '' : ' hover:bg-emerald-200 hover:border-emerald-200' ),
+            teal: 'text-teal-600 ring-teal-400 border-transparent'
+                + (props.disabled ? '' : ' hover:bg-teal-200 hover:border-teal-200' ),
+            cyan: 'text-cyan-600 ring-cyan-400 border-transparent'
+                + (props.disabled ? '' : ' hover:bg-cyan-200 hover:border-cyan-200 '),
+            sky: 'text-sky-600 ring-sky-400 border-transparent'
+                + (props.disabled ? '' : ' hover:bg-sky-200 hover:border-sky-200 '),
+            blue: 'text-blue-600 ring-blue-400 border-transparent'
+                + (props.disabled ? '' : ' hover:bg-blue-200  hover:border-blue-200'),
+            indigo: 'text-indigo-600 ring-indigo-400 border-transparent'
+                + (props.disabled ? '' : ' hover:bg-indigo-200  hover:border-indigo-200'),
+            violet: 'text-violet-600 ring-violet-400 border-transparent'
+                + (props.disabled ? '' : ' hover:bg-violet-200  hover:border-violet-200'),
+            purple: 'text-purple-600 ring-purple-400 border-transparent'
+                + (props.disabled ? '' : ' hover:bg-purple-200  hover:border-purple-200'),
+            fuchsia: 'text-fuchsia-600 ring-fuchsia-400 border-transparent'
+                + (props.disabled ? '' : ' hover:bg-fuchsia-200  hover:border-fuchsia-200'),
+            pink: 'text-pink-600 ring-pink-400 border-transparent'
+                + (props.disabled ? '' : ' hover:bg-pink-200  hover:border-pink-200'),
+            rose: 'text-rose-600 ring-rose-400 border-transparent'
+                + (props.disabled ? '' : ' hover:bg-rose-200  hover:border-rose-200'),
+            red: 'text-red-600 ring-red-300 border-transparent'
+                + (props.disabled ? '' : ' hover:bg-red-200  hover:border-red-200'),
+            default: 'text-gray-600 dark:text-gray-400 ring-gray-300 border-transparent'
+                + (props.disabled ? '' : ' dark:hover:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 ' +
+                    'hover:border-gray-200 dark:hover:border-gray-800'),
+            brand: 'text-brand-600 ring-brand-300 border-transparent'
+                + (props.disabled ? '' : ' hover:bg-brand-200  hover:border-brand-200')
         }));
         const tintedTypeClasses = computed<{ [key in Theme]: string; }>(() => ({
-            slate: 'text-slate-800 ring-slate-400 bg-slate-300' + (props.disabled ? '' : ' hover:bg-slate-200'),
-            gray: 'text-gray-800 ring-gray-400 bg-gray-300' + (props.disabled ? '' : ' hover:bg-gray-200'),
-            zinc: 'text-zinc-800 ring-zinc-400 bg-zinc-300' + (props.disabled ? '' : ' hover:bg-zinc-200'),
-            neutral: 'text-neutral-800 ring-neutral-400 bg-neutral-300'
-                + (props.disabled ? '' : ' hover:bg-neutral-200'),
-            stone: 'text-stone-800 ring-stone-400 bg-stone-300' + (props.disabled ? '' : ' hover:bg-stone-200'),
-            orange: 'text-orange-700 ring-orange-400 bg-orange-200' + (props.disabled ? '' : ' hover:bg-orange-100'),
-            amber: 'text-amber-700 ring-amber-400 bg-amber-200' + (props.disabled ? '' : ' hover:bg-amber-100'),
-            yellow: 'text-yellow-700 ring-yellow-400 bg-yellow-200' + (props.disabled ? '' : ' hover:bg-yellow-100'),
-            lime: 'text-lime-700 ring-lime-400 bg-lime-200' + (props.disabled ? '' : ' hover:bg-lime-100'),
-            green: 'text-green-700 ring-green-400 bg-green-200' + (props.disabled ? '' : ' hover:bg-green-100'),
-            emerald: 'text-emerald-700 ring-emerald-400 bg-emerald-200'
-                + (props.disabled ? '' : ' hover:bg-emerald-100'),
-            teal: 'text-teal-700 ring-teal-400 bg-teal-200' + (props.disabled ? '' : ' hover:bg-teal-100'),
-            cyan: 'text-cyan-700 ring-cyan-400 bg-cyan-200' + (props.disabled ? '' : ' hover:bg-cyan-100'),
-            sky: 'text-sky-700 ring-sky-400 bg-sky-200' + (props.disabled ? '' : ' hover:bg-sky-100'),
-            blue: 'text-blue-600 ring-blue-400 bg-blue-200' + (props.disabled ? '' : ' hover:bg-blue-100'),
-            indigo: 'text-indigo-600 ring-indigo-400 bg-indigo-200' + (props.disabled ? '' : ' hover:bg-indigo-100'),
-            violet: 'text-violet-600 ring-violet-400 bg-violet-200' + (props.disabled ? '' : ' hover:bg-violet-100'),
-            purple: 'text-purple-600 ring-purple-400 bg-purple-200' + (props.disabled ? '' : ' hover:bg-purple-100'),
-            fuchsia: 'text-fuchsia-600 ring-fuchsia-400 bg-fuchsia-200'
-                + (props.disabled ? '' : ' hover:bg-fuchsia-100'),
-            pink: 'text-pink-600 ring-pink-400 bg-pink-200' + (props.disabled ? '' : ' hover:bg-pink-100'),
-            rose: 'text-rose-600 ring-rose-400 bg-rose-200' + (props.disabled ? '' : ' hover:bg-rose-100'),
-            red: 'text-red-600 ring-red-400 bg-red-200' + (props.disabled ? '' : ' hover:bg-red-100'),
-            brand: 'text-brand-600 ring-brand-400 bg-brand-200' + (props.disabled ? '' : ' hover:bg-brand-100'),
-            default: 'text-gray-600 ring-gray-400 bg-gray-200' + (props.disabled ? '' : ' hover:bg-gray-100')
+            slate: 'text-slate-800 ring-slate-400 bg-slate-300 border-slate-300'
+                + (props.disabled ? '' : ' hover:bg-slate-200 hover:border-slate-200'),
+            gray: 'text-gray-800 ring-gray-400 bg-gray-300 border-gray-300'
+                + (props.disabled ? '' : ' hover:bg-gray-200 hover:border-gray-200'),
+            zinc: 'text-zinc-800 ring-zinc-400 bg-zinc-300 border-zinc-300'
+                + (props.disabled ? '' : ' hover:bg-zinc-200 hover:border-zinc-200'),
+            neutral: 'text-neutral-800 ring-neutral-400 bg-neutral-300 border-neutral-300'
+                + (props.disabled ? '' : ' hover:bg-neutral-200 hover:border-neutral-200'),
+            stone: 'text-stone-800 ring-stone-400 bg-stone-300 border-stone-200'
+                + (props.disabled ? '' : ' hover:bg-stone-200 hover:border-stone-200'),
+            orange: 'text-orange-700 ring-orange-400 bg-orange-200 border-orange-200'
+                + (props.disabled ? '' : ' hover:bg-orange-100 hover:border-orange-100'),
+            amber: 'text-amber-700 ring-amber-400 bg-amber-200 border-amber-200'
+                + (props.disabled ? '' : ' hover:bg-amber-100 hover:border-amber-100'),
+            yellow: 'text-yellow-700 ring-yellow-400 bg-yellow-200 border-yellow-200'
+                + (props.disabled ? '' : ' hover:bg-yellow-100 hover:border-yellow-100'),
+            lime: 'text-lime-700 ring-lime-400 bg-lime-200 border-lime-200'
+                + (props.disabled ? '' : ' hover:bg-lime-100 hover:border-lime-100'),
+            green: 'text-green-700 ring-green-400 bg-green-200 border-green-200'
+                + (props.disabled ? '' : ' hover:bg-green-100 hover:border-green-100'),
+            emerald: 'text-emerald-700 ring-emerald-400 bg-emerald-200 border-emerald-200'
+                + (props.disabled ? '' : ' hover:bg-emerald-100 hover:border-emerald-100'),
+            teal: 'text-teal-700 ring-teal-400 bg-teal-200 border-teal-200'
+                + (props.disabled ? '' : ' hover:bg-teal-100 hover:border-teal-100'),
+            cyan: 'text-cyan-700 ring-cyan-400 bg-cyan-200 border-cyan-200'
+                + (props.disabled ? '' : ' hover:bg-cyan-100 hover:border-cyan-100'),
+            sky: 'text-sky-700 ring-sky-400 bg-sky-200 border-sky-200'
+                + (props.disabled ? '' : ' hover:bg-sky-100 hover:border-sky-100'),
+            blue: 'text-blue-600 ring-blue-400 bg-blue-200 border-blue-200'
+                + (props.disabled ? '' : ' hover:bg-blue-100 hover:border-blue-100'),
+            indigo: 'text-indigo-600 ring-indigo-400 bg-indigo-200 border-indigo-200'
+                + (props.disabled ? '' : ' hover:bg-indigo-100 hover:border-indigo-100'),
+            violet: 'text-violet-600 ring-violet-400 bg-violet-200 border-violet-200'
+                + (props.disabled ? '' : ' hover:bg-violet-100 hover:border-violet-100'),
+            purple: 'text-purple-600 ring-purple-400 bg-purple-200 border-purple-200'
+                + (props.disabled ? '' : ' hover:bg-purple-100 hover:border-purple-100'),
+            fuchsia: 'text-fuchsia-600 ring-fuchsia-400 bg-fuchsia-200 border-fuchsia-200'
+                + (props.disabled ? '' : ' hover:bg-fuchsia-100 hover:border-fuchsia-100'),
+            pink: 'text-pink-600 ring-pink-400 bg-pink-200 border-pink-200'
+                + (props.disabled ? '' : ' hover:bg-pink-100 hover:border-pink-100'),
+            rose: 'text-rose-600 ring-rose-400 bg-rose-200 border-rose-200'
+                + (props.disabled ? '' : ' hover:bg-rose-100 hover:border-rose-100'),
+            red: 'text-red-600 ring-red-400 bg-red-200 border-red-200'
+                + (props.disabled ? '' : ' hover:bg-red-100 hover:border-red-100'),
+            brand: 'text-brand-600 ring-brand-400 bg-brand-200 border-brand-200'
+                + (props.disabled ? '' : ' hover:bg-brand-100 hover:border-brand-100'),
+            default: 'text-gray-600 ring-gray-400 bg-gray-200 border-gray-200'
+                + (props.disabled ? '' : ' hover:bg-gray-100 hover:border-gray-100')
         }));
 
         const classes = computed(() => {
             const theme = props.theme as Theme;
-            let classes: string;
+            let classes = 'border';
 
             if (props.outline) {
-                classes = outlineTypeClasses.value[theme] + ' shadow-sm border focus:ring-offset-2';
+                classes += ' ' + outlineTypeClasses.value[theme] + ' shadow-sm focus:ring-offset-2';
             } else if (props.minimal) {
-                classes = minimalTypeClasses.value[theme];
+                classes += ' ' + minimalTypeClasses.value[theme];
             } else if (props.tinted) {
-                classes = tintedTypeClasses.value[theme];
+                classes += ' ' + tintedTypeClasses.value[theme];
             } else {
-                classes = primaryTypeClasses.value[theme] + ' shadow-sm border';
+                classes += ' ' + primaryTypeClasses.value[theme] + ' shadow-sm';
             }
 
             classes += props.large
