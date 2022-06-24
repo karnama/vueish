@@ -46,15 +46,15 @@
             </slot>
 
             <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
-                <UISpinnerLoader v-if="loading"
-                                 :diameter="20"
-                                 :stroke="2"
-                                 :class="{ '-mr-3.5': large }" />
-
-                <span v-else-if="disabled"
+                <span v-if="disabled"
                       class="h-5 w-5 text-color-muted"
                       :class="{ '-mr-3.5': large }"
                       v-html="lockIcon" />
+
+                <UISpinnerLoader v-else-if="loading"
+                                 :diameter="20"
+                                 :stroke="2"
+                                 :class="{ '-mr-3.5': large }" />
 
                 <button v-else-if="clearable && selectionDisplay"
                         class="clear-icon h-5 w-5 cursor-pointer text-color-muted"
@@ -98,8 +98,8 @@
                         <button v-if="notAllSelected" class="x-select-all" @click="selected = options">
                             Select All
                         </button>
-                        <span v-if="notAllSelected && hasSelected && clearable"> / </span>
-                        <button v-if="clearable && hasSelected" class="x-select-none" @click="selected = []">
+                        <span v-if="notAllSelected && hasSelected"> / </span>
+                        <button v-if="hasSelected" class="x-select-none" @click="selected = []">
                             Select None
                         </button>
                     </div>

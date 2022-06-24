@@ -59,16 +59,16 @@
                        @keydown="handleKeydown">
 
                 <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
-                    <UISpinnerLoader v-if="loading"
+                    <span v-if="disabled"
+                          class="h-5 w-5 mr-3 text-color-muted"
+                          :class="{ 'mr-5': large }"
+                          v-html="lockIcon" />
+
+                    <UISpinnerLoader v-else-if="loading"
                                      :diameter="20"
                                      :stroke="2"
                                      class="mr-3"
                                      :class="{ 'mr-5': large }" />
-
-                    <span v-else-if="disabled"
-                          class="h-5 w-5 mr-3 text-color-muted"
-                          :class="{ 'mr-5': large }"
-                          v-html="lockIcon" />
 
                     <span v-else-if="suffix || $slots.suffix || clearable && model"
                           class="mr-3 text-color-muted flex space-x-2">

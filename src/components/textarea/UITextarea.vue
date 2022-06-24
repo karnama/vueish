@@ -40,14 +40,14 @@
 
                 <div class="flex flex-col justify-center" :class="{ 'text-gray-400 cursor-not-allowed': disabled }">
                     <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
-                        <UISpinnerLoader v-if="loading"
+                        <span v-if="disabled"
+                              class="h-5 w-5 mx-2 text-color-muted grow align-middle flex flex-col justify-center"
+                              v-html="lockIcon" />
+
+                        <UISpinnerLoader v-else-if="loading"
                                          :diameter="20"
                                          :stroke="2"
                                          class="mx-2" />
-
-                        <span v-else-if="disabled"
-                              class="h-5 w-5 mx-2 text-color-muted grow align-middle flex flex-col justify-center"
-                              v-html="lockIcon" />
 
                         <button v-else-if="clearable && model"
                                 class="clear-icon h-5 w-5 mx-2 text-color-muted"
