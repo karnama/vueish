@@ -58,14 +58,6 @@
                        }"
                        @keydown="handleKeydown">
 
-                <span v-if="suffix ?? $slots.suffix"
-                      :class="{ 'mr-5': large }"
-                      class="suffix mr-3 select-none text-color-muted">
-                    <slot name="suffix">
-                        {{ suffix }}
-                    </slot>
-                </span>
-
                 <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
                     <UISpinnerLoader v-if="loading"
                                      :diameter="20"
@@ -78,13 +70,23 @@
                           :class="{ 'mr-5': large }"
                           v-html="lockIcon" />
 
-                    <button v-else-if="clearable && model"
-                            class="clear-icon h-5 w-5 cursor-pointer mr-3 text-color-muted"
-                            :class="{ 'mr-5': large }"
-                            :aria-controls="$attrs.id ?? name"
-                            aria-roledescription="clear"
-                            @click="model = ''"
-                            v-html="clearIcon" />
+                    <span v-else-if="suffix || $slots.suffix || clearable && model"
+                          class="mr-3 text-color-muted flex space-x-2">
+                        <span v-if="suffix || $slots.suffix"
+                              :class="{ 'mr-5': large }"
+                              class="suffix select-none">
+                            <slot name="suffix">
+                                {{ suffix }}
+                            </slot>
+                        </span>
+                        <button v-if="!disabled && !loading && clearable && model"
+                                class="clear-icon h-5 w-5 cursor-pointer"
+                                :class="{ 'mr-5': large }"
+                                :aria-controls="$attrs.id ?? name"
+                                aria-roledescription="clear"
+                                @click="model = ''"
+                                v-html="clearIcon" />
+                    </span>
                 </UIFadeTransition>
 
                 <div v-if="inputType === 'number'" class="flex flex-col select-none min-h-full self-stretch">

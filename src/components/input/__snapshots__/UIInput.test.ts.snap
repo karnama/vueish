@@ -22,7 +22,6 @@ exports[`UIInput should correctly display 1`] = `
         name="input"
         type="text"
       />
-      <!--v-if-->
       <transition-stub>
         
         
