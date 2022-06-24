@@ -38,8 +38,9 @@
             <div class="flex items-center flex-wrap w-full" :class="{ 'justify-center' : displayName }">
                 <UIButton :large="large"
                           :disabled="disabled"
+                          theme="default"
                           title="Choose a file"
-                          class="rounded-none h-full">
+                          class="h-full border-t-0 rounded-r-none rounded-l-[2.75px] border-l-0 border-b-0">
                     <slot name="buttonText">
                         {{ buttonText }}
                     </slot>
@@ -54,6 +55,12 @@
                         <span v-if="disabled"
                               class="h-5 w-5 mr-2 mx-auto text-color-muted shrink-0"
                               v-html="lockIcon" />
+
+                        <UISpinnerLoader v-else-if="loading"
+                                         :diameter="20"
+                                         :stroke="2"
+                                         class="mr-3"
+                                         :class="{ 'mr-5': large }" />
 
                         <button v-else-if="clearable && displayName"
                                 class="clear-icon h-5 w-5 mr-2 cursor-pointer mx-auto text-color-muted shrink-0"
@@ -80,7 +87,17 @@
 import { computed, defineComponent, ref, watch } from 'vue';
 import type { PropType } from 'vue';
 import { createFileList, getSizeString } from 'composables/utils';
-import { name, label, clearable, autofocus, disabled, positiveOptionalNumber, error, large } from '@/shared-props';
+import {
+    name,
+    label,
+    clearable,
+    autofocus,
+    disabled,
+    positiveOptionalNumber,
+    error,
+    large,
+    loading
+} from '@/shared-props';
 import { omit } from 'lodash-es';
 import { getIcon } from '@/helpers';
 import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
@@ -157,7 +174,8 @@ export default defineComponent({
         autofocus,
         disabled,
         large,
-        error
+        error,
+        loading
     },
 
     emits: {
