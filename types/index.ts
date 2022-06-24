@@ -19,8 +19,33 @@ export type Settings = {
 export * from './components';
 export * from './directives';
 
-export const styleTypes = ['default', 'primary', 'info', 'success', 'warning', 'danger', 'brand'] as const;
-export type StyleType = typeof styleTypes[number];
+export const themes = [
+    'slate',
+    'gray',
+    'zinc',
+    'neutral',
+    'stone',
+    'orange',
+    'amber',
+    'yellow',
+    'lime',
+    'green',
+    'emerald',
+    'teal',
+    'cyan',
+    'sky',
+    'blue',
+    'indigo',
+    'violet',
+    'purple',
+    'fuchsia',
+    'pink',
+    'rose',
+    'red',
+    'brand',
+    'default'
+] as const;
+export type Theme = typeof themes[number];
 
 export interface UIError {
     message: string;

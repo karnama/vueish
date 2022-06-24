@@ -5,7 +5,7 @@
                 <UIBadge content="3"
                          :horizontal="h"
                          :vertical="v">
-                    <UIButton category="primary">
+                    <UIButton theme="blue">
                         My Button
                     </UIButton>
                 </UIBadge>

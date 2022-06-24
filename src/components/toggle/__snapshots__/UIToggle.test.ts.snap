@@ -2,7 +2,7 @@
 
 exports[`UIToggle should display correctly 1`] = `
 <div
-  class=""
+  class="space-y-1.5"
 >
   <transition-stub>
     

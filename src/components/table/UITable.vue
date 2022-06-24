@@ -1,30 +1,31 @@
 <template>
-    <section class="shadow-md dark:shadow-lg text-color bg-white dark:bg-gray-600 relative sm:overflow-x-scroll">
-        <table class="flex sm:table flex-col border-collapse border-gray-200
-                      w-full table-auto rounded relative"
+    <section class="shadow dark:shadow-lg text-color bg-white dark:bg-gray-600 relative sm:overflow-x-scroll
+                    border border-gray-200 dark:border-gray-500 rounded">
+        <table class="flex sm:table flex-col border-collapse w-full table-auto relative"
                :class="[hoverClass]"
                @mouseover="handleHover"
                @mouseleave="handleHover">
-            <thead class="sticky top-0 bg-white dark:bg-gray-700 shadow dark:shadow-lg z-10">
+            <thead class="sticky top-0 bg-gray-50 dark:bg-gray-650 border-b border-b-gray-300 dark:border-b-gray-500
+                          shadow-sm dark:shadow-lg sm:!shadow-none z-10">
                 <tr v-if="!!search" class="block sm:table-row">
                     <th :colspan=" normalisedHeaders.length + ($slots.action ? 1 : 0) + (selectable ? 1 : 0)"
-                        class="px-4 py-8 block sm:table-cell">
+                        :class="[small ? 'p-2' : 'px-4 py-8 ']"
+                        class="block sm:table-cell">
                         <span class="block">
                             <UIInput v-model="term" name="search" placeholder="Search..." />
                         </span>
                     </th>
                 </tr>
 
-                <tr class="hidden sm:table-row bg-gray-100 dark:bg-gray-700">
-                    <th v-if="selectable" class="py-6 px-2">
-                        <span v-if="!singleSelect" class="mx-auto">
-                            <UICheckbox name="selectAll"
-                                        :indeterminate="Array.isArray(selected)
-                                            ? selected.length !== selectableRows.length
-                                            : true"
-                                        :model-value="Array.isArray(selected) && !!selected.length"
-                                        @update:model-value="toggleAllRowSelection" />
-                        </span>
+                <tr class="hidden sm:table-row">
+                    <th v-if="selectable && !singleSelect" :class="[small ? 'p-2' : 'py-6 px-8']">
+                        <UICheckbox name="selectAll"
+                                    :indeterminate="Array.isArray(selected)
+                                        ? selected.length !== selectableRows.length
+                                        : true"
+                                    class="justify-center"
+                                    :model-value="Array.isArray(selected) && !!selected.length"
+                                    @update:model-value="toggleAllRowSelection" />
                     </th>
 
                     <th v-for="column in normalisedHeaders"
@@ -32,14 +33,18 @@
                         :class="{
                             'cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-500':
                                 !disableSorting && column.sortable,
-                            'bg-gray-200 dark:bg-gray-600': !!sortDirection(column.rowProperty)
+                            'bg-gray-200 dark:bg-gray-600': !!sortDirection(column.rowProperty),
+                            'py-6 px-8': !small,
+                            'px-2 py-3': small
                         }"
-                        class="py-6 text-left px-4 uppercase font-light text-color-muted text-sm
+                        class="text-left uppercase font-light text-color-muted text-sm
                                select-none group transition-colors"
                         @click="sortBy(column.rowProperty)">
                         <span class="flex items-center justify-between">
                             <slot name="header" :header="column">
-                                {{ column.header }}
+                                <span class="font-bold">
+                                    {{ column.header }}
+                                </span>
                             </slot>
 
                             <i v-if="!disableSorting && column.sortable"
@@ -56,13 +61,13 @@
                 </tr>
             </thead>
 
-            <tbody class="space-y-5 sm:space-y-0 shadow divide-y">
+            <tbody class="space-y-5 sm:space-y-0 divide-y">
                 <template v-if="pageRows.length">
                     <tr v-for="(row, index) in pageRows"
                         :key="index"
                         :class="{ 'row-highlight': hoverHighlight }"
                         class="flex flex-col flex-no-wrap sm:table-row border-gray-200 dark:border-gray-500">
-                        <td v-if="selectable" class="px-2 py-2 sm:py-0">
+                        <td v-if="selectable" class="p-2 sm:py-0">
                             <UICheckbox v-if="row.isSelectable"
                                         :name="String(index)"
                                         class="justify-center"
@@ -81,12 +86,14 @@
                             :data-col="col = getColumn(name)"
                             class="flex flex-row flex-nowrap items-center p-0 sm:table-cell">
                             <span role="rowheader"
-                                  class="flex items-center justify-between sm:hidden content font-bold p-4
+                                  class="flex items-center justify-between sm:hidden content font-bold
                                          flex-none transition-colors select-none group"
                                   style="min-height: 40px; width: 140px;"
                                   :class="{
                                       'cursor-pointer hover:bg-gray-300': !disableSorting && col.sortable,
-                                      'bg-gray-200': !!sortDir
+                                      'bg-gray-200': !!sortDir,
+                                      'p-4': !small,
+                                      'px-2 py-1': small
                                   }"
                                   @click="sortBy(name)">
                                 <slot name="header" :header="col">
@@ -102,14 +109,14 @@
                                    v-html="chevronIcon" />
                             </span>
 
-                            <span class="block p-4">
+                            <span class="block" :class="[small ? 'px-2 py-1' : 'px-8 py-5']">
                                 <slot :name="name" :row="row">
                                     {{ getDisplayName(col, row) }}
                                 </slot>
                             </span>
                         </td>
 
-                        <td v-if="$slots.action" class="p-4">
+                        <td v-if="$slots.action" :class="[small ? 'px-2 py-1' : 'p-4']">
                             <slot name="action" :row="row" />
                         </td>
                     </tr>
@@ -117,7 +124,7 @@
 
                 <tr v-else>
                     <td :colspan="selectable ? normalisedHeaders.length + 1 : normalisedHeaders.length">
-                        <span class="block text-center px-4 py-6 text-gray-400">
+                        <span class="block text-center text-gray-400" :class="[small ? 'px-2 py-3' : 'py-6 px-8']">
                             <slot name="empty">
                                 {{ empty }}
                             </slot>
@@ -130,7 +137,7 @@
                        || selectable && !singleSelect
                        || totalRowCount > itemsPerPage && !disablePagination"
                    class="border-t border-gray-300 dark:border-gray-500 sticky
-                          bg-white dark:bg-gray-700 bottom-0 sm:relative shadow-up"
+                          bg-white dark:bg-gray-650 bottom-0 sm:relative shadow-up"
                    :class="{
                        'sm:hidden': selectable
                            && !singleSelect
@@ -140,7 +147,8 @@
                     <td class="block grow sm:table-cell"
                         :colspan="normalisedHeaders.length + ($slots.action ? 1 : 0) + (selectable ? 1 : 0)">
                         <span class="flex flex-col sm:flex-row items-center justify-between
-                                     flex-wrap break-words px-4 py-6 relative">
+                                     flex-wrap break-words relative"
+                              :class="[small ? 'p-2' : 'py-6 px-8']">
                             <slot name="footer" />
                             <span v-if="selectable && !singleSelect" class="block sm:hidden">
                                 <UICheckbox name="selectAll"
@@ -162,9 +170,8 @@
                                       hasPrevious,
                                       jumpToPage
                                   }">
-                                <span class="flex items-center justify-end space-x-2 my-2 grow">
+                                <span class="flex items-center justify-end space-x-2 grow">
                                     <span class="flex items-center">
-                                        <span class="mr-2">Items per page</span>
                                         <UISelect name="items-per-page"
                                                   :model-value="{ id: currentItemsPerPage }"
                                                   :options="itemPerPageOptions"
@@ -179,15 +186,17 @@
                                     </span>
                                     <span class="flex justify-end items-center space-x-2">
                                         <UIButton :disabled="!hasPrevious"
-                                                  minimal
-                                                  class="rotate-90"
-                                                  @click="currentPage--"
-                                                  v-html="chevronIcon" />
+                                                  class="flex flex-col justify-center items-center"
+                                                  style="padding: 0 5px !important; min-width: 38px; height: 38px"
+                                                  @click="currentPage--">
+                                            <span class="rotate-90" v-html="chevronIcon" />
+                                        </UIButton>
                                         <UIButton :disabled="!hasNext"
-                                                  minimal
-                                                  class="transform -rotate-90"
-                                                  @click="currentPage++"
-                                                  v-html="chevronIcon" />
+                                                  class="flex flex-col justify-center items-center"
+                                                  style="padding: 0 5px !important; min-width: 38px; height: 38px"
+                                                  @click="currentPage++">
+                                            <span class="-rotate-90" v-html="chevronIcon" />
+                                        </UIButton>
                                     </span>
                                 </span>
                             </slot>
@@ -211,6 +220,7 @@ import type { MaybeArray } from 'types/utilities';
 import { getIcon } from '@/helpers';
 import UISelect from 'components/select/UISelect.vue';
 import UIButton from 'components/button/UIButton.vue';
+import { small } from '@/shared-props';
 
 export default defineComponent({
     name: 'UITable',
@@ -352,7 +362,9 @@ export default defineComponent({
         disablePagination: {
             type: Boolean,
             default: false
-        }
+        },
+
+        small
     },
 
     emits: ['update:modelValue', 'update:page', 'update:itemsPerPage', 'searching'],
@@ -468,7 +480,7 @@ export default defineComponent({
                 }
             }
 
-            let style = document.getElementById(styleTagId) as HTMLStyleElement;
+            let style = globalThis?.document.getElementById(styleTagId) as HTMLStyleElement;
 
             if (!hoverHighlight) {
                 style?.parentElement?.removeChild(style);
@@ -476,10 +488,10 @@ export default defineComponent({
             }
 
             if (!style) {
-                style = document.createElement('style');
+                style = globalThis?.document.createElement('style');
                 style.type = 'text/css';
                 style.id = styleTagId;
-                document.head.appendChild(style);
+                globalThis?.document.head.appendChild(style);
             }
 
             if (style.sheet!.cssRules.length) {
@@ -532,7 +544,7 @@ export default defineComponent({
                 return;
             }
 
-            let selection: Row[] = Array.isArray(selected.value)
+            const selection: Row[] = Array.isArray(selected.value)
                 ? cloneDeep(selected.value)
                 : selected.value ? [cloneDeep(selected.value)] : [];
 
@@ -631,11 +643,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
-.shadow {
-    --tw-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
+<style lang="scss" scoped>
 .shadow-up {
     box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.06);
 }

@@ -48,6 +48,10 @@ export default defineComponent({
     & > button:first-child {
         @apply rounded-l;
     }
+
+    & > button:focus {
+        @apply z-50;
+    }
 }
 .vertical {
     @apply flex-col items-start w-max;

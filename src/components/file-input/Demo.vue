@@ -3,8 +3,11 @@
         <UICheckbox v-model="large"
                     name="large"
                     label="Large Style" />
+        <UICheckbox v-model="loading"
+                    name="loading"
+                    label="Loading" />
 
-        <UIButton category="danger" @click="error ? error = '' : error = 'Error message.'">
+        <UIButton theme="red" @click="error ? error = '' : error = 'Error message.'">
             {{ error ? 'Remove' : 'Set' }} Error state
         </UIButton>
     </div>
@@ -13,6 +16,7 @@
         <UIFileInput v-model="file"
                      :large="large"
                      :error="error"
+                     :loading="loading"
                      clearable
                      name="file-input"
                      label="Default file input" />
@@ -21,6 +25,7 @@
                      name="file-input"
                      :large="large"
                      :error="error"
+                     :loading="loading"
                      disabled
                      label="Disabled file input" />
 
@@ -28,6 +33,7 @@
                      name="file-input"
                      :large="large"
                      :error="error"
+                     :loading="loading"
                      multiple
                      clearable
                      label="Multiple file input" />
@@ -36,6 +42,7 @@
                      name="file-input"
                      :large="large"
                      :error="error"
+                     :loading="loading"
                      :display-name-func="displayName"
                      button-text="Select attachments or drop here"
                      multiple
@@ -57,6 +64,7 @@ export default defineComponent({
         const file2 = ref<File[]>([generatedFile]);
         const large = ref(false);
         const error = ref('');
+        const loading = ref(false);
 
         const displayName = (files: MaybeArray<File> | null) => {
             if (!files) return '';
@@ -71,7 +79,8 @@ export default defineComponent({
             file2,
             displayName,
             large,
-            error
+            error,
+            loading
         };
     }
 });

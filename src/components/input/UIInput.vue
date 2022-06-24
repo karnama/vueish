@@ -3,7 +3,7 @@
         <UIExpandTransition>
             <label v-if="label || $slots.label"
                    :for="$attrs.id ?? name"
-                   class="font-medium text-color inline-flex"
+                   class="font-medium text-color inline-flex mb-1.5"
                    :class="{ 'text-color-error': error || $slots.error }">
                 <slot name="label">
                     {{ label }}
@@ -50,18 +50,13 @@
                        :placeholder="placeholder"
                        :aria-placeholder="placeholder"
                        class="flex-1 p-3.5 appearance-none bg-transparent outline-none
-                              text-color disabled:text-gray-400 overflow-x-scroll"
+                              text-color disabled:text-gray-400 overflow-x-scroll caret-blue-500"
                        :disabled="disabled"
-                       :class="{ 'px-7 py-5': large }"
+                       :class="{
+                           'px-7 py-5': large,
+                           'caret-red-500 dark:caret-red-600': error || $slots.error
+                       }"
                        @keydown="handleKeydown">
-
-                <span v-if="suffix ?? $slots.suffix"
-                      :class="{ 'mr-5': large }"
-                      class="suffix mr-3 select-none text-color-muted">
-                    <slot name="suffix">
-                        {{ suffix }}
-                    </slot>
-                </span>
 
                 <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
                     <span v-if="disabled"
@@ -69,13 +64,29 @@
                           :class="{ 'mr-5': large }"
                           v-html="lockIcon" />
 
-                    <button v-else-if="clearable && model"
-                            class="clear-icon h-5 w-5 cursor-pointer mr-3 text-color-muted"
-                            :class="{ 'mr-5': large }"
-                            :aria-controls="$attrs.id ?? name"
-                            aria-roledescription="clear"
-                            @click="model = ''"
-                            v-html="clearIcon" />
+                    <UISpinnerLoader v-else-if="loading"
+                                     :diameter="20"
+                                     :stroke="2"
+                                     class="mr-3"
+                                     :class="{ 'mr-5': large }" />
+
+                    <span v-else-if="suffix || $slots.suffix || clearable && model"
+                          class="mr-3 text-color-muted flex space-x-2">
+                        <span v-if="suffix || $slots.suffix"
+                              :class="{ 'mr-5': large }"
+                              class="suffix select-none">
+                            <slot name="suffix">
+                                {{ suffix }}
+                            </slot>
+                        </span>
+                        <button v-if="!disabled && !loading && clearable && model"
+                                class="clear-icon h-5 w-5 cursor-pointer"
+                                :class="{ 'mr-5': large }"
+                                :aria-controls="$attrs.id ?? name"
+                                aria-roledescription="clear"
+                                @click="model = ''"
+                                v-html="clearIcon" />
+                    </span>
                 </UIFadeTransition>
 
                 <div v-if="inputType === 'number'" class="flex flex-col select-none min-h-full self-stretch">
@@ -84,7 +95,8 @@
                             aria-roledescription="increment"
                             class="px-2 transition-colors h-full rounded-bl rotate-180
                                    bg-gray-50 hover:bg-gray-200 disabled:bg-gray-300 disabled:cursor-not-allowed
-                                   dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400"
+                                   dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400 dark:disabled:bg-gray-600
+                                   disabled:text-gray-400 dark:disabled:text-gray-400"
                             @click="increment"
                             v-html="chevronIcon" />
                     <button :aria-controls="$attrs.id ?? name"
@@ -92,7 +104,8 @@
                             aria-roledescription="decrement"
                             class="px-2 transition-colors h-full rounded-br disabled:cursor-not-allowed
                                    bg-gray-50 hover:bg-gray-200 focus:z-10 disabled:bg-gray-300
-                                   dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400"
+                                   dark:bg-gray-500 dark:text-white dark:hover:bg-gray-400 dark:disabled:bg-gray-600
+                                   disabled:text-gray-400 dark:disabled:text-gray-400"
                             @click="decrement"
                             v-html="chevronIcon" />
                 </div>
@@ -122,13 +135,15 @@ import {
     disabled,
     error,
     placeholder,
-    large
+    large,
+    loading
 } from '@/shared-props';
 import { useVModel } from 'composables/reactivity';
 import { getIcon, getPrecision } from '@/helpers';
 import { omit } from 'lodash-es';
 import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
 import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
+import UISpinnerLoader from 'components/loader-spinner/UISpinnerLoader.vue';
 
 const types = [
     'text',
@@ -143,7 +158,7 @@ const types = [
 export default defineComponent({
     name: 'UIInput',
 
-    components: { UIFadeTransition, UIExpandTransition },
+    components: { UIFadeTransition, UIExpandTransition, UISpinnerLoader },
 
     inheritAttrs: false,
 
@@ -214,7 +229,8 @@ export default defineComponent({
         name,
         disabled,
         error,
-        placeholder
+        placeholder,
+        loading
     },
 
     emits: ['update:modelValue'],

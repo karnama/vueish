@@ -15,8 +15,9 @@
 
                         <UIButton minimal
                                   class="dark:text-gray-200 dark:hover:text-gray-700"
-                                  @click="isOpen = false"
-                                  v-html="clearIcon" />
+                                  @click="isOpen = false">
+                            <span v-html="clearIcon" />
+                        </UIButton>
                     </div>
                     <div class="flex-col flex">
                         <UIToggle v-model="darkMode"
@@ -112,7 +113,7 @@ export default defineComponent({
         };
 
         document.body.classList.add(cache.get('theme', 'light')!);
-        setBg(cache.get('theme', 'light') === 'dark');
+        setBg(cache.get<'light' | 'dark'>('theme', 'light') === 'dark');
 
         watch(() => isOpen.value, val => cache.set('menuOpen', val));
         watch(() => darkMode.value, val => {
@@ -132,21 +133,21 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .router-link-active {
-    @apply text-green-600;
+    @apply text-brand-600;
 }
 
 .dark .router-link-active {
-    @apply text-green-400;
+    @apply text-brand-400;
 }
 
 .menu {
-    width: 300px;
+    width: 250px;
     transition: margin-left 300ms ease;
 
     &.closed {
-        margin-left: -300px;
+        margin-left: -250px;
         transition: margin-left 300ms ease, opacity 300ms ease-out;
         opacity: 0;
     }

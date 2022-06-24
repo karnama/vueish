@@ -1,5 +1,5 @@
 <template>
-    <div :class="$attrs.class" :style="$attrs.style">
+    <div :class="$attrs.class" :style="$attrs.style" class="space-y-1.5">
         <UIExpandTransition>
             <label v-if="label || $slots.label"
                    :for="$attrs.id ?? name"
@@ -12,7 +12,7 @@
         </UIExpandTransition>
         <div class="toggle-wrapper relative rounded-full
                     flex ring-0 ring-red-700 transition"
-             :class="{ 'ring-2 mt-1': error || $slots.error }">
+             :class="{ 'ring-1 mt-1': error || $slots.error }">
             <input :id="$attrs.id ?? name"
                    :checked="model"
                    type="checkbox"
@@ -41,7 +41,6 @@ import { useVModel } from 'composables/reactivity';
 import { omit } from 'lodash-es';
 import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 
-// todo - update design from design chat (border red on error)
 export default defineComponent({
     name: 'UIToggle',
 
@@ -74,7 +73,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-$handleSize: 25;
+$handleSize: 18;
 $width: 53;
 $border: 1px solid #E5E5E5;
 $borderDark: 1px solid #9e9e9e;
@@ -108,18 +107,18 @@ input {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: 0;
+    left: 5px;
     width: #{$handleSize}px;
     height: #{$handleSize}px;
     background-color: white;
     border-radius: 50%;
-    box-shadow: 0 0 2px #00000062;
-    transition: 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.25);
+    transition: 0.3s cubic-bezier(0.18, 0.89, 0.35, 1) all;
 }
 
 input:checked {
     & + .handle:before {
-        left: calc(#{$width}px - #{$handleSize}px);
+        left: calc(#{$width}px - #{$handleSize}px - 5px);
     }
 
     & ~ .background {

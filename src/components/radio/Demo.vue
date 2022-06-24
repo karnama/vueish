@@ -1,6 +1,6 @@
 <template>
     <div class="flex justify-evenly mb-6">
-        <UIButton category="danger" @click="error ? error = '' : error = 'Error message.'">
+        <UIButton theme="red" @click="error ? error = '' : error = 'Error message.'">
             {{ error ? 'Remove' : 'Set' }} Error state
         </UIButton>
     </div>

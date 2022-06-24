@@ -5,25 +5,25 @@
     </div>
 
     <UIButtonGroup :spread="spread" :vertical="vertical">
-        <UIButton category="primary">
+        <UIButton theme="blue">
             Places
         </UIButton>
-        <UIButton category="primary">
+        <UIButton theme="blue">
             List
         </UIButton>
-        <UIButton category="primary">
+        <UIButton theme="blue">
             Map
         </UIButton>
     </UIButtonGroup>
 
     <UIButtonGroup class="mt-10" :spread="spread" :vertical="vertical">
-        <UIButton outline category="info">
+        <UIButton outline theme="sky">
             Places
         </UIButton>
-        <UIButton outline category="info">
+        <UIButton outline theme="sky">
             List
         </UIButton>
-        <UIButton category="primary" outline>
+        <UIButton theme="blue" outline>
             Map
         </UIButton>
     </UIButtonGroup>

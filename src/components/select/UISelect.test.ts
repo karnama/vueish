@@ -679,7 +679,8 @@ describe('UISelect', () => {
                     options,
                     name: 'select',
                     modelValue: options,
-                    multi: true
+                    multi: true,
+                    clearable: true
                 }
             });
 
@@ -702,7 +703,8 @@ describe('UISelect', () => {
                     options,
                     name: 'select',
                     modelValue: [],
-                    multi: false
+                    multi: false,
+                    clearable: true
                 }
             });
 
@@ -718,6 +720,30 @@ describe('UISelect', () => {
             await nextTick();
             expect(list.find(selectorMap.selectNoneBtn).exists()).toBe(true);
             expect(list.find(selectorMap.selectAllBtn).exists()).toBe(true);
+            wrapper.unmount();
+        });
+    });
+
+    describe('slots', () => {
+        it('should display the placeholder even if selected is customised', () => {
+            const wrapper = mount(UISelect, {
+                props: {
+                    options,
+                    modelValue: [],
+                    name: 'select',
+                    placeholder: 'my-placeholder',
+                    'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue }),
+                    multi: true
+                },
+                slots: {
+                    selected: `<template #selected="{ selected }">
+                                   {{ selected }}
+                               </template>`
+                }
+            });
+
+            expect(wrapper.find(selectorMap.currentSelection).html()).toContain('my-placeholder');
+
             wrapper.unmount();
         });
     });

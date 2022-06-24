@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils';
-import UIPill from './UIPill.vue';
+import UILabel from './UILabel.vue';
 
-describe('UIPill', () => {
+describe('UILabel', () => {
     it('should display correctly', () => {
-        const wrapper = mount(UIPill, {
+        const wrapper = mount(UILabel, {
             slots: {
                 default: 'my-string'
             }
@@ -12,7 +12,7 @@ describe('UIPill', () => {
         expect(wrapper.element).toMatchSnapshot();
     });
     it('should display the given label prop', () => {
-        const wrapper = mount(UIPill, {
+        const wrapper = mount(UILabel, {
             props: {
                 label: 'my-string'
             }
@@ -22,7 +22,7 @@ describe('UIPill', () => {
     });
 
     it('should display the default slot', () => {
-        const wrapper = mount(UIPill, {
+        const wrapper = mount(UILabel, {
             slots: {
                 default: 'my-string'
             }

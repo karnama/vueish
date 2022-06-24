@@ -1,5 +1,8 @@
 const isProduction = process.env.NODE_ENV === 'production';
 
+/**
+ * @type {import('@types/eslint').Linter.Config}
+ */
 module.exports = {
     root: true,
     parser: 'vue-eslint-parser',
@@ -32,7 +35,8 @@ module.exports = {
         extraFileExtensions: ['.vue'],
     },
     globals: {
-        __VUEISH_VERSION__: 'readonly'
+        __VUEISH_VERSION__: 'readonly',
+        globalThis: 'readonly',
     },
     rules: {
         // https://eslint.org/docs/rules/

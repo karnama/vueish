@@ -4,7 +4,7 @@
         <UIExpandTransition>
             <label v-if="label || $slots.label"
                    :for="$attrs.id ?? name"
-                   class="font-medium text-color inline-flex"
+                   class="font-medium text-color inline-flex mb-1.5"
                    :class="{ 'text-color-error': error || $slots.error }">
                 <slot name="label">
                     {{ label }}
@@ -35,11 +35,12 @@
              @keydown.esc="closeList"
              @click="open ? closeList() : openList()">
             <slot name="selected" :selected="selected">
-                <span v-if="selectionDisplay" :class="{ 'truncate': multi }">
+                <span v-if="selectionCount > 0" :class="{ 'truncate': multi }">
                     {{ selectionDisplay }}
                 </span>
-
-                <span v-else class="text-gray-400">
+            </slot>
+            <slot name="placeholder" :selection-count="selectionCount">
+                <span v-if="selectionCount === 0" class="text-gray-400">
                     {{ placeholder }}
                 </span>
             </slot>
@@ -49,6 +50,11 @@
                       class="h-5 w-5 text-color-muted"
                       :class="{ '-mr-3.5': large }"
                       v-html="lockIcon" />
+
+                <UISpinnerLoader v-else-if="loading"
+                                 :diameter="20"
+                                 :stroke="2"
+                                 :class="{ '-mr-3.5': large }" />
 
                 <button v-else-if="clearable && selectionDisplay"
                         class="clear-icon h-5 w-5 cursor-pointer text-color-muted"
@@ -79,7 +85,8 @@
                  :style="style"
                  @keydown.esc="closeList">
                 <!--Header to display instructions-->
-                <div class="flex items-center justify-between px-2 py-1 text-sm
+                <div v-if="multi || header || $slots.header"
+                     class="flex items-center justify-between px-2 py-1 text-sm
                             border-b border-gray-300 dark:border-gray-500 select-none">
                     <slot name="header">
                         {{ header }}
@@ -99,26 +106,26 @@
                 </div>
 
                 <!--Search input to filter the list-->
-                <div v-if="!noSearch" class="p-2">
+                <div v-if="!noSearch" class="p-2 border-b border-gray-300 dark:border-gray-500">
                     <input ref="searchInput"
                            v-model="search"
                            tabindex="-1"
+                           autocomplete="off"
                            class="appearance-none bg-transparent w-full leading-tight
                                   focus:outline-none transition-text-color"
                            name="search">
                 </div>
 
                 <!--Options available for selection-->
-                <ul role="list">
+                <ul role="list" class="divide-gray-300 dark:divide-gray-500 divide-y">
                     <li v-for="(option, index) in filteredOptions"
                         :key="option[optionLabel] + '-' + index"
                         :ref="el => { if (el) listElements[index] = el }"
                         :aria-selected="currentlySelected = isSelected(option)"
-                        class="option cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-500 relative
+                        class="option cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-450 relative transition-colors
                                justify-center focus:bg-brand-200 dark:focus:bg-brand-500 outline-none"
                         :class="{
-                            'selected-option bg-gray-200 dark:bg-gray-500 dark:hover:bg-gray-500': currentlySelected,
-                            'border-t border-gray-300 dark:border-gray-500': index > 0 || !noSearch && index === 0
+                            'selected-option bg-gray-200 dark:bg-gray-500': currentlySelected,
                         }"
                         role="option"
                         tabindex="0"
@@ -128,7 +135,7 @@
                         @click.stop="select(option)">
                         <div class="flex justify-between">
                             <div class="p-2">
-                                <slot name="option" :option="option">
+                                <slot name="option" :option="option" :is-selected="currentlySelected">
                                     {{ option[optionLabel] }}
                                 </slot>
                             </div>
@@ -153,23 +160,33 @@
 import { computed, defineComponent, onMounted, ref, onUnmounted, nextTick, onBeforeUpdate } from 'vue';
 import { isEqual as _isEqual, cloneDeep } from 'lodash-es';
 import type { PropType } from 'vue';
-import { placeholder, autofocus, clearable, disabled, label, name, error, large } from '@/shared-props';
+import {
+    placeholder,
+    autofocus,
+    clearable,
+    disabled,
+    label,
+    name,
+    error,
+    large,
+    loading
+} from '@/shared-props';
 import { useVModel } from 'composables/reactivity';
 import { getIcon, wrap } from '@/helpers';
 import type { MaybeArray } from 'types/utilities';
 import clickAway from '@/directives/click-away';
 import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
 import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
+import UISpinnerLoader from 'components/loader-spinner/UISpinnerLoader.vue';
 
-type OptionObject = Record<string, any>;
-type Option = OptionObject | string;
+type Option = Record<string, any>;
 
 export default defineComponent({
     name: 'UISelect',
 
     directives: { clickAway },
 
-    components: { UIFadeTransition, UIExpandTransition },
+    components: { UIFadeTransition, UIExpandTransition, UISpinnerLoader },
 
     props: {
         modelValue: {
@@ -180,7 +197,7 @@ export default defineComponent({
          * Array of option objects.
          */
         options: {
-            type: Array as PropType<Option[]>,
+            type: Array as PropType<(Option | string)[]>,
             required: true
         },
 
@@ -231,7 +248,7 @@ export default defineComponent({
          * Function to use when evaluating a search term.
          */
         searchClosure: {
-            type: Function as PropType<(o: OptionObject, term: string) => boolean>
+            type: Function as PropType<(o: Option, term: string) => boolean>
         },
 
         /**
@@ -261,7 +278,8 @@ export default defineComponent({
         disabled,
         name,
         large,
-        error
+        error,
+        loading
     },
 
     emits: ['update:modelValue'],
@@ -284,7 +302,7 @@ export default defineComponent({
 
             return options.map(option => typeof option === 'string' ? option : option[props.optionLabel]).join(', ');
         });
-        const filteredOptions = computed<OptionObject[]>(() => {
+        const filteredOptions = computed<Option[]>(() => {
             const formattedOptions = props.options.map(option =>
                 typeof option === 'string' ? { [props.optionKey]: option, [props.optionLabel]: option } : option
             );
@@ -293,7 +311,7 @@ export default defineComponent({
                 return formattedOptions;
             }
 
-            let selectedOptions = (selected.value ? wrap(cloneDeep(selected.value)) : []).map(option =>
+            const selectedOptions = (selected.value ? wrap(cloneDeep(selected.value)) : []).map(option =>
                 typeof option === 'string' ? { [props.optionKey]: option, [props.optionLabel]: option } : option
             );
 
@@ -326,7 +344,7 @@ export default defineComponent({
             await nextTick();
             open.value = false;
             search.value = '';
-            window.removeEventListener('resize', setPosition);
+            globalThis?.window.removeEventListener('resize', setPosition);
         };
         const openList = async () => {
             if (props.disabled) return;
@@ -335,29 +353,29 @@ export default defineComponent({
             await nextTick();
             setPosition();
             searchInput.value?.focus({ preventScroll: true });
-            window.addEventListener('resize', setPosition);
+            globalThis?.window.addEventListener('resize', setPosition);
         };
-        const clearSelection = (option?: OptionObject) => {
+        const clearSelection = (option?: Option) => {
             if (
                 // nothing to clear
                 selectionCount.value === 0
                 // or not clearable single select
                 || !props.clearable && !props.multi
                 // or not clearable multi-select with only one value
-                || !props.clearable && props.multi && (selected.value as Option[]).length === 1
+                || !props.clearable && props.multi && (selected.value as Option[] | string[]).length === 1
             ) {
                 return;
             }
 
             if (option && props.multi) {
-                selected.value = (selected.value as Option[]).filter(opt => !isEqual(opt, option));
+                selected.value = (selected.value as (Option | string)[]).filter(opt => !isEqual(opt, option));
                 return;
             }
 
             selected.value = props.multi ? [] : null;
         };
 
-        const isEqual = (previous: Option, next: Option): boolean => {
+        const isEqual = (previous: Option | string, next: Option | string): boolean => {
             // Compare as strings options (checking type of previous/next to satisfy TS).
             if (typeof previous === 'string' || typeof next === 'string') {
                 const previousString: string = typeof previous === 'string' ? previous : previous[props.optionKey];
@@ -371,12 +389,12 @@ export default defineComponent({
                 ? _isEqual(previous, next)
                 : _isEqual(previous[props.optionKey], next[props.optionKey]);
         };
-        const isSelected = (option: OptionObject) => {
+        const isSelected = (option: Option) => {
             const values = selected.value ? wrap(cloneDeep(selected.value)) : [];
 
             return values.findIndex(selectedOption => isEqual(selectedOption, option)) !== -1;
         };
-        const select = async (option: OptionObject) => {
+        const select = async (option: Option) => {
             if (isSelected(option)) {
                 return;
             }
@@ -418,6 +436,11 @@ export default defineComponent({
                 zIndex: '9999',
                 top: `${fitsOnTheBottom ? below : above}px`
             };
+
+            if (!fitsOnTheBottom && selectRect.top - offset <= listRect.height) {
+                style.value.height = `${selectRect.top - offset}px`;
+                style.value.top = '0px';
+            }
         };
 
         onMounted(async () => {
@@ -432,7 +455,7 @@ export default defineComponent({
 
         onUnmounted(() => {
             // in case it's unmounted while open
-            window.removeEventListener('resize', setPosition);
+            globalThis?.window.removeEventListener('resize', setPosition);
         });
 
         return {

@@ -9,7 +9,9 @@ const createWebTypes = (settings: Partial<Settings> = {}): Plugin => {
         apply: 'build',
         closeBundle: async () => {
             /* eslint-disable */
-            require('ts-node').register({ lazy: true, transpileOnly: true, compilerOptions: { "module": "CommonJS" } });
+            await import('ts-node').then(tsNode => {
+                tsNode.register({ project: './tsconfig.node.json' });
+            });
             /* eslint-enable */
 
             await buildWebTypes(Object.assign(

@@ -2,28 +2,32 @@
 
 exports[`UITable should display correctly 1`] = `
 <section
-  class="shadow-md dark:shadow-lg text-color bg-white dark:bg-gray-600 relative sm:overflow-x-scroll"
+  class="shadow dark:shadow-lg text-color bg-white dark:bg-gray-600 relative sm:overflow-x-scroll border border-gray-200 dark:border-gray-500 rounded"
 >
   <table
-    class="flex sm:table flex-col border-collapse border-gray-200 w-full table-auto rounded relative"
+    class="flex sm:table flex-col border-collapse w-full table-auto relative"
   >
     <thead
-      class="sticky top-0 bg-white dark:bg-gray-700 shadow dark:shadow-lg z-10"
+      class="sticky top-0 bg-gray-50 dark:bg-gray-650 border-b border-b-gray-300 dark:border-b-gray-500 shadow-sm dark:shadow-lg sm:!shadow-none z-10"
     >
       <!--v-if-->
       <tr
-        class="hidden sm:table-row bg-gray-100 dark:bg-gray-700"
+        class="hidden sm:table-row"
       >
         <!--v-if-->
         
         <th
-          class="cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-500 py-6 text-left px-4 uppercase font-light text-color-muted text-sm select-none group transition-colors"
+          class="cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-500 py-6 px-8 text-left uppercase font-light text-color-muted text-sm select-none group transition-colors"
         >
           <span
             class="flex items-center justify-between"
           >
             
-            Letter
+            <span
+              class="font-bold"
+            >
+              Letter
+            </span>
             
             <i
               class="ml-2 transition opacity-0 group-hover:opacity-100"
@@ -45,13 +49,17 @@ exports[`UITable should display correctly 1`] = `
           </span>
         </th>
         <th
-          class="cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-500 py-6 text-left px-4 uppercase font-light text-color-muted text-sm select-none group transition-colors"
+          class="cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-500 py-6 px-8 text-left uppercase font-light text-color-muted text-sm select-none group transition-colors"
         >
           <span
             class="flex items-center justify-between"
           >
             
-            number
+            <span
+              class="font-bold"
+            >
+              number
+            </span>
             
             <i
               class="ml-2 transition opacity-0 group-hover:opacity-100"
@@ -77,7 +85,7 @@ exports[`UITable should display correctly 1`] = `
       </tr>
     </thead>
     <tbody
-      class="space-y-5 sm:space-y-0 shadow divide-y"
+      class="space-y-5 sm:space-y-0 divide-y"
     >
       
       <tr
@@ -91,7 +99,7 @@ exports[`UITable should display correctly 1`] = `
           data-column="letter"
         >
           <span
-            class="flex items-center justify-between sm:hidden content font-bold p-4 flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300"
+            class="flex items-center justify-between sm:hidden content font-bold flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300 p-4"
             role="rowheader"
             style="min-height: 40px; width: 140px;"
           >
@@ -117,7 +125,7 @@ exports[`UITable should display correctly 1`] = `
             </i>
           </span>
           <span
-            class="block p-4"
+            class="block px-8 py-5"
           >
             
             (b)
@@ -130,7 +138,7 @@ exports[`UITable should display correctly 1`] = `
           data-column="number"
         >
           <span
-            class="flex items-center justify-between sm:hidden content font-bold p-4 flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300"
+            class="flex items-center justify-between sm:hidden content font-bold flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300 p-4"
             role="rowheader"
             style="min-height: 40px; width: 140px;"
           >
@@ -156,7 +164,7 @@ exports[`UITable should display correctly 1`] = `
             </i>
           </span>
           <span
-            class="block p-4"
+            class="block px-8 py-5"
           >
             
             2%
@@ -177,7 +185,7 @@ exports[`UITable should display correctly 1`] = `
           data-column="letter"
         >
           <span
-            class="flex items-center justify-between sm:hidden content font-bold p-4 flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300"
+            class="flex items-center justify-between sm:hidden content font-bold flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300 p-4"
             role="rowheader"
             style="min-height: 40px; width: 140px;"
           >
@@ -203,7 +211,7 @@ exports[`UITable should display correctly 1`] = `
             </i>
           </span>
           <span
-            class="block p-4"
+            class="block px-8 py-5"
           >
             
             (c)
@@ -216,7 +224,7 @@ exports[`UITable should display correctly 1`] = `
           data-column="number"
         >
           <span
-            class="flex items-center justify-between sm:hidden content font-bold p-4 flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300"
+            class="flex items-center justify-between sm:hidden content font-bold flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300 p-4"
             role="rowheader"
             style="min-height: 40px; width: 140px;"
           >
@@ -242,7 +250,7 @@ exports[`UITable should display correctly 1`] = `
             </i>
           </span>
           <span
-            class="block p-4"
+            class="block px-8 py-5"
           >
             
             3%
@@ -263,7 +271,7 @@ exports[`UITable should display correctly 1`] = `
           data-column="letter"
         >
           <span
-            class="flex items-center justify-between sm:hidden content font-bold p-4 flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300"
+            class="flex items-center justify-between sm:hidden content font-bold flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300 p-4"
             role="rowheader"
             style="min-height: 40px; width: 140px;"
           >
@@ -289,7 +297,7 @@ exports[`UITable should display correctly 1`] = `
             </i>
           </span>
           <span
-            class="block p-4"
+            class="block px-8 py-5"
           >
             
             (a)
@@ -302,7 +310,7 @@ exports[`UITable should display correctly 1`] = `
           data-column="number"
         >
           <span
-            class="flex items-center justify-between sm:hidden content font-bold p-4 flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300"
+            class="flex items-center justify-between sm:hidden content font-bold flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300 p-4"
             role="rowheader"
             style="min-height: 40px; width: 140px;"
           >
@@ -328,7 +336,361 @@ exports[`UITable should display correctly 1`] = `
             </i>
           </span>
           <span
-            class="block p-4"
+            class="block px-8 py-5"
+          >
+            
+            1%
+            
+          </span>
+        </td>
+        
+        <!--v-if-->
+      </tr>
+      
+    </tbody>
+    <!--v-if-->
+  </table>
+</section>
+`;
+
+exports[`UITable should display in its compact form 1`] = `
+<section
+  class="shadow dark:shadow-lg text-color bg-white dark:bg-gray-600 relative sm:overflow-x-scroll border border-gray-200 dark:border-gray-500 rounded"
+  compact="true"
+>
+  <table
+    class="flex sm:table flex-col border-collapse w-full table-auto relative"
+  >
+    <thead
+      class="sticky top-0 bg-gray-50 dark:bg-gray-650 border-b border-b-gray-300 dark:border-b-gray-500 shadow-sm dark:shadow-lg sm:!shadow-none z-10"
+    >
+      <!--v-if-->
+      <tr
+        class="hidden sm:table-row"
+      >
+        <!--v-if-->
+        
+        <th
+          class="cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-500 py-6 px-8 text-left uppercase font-light text-color-muted text-sm select-none group transition-colors"
+        >
+          <span
+            class="flex items-center justify-between"
+          >
+            
+            <span
+              class="font-bold"
+            >
+              Letter
+            </span>
+            
+            <i
+              class="ml-2 transition opacity-0 group-hover:opacity-100"
+            >
+              <svg
+                fill="currentColor"
+                height="15px"
+                viewBox="0 0 407.437 407.437"
+                x="0px"
+                xml:space="preserve"
+                xmlns="http://www.w3.org/2000/svg"
+                y="0px"
+              >
+                <polygon
+                  points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 "
+                />
+              </svg>
+            </i>
+          </span>
+        </th>
+        <th
+          class="cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-500 py-6 px-8 text-left uppercase font-light text-color-muted text-sm select-none group transition-colors"
+        >
+          <span
+            class="flex items-center justify-between"
+          >
+            
+            <span
+              class="font-bold"
+            >
+              number
+            </span>
+            
+            <i
+              class="ml-2 transition opacity-0 group-hover:opacity-100"
+            >
+              <svg
+                fill="currentColor"
+                height="15px"
+                viewBox="0 0 407.437 407.437"
+                x="0px"
+                xml:space="preserve"
+                xmlns="http://www.w3.org/2000/svg"
+                y="0px"
+              >
+                <polygon
+                  points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 "
+                />
+              </svg>
+            </i>
+          </span>
+        </th>
+        
+        <!--v-if-->
+      </tr>
+    </thead>
+    <tbody
+      class="space-y-5 sm:space-y-0 divide-y"
+    >
+      
+      <tr
+        class="flex flex-col flex-no-wrap sm:table-row border-gray-200 dark:border-gray-500"
+      >
+        <!--v-if-->
+        
+        <td
+          class="hover-cell-letter flex flex-row flex-nowrap items-center p-0 sm:table-cell"
+          data-col="[object Object]"
+          data-column="letter"
+        >
+          <span
+            class="flex items-center justify-between sm:hidden content font-bold flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300 p-4"
+            role="rowheader"
+            style="min-height: 40px; width: 140px;"
+          >
+            
+            Letter
+            
+            <i
+              class="ml-2 transition opacity-0 group-hover:opacity-100"
+            >
+              <svg
+                fill="currentColor"
+                height="15px"
+                viewBox="0 0 407.437 407.437"
+                x="0px"
+                xml:space="preserve"
+                xmlns="http://www.w3.org/2000/svg"
+                y="0px"
+              >
+                <polygon
+                  points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 "
+                />
+              </svg>
+            </i>
+          </span>
+          <span
+            class="block px-8 py-5"
+          >
+            
+            (b)
+            
+          </span>
+        </td>
+        <td
+          class="hover-cell-number flex flex-row flex-nowrap items-center p-0 sm:table-cell"
+          data-col="[object Object]"
+          data-column="number"
+        >
+          <span
+            class="flex items-center justify-between sm:hidden content font-bold flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300 p-4"
+            role="rowheader"
+            style="min-height: 40px; width: 140px;"
+          >
+            
+            number
+            
+            <i
+              class="ml-2 transition opacity-0 group-hover:opacity-100"
+            >
+              <svg
+                fill="currentColor"
+                height="15px"
+                viewBox="0 0 407.437 407.437"
+                x="0px"
+                xml:space="preserve"
+                xmlns="http://www.w3.org/2000/svg"
+                y="0px"
+              >
+                <polygon
+                  points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 "
+                />
+              </svg>
+            </i>
+          </span>
+          <span
+            class="block px-8 py-5"
+          >
+            
+            2%
+            
+          </span>
+        </td>
+        
+        <!--v-if-->
+      </tr>
+      <tr
+        class="flex flex-col flex-no-wrap sm:table-row border-gray-200 dark:border-gray-500"
+      >
+        <!--v-if-->
+        
+        <td
+          class="hover-cell-letter flex flex-row flex-nowrap items-center p-0 sm:table-cell"
+          data-col="[object Object]"
+          data-column="letter"
+        >
+          <span
+            class="flex items-center justify-between sm:hidden content font-bold flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300 p-4"
+            role="rowheader"
+            style="min-height: 40px; width: 140px;"
+          >
+            
+            Letter
+            
+            <i
+              class="ml-2 transition opacity-0 group-hover:opacity-100"
+            >
+              <svg
+                fill="currentColor"
+                height="15px"
+                viewBox="0 0 407.437 407.437"
+                x="0px"
+                xml:space="preserve"
+                xmlns="http://www.w3.org/2000/svg"
+                y="0px"
+              >
+                <polygon
+                  points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 "
+                />
+              </svg>
+            </i>
+          </span>
+          <span
+            class="block px-8 py-5"
+          >
+            
+            (c)
+            
+          </span>
+        </td>
+        <td
+          class="hover-cell-number flex flex-row flex-nowrap items-center p-0 sm:table-cell"
+          data-col="[object Object]"
+          data-column="number"
+        >
+          <span
+            class="flex items-center justify-between sm:hidden content font-bold flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300 p-4"
+            role="rowheader"
+            style="min-height: 40px; width: 140px;"
+          >
+            
+            number
+            
+            <i
+              class="ml-2 transition opacity-0 group-hover:opacity-100"
+            >
+              <svg
+                fill="currentColor"
+                height="15px"
+                viewBox="0 0 407.437 407.437"
+                x="0px"
+                xml:space="preserve"
+                xmlns="http://www.w3.org/2000/svg"
+                y="0px"
+              >
+                <polygon
+                  points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 "
+                />
+              </svg>
+            </i>
+          </span>
+          <span
+            class="block px-8 py-5"
+          >
+            
+            3%
+            
+          </span>
+        </td>
+        
+        <!--v-if-->
+      </tr>
+      <tr
+        class="flex flex-col flex-no-wrap sm:table-row border-gray-200 dark:border-gray-500"
+      >
+        <!--v-if-->
+        
+        <td
+          class="hover-cell-letter flex flex-row flex-nowrap items-center p-0 sm:table-cell"
+          data-col="[object Object]"
+          data-column="letter"
+        >
+          <span
+            class="flex items-center justify-between sm:hidden content font-bold flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300 p-4"
+            role="rowheader"
+            style="min-height: 40px; width: 140px;"
+          >
+            
+            Letter
+            
+            <i
+              class="ml-2 transition opacity-0 group-hover:opacity-100"
+            >
+              <svg
+                fill="currentColor"
+                height="15px"
+                viewBox="0 0 407.437 407.437"
+                x="0px"
+                xml:space="preserve"
+                xmlns="http://www.w3.org/2000/svg"
+                y="0px"
+              >
+                <polygon
+                  points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 "
+                />
+              </svg>
+            </i>
+          </span>
+          <span
+            class="block px-8 py-5"
+          >
+            
+            (a)
+            
+          </span>
+        </td>
+        <td
+          class="hover-cell-number flex flex-row flex-nowrap items-center p-0 sm:table-cell"
+          data-col="[object Object]"
+          data-column="number"
+        >
+          <span
+            class="flex items-center justify-between sm:hidden content font-bold flex-none transition-colors select-none group cursor-pointer hover:bg-gray-300 p-4"
+            role="rowheader"
+            style="min-height: 40px; width: 140px;"
+          >
+            
+            number
+            
+            <i
+              class="ml-2 transition opacity-0 group-hover:opacity-100"
+            >
+              <svg
+                fill="currentColor"
+                height="15px"
+                viewBox="0 0 407.437 407.437"
+                x="0px"
+                xml:space="preserve"
+                xmlns="http://www.w3.org/2000/svg"
+                y="0px"
+              >
+                <polygon
+                  points="386.258,91.567 203.718,273.512 21.179,91.567 0,112.815 203.718,315.87 407.437,112.815 "
+                />
+              </svg>
+            </i>
+          </span>
+          <span
+            class="block px-8 py-5"
           >
             
             1%

@@ -23,7 +23,7 @@
                     :options="options"
                     :large="large"
                     :multi="multi"
-                    category="primary"
+                    theme="blue"
                     :clearable="clearable"
                     :disabled="disabled" />
 
@@ -34,7 +34,7 @@
                     :options="slottedOptions"
                     :large="large"
                     :multi="multi"
-                    category="primary"
+                    theme="blue"
                     :clearable="clearable"
                     :disabled="disabled">
         <template #places="slotProps">
@@ -58,7 +58,7 @@ export default defineComponent({
 
     setup() {
         const options: Option[] = [
-            { label: 'Places', value: 'places', category: 'brand' },
+            { label: 'Places', value: 'places', theme: 'brand' },
             { label: 'List', value: 'list' },
             { label: 'Map', value: 'map' }
         ];

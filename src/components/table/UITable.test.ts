@@ -36,12 +36,13 @@ const rows: Readonly<Row[]> = [
     }
 ] as const;
 
+// todo - improve selectors by setting unused class names (this allows outside tinkering too)
 const selectorMap = {
     search: '#search',
     rows: 'tbody > tr',
-    headers: 'thead > tr.hidden.bg-gray-100 > th.py-6.text-left.px-4.uppercase',
-    checkboxes: 'tbody > tr > td.px-2 input',
-    topCheckbox: 'thead > tr.hidden.bg-gray-100 > th.py-6.px-2 > span.mx-auto input',
+    headers: 'thead > tr.hidden > th.py-6.text-left.font-light.uppercase',
+    checkboxes: 'tbody > tr > td.p-2 input',
+    topCheckbox: 'thead > tr.hidden > th.py-6.px-8 input',
     bottomCheckbox: 'tfoot > tr > td > span > span input',
     previousPageBtn: 'tfoot button:first-child',
     nextPageBtn: 'tfoot button:last-child'
@@ -64,6 +65,20 @@ describe('UITable', () => {
         });
 
         expect(wrapper.element).toMatchSnapshot();
+        wrapper.unmount();
+    });
+
+    it('should display in its compact form', () => {
+        const wrapper = mount(UITable, {
+            props: {
+                rows,
+                headers,
+                compact: true
+            }
+        });
+
+        expect(wrapper.element).toMatchSnapshot();
+        wrapper.unmount();
     });
 
     it('should display the given headers and rows', () => {

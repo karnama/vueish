@@ -33,5 +33,9 @@ function updateElement(el: Element, binding: DirectiveBinding<unknown>): void {
 export default {
     created: updateElement,
     mounted: updateElement,
-    updated: updateElement
+    updated: updateElement,
+    getSSRProps: binding => ({
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        'data-v-tooltip': String(binding.value)
+    })
 } as Directive;

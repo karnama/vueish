@@ -3,7 +3,7 @@
         <UIExpandTransition>
             <label v-if="label"
                    :for="$attrs.id ?? name"
-                   class="font-medium text-color"
+                   class="font-medium text-color mb-1.5"
                    :class="{ 'text-color-error': error || $slots.error }">
                 <slot name="label">
                     {{ label }}
@@ -28,9 +28,12 @@
                           :name="name"
                           :disabled="disabled"
                           :aria-placeholder="placeholder"
-                          class="flex-1 p-3.5 appearance-none bg-transparent outline-none
+                          class="flex-1 p-3.5 appearance-none bg-transparent outline-none caret-blue-500
                                  disabled:cursor-not-allowed text-color disabled:text-gray-400"
-                          :class="{ 'px-7 py-5': large }"
+                          :class="{
+                              'px-7 py-5': large,
+                              'caret-red-500 dark:caret-red-600': error || $slots.error
+                          }"
                           :style="[
                               disabled || fixed || autoSize ? 'resize: none' : '',
                               counter ? 'min-height: 5rem' : '']" />
@@ -40,6 +43,11 @@
                         <span v-if="disabled"
                               class="h-5 w-5 mx-2 text-color-muted grow align-middle flex flex-col justify-center"
                               v-html="lockIcon" />
+
+                        <UISpinnerLoader v-else-if="loading"
+                                         :diameter="20"
+                                         :stroke="2"
+                                         class="mx-2" />
 
                         <button v-else-if="clearable && model"
                                 class="clear-icon h-5 w-5 mx-2 text-color-muted"
@@ -74,7 +82,6 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, onUpdated, onBeforeUnmount } from 'vue';
-
 import {
     autofocus,
     label,
@@ -83,17 +90,19 @@ import {
     disabled,
     placeholder,
     large,
-    error
+    error,
+    loading
 } from '@/shared-props';
 import { getIcon } from '@/helpers';
 import { useVModel } from 'composables/reactivity';
 import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
+import UISpinnerLoader from 'components/loader-spinner/UISpinnerLoader.vue';
 
 export default defineComponent({
     name: 'UITextarea',
 
-    components: { UIExpandTransition, UIFadeTransition },
+    components: { UIExpandTransition, UIFadeTransition, UISpinnerLoader },
 
     inheritAttrs: false,
 
@@ -130,7 +139,8 @@ export default defineComponent({
         disabled,
         error,
         placeholder,
-        large
+        large,
+        loading
     },
 
     emits: ['update:modelValue'],

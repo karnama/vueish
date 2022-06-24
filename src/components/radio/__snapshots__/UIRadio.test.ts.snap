@@ -7,7 +7,7 @@ exports[`UIRadioGroup should display correctly 1`] = `
   <transition-stub>
     
     <span
-      class="label text-sm text-gray-500 transition-colors"
+      class="font-medium text-color flex items-center mb-1.5"
     >
       
       my-label
@@ -16,7 +16,7 @@ exports[`UIRadioGroup should display correctly 1`] = `
     
   </transition-stub>
   <div
-    class="slot flex pt-2 flex-col space-y-4"
+    class="slot flex flex-col space-y-4"
     role="radiogroup"
   >
     

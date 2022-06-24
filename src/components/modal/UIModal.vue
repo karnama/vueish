@@ -8,7 +8,7 @@
                  @click="close('cancel')" />
 
             <!--Main modal dialog-->
-            <UIPanel class="modal top-0 w-full relative mx-auto shadow-xl rounded bg-white opacity-0
+            <UIPanel class="modal top-0 w-full relative mx-auto shadow-xl rounded-xl bg-white opacity-0
                             translate-y-0 max-w-[700px] max-h-[80vh] transition"
                      :class="{ 'translate-y-[70px] opacity-100': isVisible }"
                      style="transition: transform 300ms ease-out, opacity 100ms linear"
@@ -35,7 +35,7 @@
                 </template>
 
                 <!--Modal Body-->
-                <div class="overflow-y-scroll" style="max-height: 50vh;">
+                <div class="overflow-y-auto" style="max-height: 50vh;">
                     <slot>
                         {{ body }}
                     </slot>
@@ -47,7 +47,7 @@
                         <UIButton class="ui-modal-close ml-auto mr-2" @click="close('cancel')">
                             {{ closeButtonLabel }}
                         </UIButton>
-                        <UIButton category="primary" class="ui-modal-accept" @click="close('accept')">
+                        <UIButton theme="brand" class="ui-modal-accept" @click="close('accept')">
                             {{ acceptButtonLabel }}
                         </UIButton>
                     </slot>

@@ -18,9 +18,7 @@ const brandColors = (levels) => {
     return colors;
 };
 
-/**
- * @type {import('@types/tailwindcss').TailwindConfig}
- */
+/** @type {import('tailwindcss').Config} */
 const tailwindConfig = {
     content: ['./src/**/*.{vue,ts,tsx}'],
     darkMode: 'class',
@@ -31,7 +29,14 @@ const tailwindConfig = {
         }),
         extend: {
             colors: {
-                ...brandColors([50, 100, 200, 300, 400, 500, 600, 700, 800, 900])
+                ...brandColors([50, 100, 200, 300, 400, 500, 600, 700, 800, 900]),
+                gray: {
+                    250: '#DBDEE3',
+                    450: '#848B98',
+                    650: '#414B5A',
+                    750: '#2B3544',
+                    850: '#242D3C'
+                }
             },
             transitionProperty: {
                 'spacing': 'margin, padding'

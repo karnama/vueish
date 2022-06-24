@@ -3,14 +3,18 @@
         <UICheckbox v-model="large"
                     name="large"
                     label="Large Style" />
+        <UICheckbox v-model="loading"
+                    name="loading"
+                    label="Loading" />
 
-        <UIButton category="danger" @click="error ? error = '' : error = 'Error message.'">
+        <UIButton theme="red" @click="error ? error = '' : error = 'Error message.'">
             {{ error ? 'Remove' : 'Set' }} Error state
         </UIButton>
     </div>
 
     <div class="space-y-10">
         <UIInput v-model="text"
+                 :loading="loading"
                  name="ui-text1"
                  :large="large"
                  :error="error"
@@ -18,6 +22,7 @@
                  label="Default Field" />
 
         <UIInput v-model="clearable"
+                 :loading="loading"
                  name="ui-text2"
                  :clearable="isClearable"
                  :error="error"
@@ -26,6 +31,7 @@
                  no-clear />
 
         <UIInput v-model="search"
+                 :loading="loading"
                  name="ui-text3"
                  :large="large"
                  :error="error"
@@ -34,6 +40,7 @@
                  label="Search type" />
 
         <UIInput v-model="tel"
+                 :loading="loading"
                  name="ui-text4"
                  :large="large"
                  :error="error"
@@ -41,6 +48,7 @@
                  label="Tel type" />
 
         <UIInput v-model="url"
+                 :loading="loading"
                  name="ui-text5"
                  :large="large"
                  :error="error"
@@ -48,6 +56,7 @@
                  label="Url type" />
 
         <UIInput v-model="email"
+                 :loading="loading"
                  name="ui-text6"
                  :large="large"
                  :error="error"
@@ -55,7 +64,9 @@
                  label="Email type" />
 
         <UIInput v-model="number"
+                 :loading="loading"
                  name="ui-text7"
+                 disabled
                  type="number"
                  :large="large"
                  min="10"
@@ -66,6 +77,7 @@
                  label="Number" />
 
         <UIInput v-model="password"
+                 :loading="loading"
                  name="ui-text8"
                  type="password"
                  clearable
@@ -74,6 +86,7 @@
                  label="Password" />
 
         <UIInput v-model="disabled"
+                 :loading="loading"
                  name="ui-text9"
                  label="Disabled"
                  :large="large"
@@ -81,6 +94,7 @@
                  disabled />
 
         <UIInput v-model="prefixProp"
+                 :loading="loading"
                  name="ui-text10"
                  :large="large"
                  :error="error"
@@ -88,6 +102,7 @@
                  prefix="Reason:" />
 
         <UIInput v-model="prefixSlot"
+                 :loading="loading"
                  name="ui-text11"
                  :large="large"
                  :error="error"
@@ -107,6 +122,7 @@
         </UIInput>
 
         <UIInput v-model="suffixProp"
+                 :loading="loading"
                  name="ui-text12"
                  :large="large"
                  :error="error"
@@ -114,6 +130,7 @@
                  suffix="kg" />
 
         <UIInput v-model="suffixSlot"
+                 :loading="loading"
                  name="ui-text13"
                  class="mt-10"
                  :large="large"
@@ -136,6 +153,7 @@
 
         <UIInput v-model="placeholder"
                  :error="error"
+                 :loading="loading"
                  name="ui-text14"
                  class="mt-10"
                  type="number"
@@ -168,6 +186,7 @@ export default defineComponent({
         const placeholder = ref<number|null>(null);
         const large = ref(false);
         const error = ref('');
+        const loading = ref(false);
 
         const clearableByDefault = getLibrarySettings()?.clearableByDefault;
         const isClearable = ref(!(typeof clearableByDefault === 'boolean' ? clearableByDefault : false));
@@ -189,7 +208,8 @@ export default defineComponent({
             suffixSlot,
             placeholder,
             large,
-            error
+            error,
+            loading
         };
     }
 });

@@ -15,15 +15,17 @@ export const getPxValue = (value: string | number): number => {
     }
 
     if (value.endsWith('vw')) {
-        return document.documentElement.clientWidth / 100 * Number(value.slice(0, -2));
+        return globalThis?.document.documentElement.clientWidth / 100 * Number(value.slice(0, -2));
     }
 
     if (value.endsWith('vh')) {
-        return document.documentElement.clientHeight / 100 * Number(value.slice(0, -2));
+        return globalThis?.document.documentElement.clientHeight / 100 * Number(value.slice(0, -2));
     }
 
     if (value.endsWith('rem')) {
-        return Number(value.slice(0, -3)) * parseFloat(getComputedStyle(document.documentElement).fontSize);
+        return Number(value.slice(0, -3))
+            *
+            parseFloat(globalThis?.window.getComputedStyle(globalThis?.document.documentElement).fontSize);
     }
 
     throw new TypeError('Unexpected argument given.');

@@ -3,18 +3,25 @@
         <UICheckbox v-model="large"
                     name="large"
                     label="Large Style" />
+        <UICheckbox v-model="loading"
+                    name="loading"
+                    label="Loading" />
+        <UICheckbox v-model="clearable"
+                    name="clearable"
+                    label="Clearable" />
 
-        <UIButton category="danger" @click="error ? error = '' : error = 'Error message.'">
+        <UIButton theme="red" @click="error ? error = '' : error = 'Error message.'">
             {{ error ? 'Remove' : 'Set' }} Error state
         </UIButton>
     </div>
     <div class="space-y-10">
         <UISelect v-model="selected"
                   :options="options"
-                  clearable
+                  :clearable="clearable"
                   :error="error"
                   :large="large"
-                  label="Clearable select"
+                  label="Single select"
+                  :loading="loading"
                   name="select-1" />
         <span class="text-sm text-gray-400">
             Bound: {{ selected }}
@@ -24,9 +31,11 @@
                   multi
                   :options="options"
                   :error="error"
+                  :clearable="clearable"
                   disabled
                   :large="large"
                   label="Disabled multi select"
+                  :loading="loading"
                   name="select-2" />
         <span class="text-sm text-gray-400">
             Bound: {{ multiSelected }}
@@ -35,31 +44,22 @@
         <UISelect v-model="multiSelected"
                   multi
                   :options="options"
+                  :clearable="clearable"
                   label="Multi select"
                   :error="error"
                   :large="large"
+                  :loading="loading"
                   name="select-2" />
-        <span class="text-sm text-gray-400">
-            Bound: {{ multiSelected }}
-        </span>
-
-        <UISelect v-model="multiSelected"
-                  multi
-                  clearable
-                  label="Clearable multi select"
-                  name="select-3"
-                  :error="error"
-                  :large="large"
-                  :options="options" />
         <span class="text-sm text-gray-400">
             Bound: {{ multiSelected }}
         </span>
 
         <UISelect v-model="selectedSimple"
                   :options="['Foo', 'Bar', 'Baz']"
-                  clearable
+                  :clearable="clearable"
                   :large="large"
                   label="Array of strings as select"
+                  :loading="loading"
                   name="select-4" />
         <span class="text-sm text-gray-400">
             Bound: {{ selectedSimple }}
@@ -68,9 +68,10 @@
         <UISelect v-model="multiSelectedSimple"
                   :options="['Foo', 'Bar', 'Baz']"
                   multi
-                  clearable
+                  :clearable="clearable"
                   :large="large"
-                  label="Array of strings as multi-select"
+                  label="Array of strings as multi select"
+                  :loading="loading"
                   name="select-4" />
         <span class="text-sm text-gray-400">
             Bound: {{ multiSelectedSimple }}
@@ -97,6 +98,18 @@ const options = [
     {
         id: 4,
         name: 'Brucie Bonus'
+    },
+    {
+        id: 5,
+        name: 'Bruce Nolan'
+    },
+    {
+        id: 6,
+        name: 'Bruce Norris'
+    },
+    {
+        id: 7,
+        name: 'Bruce Baxter'
     }
 ];
 
@@ -110,6 +123,8 @@ export default defineComponent({
         const multiSelectedSimple = ref(['Foo', 'Bar']);
         const large = ref(false);
         const error = ref('');
+        const loading = ref(false);
+        const clearable = ref(false);
 
         return {
             selected,
@@ -118,7 +133,9 @@ export default defineComponent({
             multiSelectedSimple,
             options,
             large,
-            error
+            error,
+            loading,
+            clearable
         };
     }
 });
