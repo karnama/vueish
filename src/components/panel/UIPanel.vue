@@ -1,9 +1,9 @@
 <template>
     <section :id="id"
              class="ui-panel rounded shadow-md relative transition-all
-                    bg-white dark:bg-gray-600 text-color"
+                    bg-white dark:bg-gray-600 text-color overflow-x-hidden"
              :aria-expanded="open"
-             :class="{ 'hover:shadow-lg': !open, 'pointer-events-none select-none': loading && blockingLoader }">
+             :class="{ 'hover:shadow-lg': !open, 'select-none': loading && blockingLoader }">
         <UIFadeTransition>
             <UILinearLoader v-if="loading && !blockingLoader" class="absolute rounded-t" />
         </UIFadeTransition>
