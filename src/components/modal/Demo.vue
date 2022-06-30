@@ -1,10 +1,15 @@
 <template>
-    <UIModal ref="modal">
+    <UIModal ref="modal" :loading="loading" :blocking-loader="blockingLoader">
         <template #header>
             <h2 class="font-bold text-lg">
                 My Header
             </h2>
         </template>
+
+        <template #actions>
+            <UICheckbox v-model="loading" name="loading" label="Loading" />
+        </template>
+
         <div v-for="(text, index) in paragraphs" :key="index" v-text="text" />
         <template #footer="slotProps">
             <div class="flex flex-wrap justify-between w-full">
@@ -29,6 +34,8 @@
     <UIButton @click="$refs.modal.open()">
         Open Modal
     </UIButton>
+    <UICheckbox v-model="loading" name="loading" label="Loading" />
+    <UICheckbox v-model="blockingLoader" name="loading" label="Use blocking loader" />
 </template>
 
 <script lang="ts">
@@ -42,10 +49,14 @@ export default defineComponent({
             'libero molestias necessitatibus nisi, odio pariatur, quaerat quam quia quis recusandae repellat' +
             'repudiandae saepe temporibus ullam unde vitae voluptatem, voluptates?';
         const paragraphs = ref<string[]>([paragraph, paragraph, paragraph]);
+        const loading = ref(false);
+        const blockingLoader = ref(false);
 
         return {
             paragraph,
-            paragraphs
+            paragraphs,
+            loading,
+            blockingLoader
         };
     }
 });

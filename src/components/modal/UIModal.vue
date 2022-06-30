@@ -15,6 +15,8 @@
                      role="dialog"
                      aria-modal="true"
                      :aria-label="header"
+                     :loading="loading"
+                     :blocking-loader="blockingLoader"
                      v-bind="$attrs"
                      no-collapse>
                 <!--Modal Header-->
@@ -63,6 +65,7 @@ import UIButton from 'components/button/UIButton.vue';
 import UIPanel from 'components/panel/UIPanel.vue';
 import type { PropType } from 'vue';
 import { getIcon } from '@/helpers';
+import { blockingLoader, loading } from '@/shared-props';
 
 export default defineComponent({
     name: 'UIModal',
@@ -114,7 +117,10 @@ export default defineComponent({
         acceptButtonLabel: {
             type: String,
             default: 'Confirm'
-        }
+        },
+
+        loading,
+        blockingLoader
     },
 
     emits: ['cancel', 'accept'],
