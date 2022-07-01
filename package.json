@@ -44,7 +44,7 @@
         "@types/minimist": "^1.2.1",
         "@types/requestidlecallback": "^0.3.1",
         "@typescript-eslint/eslint-plugin": "^5.4.0",
-        "@typescript-eslint/parser": "^5.4.0",
+        "@typescript-eslint/parser": "^5.30.0",
         "@vitejs/plugin-vue": "^2.0.1",
         "@vue/compiler-sfc": "^3.2.11",
         "@vue/eslint-config-typescript": "^11.0.0",
