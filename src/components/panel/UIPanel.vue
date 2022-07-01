@@ -1,9 +1,9 @@
 <template>
     <section :id="id"
              class="ui-panel rounded shadow-md relative transition-all
-                    bg-white dark:bg-gray-600 text-color"
+                    bg-white dark:bg-gray-600 text-color overflow-x-hidden"
              :aria-expanded="open"
-             :class="{ 'hover:shadow-lg': !open, 'pointer-events-none select-none': loading && blockingLoader }">
+             :class="{ 'hover:shadow-lg': !open, 'select-none': loading && blockingLoader }">
         <UIFadeTransition>
             <UILinearLoader v-if="loading && !blockingLoader" class="absolute rounded-t" />
         </UIFadeTransition>
@@ -27,7 +27,7 @@
         </header>
 
         <UIExpandTransition :appear="appear">
-            <keep-alive>
+            <KeepAlive>
                 <div v-cloak
                      v-if="open"
                      class="blur-none"
@@ -40,7 +40,7 @@
                         <slot name="footer" />
                     </footer>
                 </div>
-            </keep-alive>
+            </KeepAlive>
         </UIExpandTransition>
 
         <UIFadeTransition>
@@ -60,6 +60,7 @@ import UILinearLoader from 'components/loader-linear/UILinearLoader.vue';
 import LocalCache from '@/helpers/cache/LocalCache';
 import { defineComponent, ref, computed, watch } from 'vue';
 import UISpinnerLoader from 'components/loader-spinner/UISpinnerLoader.vue';
+import { blockingLoader, loading } from '@/shared-props';
 
 let cache: LocalCache;
 
@@ -113,31 +114,14 @@ export default defineComponent({
         },
 
         /**
-         * Boolean flag to indicate if loader is visible.
-         *
-         * @default false
-         */
-        loading: {
-            type: Boolean,
-            default: false
-        },
-
-        /**
-         * Use the spinner loading in the middle of the panel instead of the linear loader.
-         *
-         * @default false
-         */
-        blockingLoader: {
-            type: Boolean,
-            default: false
-        },
-
-        /**
          * Prop alternative to the header slot.
          */
         header: {
             type: String
-        }
+        },
+
+        loading,
+        blockingLoader
     },
 
     setup(props, ctx) {

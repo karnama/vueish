@@ -40,7 +40,7 @@ describe('UIModal', () => {
 
         // @ts-expect-error - ts reckons this has the type never
         await wrapper.vm.open();
-        document.querySelector<HTMLDivElement>('.overlay')?.click();
+        document.querySelector<HTMLDivElement>('.ui-modal-overlay')?.click();
 
         expect(wrapper.emitted()['cancel']).toHaveLength(1);
         wrapper.unmount();
@@ -138,7 +138,7 @@ describe('UIModal', () => {
 
         // @ts-expect-error - ts reckons this has the type never
         await wrapper.vm.open();
-        expect(document.querySelector('.modal')?.innerHTML).toContain('header-content');
+        expect(document.querySelector('.ui-modal')?.innerHTML).toContain('header-content');
         wrapper.unmount();
     });
 

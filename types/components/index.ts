@@ -6,9 +6,15 @@ export const vertical = ['top', 'middle', 'bottom'] as const;
 
 // UIButtonToggle
 export type Option = {
-    label?: string; // label to use if no slot set
+    /**
+     * Label to use if no slot set
+     */
+    label?: string;
     value: any;
-    slot?: string; // name of the slot to use for this option
+    /**
+     * Name of the slot to use for this option
+     */
+    slot?: string;
     theme?: Theme;
 };
 
@@ -22,7 +28,10 @@ export interface Avatar {
 
 // UITable
 export interface Row {
-    isSelectable?: boolean; // whether the row is selectable
+    /**
+     * Whether the row is selectable or not
+     */
+    isSelectable?: boolean;
     [key: string]: any;
 }
 export interface Column<T = Row> {

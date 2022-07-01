@@ -16,6 +16,16 @@ export const loading: Prop<boolean> = {
 };
 
 /**
+ * Use the spinner loading indicator in the middle of the component instead of other loading indicators.
+ *
+ * @default false
+ */
+export const blockingLoader: Prop<boolean> = {
+    type: Boolean,
+    default: false
+};
+
+/**
  * The input label.
  */
 export const label: Prop<string> = {

@@ -23,7 +23,7 @@
                         :error="error"
                         clearable
                         auto-size
-                        label="Standard" />
+                        label="Auto sizing" />
 
             <UITextarea v-model="customText"
                         placeholder="Write your bio here"
