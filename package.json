@@ -1,6 +1,6 @@
 {
     "name": "@karnama/vueish",
-    "version": "0.16.0",
+    "version": "0.17.0",
     "files": [
         "dist",
         "types"
@@ -60,7 +60,7 @@
         "eslint-plugin-vue": "^9.1.1",
         "glob": "^8.0.1",
         "husky": "^8.0.1",
-        "jest": "^28.1.1",
+        "jest": "^28.1.3",
         "jest-environment-jsdom": "^28.1.1",
         "jest-junit": "^14.0.0",
         "jest-serializer-vue": "^2.0.2",
