@@ -53,13 +53,13 @@
                          class="truncate text-color p-3.5 ml-2 select-none break-words value-text grow"
                          :class="{
                              'px-7 py-5': large,
-                             'p-2 ml-0': small,
+                             '!p-2': small,
                          }"
                          v-html="displayName" />
                     <template v-else>
                         <slot name="placeholder">
                             <p class="text-color-muted p-3.5 ml-2 grow"
-                               :class="{ 'px-7 py-5': large, 'p-2 ml-0': small }">
+                               :class="{ 'px-7 py-5': large, '!p-2': small }">
                                 {{ placeholder }}
                             </p>
                         </slot>
