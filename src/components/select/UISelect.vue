@@ -27,7 +27,8 @@
                  'bg-gray-200 dark:!bg-gray-700 text-color-muted cursor-not-allowed': disabled,
                  'focus-within:border-blue-400 dark:focus-within:border-blue-500':
                      !(error || $slots.error) && !disabled,
-                 'px-7 py-5': large
+                 'px-7 py-5': large,
+                 'p-2': small,
              }"
              tabindex="0"
              @keydown.down="() => noSearch ? listElements[0]?.focus() : undefined"
@@ -106,7 +107,9 @@
                 </div>
 
                 <!--Search input to filter the list-->
-                <div v-if="!noSearch" class="p-2 border-b border-gray-300 dark:border-gray-500">
+                <div v-if="!noSearch"
+                     class="p-2 border-b border-gray-300 dark:border-gray-500"
+                     :class="{ 'py-1': small && !large }">
                     <input ref="searchInput"
                            v-model="search"
                            tabindex="-1"
@@ -134,7 +137,7 @@
                         @keydown.enter="select(option)"
                         @click.stop="select(option)">
                         <div class="flex justify-between">
-                            <div class="p-2">
+                            <div class="p-2" :class="{ 'py-1': small && !large }">
                                 <slot name="option" :option="option" :is-selected="currentlySelected">
                                     {{ option[optionLabel] }}
                                 </slot>
@@ -169,7 +172,8 @@ import {
     name,
     error,
     large,
-    loading
+    loading,
+    small
 } from '@/shared-props';
 import { useVModel } from 'composables/reactivity';
 import { getIcon, wrap } from '@/helpers';
@@ -279,7 +283,8 @@ export default defineComponent({
         name,
         large,
         error,
-        loading
+        loading,
+        small
     },
 
     emits: ['update:modelValue'],
