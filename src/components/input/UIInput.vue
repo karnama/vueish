@@ -55,7 +55,7 @@
                               text-color disabled:text-gray-400 overflow-x-auto caret-blue-500"
                        :disabled="disabled"
                        :class="{
-                           'p-2': small,
+                           '!p-2': small,
                            'px-7 py-5': large,
                            'pl-3 pr-4': large && isPasswordInitially && !disablePasswordToggle,
                            'caret-red-500 dark:caret-red-600': error || $slots.error

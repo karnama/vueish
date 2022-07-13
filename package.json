@@ -1,19 +1,19 @@
 {
     "name": "@karnama/vueish",
-    "version": "0.17.0",
+    "version": "0.17.1",
     "files": [
         "dist",
         "types"
     ],
-    "main": "./dist/vueish.cjs.js",
-    "module": "./dist/vueish.es.js",
+    "main": "./dist/vueish.js",
+    "module": "./dist/vueish.mjs",
     "types": "./types/index.ts",
     "web-types": "/dist/web-types.json",
     "license": "mit",
     "exports": {
         ".": {
-            "import": "./dist/vueish.es.js",
-            "require": "./dist/vueish.cjs.js"
+            "import": "./dist/vueish.mjs",
+            "require": "./dist/vueish.js"
         }
     },
     "engines": {
@@ -45,7 +45,7 @@
         "@types/requestidlecallback": "^0.3.1",
         "@typescript-eslint/eslint-plugin": "^5.4.0",
         "@typescript-eslint/parser": "^5.4.0",
-        "@vitejs/plugin-vue": "^2.0.1",
+        "@vitejs/plugin-vue": "^3.0.0",
         "@vue/compiler-sfc": "^3.2.11",
         "@vue/eslint-config-typescript": "^11.0.0",
         "@vue/test-utils": "2.0.0-rc.16",
@@ -73,7 +73,7 @@
         "ts-jest": "^28.0.5",
         "ts-node": "^10.0.0",
         "typescript": "^4.3.4",
-        "vite": "^2.4.1",
+        "vite": "^3.0.0",
         "vue": "^3.2.25",
         "vue-docgen-api": "^4.40.0",
         "vue-router": "^4.0.6",

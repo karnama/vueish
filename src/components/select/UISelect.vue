@@ -28,7 +28,7 @@
                  'focus-within:border-blue-400 dark:focus-within:border-blue-500':
                      !(error || $slots.error) && !disabled,
                  'px-7 py-5': large,
-                 'p-2': small,
+                 '!p-2': small,
              }"
              tabindex="0"
              @keydown.down="() => noSearch ? listElements[0]?.focus() : undefined"
