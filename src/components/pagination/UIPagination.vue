@@ -24,7 +24,7 @@
         </UIButton>
         <div v-if="pages[0] !== 2"
              class="select-none dark:text-gray-300"
-             :class="{ 'tracking-widest': large }">
+             :class="{ 'tracking-widest': large, 'tracking-tighter': small }">
             ...
         </div>
         <UIButton v-for="pageNum in pages"
@@ -70,7 +70,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { disabled, large } from '@/shared-props';
+import { disabled, large, small } from '@/shared-props';
 import { useVModel } from 'composables/reactivity';
 import { getIcon } from '@/helpers';
 import UIButton from 'components/button/UIButton.vue';
@@ -125,12 +125,13 @@ export default defineComponent({
         },
 
         disabled,
-        large
+        large,
+        small
     },
 
     emits: ['update:modelValue'],
 
-    setup(props) {
+    setup: (props) => {
         const chevronIcon = getIcon('chevron');
 
         const page = useVModel<number>(props);
@@ -161,8 +162,8 @@ export default defineComponent({
         });
         const buttonStyle = computed<Partial<CSSStyleDeclaration>>(() => ({
             padding: '0 5px !important',
-            minWidth: props.large ? '50px' : '40px',
-            height: props.large ? '47px' : '38px'
+            minWidth: props.large ? '50px' : props.small ? '30px' : '40px',
+            height: props.large ? '50px' : props.small ? '30px' : '40px'
         }));
 
         const setPage = (pageNum: number) => {
