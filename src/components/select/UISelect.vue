@@ -35,16 +35,20 @@
              @keydown.space="openList"
              @keydown.esc="closeList"
              @click="open ? closeList() : openList()">
-            <slot name="selected" :selected="selected">
-                <span v-if="selectionCount > 0" :class="{ 'truncate': multi }">
-                    {{ selectionDisplay }}
-                </span>
-            </slot>
-            <slot name="placeholder" :selection-count="selectionCount">
-                <span v-if="selectionCount === 0" class="text-gray-400">
-                    {{ placeholder }}
-                </span>
-            </slot>
+            <template v-if="selectionCount > 0">
+                <slot name="selected" :selected="selected">
+                    <span :class="{ 'truncate': multi }">
+                        {{ selectionDisplay }}
+                    </span>
+                </slot>
+            </template>
+            <template v-else>
+                <slot name="placeholder" :selection-count="selectionCount">
+                    <span class="text-gray-400">
+                        {{ placeholder }}
+                    </span>
+                </slot>
+            </template>
 
             <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
                 <span v-if="disabled"
@@ -81,7 +85,7 @@
                  ref="list"
                  v-click-away="closeList"
                  role="listbox"
-                 class="list overflow-y-scroll absolute w-full border border-gray-300 text-color
+                 class="ui-list overflow-y-auto absolute w-full border border-gray-300 text-color
                         bg-white dark:bg-gray-600 dark:border-gray-500 shadow-md rounded"
                  :style="style"
                  @keydown.esc="closeList">
@@ -115,7 +119,7 @@
                            tabindex="-1"
                            autocomplete="off"
                            class="appearance-none bg-transparent w-full leading-tight
-                                  focus:outline-none transition-text-color"
+                                  focus:outline-none transition-text-color caret-blue-500"
                            name="search">
                 </div>
 
@@ -289,6 +293,8 @@ export default defineComponent({
 
     emits: ['update:modelValue'],
 
+    expose: ['closeList', 'openList', 'selectionCount'],
+
     setup(props) {
         const search = ref('');
         const open = ref(false);
@@ -424,10 +430,10 @@ export default defineComponent({
         };
         const setPosition = () => {
             const selectRect = selectComp.value!.getBoundingClientRect();
-            const listRect = list.value!.getBoundingClientRect();
+            const listRect = list.value?.getBoundingClientRect();
 
             if (!selectRect || !listRect) {
-                return {};
+                return;
             }
 
             const offset = 5;
@@ -488,7 +494,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.list {
+.ui-list {
     max-height: 400px;
 }
 </style>
