@@ -22,24 +22,26 @@
             <div class="flex items-center">
                 <template v-if="isPasswordInitially && !disablePasswordToggle">
                     <button v-if="inputType === 'password'"
-                            class="ml-3 -mr-1 p-1 text-color-muted pass-toggle"
+                            class="ml-3 p-1 text-color-muted pass-toggle"
+                            :class="{ 'ml-5': large, 'ml-2': small }"
                             @click="inputType = 'text'"
                             v-html="hideIcon" />
                     <button v-else
-                            class="ml-3 -mr-1 p-1 text-color-muted pass-toggle"
+                            class="ml-3 p-1 text-color-muted pass-toggle"
+                            :class="{ 'ml-5': large, 'ml-2': small }"
                             @click="inputType = 'password'"
                             v-html="showIcon" />
                 </template>
                 <span v-if="prefix ?? $slots.prefix"
                       class="prefix ml-3 -mr-1 select-none text-color-muted"
-                      :class="{ 'ml-5 -mr-4': large }">
+                      :class="{ 'ml-5 -mr-4': large, 'ml-2': small }">
                     <slot name="prefix">
                         {{ prefix }}
                     </slot>
                 </span>
 
                 <input :id="$attrs.id ?? name"
-                       v-bind="omit($attrs, ['class', 'style', 'type', 'min', 'max', 'step'])"
+                       v-bind="omit($attrs, ['class', 'style'])"
                        ref="input"
                        v-model="model"
                        :type="inputType"
@@ -50,30 +52,32 @@
                        :placeholder="placeholder"
                        :aria-placeholder="placeholder"
                        class="flex-1 p-3.5 appearance-none bg-transparent outline-none
-                              text-color disabled:text-gray-400 overflow-x-scroll caret-blue-500"
+                              text-color disabled:text-gray-400 overflow-x-auto caret-blue-500"
                        :disabled="disabled"
                        :class="{
+                           'p-2': small,
                            'px-7 py-5': large,
+                           'pl-3 pr-4': large && isPasswordInitially && !disablePasswordToggle,
                            'caret-red-500 dark:caret-red-600': error || $slots.error
                        }"
                        @keydown="handleKeydown">
 
                 <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
                     <span v-if="disabled"
-                          class="h-5 w-5 mr-3 text-color-muted"
-                          :class="{ 'mr-5': large }"
+                          class="h-5 w-5 mr-2 text-color-muted"
+                          :class="{ 'mr-5': large, 'mr-3': !small && !large }"
                           v-html="lockIcon" />
 
                     <UISpinnerLoader v-else-if="loading"
                                      :diameter="20"
                                      :stroke="2"
-                                     class="mr-3"
-                                     :class="{ 'mr-5': large }" />
+                                     class="mr-2"
+                                     :class="{ 'mr-5': large, 'mr-3': !small && !large }" />
 
                     <span v-else-if="suffix || $slots.suffix || clearable && model"
-                          class="mr-3 text-color-muted flex space-x-2">
+                          class="mr-3 text-color-muted flex space-x-2"
+                          :class="{ 'mr-5': large, 'mr-3': !small && !large }">
                         <span v-if="suffix || $slots.suffix"
-                              :class="{ 'mr-5': large }"
                               class="suffix select-none">
                             <slot name="suffix">
                                 {{ suffix }}
@@ -81,7 +85,6 @@
                         </span>
                         <button v-if="!disabled && !loading && clearable && model"
                                 class="clear-icon h-5 w-5 cursor-pointer"
-                                :class="{ 'mr-5': large }"
                                 :aria-controls="$attrs.id ?? name"
                                 aria-roledescription="clear"
                                 @click="model = ''"
@@ -136,6 +139,7 @@ import {
     error,
     placeholder,
     large,
+    small,
     loading
 } from '@/shared-props';
 import { useVModel } from 'composables/reactivity';
@@ -221,6 +225,7 @@ export default defineComponent({
         },
 
         large,
+        small,
         prefix,
         suffix,
         label,
