@@ -18,6 +18,6 @@ void buildWebTypes({
     directiveSrcGlobPattern: args.directiveSrcGlobPattern,
     dest: args.dest,
     fileName: args.fileName,
-    ignore: args.fileName,
+    ignore: args.ignore,
     webTypesFileName: args.webTypesFileName
 });
