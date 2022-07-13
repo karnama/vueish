@@ -19,7 +19,8 @@
                  'bg-gray-200 dark:!bg-gray-700 cursor-not-allowed': disabled,
                  'cursor-pointer': !disabled,
                  'focus-within:border-blue-400 dark:focus-within:border-blue-500':!(error || $slots.error) && !disabled,
-                 'border-red-700 dark:!border-red-500': error || $slots.error
+                 'border-red-700 dark:!border-red-500': error || $slots.error,
+                 'border-blue-400 dark:border-blue-500': isDraggedOver && !disabled
              }"
              :tabindex="disabled ? -1 : 0"
              :style="$attrs.style"
@@ -227,6 +228,8 @@ export default defineComponent({
         const size = (file: File) => file ? getSizeString(file) : '';
         const addFiles = (event: DragEvent | InputEvent) => {
             isDraggedOver.value = false;
+
+            if (props.disabled) return;
 
             const fileList: FileList = event instanceof DragEvent
                 ? event.dataTransfer!.files
