@@ -2,9 +2,12 @@
     <div class="mb-6 flex flex-col text-color">
         <UICheckbox v-model="disabled"
                     name="disabled"
-                    label="Disabled"
-                    class="mb-2" />
-        <UICheckbox v-model="large" label="Large Style" name="large" />
+                    label="Disabled" />
+        <UICheckbox v-model="large"
+                    label="Large Style"
+                    name="large"
+                    class="my-2" />
+        <UICheckbox v-model="small" label="Small Style" name="small" />
 
         <label>
             Page count ({{ length }})
@@ -29,6 +32,7 @@
     <UIPagination v-model="page"
                   :length="length"
                   :large="large"
+                  :small="small"
                   :disabled="disabled"
                   :visible-count="visible" />
 </template>
@@ -45,13 +49,15 @@ export default defineComponent({
         const length = ref(10);
         const visible = ref(3);
         const large = ref(false);
+        const small = ref(false);
 
         return {
             disabled,
             page,
             length,
             visible,
-            large
+            large,
+            small
         };
     }
 });

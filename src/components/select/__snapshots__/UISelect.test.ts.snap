@@ -2,7 +2,7 @@
 
 exports[`UISelect display should display correctly 1`] = `
 <div
-  class="list overflow-y-scroll absolute w-full border border-gray-300 text-color bg-white dark:bg-gray-600 dark:border-gray-500 shadow-md rounded"
+  class="ui-list overflow-y-auto absolute w-full border border-gray-300 text-color bg-white dark:bg-gray-600 dark:border-gray-500 shadow-md rounded"
   role="listbox"
   style="width: 0px; left: 0px; z-index: 9999; top: 5px;"
 >
@@ -21,7 +21,7 @@ exports[`UISelect display should display correctly 1`] = `
   >
     <input
       autocomplete="off"
-      class="appearance-none bg-transparent w-full leading-tight focus:outline-none transition-text-color"
+      class="appearance-none bg-transparent w-full leading-tight focus:outline-none transition-text-color caret-blue-500"
       name="search"
       tabindex="-1"
     />

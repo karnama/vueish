@@ -3,6 +3,9 @@
         <UICheckbox v-model="large"
                     name="large"
                     label="Large Style" />
+        <UICheckbox v-model="small"
+                    name="small"
+                    label="Small Style" />
         <UICheckbox v-model="loading"
                     name="loading"
                     label="Loading" />
@@ -18,6 +21,7 @@
                  name="ui-text1"
                  :large="large"
                  :error="error"
+                 :small="small"
                  placeholder="Some instructions..."
                  label="Default Field" />
 
@@ -26,6 +30,7 @@
                  name="ui-text2"
                  :clearable="isClearable"
                  :error="error"
+                 :small="small"
                  :label="(isClearable ? '' : 'Not ') + 'Clearable'"
                  :large="large"
                  no-clear />
@@ -35,6 +40,7 @@
                  name="ui-text3"
                  :large="large"
                  :error="error"
+                 :small="small"
                  type="search"
                  autofocus
                  label="Search type" />
@@ -44,6 +50,7 @@
                  name="ui-text4"
                  :large="large"
                  :error="error"
+                 :small="small"
                  type="tel"
                  label="Tel type" />
 
@@ -52,6 +59,7 @@
                  name="ui-text5"
                  :large="large"
                  :error="error"
+                 :small="small"
                  type="url"
                  label="Url type" />
 
@@ -60,6 +68,7 @@
                  name="ui-text6"
                  :large="large"
                  :error="error"
+                 :small="small"
                  type="email"
                  label="Email type" />
 
@@ -72,6 +81,7 @@
                  min="10"
                  max="100"
                  :error="error"
+                 :small="small"
                  step="0.01"
                  placeholder=""
                  label="Number" />
@@ -82,6 +92,7 @@
                  type="password"
                  clearable
                  :error="error"
+                 :small="small"
                  :large="large"
                  label="Password" />
 
@@ -91,6 +102,7 @@
                  label="Disabled"
                  :large="large"
                  :error="error"
+                 :small="small"
                  disabled />
 
         <UIInput v-model="prefixProp"
@@ -98,6 +110,7 @@
                  name="ui-text10"
                  :large="large"
                  :error="error"
+                 :small="small"
                  label="Prefix (Using prop)"
                  prefix="Reason:" />
 
@@ -106,6 +119,7 @@
                  name="ui-text11"
                  :large="large"
                  :error="error"
+                 :small="small"
                  label="Prefix (Using slot)">
             <template #prefix>
                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -126,6 +140,7 @@
                  name="ui-text12"
                  :large="large"
                  :error="error"
+                 :small="small"
                  label="Suffix (Using prop)"
                  suffix="kg" />
 
@@ -135,6 +150,7 @@
                  class="mt-10"
                  :large="large"
                  :error="error"
+                 :small="small"
                  label="Suffix (Using slot)">
             <template #suffix>
                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -153,6 +169,7 @@
 
         <UIInput v-model="placeholder"
                  :error="error"
+                 :small="small"
                  :loading="loading"
                  name="ui-text14"
                  class="mt-10"
@@ -185,6 +202,7 @@ export default defineComponent({
         const suffixSlot = ref('Feather-weight');
         const placeholder = ref<number|null>(null);
         const large = ref(false);
+        const small = ref(false);
         const error = ref('');
         const loading = ref(false);
 
@@ -209,7 +227,8 @@ export default defineComponent({
             placeholder,
             large,
             error,
-            loading
+            loading,
+            small
         };
     }
 });

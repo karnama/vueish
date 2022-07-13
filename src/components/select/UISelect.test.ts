@@ -36,7 +36,7 @@ const getList = (): DOMWrapper<HTMLDivElement> | null => {
 const selectorMap = {
     currentSelection: '.current-selection',
     selectionClear: '.current-selection .clear-icon',
-    list: '.list',
+    list: '.ui-list',
     options: '.option',
     optionClear: '.option .clear-icon',
     search: '[name="search"]',

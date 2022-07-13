@@ -1,8 +1,11 @@
 <template>
-    <div class="flex justify-evenly mb-6">
+    <div class="flex justify-evenly flex-wrap mb-6">
         <UICheckbox v-model="large"
                     name="large"
                     label="Large Style" />
+        <UICheckbox v-model="small"
+                    name="small"
+                    label="Small Style" />
         <UICheckbox v-model="loading"
                     name="loading"
                     label="Loading" />
@@ -20,6 +23,7 @@
                   :clearable="clearable"
                   :error="error"
                   :large="large"
+                  :small="small"
                   label="Single select"
                   :loading="loading"
                   name="select-1" />
@@ -34,6 +38,7 @@
                   :clearable="clearable"
                   disabled
                   :large="large"
+                  :small="small"
                   label="Disabled multi select"
                   :loading="loading"
                   name="select-2" />
@@ -48,6 +53,7 @@
                   label="Multi select"
                   :error="error"
                   :large="large"
+                  :small="small"
                   :loading="loading"
                   name="select-2" />
         <span class="text-sm text-gray-400">
@@ -58,6 +64,7 @@
                   :options="['Foo', 'Bar', 'Baz']"
                   :clearable="clearable"
                   :large="large"
+                  :small="small"
                   label="Array of strings as select"
                   :loading="loading"
                   name="select-4" />
@@ -70,6 +77,7 @@
                   multi
                   :clearable="clearable"
                   :large="large"
+                  :small="small"
                   label="Array of strings as multi select"
                   :loading="loading"
                   name="select-4" />
@@ -122,6 +130,7 @@ export default defineComponent({
         const selectedSimple = ref('Foo');
         const multiSelectedSimple = ref(['Foo', 'Bar']);
         const large = ref(false);
+        const small = ref(false);
         const error = ref('');
         const loading = ref(false);
         const clearable = ref(false);
@@ -135,7 +144,8 @@ export default defineComponent({
             large,
             error,
             loading,
-            clearable
+            clearable,
+            small
         };
     }
 });

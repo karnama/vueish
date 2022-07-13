@@ -19,7 +19,8 @@
                  'bg-gray-200 dark:!bg-gray-700 cursor-not-allowed': disabled,
                  'cursor-pointer': !disabled,
                  'focus-within:border-blue-400 dark:focus-within:border-blue-500':!(error || $slots.error) && !disabled,
-                 'border-red-700 dark:!border-red-500': error || $slots.error
+                 'border-red-700 dark:!border-red-500': error || $slots.error,
+                 'border-blue-400 dark:border-blue-500': isDraggedOver && !disabled
              }"
              :tabindex="disabled ? -1 : 0"
              :style="$attrs.style"
@@ -35,8 +36,9 @@
                    :accept="acceptedMimes"
                    v-bind="omit($attrs, ['class', 'style'])"
                    @change="addFiles">
-            <div class="flex items-center flex-wrap w-full" :class="{ 'justify-center' : displayName }">
+            <div class="flex items-center justify-between w-full" :class="{ 'justify-b' : displayName }">
                 <UIButton :large="large"
+                          :small="small"
                           :disabled="disabled"
                           theme="default"
                           title="Choose a file"
@@ -46,10 +48,22 @@
                     </slot>
                 </UIButton>
 
-                <template v-if="displayName">
-                    <div class="truncate text-color py-2 px-4 flex-1 select-none break-words value-text"
-                         :class="[ large ? 'ml-4' : 'ml-2' ]"
+                <div class="flex items-center justify-between grow">
+                    <div v-if="displayName"
+                         class="truncate text-color p-3.5 ml-2 select-none break-words value-text grow"
+                         :class="{
+                             'px-7 py-5': large,
+                             'p-2 ml-0': small,
+                         }"
                          v-html="displayName" />
+                    <template v-else>
+                        <slot name="placeholder">
+                            <p class="text-color-muted p-3.5 ml-2 grow"
+                               :class="{ 'px-7 py-5': large, 'p-2 ml-0': small }">
+                                {{ placeholder }}
+                            </p>
+                        </slot>
+                    </template>
 
                     <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
                         <span v-if="disabled"
@@ -63,13 +77,13 @@
                                          :class="{ 'mr-5': large }" />
 
                         <button v-else-if="clearable && displayName"
-                                class="clear-icon h-5 w-5 mr-2 cursor-pointer mx-auto text-color-muted shrink-0"
+                                class="clear-icon h-5 w-5 mr-2 mx-auto text-color-muted"
                                 :aria-controls="$attrs.id ?? name"
                                 aria-roledescription="clear"
                                 @click.stop="$emit('update:modelValue', null)"
                                 v-html="clearIcon" />
                     </UIFadeTransition>
-                </template>
+                </div>
             </div>
         </div>
 
@@ -96,7 +110,9 @@ import {
     positiveOptionalNumber,
     error,
     large,
-    loading
+    loading,
+    small,
+    placeholder
 } from '@/shared-props';
 import { omit } from 'lodash-es';
 import { getIcon } from '@/helpers';
@@ -151,11 +167,11 @@ export default defineComponent({
         maxFiles: positiveOptionalNumber,
 
         /**
-         * Override files preview output.
+         * Override files preview output. It returns the string or html to render.
          */
         displayNameFunc: {
-            default: null,
-            type: Function as PropType<(file: MaybeArray<File> | null) => string>
+            type: Function as PropType<(file: MaybeArray<File> | null) => string>,
+            default: null
         },
 
         /**
@@ -175,7 +191,9 @@ export default defineComponent({
         disabled,
         large,
         error,
-        loading
+        loading,
+        small,
+        placeholder
     },
 
     emits: {
@@ -211,6 +229,8 @@ export default defineComponent({
         const addFiles = (event: DragEvent | InputEvent) => {
             isDraggedOver.value = false;
 
+            if (props.disabled) return;
+
             const fileList: FileList = event instanceof DragEvent
                 ? event.dataTransfer!.files
                 : (event.target as HTMLInputElement).files!;
@@ -229,7 +249,7 @@ export default defineComponent({
             }
 
             if (props.maxSize) {
-                const tooBigFiles = files.filter(file => file.size > props.maxSize);
+                const tooBigFiles = files.filter(file => file.size > props.maxSize!);
 
                 ctx.emit('validationError',
                     {
@@ -238,7 +258,7 @@ export default defineComponent({
                     } as FileError
                 );
 
-                files = files.filter(file => file.size <= props.maxSize);
+                files = files.filter(file => file.size <= props.maxSize!);
             }
 
             if (props.multiple && props.maxFiles && files.length > props.maxFiles) {

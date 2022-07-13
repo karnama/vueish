@@ -7,6 +7,10 @@
                 label="Large"
                 name="large"
                 class="mb-6" />
+    <UICheckbox v-model="small"
+                label="Small"
+                name="small"
+                class="mb-6" />
     <UICheckbox v-model="multi"
                 label="Multi select"
                 name="multi"
@@ -22,6 +26,7 @@
     <UIButtonToggle v-model="selected"
                     :options="options"
                     :large="large"
+                    :small="small"
                     :multi="multi"
                     theme="blue"
                     :clearable="clearable"
@@ -33,6 +38,7 @@
     <UIButtonToggle v-model="selectedSlotted"
                     :options="slottedOptions"
                     :large="large"
+                    :small="small"
                     :multi="multi"
                     theme="blue"
                     :clearable="clearable"
@@ -72,6 +78,7 @@ export default defineComponent({
         const selectedSlotted = ref(null);
         const disabled = ref(false);
         const large = ref(false);
+        const small = ref(false);
         const multi = ref(false);
         const clearable = ref(false);
 
@@ -83,7 +90,8 @@ export default defineComponent({
             disabled,
             large,
             multi,
-            clearable
+            clearable,
+            small
         };
     }
 });

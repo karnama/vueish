@@ -6,6 +6,7 @@
                   :theme="option.theme || theme"
                   :outline="!checked"
                   :large="large"
+                  :small="small"
                   v-bind="$attrs"
                   :disabled="disabled"
                   class="border"
@@ -27,7 +28,7 @@
 import { defineComponent, watch } from 'vue';
 import type { PropType } from 'vue';
 import UIButtonGroup, { props } from 'components/button-group/UIButtonGroup.vue';
-import { large, theme, disabled, clearable } from '@/shared-props';
+import { large, theme, disabled, clearable, small } from '@/shared-props';
 import { useVModel } from 'composables/reactivity';
 import UIButton from 'components/button/UIButton.vue';
 import { isEqual, uniq } from 'lodash-es';
@@ -67,6 +68,7 @@ export default defineComponent({
         clearable,
         disabled,
         large,
+        small,
         theme,
         ...props
     },

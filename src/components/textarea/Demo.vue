@@ -3,6 +3,9 @@
         <UICheckbox v-model="large"
                     name="large"
                     label="Large Style" />
+        <UICheckbox v-model="small"
+                    name="small"
+                    label="Small Style" />
         <UICheckbox v-model="loading"
                     name="loading"
                     label="Loading" />
@@ -20,6 +23,7 @@
                         name="ui-text"
                         counter
                         :large="large"
+                        :small="small"
                         :error="error"
                         clearable
                         auto-size
@@ -31,6 +35,7 @@
                         name="ui-text"
                         counter
                         :large="large"
+                        :small="small"
                         :error="error"
                         clearable
                         label="Resizable" />
@@ -40,6 +45,7 @@
                         name="ui-text"
                         rows="2"
                         :large="large"
+                        :small="small"
                         :error="error"
                         label="Fixed Height"
                         fixed />
@@ -49,6 +55,7 @@
                         name="ui-text3"
                         label="Disabled"
                         :large="large"
+                        :small="small"
                         :error="error"
                         rows="1"
                         disabled />
@@ -71,6 +78,7 @@ export default defineComponent({
         const error = ref('');
         const large = ref(false);
         const loading = ref(false);
+        const small = ref(false);
 
         return {
             text,
@@ -78,7 +86,8 @@ export default defineComponent({
             customText,
             error,
             large,
-            loading
+            loading,
+            small
         };
     }
 });

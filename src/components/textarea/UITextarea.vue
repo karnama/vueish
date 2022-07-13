@@ -32,6 +32,7 @@
                                  disabled:cursor-not-allowed text-color disabled:text-gray-400"
                           :class="{
                               'px-7 py-5': large,
+                              'p-2': small,
                               'caret-red-500 dark:caret-red-600': error || $slots.error
                           }"
                           :style="[
@@ -91,7 +92,8 @@ import {
     placeholder,
     large,
     error,
-    loading
+    loading,
+    small
 } from '@/shared-props';
 import { getIcon } from '@/helpers';
 import { useVModel } from 'composables/reactivity';
@@ -140,7 +142,8 @@ export default defineComponent({
         error,
         placeholder,
         large,
-        loading
+        loading,
+        small
     },
 
     emits: ['update:modelValue'],

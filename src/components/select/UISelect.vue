@@ -27,23 +27,28 @@
                  'bg-gray-200 dark:!bg-gray-700 text-color-muted cursor-not-allowed': disabled,
                  'focus-within:border-blue-400 dark:focus-within:border-blue-500':
                      !(error || $slots.error) && !disabled,
-                 'px-7 py-5': large
+                 'px-7 py-5': large,
+                 'p-2': small,
              }"
              tabindex="0"
              @keydown.down="() => noSearch ? listElements[0]?.focus() : undefined"
              @keydown.space="openList"
              @keydown.esc="closeList"
              @click="open ? closeList() : openList()">
-            <slot name="selected" :selected="selected">
-                <span v-if="selectionCount > 0" :class="{ 'truncate': multi }">
-                    {{ selectionDisplay }}
-                </span>
-            </slot>
-            <slot name="placeholder" :selection-count="selectionCount">
-                <span v-if="selectionCount === 0" class="text-gray-400">
-                    {{ placeholder }}
-                </span>
-            </slot>
+            <template v-if="selectionCount > 0">
+                <slot name="selected" :selected="selected">
+                    <span :class="{ 'truncate': multi }">
+                        {{ selectionDisplay }}
+                    </span>
+                </slot>
+            </template>
+            <template v-else>
+                <slot name="placeholder" :selection-count="selectionCount">
+                    <span class="text-gray-400">
+                        {{ placeholder }}
+                    </span>
+                </slot>
+            </template>
 
             <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
                 <span v-if="disabled"
@@ -80,7 +85,7 @@
                  ref="list"
                  v-click-away="closeList"
                  role="listbox"
-                 class="list overflow-y-scroll absolute w-full border border-gray-300 text-color
+                 class="ui-list overflow-y-auto absolute w-full border border-gray-300 text-color
                         bg-white dark:bg-gray-600 dark:border-gray-500 shadow-md rounded"
                  :style="style"
                  @keydown.esc="closeList">
@@ -106,13 +111,15 @@
                 </div>
 
                 <!--Search input to filter the list-->
-                <div v-if="!noSearch" class="p-2 border-b border-gray-300 dark:border-gray-500">
+                <div v-if="!noSearch"
+                     class="p-2 border-b border-gray-300 dark:border-gray-500"
+                     :class="{ 'py-1': small && !large }">
                     <input ref="searchInput"
                            v-model="search"
                            tabindex="-1"
                            autocomplete="off"
                            class="appearance-none bg-transparent w-full leading-tight
-                                  focus:outline-none transition-text-color"
+                                  focus:outline-none transition-text-color caret-blue-500"
                            name="search">
                 </div>
 
@@ -134,7 +141,7 @@
                         @keydown.enter="select(option)"
                         @click.stop="select(option)">
                         <div class="flex justify-between">
-                            <div class="p-2">
+                            <div class="p-2" :class="{ 'py-1': small && !large }">
                                 <slot name="option" :option="option" :is-selected="currentlySelected">
                                     {{ option[optionLabel] }}
                                 </slot>
@@ -169,7 +176,8 @@ import {
     name,
     error,
     large,
-    loading
+    loading,
+    small
 } from '@/shared-props';
 import { useVModel } from 'composables/reactivity';
 import { getIcon, wrap } from '@/helpers';
@@ -279,10 +287,13 @@ export default defineComponent({
         name,
         large,
         error,
-        loading
+        loading,
+        small
     },
 
     emits: ['update:modelValue'],
+
+    expose: ['closeList', 'openList', 'selectionCount'],
 
     setup(props) {
         const search = ref('');
@@ -419,10 +430,10 @@ export default defineComponent({
         };
         const setPosition = () => {
             const selectRect = selectComp.value!.getBoundingClientRect();
-            const listRect = list.value!.getBoundingClientRect();
+            const listRect = list.value?.getBoundingClientRect();
 
             if (!selectRect || !listRect) {
-                return {};
+                return;
             }
 
             const offset = 5;
@@ -483,7 +494,7 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.list {
+.ui-list {
     max-height: 400px;
 }
 </style>

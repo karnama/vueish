@@ -3,6 +3,9 @@
         <UICheckbox v-model="large"
                     name="large"
                     label="Large Style" />
+        <UICheckbox v-model="small"
+                    name="small"
+                    label="Small Style" />
         <UICheckbox v-model="loading"
                     name="loading"
                     label="Loading" />
@@ -15,8 +18,10 @@
     <div class="space-y-10">
         <UIFileInput v-model="file"
                      :large="large"
+                     :small="small"
                      :error="error"
                      :loading="loading"
+                     placeholder="File input"
                      clearable
                      name="file-input"
                      label="Default file input" />
@@ -24,6 +29,7 @@
         <UIFileInput v-model="file"
                      name="file-input"
                      :large="large"
+                     :small="small"
                      :error="error"
                      :loading="loading"
                      disabled
@@ -32,6 +38,7 @@
         <UIFileInput v-model="file2"
                      name="file-input"
                      :large="large"
+                     :small="small"
                      :error="error"
                      :loading="loading"
                      multiple
@@ -41,6 +48,7 @@
         <UIFileInput v-model="file2"
                      name="file-input"
                      :large="large"
+                     :small="small"
                      :error="error"
                      :loading="loading"
                      :display-name-func="displayName"
@@ -65,6 +73,7 @@ export default defineComponent({
         const large = ref(false);
         const error = ref('');
         const loading = ref(false);
+        const small = ref(false);
 
         const displayName = (files: MaybeArray<File> | null) => {
             if (!files) return '';
@@ -80,7 +89,8 @@ export default defineComponent({
             displayName,
             large,
             error,
-            loading
+            loading,
+            small
         };
     }
 });
