@@ -14,7 +14,7 @@
         <div class="shadow-sm dark:shadow-md border border-gray-300 dark:border-gray-500 rounded
                     bg-white dark:bg-gray-600 transition"
              :class="{
-                 'bg-gray-200 dark:!bg-gray-700 cursor-not-allowed': disabled,
+                 '!bg-gray-200 dark:!bg-gray-700 cursor-not-allowed': disabled,
                  'focus-within:border-blue-400 dark:focus-within:border-blue-500': !(error || $slots.error),
                  'border-red-700 dark:!border-red-500': error || $slots.error
              }"

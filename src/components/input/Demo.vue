@@ -75,7 +75,6 @@
         <UIInput v-model="number"
                  :loading="loading"
                  name="ui-text7"
-                 disabled
                  type="number"
                  :large="large"
                  min="10"
