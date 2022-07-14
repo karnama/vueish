@@ -20,7 +20,7 @@
              }"
              :style="$attrs.style">
             <div class="flex items-center">
-                <template v-if="isPasswordInitially && !disablePasswordToggle">
+                <template v-if="isPasswordInitially && !disablePasswordToggle && !disabled">
                     <button v-if="inputType === 'password'"
                             class="ml-3 p-1 text-color-muted pass-toggle"
                             :class="{ 'ml-5': large, 'ml-2': small }"
