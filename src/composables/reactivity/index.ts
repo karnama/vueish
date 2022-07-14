@@ -56,9 +56,7 @@ export function useVModel<T>(props: Record<string, any>, name = 'modelValue'): R
     watch(
         () => model.value,
         value => {
-            console.log('is change from props', changeFromProps);
             if (!changeFromProps) {
-                console.log('emitting value', value);
                 instance.emit(`update:${name}`, value);
             }
 
@@ -71,7 +69,6 @@ export function useVModel<T>(props: Record<string, any>, name = 'modelValue'): R
     watch(() => props[name], value => {
         if (isEqual(value, model.value)) return;
 
-        console.log('update from props');
         changeFromProps = true;
         model.value = value;
     });
