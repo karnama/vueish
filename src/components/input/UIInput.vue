@@ -51,7 +51,7 @@
                        :max="max"
                        :placeholder="placeholder"
                        :aria-placeholder="placeholder"
-                       class="flex-1 p-3.5 appearance-none bg-transparent outline-none
+                       class="flex-1 p-3.5 appearance-none bg-transparent outline-none disabled:cursor-not-allowed
                               text-color disabled:text-gray-400 overflow-x-auto caret-blue-500"
                        :disabled="disabled"
                        :class="{
