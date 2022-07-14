@@ -1,11 +1,13 @@
 import { debouncedRef, useVModel } from './index';
 import { mount } from '@vue/test-utils';
-import { defineComponent, h, nextTick } from 'vue';
+import { computed, defineComponent, h, nextTick, ref } from 'vue';
 import type { PropType } from 'vue';
 import { disableConsoleWarn, enableConsoleWarn } from 'helpers/test';
+import UIInput from 'components/input/UIInput.vue';
 
 describe('input', () => {
     describe('useVModel', () => {
+        // eslint-disable-next-line vue/one-component-per-file
         const Comp = defineComponent({
             name: 'TestComp',
             props: {
@@ -74,21 +76,52 @@ describe('input', () => {
             expect(wrapper.text()).toBe('2');
         });
 
-        it('should react to prop being set', async () => {
-            const wrapper = mount(Comp, {
-                props: {
-                    'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
-                }
+        describe('should react to prop being set', () => {
+            it('should react in the template', async () => {
+                const wrapper = mount(Comp, {
+                    props: {
+                        'onUpdate:modelValue': async (modelValue: any) => await wrapper.setProps({ modelValue })
+                    }
+                });
+
+                expect(wrapper.text()).toBe('1');
+                await wrapper.trigger('click');
+                expect(wrapper.lastEventValue()).toStrictEqual([2]);
+
+                await wrapper.setProps({ modelValue: 1 });
+                expect(wrapper.text()).toBe('1');
+                await wrapper.trigger('click');
+                expect(wrapper.lastEventValue()).toStrictEqual([2]);
             });
 
-            expect(wrapper.text()).toBe('1');
-            await wrapper.trigger('click');
-            expect(wrapper.lastEventValue()).toStrictEqual([2]);
+            it('should react when binding to input', async () => {
+                // eslint-disable-next-line vue/one-component-per-file
+                const component = defineComponent({
+                    name: 'TestComp',
 
-            await wrapper.setProps({ modelValue: 1 });
-            expect(wrapper.text()).toBe('1');
-            await wrapper.trigger('click');
-            expect(wrapper.lastEventValue()).toStrictEqual([2]);
+                    components: { UIInput },
+
+                    setup: () => {
+                        const model = ref('value');
+
+                        return { model };
+                    },
+
+                    template: '<input id="input" v-model="model" />' +
+                        '<UIInput :model-value="model" name="display-input" @keydown.prevent />'
+                });
+
+                const wrapper = mount(component);
+
+                expect(wrapper.find<HTMLInputElement>('#display-input').element.value).toBe('value');
+                await wrapper.find('#input').setValue('test');
+                // it updates the model value
+                expect(wrapper.vm.model).toBe('test');
+                // it should not emit an update when receiving a prop change
+                expect(wrapper.lastEventValue()).not.toStrictEqual(['test']);
+                expect(wrapper.lastEventValue()).toBeUndefined();
+                expect(wrapper.find<HTMLInputElement>('#display-input').element.value).toBe('test');
+            });
         });
 
         it('should emit mutations for object literals', () => {

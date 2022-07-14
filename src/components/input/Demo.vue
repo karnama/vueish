@@ -187,7 +187,7 @@ export default defineComponent({
     name: 'InputDemo',
 
     setup() {
-        const text = ref('I\'m a input!');
+        const text = ref('I\'m an input!');
         const disabled = ref('Can\'t touch this!');
         const number = ref(50);
         const url = ref('https://google.com');
