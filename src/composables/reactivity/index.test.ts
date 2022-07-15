@@ -1,6 +1,6 @@
 import { debouncedRef, useVModel } from './index';
 import { mount } from '@vue/test-utils';
-import { computed, defineComponent, h, nextTick, ref } from 'vue';
+import { defineComponent, h, nextTick, ref } from 'vue';
 import type { PropType } from 'vue';
 import { disableConsoleWarn, enableConsoleWarn } from 'helpers/test';
 import UIInput from 'components/input/UIInput.vue';
