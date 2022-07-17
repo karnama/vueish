@@ -208,7 +208,8 @@ module.exports = {
                 ],
                 "jest/no-disabled-tests": "off",
                 "jest/no-conditional-in-test": "off",
-                "jest/prefer-snapshot-hint": "off"
+                "jest/prefer-snapshot-hint": "off",
+                "jest/max-expects": "off"
             }
         }
     ]

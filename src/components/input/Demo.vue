@@ -75,7 +75,6 @@
         <UIInput v-model="number"
                  :loading="loading"
                  name="ui-text7"
-                 disabled
                  type="number"
                  :large="large"
                  min="10"
@@ -187,7 +186,7 @@ export default defineComponent({
     name: 'InputDemo',
 
     setup() {
-        const text = ref('I\'m a input!');
+        const text = ref('I\'m an input!');
         const disabled = ref('Can\'t touch this!');
         const number = ref(50);
         const url = ref('https://google.com');

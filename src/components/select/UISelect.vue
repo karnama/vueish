@@ -410,7 +410,7 @@ export default defineComponent({
                 return;
             }
 
-            const value = props.options.every(option => typeof option === 'string')
+            const value: Option | string = props.options.every(option => typeof option === 'string')
                 ? option[props.optionLabel]
                 : option;
 
@@ -425,8 +425,7 @@ export default defineComponent({
                 return;
             }
 
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-            selected.value = [...selected.value, value];
+            selected.value.push(value);
         };
         const setPosition = () => {
             const selectRect = selectComp.value!.getBoundingClientRect();

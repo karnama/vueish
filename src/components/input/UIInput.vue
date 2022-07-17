@@ -14,13 +14,13 @@
         <div class="shadow-sm dark:shadow-md border border-gray-300 dark:border-gray-500 rounded
                     bg-white dark:bg-gray-600 transition"
              :class="{
-                 'bg-gray-200 dark:!bg-gray-700 cursor-not-allowed': disabled,
+                 '!bg-gray-200 dark:!bg-gray-700 cursor-not-allowed': disabled,
                  'focus-within:border-blue-400 dark:focus-within:border-blue-500': !(error || $slots.error),
                  'border-red-700 dark:!border-red-500': error || $slots.error
              }"
              :style="$attrs.style">
             <div class="flex items-center">
-                <template v-if="isPasswordInitially && !disablePasswordToggle">
+                <template v-if="isPasswordInitially && !disablePasswordToggle && !disabled">
                     <button v-if="inputType === 'password'"
                             class="ml-3 p-1 text-color-muted pass-toggle"
                             :class="{ 'ml-5': large, 'ml-2': small }"
@@ -51,7 +51,7 @@
                        :max="max"
                        :placeholder="placeholder"
                        :aria-placeholder="placeholder"
-                       class="flex-1 p-3.5 appearance-none bg-transparent outline-none
+                       class="flex-1 p-3.5 appearance-none bg-transparent outline-none disabled:cursor-not-allowed
                               text-color disabled:text-gray-400 overflow-x-auto caret-blue-500"
                        :disabled="disabled"
                        :class="{

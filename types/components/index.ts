@@ -34,7 +34,7 @@ export interface Row {
     isSelectable?: boolean;
     [key: string]: any;
 }
-export interface Column<T = Row> {
+export interface Column<T extends Row = Row> {
     header?: string;
     rowProperty: Exclude<keyof Omit<T, 'isSelectable'>, number> | string;
     suffix?: string | ((row: T) => string | undefined);
