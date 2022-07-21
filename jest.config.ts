@@ -26,6 +26,7 @@ export default {
     setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
     preset: 'ts-jest',
     snapshotSerializers: ['jest-serializer-vue'],
+    reporters: ['default', 'github-actions'],
     transform: {
         '^.+\\.vue$': '@vue/vue3-jest',
         '^.+\\ts$': 'ts-jest'
