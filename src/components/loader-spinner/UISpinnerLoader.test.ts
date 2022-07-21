@@ -69,7 +69,7 @@ describe('UISpinner', () => {
         };
 
         const wrapper = mount(UISpinnerLoader, { props });
-        const circle = wrapper.find('circle');
+        const circle = wrapper.findAll('circle')[1];
 
         expect(circle.attributes()['style']).toContain(getStrokeOffsetStyle());
         await wrapper.setProps({ progress: 99 });

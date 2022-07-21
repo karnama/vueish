@@ -9,6 +9,13 @@
                  preserveAspectRatio="xMidYMid"
                  focusable="false"
                  :viewBox="`0 0 ${diameter} ${diameter}`">
+                <circle v-if="determinate"
+                        class="spinner-circle"
+                        :class="[ inheritColor ? 'background-circle': 'stroke-brand-100']"
+                        cx="50%"
+                        cy="50%"
+                        :r="radius"
+                        :stroke-width="stroke + 'px'" />
                 <circle ref="spinnerCircle"
                         class="spinner-circle stroke-current"
                         cx="50%"
@@ -16,7 +23,7 @@
                         :r="radius"
                         :stroke-width="stroke + 'px'" />
             </svg>
-            <div v-if="$slots.default" class="abs-center">
+            <div v-if="$slots.default" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                 <slot />
             </div>
         </div>
@@ -160,11 +167,10 @@ export default defineComponent({
     }
 }
 
-.abs-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.background-circle {
+    stroke-opacity: 0.4;
+    stroke: currentColor;
+    filter: brightness(160%) saturate(60%) contrast(80%);
 }
 
 .spinner-draw {
