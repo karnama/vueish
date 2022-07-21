@@ -20,6 +20,13 @@ exports[`UIFile should display correctly 1`] = `
           viewBox="0 0 50 50"
         >
           <circle
+            class="spinner-circle stroke-brand-100"
+            cx="50%"
+            cy="50%"
+            r="24"
+            stroke-width="2px"
+          />
+          <circle
             class="spinner-circle stroke-current"
             cx="50%"
             cy="50%"
@@ -29,7 +36,7 @@ exports[`UIFile should display correctly 1`] = `
           />
         </svg>
         <div
-          class="abs-center"
+          class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
         >
           
           <div

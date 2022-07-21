@@ -21,6 +21,7 @@ exports[`UIButton should display the loading correctly 1`] = `
           style="width: 25px; height: 25px;"
           viewBox="0 0 25 25"
         >
+          <!--v-if-->
           <circle
             class="spinner-circle stroke-current"
             cx="50%"
