@@ -5,7 +5,7 @@
             :style="styles"
             class="ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0
                    disabled:cursor-not-allowed disabled:shadow-none">
-        <span v-if="loading" class="loader">
+        <span v-if="loading" class="ui-button-loader">
             <slot name="loader">
                 <UISpinnerLoader inherit-color
                                  class="mx-auto"
@@ -329,8 +329,12 @@ export default defineComponent({
 
                 const minWidthRequirement = (props.small ? 20 : 25) + paddingInline * 2;
 
-                styles.width = getPxValue(computedStyle.width) < minWidthRequirement ? 'auto' : computedStyle.width;
+                if (getPxValue(computedStyle.width) < minWidthRequirement) return;
+
+                styles.width = computedStyle.width;
             } else {
+                if (!styles.width) return;
+
                 styles.width = 'auto';
             }
         });
