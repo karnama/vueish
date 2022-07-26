@@ -107,7 +107,7 @@ describe('UIButton', () => {
             }
         });
 
-        expect(wrapper.find('.loader').isVisible()).toBe(true);
+        expect(wrapper.find('.ui-button-loader').isVisible()).toBe(true);
         expect(wrapper.find('.label').exists()).toBe(false);
     });
 

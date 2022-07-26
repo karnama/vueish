@@ -6,7 +6,7 @@ exports[`UIButton should display the loading correctly 1`] = `
   type="button"
 >
   <span
-    class="loader"
+    class="ui-button-loader"
   >
     
     <transition-stub>
