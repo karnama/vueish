@@ -5,7 +5,7 @@
             :style="styles"
             class="ui-button rounded font-bold text-sm m-0 focus:outline-none ring-0
                    disabled:cursor-not-allowed disabled:shadow-none">
-        <span v-if="loading" class="loader">
+        <span v-if="loading" class="ui-button-loader">
             <slot name="loader">
                 <UISpinnerLoader inherit-color
                                  class="mx-auto"
@@ -313,14 +313,28 @@ export default defineComponent({
         const styles: Partial<CSSStyleDeclaration> = {};
 
         watch(() => props.loading, newVal => {
+            const computedStyle = getComputedStyle(instance.proxy!.$el as HTMLButtonElement);
+
+            if (computedStyle.width === 'auto' || computedStyle.width.endsWith('%')) {
+                return;
+            }
+
             // while loading sizing props might change but on
             // next loading it will set to the correct width
             if (newVal && !instance.slots.loader) {
-                const computedStyle = getComputedStyle(instance.proxy!.$el as HTMLButtonElement);
-                const minWidthRequirement = (props.small ? 20 : 25) + getPxValue(computedStyle.paddingInline) * 2;
+                const paddingInline = computedStyle.paddingInline === 'auto' ||
+                computedStyle.paddingInline.endsWith('%')
+                    ? 0
+                    : getPxValue(computedStyle.paddingInline);
 
-                styles.width = getPxValue(computedStyle.width) < minWidthRequirement ? 'auto' : computedStyle.width;
+                const minWidthRequirement = (props.small ? 20 : 25) + paddingInline * 2;
+
+                if (getPxValue(computedStyle.width) < minWidthRequirement) return;
+
+                styles.width = computedStyle.width;
             } else {
+                if (!styles.width) return;
+
                 styles.width = 'auto';
             }
         });

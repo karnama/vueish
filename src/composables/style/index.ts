@@ -28,5 +28,5 @@ export const getPxValue = (value: string | number): number => {
             parseFloat(globalThis?.window.getComputedStyle(globalThis?.document.documentElement).fontSize);
     }
 
-    throw new TypeError('Unexpected argument given.');
+    throw new TypeError('Unexpected argument given. Expected a number, px/vh/vw/rem value, got: ' + value);
 };

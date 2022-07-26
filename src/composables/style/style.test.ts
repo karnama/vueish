@@ -28,7 +28,9 @@ describe('style', () => {
         });
 
         it('should throw an error on invalid argument', () => {
-            expect(() => getPxValue('something')).toThrow(new TypeError('Unexpected argument given.'));
+            expect(() => getPxValue('something'))
+                .toThrow(new TypeError('Unexpected argument given. Expected a number, px/vh/vw/rem value, got: '
+                    + 'something'));
         });
 
         it('should correctly convert vw to px', () => {
