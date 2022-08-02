@@ -2,7 +2,7 @@
     <section class="shadow dark:shadow-lg text-color bg-white dark:bg-gray-600 relative sm:overflow-x-scroll
                     border border-gray-200 dark:border-gray-500 rounded">
         <table class="flex sm:table flex-col border-collapse w-full table-auto relative"
-               :class="[hoverClass]"
+               :class="hoverClass"
                @mouseover="handleHover"
                @mouseleave="handleHover">
             <thead class="sticky top-0 bg-gray-50 dark:bg-gray-650 border-b border-b-gray-300 dark:border-b-gray-500
@@ -14,6 +14,7 @@
                         <span class="block">
                             <UIInput v-model="term"
                                      :name="searchInputName"
+                                     class="font-normal"
                                      placeholder="Search..." />
                         </span>
                     </th>
