@@ -181,7 +181,7 @@ describe('UIInput', () => {
             }
         });
 
-        expect(wrapper.get('.prefix').text()).toBe(prefix);
+        expect(wrapper.get('.ui-prefix').text()).toBe(prefix);
     });
 
     it('should display the prefix when passed as a prop', () => {
@@ -195,7 +195,7 @@ describe('UIInput', () => {
             }
         });
 
-        expect(wrapper.get('.prefix').text()).toBe(prefix);
+        expect(wrapper.get('.ui-prefix').text()).toBe(prefix);
     });
 
     it('should display the suffix when passed as a slot', () => {
@@ -279,6 +279,28 @@ describe('UIInput', () => {
         expect(wrapper.get('input').attributes('type')).toBe('password');
 
         jest.useRealTimers();
+    });
+
+    // fixme - it does not seem to set the document.activeElement in the test environment
+    it.skip('should focus the input when prefix or suffix clicked', async () => {
+        const wrapper = mount({
+            template: '<UIInput name="input" :model-value="null" suffix="suffix" prefix="prefix" />' +
+                '<div id="outside-focus-target" />',
+            components: {
+                UIInput
+            }
+        });
+
+        expect(document.activeElement?.id).not.toBe(wrapper.get('input').element.id);
+
+        await wrapper.get('.ui-prefix').trigger('click');
+        expect(document.activeElement?.id).toBe(wrapper.get('input').element.id);
+
+        await wrapper.get('#outside-focus-target').trigger('click');
+        expect(document.activeElement?.id).not.toBe(wrapper.get('input').element.id);
+
+        await wrapper.get('.ui-suffix').trigger('click');
+        expect(document.activeElement?.id).toBe(wrapper.get('input').element.id);
     });
 
     describe('type number', () => {

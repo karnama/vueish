@@ -33,8 +33,9 @@
                             v-html="showIcon" />
                 </template>
                 <span v-if="prefix ?? $slots.prefix"
-                      class="ui-prefix ml-3 -mr-1 select-none text-color-muted"
-                      :class="{ 'ml-5 -mr-4': large, 'ml-2': small }">
+                      class="ui-prefix ml-3 -mr-1 select-none text-color-muted cursor-text"
+                      :class="{ 'ml-5 -mr-4': large, 'ml-2': small }"
+                      @click="$refs.input.focus">
                     <slot name="prefix">
                         {{ prefix }}
                     </slot>
@@ -75,8 +76,9 @@
                                      :class="{ 'mr-5': large, 'mr-3': !small && !large }" />
 
                     <span v-else-if="suffix || $slots.suffix || clearable && model"
-                          class="mr-3 text-color-muted flex space-x-2"
-                          :class="{ 'mr-5': large, 'mr-3': !small && !large }">
+                          class="mr-3 text-color-muted flex space-x-2 cursor-text"
+                          :class="{ 'mr-5': large, 'mr-3': !small && !large }"
+                          @click="$refs.input.focus">
                         <span v-if="suffix || $slots.suffix"
                               class="ui-suffix select-none">
                             <slot name="suffix">
@@ -394,7 +396,7 @@ input:disabled[type=number] {
     -moz-appearance: textfield;
 }
 
-.prefix, .suffix, .pass-toggle {
+.ui-prefix, .ui-suffix, .pass-toggle {
     line-height: 1.28;
 }
 </style>
