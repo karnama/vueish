@@ -1,5 +1,5 @@
 <template>
-    <section class="shadow dark:shadow-lg text-color bg-white dark:bg-gray-600 relative sm:overflow-x-scroll
+    <section class="shadow dark:shadow-lg text-color bg-white dark:bg-gray-600 relative overflow-x-auto
                     border border-gray-200 dark:border-gray-500 rounded">
         <table class="flex sm:table flex-col border-collapse w-full table-auto relative"
                :class="hoverClass"
