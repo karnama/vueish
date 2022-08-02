@@ -62,6 +62,7 @@
                 <template #pagination="slotProps">
                     <div class="flex justify-end w-full">
                         <UIPagination :model-value="slotProps.page"
+                                      :small="small"
                                       :length="slotProps.pageCount"
                                       @update:model-value="goToPage" />
                     </div>
