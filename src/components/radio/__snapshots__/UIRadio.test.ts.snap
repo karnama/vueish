@@ -7,7 +7,7 @@ exports[`UIRadioGroup should display correctly 1`] = `
   <transition-stub>
     
     <span
-      class="font-medium text-color flex items-center mb-1.5"
+      class="font-medium text-color inline-flex items-center mb-1.5"
     >
       
       my-label

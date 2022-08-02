@@ -211,7 +211,7 @@ describe('UIInput', () => {
             }
         });
 
-        expect(wrapper.get('.suffix').text()).toBe(suffix);
+        expect(wrapper.get('.ui-suffix').text()).toBe(suffix);
     });
 
     it('should display the suffix when passed as a prop', () => {
@@ -225,7 +225,7 @@ describe('UIInput', () => {
             }
         });
 
-        expect(wrapper.get('.suffix').text()).toBe(suffix);
+        expect(wrapper.get('.ui-suffix').text()).toBe(suffix);
     });
 
     it('should only display the label if slot or prop given', async () => {
