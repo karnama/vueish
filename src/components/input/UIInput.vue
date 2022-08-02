@@ -33,7 +33,7 @@
                             v-html="showIcon" />
                 </template>
                 <span v-if="prefix ?? $slots.prefix"
-                      class="prefix ml-3 -mr-1 select-none text-color-muted"
+                      class="ui-prefix ml-3 -mr-1 select-none text-color-muted"
                       :class="{ 'ml-5 -mr-4': large, 'ml-2': small }">
                     <slot name="prefix">
                         {{ prefix }}
@@ -78,7 +78,7 @@
                           class="mr-3 text-color-muted flex space-x-2"
                           :class="{ 'mr-5': large, 'mr-3': !small && !large }">
                         <span v-if="suffix || $slots.suffix"
-                              class="suffix select-none">
+                              class="ui-suffix select-none">
                             <slot name="suffix">
                                 {{ suffix }}
                             </slot>
