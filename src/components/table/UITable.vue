@@ -12,7 +12,9 @@
                         :class="[small ? 'p-2' : 'px-4 py-8 ']"
                         class="block sm:table-cell">
                         <span class="block">
-                            <UIInput v-model="term" name="search" placeholder="Search..." />
+                            <UIInput v-model="term"
+                                     :name="searchInputName"
+                                     placeholder="Search..." />
                         </span>
                     </th>
                 </tr>
@@ -379,6 +381,7 @@ export default defineComponent({
             { name: 50, id: 50 },
             { name: 100, id: 100 }
         ]);
+        const searchInputName = `table-search-${Math.random().toString(36).slice(2)}`;
 
         const normalisedHeaders = computed<Required<Column>[]>(() => {
             return props.headers.map((col: Column) => {
@@ -615,6 +618,7 @@ export default defineComponent({
             currentItemsPerPage,
             itemPerPageOptions,
             normalisedHeaders,
+            searchInputName,
             normalisedRows,
             selectableRows,
             totalRowCount,
