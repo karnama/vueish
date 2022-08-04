@@ -3,7 +3,7 @@
         <UIExpandTransition>
             <label v-if="label || $slots.label"
                    :for="$attrs.id ?? name"
-                   class="font-medium text-color inline-flex mb-1.5"
+                   class="font-medium text-color inline-flex items-center mb-1.5"
                    :class="{ 'text-color-error': error || $slots.error }">
                 <slot name="label">
                     {{ label }}
@@ -33,8 +33,9 @@
                             v-html="showIcon" />
                 </template>
                 <span v-if="prefix ?? $slots.prefix"
-                      class="prefix ml-3 -mr-1 select-none text-color-muted"
-                      :class="{ 'ml-5 -mr-4': large, 'ml-2': small }">
+                      class="ui-prefix ml-3 -mr-1 select-none text-color-muted cursor-text"
+                      :class="{ 'ml-5 -mr-4': large, 'ml-2': small }"
+                      @click="$refs.input.focus">
                     <slot name="prefix">
                         {{ prefix }}
                     </slot>
@@ -75,10 +76,11 @@
                                      :class="{ 'mr-5': large, 'mr-3': !small && !large }" />
 
                     <span v-else-if="suffix || $slots.suffix || clearable && model"
-                          class="mr-3 text-color-muted flex space-x-2"
-                          :class="{ 'mr-5': large, 'mr-3': !small && !large }">
+                          class="mr-3 text-color-muted flex space-x-2 cursor-text"
+                          :class="{ 'mr-5': large, 'mr-3': !small && !large }"
+                          @click="$refs.input.focus">
                         <span v-if="suffix || $slots.suffix"
-                              class="suffix select-none">
+                              class="ui-suffix select-none">
                             <slot name="suffix">
                                 {{ suffix }}
                             </slot>
@@ -394,7 +396,7 @@ input:disabled[type=number] {
     -moz-appearance: textfield;
 }
 
-.prefix, .suffix, .pass-toggle {
+.ui-prefix, .ui-suffix, .pass-toggle {
     line-height: 1.28;
 }
 </style>

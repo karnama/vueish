@@ -6,7 +6,7 @@ import { disableConsoleWarn, enableConsoleWarn } from 'helpers/test';
 
 const selectorMap = {
     radioGroup: {
-        label: 'span.font-medium.text-color.flex.items-center'
+        label: 'span.font-medium.text-color.inline-flex.items-center.items-center'
     }
 } as const;
 

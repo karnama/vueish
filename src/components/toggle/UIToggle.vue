@@ -3,7 +3,7 @@
         <UIExpandTransition>
             <label v-if="label || $slots.label"
                    :for="$attrs.id ?? name"
-                   class="cursor-pointer text-color font-medium"
+                   class="cursor-pointer text-color inline-flex items-center font-medium"
                    :class="{ 'text-color-error': error || $slots.error }">
                 <slot name="label">
                     {{ label }}

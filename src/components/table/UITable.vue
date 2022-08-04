@@ -1,8 +1,8 @@
 <template>
-    <section class="shadow dark:shadow-lg text-color bg-white dark:bg-gray-600 relative sm:overflow-x-scroll
+    <section class="shadow dark:shadow-lg text-color bg-white dark:bg-gray-600 relative overflow-x-auto
                     border border-gray-200 dark:border-gray-500 rounded">
         <table class="flex sm:table flex-col border-collapse w-full table-auto relative"
-               :class="[hoverClass]"
+               :class="hoverClass"
                @mouseover="handleHover"
                @mouseleave="handleHover">
             <thead class="sticky top-0 bg-gray-50 dark:bg-gray-650 border-b border-b-gray-300 dark:border-b-gray-500
@@ -12,7 +12,10 @@
                         :class="[small ? 'p-2' : 'px-4 py-8 ']"
                         class="block sm:table-cell">
                         <span class="block">
-                            <UIInput v-model="term" name="search" placeholder="Search..." />
+                            <UIInput v-model="term"
+                                     :name="searchInputName"
+                                     class="font-normal"
+                                     placeholder="Search..." />
                         </span>
                     </th>
                 </tr>
@@ -379,6 +382,7 @@ export default defineComponent({
             { name: 50, id: 50 },
             { name: 100, id: 100 }
         ]);
+        const searchInputName = `table-search-${Math.random().toString(36).slice(2)}`;
 
         const normalisedHeaders = computed<Required<Column>[]>(() => {
             return props.headers.map((col: Column) => {
@@ -615,6 +619,7 @@ export default defineComponent({
             currentItemsPerPage,
             itemPerPageOptions,
             normalisedHeaders,
+            searchInputName,
             normalisedRows,
             selectableRows,
             totalRowCount,

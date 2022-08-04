@@ -38,7 +38,7 @@ const rows: Readonly<Row[]> = [
 
 // todo - improve selectors by setting unused class names (this allows outside tinkering too)
 const selectorMap = {
-    search: '#search',
+    search: 'thead > tr > th > span input',
     rows: 'tbody > tr',
     headers: 'thead > tr.hidden > th.py-6.text-left.font-light.uppercase',
     checkboxes: 'tbody > tr > td.p-2 input',
@@ -162,7 +162,7 @@ describe('UITable', () => {
             });
 
             const search = wrapper.findComponent(UIInput);
-            await search.find('input').setValue('1');
+            await search.find(selectorMap.search).setValue('1');
             jest.runAllTimers(); // search is debounced
             await nextTick(); // wait for dom updates
 
@@ -184,7 +184,7 @@ describe('UITable', () => {
             });
 
             const search = wrapper.findComponent(UIInput);
-            await search.find('input').setValue('a1');
+            await search.find(selectorMap.search).setValue('a1');
             jest.runAllTimers(); // search is debounced
             await nextTick(); // wait for dom updates
 
@@ -206,7 +206,7 @@ describe('UITable', () => {
             });
 
             const search = wrapper.findComponent(UIInput);
-            await search.find('input').setValue('a1');
+            await search.find(selectorMap.search).setValue('a1');
             jest.runAllTimers(); // search is debounced
             await nextTick(); // wait for dom updates
 

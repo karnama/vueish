@@ -2,7 +2,7 @@
 
 exports[`UITable should display correctly 1`] = `
 <section
-  class="shadow dark:shadow-lg text-color bg-white dark:bg-gray-600 relative sm:overflow-x-scroll border border-gray-200 dark:border-gray-500 rounded"
+  class="shadow dark:shadow-lg text-color bg-white dark:bg-gray-600 relative overflow-x-auto border border-gray-200 dark:border-gray-500 rounded"
 >
   <table
     class="flex sm:table flex-col border-collapse w-full table-auto relative"
@@ -355,7 +355,7 @@ exports[`UITable should display correctly 1`] = `
 
 exports[`UITable should display in its compact form 1`] = `
 <section
-  class="shadow dark:shadow-lg text-color bg-white dark:bg-gray-600 relative sm:overflow-x-scroll border border-gray-200 dark:border-gray-500 rounded"
+  class="shadow dark:shadow-lg text-color bg-white dark:bg-gray-600 relative overflow-x-auto border border-gray-200 dark:border-gray-500 rounded"
   compact="true"
 >
   <table
