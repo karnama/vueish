@@ -163,7 +163,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, onUnmounted, nextTick, onBeforeUpdate } from 'vue';
-import { isEqual as _isEqual, cloneDeep } from 'lodash-es';
+import { isEqual as _isEqual, cloneDeep, debounce } from 'lodash-es';
 import type { PropType } from 'vue';
 import {
     placeholder,
@@ -353,8 +353,8 @@ export default defineComponent({
             await nextTick();
             open.value = false;
             search.value = '';
-            globalThis?.window.removeEventListener('resize', setPosition);
-            globalThis?.window.removeEventListener('scroll', setPosition);
+            globalThis?.window.removeEventListener('resize', debounce(setPosition, 15));
+            globalThis?.window.removeEventListener('scroll', debounce(setPosition, 15));
         };
         const openList = async () => {
             if (props.disabled) return;
@@ -363,8 +363,8 @@ export default defineComponent({
             await nextTick();
             setPosition();
             searchInput.value?.focus({ preventScroll: true });
-            globalThis?.window.addEventListener('resize', setPosition);
-            globalThis?.window.addEventListener('scroll', setPosition);
+            globalThis?.window.addEventListener('resize', debounce(setPosition, 15));
+            globalThis?.window.addEventListener('scroll', debounce(setPosition, 15));
         };
         const clearSelection = (option?: Option) => {
             if (
@@ -465,8 +465,8 @@ export default defineComponent({
 
         onUnmounted(() => {
             // in case it's unmounted while open
-            globalThis?.window.removeEventListener('resize', setPosition);
-            globalThis?.window.removeEventListener('scroll', setPosition);
+            globalThis?.window.removeEventListener('resize', debounce(setPosition, 15));
+            globalThis?.window.removeEventListener('scroll', debounce(setPosition, 15));
         });
 
         return {
