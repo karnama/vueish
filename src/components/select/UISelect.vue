@@ -37,9 +37,7 @@
              @click="open ? closeList() : openList()">
             <template v-if="selectionCount > 0">
                 <slot name="selected" :selected="selected">
-                    <span :class="{ 'truncate': multi }">
-                        {{ selectionDisplay }}
-                    </span>
+                    {{ selectionDisplay }}
                 </slot>
             </template>
             <template v-else>
