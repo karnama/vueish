@@ -307,7 +307,7 @@ export default defineComponent({
                 return '';
             }
 
-            const options = wrap<Option | string>(cloneDeep(selected.value));
+            const options = wrap<Option | string>(selected.value);
 
             return options.map(option => typeof option === 'string' ? option : option[props.optionLabel]).join(', ');
         });
