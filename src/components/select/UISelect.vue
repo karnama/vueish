@@ -50,7 +50,7 @@
 
             <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
                 <span v-if="disabled"
-                      class="h-5 w-5 text-color-muted"
+                      class="h-5 w-5 text-color-muted shrink-0"
                       :class="{ '-mr-3.5': large }"
                       v-html="lockIcon" />
 
