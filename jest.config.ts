@@ -29,12 +29,7 @@ export default {
     reporters: ['default', 'github-actions'],
     transform: {
         '^.+\\.vue$': '@vue/vue3-jest',
-        '^.+\\ts$': 'ts-jest'
+        '^.+\\ts$': ['ts-jest', { tsconfig: 'tsconfig.node.json' }]
     },
-    testMatch: ['<rootDir>/src/**/*.test.ts'],
-    globals: {
-        'ts-jest': {
-            tsconfig: 'tsconfig.node.json'
-        }
-    }
+    testMatch: ['<rootDir>/src/**/*.test.ts']
 } as InitialOptionsTsJest;
