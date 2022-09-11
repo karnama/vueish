@@ -175,6 +175,27 @@
                  type="number"
                  placeholder="Placeholder text."
                  label="Placeholder" />
+
+        <UIInput v-model="helpProp"
+                 :error="error"
+                 :small="small"
+                 :loading="loading"
+                 name="ui-text15"
+                 class="mt-10"
+                 help="Descriptive message..."
+                 label="Help (prop)" />
+
+        <UIInput v-model="helpSlot"
+                 :error="error"
+                 :small="small"
+                 :loading="loading"
+                 name="ui-text15"
+                 class="mt-10"
+                 label="Help (slot)">
+            <template #help>
+                <span class="animate-pulse text-sm mt-1 text-color-muted">Descriptive message...</span>
+            </template>
+        </UIInput>
     </div>
 </template>
 
@@ -200,6 +221,8 @@ export default defineComponent({
         const suffixProp = ref('100');
         const suffixSlot = ref('Feather-weight');
         const placeholder = ref<number|null>(null);
+        const helpProp = ref('I\'m an input!');
+        const helpSlot = ref('I\'m an input!');
         const large = ref(false);
         const small = ref(false);
         const error = ref('');
@@ -224,6 +247,8 @@ export default defineComponent({
             suffixProp,
             suffixSlot,
             placeholder,
+            helpProp,
+            helpSlot,
             large,
             error,
             loading,
