@@ -37,9 +37,7 @@
              @click="open ? closeList() : openList()">
             <template v-if="selectionCount > 0">
                 <slot name="selected" :selected="selected">
-                    <span :class="{ 'truncate': multi }">
-                        {{ selectionDisplay }}
-                    </span>
+                    {{ selectionDisplay }}
                 </slot>
             </template>
             <template v-else>
@@ -52,7 +50,7 @@
 
             <UIFadeTransition duration-out="duration-100" duration-in="duration-100">
                 <span v-if="disabled"
-                      class="h-5 w-5 text-color-muted"
+                      class="h-5 w-5 text-color-muted shrink-0"
                       :class="{ '-mr-3.5': large }"
                       v-html="lockIcon" />
 
@@ -165,7 +163,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, onUnmounted, nextTick, onBeforeUpdate } from 'vue';
-import { isEqual as _isEqual, cloneDeep } from 'lodash-es';
+import { isEqual as _isEqual, cloneDeep, debounce } from 'lodash-es';
 import type { PropType } from 'vue';
 import {
     placeholder,
@@ -309,7 +307,7 @@ export default defineComponent({
                 return '';
             }
 
-            const options = wrap<Option | string>(cloneDeep(selected.value));
+            const options = wrap<Option | string>(selected.value);
 
             return options.map(option => typeof option === 'string' ? option : option[props.optionLabel]).join(', ');
         });
@@ -355,7 +353,8 @@ export default defineComponent({
             await nextTick();
             open.value = false;
             search.value = '';
-            globalThis?.window.removeEventListener('resize', setPosition);
+            globalThis?.window.removeEventListener('resize', debounce(setPosition, 15));
+            globalThis?.window.removeEventListener('scroll', debounce(setPosition, 15));
         };
         const openList = async () => {
             if (props.disabled) return;
@@ -364,7 +363,8 @@ export default defineComponent({
             await nextTick();
             setPosition();
             searchInput.value?.focus({ preventScroll: true });
-            globalThis?.window.addEventListener('resize', setPosition);
+            globalThis?.window.addEventListener('resize', debounce(setPosition, 15));
+            globalThis?.window.addEventListener('scroll', debounce(setPosition, 15));
         };
         const clearSelection = (option?: Option) => {
             if (
@@ -465,7 +465,8 @@ export default defineComponent({
 
         onUnmounted(() => {
             // in case it's unmounted while open
-            globalThis?.window.removeEventListener('resize', setPosition);
+            globalThis?.window.removeEventListener('resize', debounce(setPosition, 15));
+            globalThis?.window.removeEventListener('scroll', debounce(setPosition, 15));
         });
 
         return {

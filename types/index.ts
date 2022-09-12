@@ -1,4 +1,5 @@
-import './vueish.d.ts';
+import type { DeepPartial } from './utilities';
+import type { Plugin } from 'vue';
 
 export type Icon = 'clear' | 'check' | 'dash' | 'lock' | 'chevron' | 'person' | 'upload' | 'show' | 'hide' | 'retry';
 
@@ -50,3 +51,6 @@ export type Theme = typeof themes[number];
 export interface UIError {
     message: string;
 }
+
+export declare function getVersion(): string;
+export declare function createUILibrary(setting?: DeepPartial<Settings>): Plugin;

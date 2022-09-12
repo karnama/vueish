@@ -9,7 +9,7 @@
         <div class="flex flex-col justify-center"
              :style="[ component.name !== 'UIExpandTransition' ? 'min-height: 10rem;' : '' ]">
             <component :is="component.name">
-                <div v-if="singleElement" class="content" />
+                <div v-show="singleElement" class="content" />
             </component>
         </div>
 
@@ -17,6 +17,7 @@
             <div class="flex justify-end">
                 <UIButton :label="`${singleElement ? 'Not' : ''} Visible`"
                           outline
+                          class="min-w-[106px]"
                           @click="singleElement = !singleElement" />
             </div>
         </slot>
@@ -76,7 +77,8 @@ export default defineComponent({
         const components = [
             { name: 'UIFadeTransition' },
             { name: 'UIFadeScaleTransition' },
-            { name: 'UIExpandTransition' }
+            { name: 'UIExpandTransition' },
+            { name: 'UIFadeSlideTransition' }
         ];
 
         const component = ref<{ name: string }>({ name: 'UIFadeTransition' });
