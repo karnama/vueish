@@ -119,14 +119,8 @@
 
         <UIExpandTransition>
             <slot v-if="error || $slots.error" name="error">
-                <p class="ui-error-text">
+                <p class="text-color-error text-sm">
                     {{ error }}
-                </p>
-            </slot>
-
-            <slot v-else-if="(help || $slots.help)" name="help">
-                <p class="ui-help-text">
-                    {{ help }}
                 </p>
             </slot>
         </UIExpandTransition>
@@ -230,14 +224,6 @@ export default defineComponent({
          */
         step: {
             type: [Number, String]
-        },
-
-
-        /**
-         * Help message to show below the input.
-         */
-        help: {
-            type: String
         },
 
         large,
