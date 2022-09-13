@@ -117,18 +117,19 @@
             </div>
         </div>
 
-        <Component :is="(error || $slots.error) && (help || $slots.help) ? 'UIFadeTransition' : 'UIExpandTransition'">
+        <UIExpandTransition>
             <slot v-if="error || $slots.error" name="error">
                 <p class="ui-error-text">
                     {{ error }}
                 </p>
             </slot>
+
             <slot v-else-if="(help || $slots.help)" name="help">
                 <p class="ui-help-text">
                     {{ help }}
                 </p>
             </slot>
-        </Component>
+        </UIExpandTransition>
     </div>
 </template>
 
