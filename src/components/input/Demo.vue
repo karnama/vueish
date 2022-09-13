@@ -193,7 +193,7 @@
                  class="mt-10"
                  label="Help (slot)">
             <template #help>
-                <span class="animate-pulse text-sm mt-1 text-color-muted">Descriptive message...</span>
+                <span class="underline ui-help-text">Descriptive message...</span>
             </template>
         </UIInput>
     </div>
