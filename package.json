@@ -57,7 +57,7 @@
         "commitlint": "^17.0.2",
         "eslint": "~8.22.0",
         "eslint-plugin-import": "^2.22.1",
-        "eslint-plugin-jest": "^27.0.1",
+        "eslint-plugin-jest": "^27.0.4",
         "eslint-plugin-vue": "^9.1.1",
         "glob": "^8.0.1",
         "husky": "^8.0.1",
