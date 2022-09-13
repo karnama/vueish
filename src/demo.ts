@@ -2,7 +2,7 @@ import { createApp, h } from 'vue';
 import DemoBoard from './DemoBoard.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import './assets/styles/main.scss';
-import Vueish from './main';
+import { createUILibrary } from './main';
 import type { RouteRecordRaw } from 'vue-router';
 
 const componentDemos = import.meta.glob('./components/**/Demo.vue');
@@ -46,6 +46,6 @@ routes.push({
 const router = createRouter({ history: createWebHistory(), routes });
 
 createApp(DemoBoard)
-    .use(Vueish)
+    .use(createUILibrary())
     .use(router)
     .mount('#app');

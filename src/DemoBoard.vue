@@ -5,7 +5,7 @@
             <div class="menu px-12 shadow-xl dark:bg-gray-600 dark:text-gray-300 z-30 bg-white"
                  :class="[ isOpen ? 'open' : 'closed' ]">
                 <div class="sticky top-0">
-                    <div class="flex items-center justify-between">
+                    <div class="flex items-center justify-between space-x-2">
                         <div class="mt-4 mb-6">
                             <h1 class="text-2xl whitespace-nowrap">
                                 Vueish UI
@@ -13,10 +13,12 @@
                             <small>v{{ version }}</small>
                         </div>
 
-                        <UIButton minimal
-                                  class="dark:text-gray-200 dark:hover:text-gray-700"
+                        <UIButton outline
+                                  theme="gray"
+                                  class="!rounded-full w-8 h-8 relative"
                                   @click="isOpen = false">
-                            <span v-html="clearIcon" />
+                            <span class="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]"
+                                  v-html="clearIcon" />
                         </UIButton>
                     </div>
                     <div class="flex-col flex">
@@ -151,6 +153,7 @@ export default defineComponent({
         transition: margin-left 300ms ease, opacity 300ms ease-out;
         opacity: 0;
     }
+
     &.open {
         transition: margin-left 300ms ease, opacity 300ms ease-out;
         opacity: 1;
