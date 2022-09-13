@@ -320,4 +320,83 @@ describe('UIInput', () => {
             expect(wrapper.lastEventValue()).toBeUndefined();
         });
     });
+
+    it('should display the error text when passed as a slot', () => {
+        const error = 'error';
+        const errorContainer = `<span id="error">${error}</span>`;
+
+        const wrapper = mount(UIInput, {
+            props: {
+                modelValue: '',
+                name: 'input'
+            },
+            slots: {
+                error: errorContainer
+            }
+        });
+
+        expect(wrapper.get('#error').text()).toBe(error);
+    });
+
+    it('should display the error text when passed as a prop', () => {
+        const error = 'error';
+
+        const wrapper = mount(UIInput, {
+            props: {
+                modelValue: '',
+                name: 'input',
+                error
+            }
+        });
+
+        expect(wrapper.get('.ui-error-text').text()).toBe(error);
+    });
+
+    it('should display the help text when passed as a slot', () => {
+        const help = 'help';
+        const helpContainer = `<span id="help">${help}</span>`;
+
+        const wrapper = mount(UIInput, {
+            props: {
+                modelValue: '',
+                name: 'input'
+            },
+            slots: {
+                help: helpContainer
+            }
+        });
+
+        expect(wrapper.get('#help').text()).toBe(help);
+    });
+
+    it('should display the help text when passed as a prop', () => {
+        const help = 'help';
+
+        const wrapper = mount(UIInput, {
+            props: {
+                modelValue: '',
+                name: 'input',
+                help
+            }
+        });
+
+        expect(wrapper.get('.ui-help-text').text()).toBe(help);
+    });
+
+    it('should display the only error text when both help and error are passed as prop', () => {
+        const help = 'help';
+        const error = 'error';
+
+        const wrapper = mount(UIInput, {
+            props: {
+                modelValue: '',
+                name: 'input',
+                help,
+                error
+            }
+        });
+
+        expect(wrapper.find('.ui-help-text').exists()).toBe(false);
+        expect(wrapper.get('.ui-error-text').text()).toBe(error);
+    });
 });
