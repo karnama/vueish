@@ -117,21 +117,18 @@
             </div>
         </div>
 
-        <UIExpandTransition :height-duration="100" :opacity-duration="200">
-            <template v-if="error || $slots.error || help || $slots.help">
-                <slot v-if="error || $slots.error" name="error">
-                    <p class="ui-error-text">
-                        {{ error }}
-                    </p>
-                </slot>
-
-                <slot v-else-if="(help || $slots.help)" name="help">
-                    <p class="ui-help-text">
-                        {{ help }}
-                    </p>
-                </slot>
-            </template>
-        </UIExpandTransition>
+        <Component :is="(error || $slots.error) && (help || $slots.help) ? 'UIFadeTransition' : 'UIExpandTransition'">
+            <slot v-if="error || $slots.error" name="error">
+                <p class="ui-error-text">
+                    {{ error }}
+                </p>
+            </slot>
+            <slot v-else-if="(help || $slots.help)" name="help">
+                <p class="ui-help-text">
+                    {{ help }}
+                </p>
+            </slot>
+        </Component>
     </div>
 </template>
 
