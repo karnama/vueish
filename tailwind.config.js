@@ -43,7 +43,10 @@ const tailwindConfig = {
             },
             rotate: {
                 '270': '270deg',
-            }
+            },
+            minHeight: (theme) => ({
+                ...theme('height')
+            })
         }
     }
 };

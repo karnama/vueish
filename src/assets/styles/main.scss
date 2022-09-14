@@ -45,10 +45,10 @@
 
 .ui-error-text {
     @extend .text-color-error;
-    @apply text-sm mt-1;
+    @apply text-sm pt-1;
 }
 
 .ui-help-text {
     @extend .text-color-muted;
-    @apply text-gray-400 text-sm mt-1;
+    @apply text-gray-400 text-sm pt-1;
 }
