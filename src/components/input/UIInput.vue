@@ -35,7 +35,7 @@
                 <span v-if="prefix ?? $slots.prefix"
                       class="ui-prefix ml-3 -mr-1 select-none text-color-muted cursor-text"
                       :class="{ 'ml-5 -mr-4': large, 'ml-2': small }"
-                      @click="$refs.input.focus">
+                      @click="$refs.input?.focus">
                     <slot name="prefix">
                         {{ prefix }}
                     </slot>
@@ -78,7 +78,7 @@
                     <span v-else-if="suffix || $slots.suffix || clearable && model"
                           class="mr-3 text-color-muted flex space-x-2 cursor-text"
                           :class="{ 'mr-5': large, 'mr-3': !small && !large }"
-                          @click="$refs.input.focus">
+                          @click="$refs.input?.focus">
                         <span v-if="suffix || $slots.suffix"
                               class="ui-suffix select-none">
                             <slot name="suffix">
@@ -119,14 +119,8 @@
 
         <UIExpandTransition>
             <slot v-if="error || $slots.error" name="error">
-                <p class="ui-error-text">
+                <p class="text-color-error text-sm">
                     {{ error }}
-                </p>
-            </slot>
-
-            <slot v-else-if="(help || $slots.help)" name="help">
-                <p class="ui-help-text">
-                    {{ help }}
                 </p>
             </slot>
         </UIExpandTransition>
@@ -230,14 +224,6 @@ export default defineComponent({
          */
         step: {
             type: [Number, String]
-        },
-
-
-        /**
-         * Help message to show below the input.
-         */
-        help: {
-            type: String
         },
 
         large,
