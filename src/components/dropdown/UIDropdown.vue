@@ -141,8 +141,8 @@ export default defineComponent({
                 return style;
             }
 
-            const contentParameters: DOMRect = uiDropdown.value.getBoundingClientRect();
-            const dropdownParameters = dropdown.value?.getBoundingClientRect();
+            const dropdownRect: DOMRect = uiDropdown.value.getBoundingClientRect();
+            const contentRect = dropdown.value?.getBoundingClientRect();
 
             style.maxHeight = props.maxHeight;
             style.width = props.width;
@@ -153,42 +153,45 @@ export default defineComponent({
                 const maxHeight = getPxValue(props.width);
 
                 // doesn't fit on the right
-                if (globalThis?.document.documentElement.clientWidth - (contentParameters.x + mousePos.x) <= width) {
-                    style.left = `${contentParameters.left + mousePos.x - width}px`;
+                if (globalThis?.document.documentElement.clientWidth - (dropdownRect.x + mousePos.x) <= width) {
+                    style.left = `${dropdownRect.left + mousePos.x - width}px`;
                 } else {
-                    style.left = `${contentParameters.left + mousePos.x}px`;
+                    style.left = `${dropdownRect.left + mousePos.x}px`;
                 }
 
+                const top = dropdownRect.top + mousePos.y;
                 // doesn't fit on the bottom
-                if (
-                    globalThis?.document.documentElement.clientHeight - (contentParameters.y + mousePos.y) <= maxHeight
-                ) {
-                    style.top = `${contentParameters.top + mousePos.y - (dropdownParameters ? dropdownParameters.height : maxHeight)}px`;
+                if (globalThis?.document.documentElement.clientHeight - top <= maxHeight) {
+                    style.top = `${top - (contentRect ? contentRect.height : maxHeight)}px`;
                 } else {
-                    style.top = `${contentParameters.top + mousePos.y}px`;
+                    style.top = `${top}px`;
                 }
 
                 return style;
             }
 
+            const contentHeight = contentRect ? contentRect.height : 0;
+            const contentWidth = contentRect ? contentRect.width : 0;
+
             if (props.horizontal === 'left') {
-                style.left = `${contentParameters.left}px`;
+                style.left = `${dropdownRect.left}px`;
             } else {
-                style.left = `${contentParameters.left + contentParameters.width - (dropdownParameters ? dropdownParameters.width : 0)}px`;
+                style.left = `${dropdownRect.left + dropdownRect.width - contentWidth}px`;
             }
 
-            const contentHeight = dropdownParameters ? dropdownParameters.height : 0;
             // todo - if there's no space to show the content in the current clientHeight(it can still scroll)
             //  anchor to bottom of the screen
             if (props.vertical === 'top') {
                 const position = globalThis.document.documentElement.scrollTop
-                    + contentParameters.top
-                    - contentParameters.height / 2
+                    + dropdownRect.top
+                    - dropdownRect.height / 2
                     - contentHeight;
                 // if negative value, anchor to top of window
                 style.top = `${Math.max(0, position)}px`;
             } else {
-                let top = globalThis?.document.documentElement.scrollTop + contentParameters.top + contentParameters.height;
+                let top = globalThis?.document.documentElement.scrollTop
+                    + dropdownRect.top
+                    + dropdownRect.height;
 
                 if (globalThis?.document.documentElement.scrollHeight <= top + contentHeight) {
                     top = globalThis?.document.documentElement.scrollHeight - contentHeight;
