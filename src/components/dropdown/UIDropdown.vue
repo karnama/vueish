@@ -15,8 +15,8 @@
                          ref="dropdown"
                          v-click-away="hide"
                          class="dropdown absolute z-50 rounded overflow-auto flex flex-col items-stretch shadow-lg
-                            bg-white dark:bg-gray-600 h-max
-                            ring-1 ring-opacity-5 ring-black dark:ring-white dark:ring-opacity-5"
+                                bg-white dark:bg-gray-600 h-max
+                                ring-1 ring-opacity-5 ring-black dark:ring-white dark:ring-opacity-5"
                          :style="dropdownStyle"
                          role="group"
                          @click.stop>
@@ -29,7 +29,8 @@
                  ref="dropdown"
                  v-click-away="hide"
                  class="dropdown absolute z-50 rounded overflow-auto flex flex-col items-stretch shadow-lg
-                    bg-white dark:bg-gray-600 ring-1 ring-opacity-5 ring-black dark:ring-white dark:ring-opacity-5"
+                        bg-white dark:bg-gray-600 h-max
+                        ring-1 ring-opacity-5 ring-black dark:ring-white dark:ring-opacity-5"
                  :style="dropdownStyle"
                  role="group"
                  @click.stop>
@@ -159,9 +160,12 @@ export default defineComponent({
                     style.left = `${dropdownRect.left + mousePos.x}px`;
                 }
 
-                const top = dropdownRect.top + mousePos.y;
+                const top = dropdownRect.top + mousePos.y + globalThis?.document.documentElement.scrollTop;
                 // doesn't fit on the bottom
-                if (globalThis?.document.documentElement.clientHeight - top <= maxHeight) {
+                if (globalThis?.document.documentElement.scrollTop
+                    + globalThis?.document.documentElement.clientHeight
+                    - top <= maxHeight
+                ) {
                     style.top = `${top - (contentRect ? contentRect.height : maxHeight)}px`;
                 } else {
                     style.top = `${top}px`;
@@ -184,8 +188,8 @@ export default defineComponent({
             if (props.vertical === 'top') {
                 const position = globalThis.document.documentElement.scrollTop
                     + dropdownRect.top
-                    - dropdownRect.height / 2
-                    - contentHeight;
+                    - contentHeight
+                    - getPxValue('1rem');
                 // if negative value, anchor to top of window
                 style.top = `${Math.max(0, position)}px`;
             } else {
