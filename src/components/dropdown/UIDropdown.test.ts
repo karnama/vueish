@@ -1,4 +1,4 @@
-import { mount } from '@vue/test-utils';
+import { DOMWrapper, mount } from '@vue/test-utils';
 import UIDropdown from './UIDropdown.vue';
 import { h, nextTick } from 'vue';
 
@@ -14,7 +14,8 @@ describe('UIDropdown', () => {
         // @ts-expect-error - ts reckons this has the type never
         wrapper.vm.toggle();
         await nextTick();
-        expect(wrapper.element).toMatchSnapshot();
+        expect(document.body.lastElementChild).toMatchSnapshot();
+        wrapper.unmount();
     });
 
     it('should display the given content when open', async () => {
@@ -25,13 +26,13 @@ describe('UIDropdown', () => {
             }
         });
 
-        expect(wrapper.find('#trigger').exists()).toBe(true);
-        expect(wrapper.find('#content').exists()).toBe(false);
+        const documentWrapper = new DOMWrapper(document.body);
+
+        expect(documentWrapper.find('#content').exists()).toBe(false);
         // @ts-expect-error - ts reckons this has the type never
         wrapper.vm.toggle();
         await nextTick();
-        expect(wrapper.find('#content').exists()).toBe(true);
-        expect(wrapper.find('#trigger').exists()).toBe(true);
+        expect(documentWrapper.find('#content').exists()).toBe(true);
     });
 
     it('should emit the open and close event at appropriate times', () => {

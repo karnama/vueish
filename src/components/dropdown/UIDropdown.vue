@@ -7,33 +7,34 @@
               :show="show"
               :hide="hide" />
 
-        <template v-if="transitionComponent">
-            <component :is="transitionComponent">
+        <Teleport to="body">
+            <component :is="transitionComponent" v-if="transitionComponent">
                 <div v-if="isOpen"
                      v-bind="$attrs"
                      ref="dropdown"
                      v-click-away="hide"
                      class="dropdown absolute z-50 rounded overflow-auto flex flex-col items-stretch shadow-lg
-                            bg-white dark:bg-gray-600 h-max
-                            ring-1 ring-opacity-5 ring-black dark:ring-white dark:ring-opacity-5"
+                                bg-white dark:bg-gray-600 h-max
+                                ring-1 ring-opacity-5 ring-black dark:ring-white dark:ring-opacity-5"
                      :style="dropdownStyle"
                      role="group"
                      @click.stop>
                     <slot :toggle="toggle" :show="show" :hide="hide" />
                 </div>
             </component>
-        </template>
-        <div v-else-if="isOpen"
-             v-bind="$attrs"
-             ref="dropdown"
-             v-click-away="hide"
-             class="dropdown absolute z-50 rounded overflow-auto flex flex-col items-stretch shadow-lg
-                    bg-white dark:bg-gray-600 ring-1 ring-opacity-5 ring-black dark:ring-white dark:ring-opacity-5"
-             :style="dropdownStyle"
-             role="group"
-             @click.stop>
-            <slot :toggle="toggle" :show="show" :hide="hide" />
-        </div>
+            <div v-else-if="isOpen"
+                 v-bind="$attrs"
+                 ref="dropdown"
+                 v-click-away="hide"
+                 class="dropdown absolute z-50 rounded overflow-auto flex flex-col items-stretch shadow-lg
+                        bg-white dark:bg-gray-600 h-max
+                        ring-1 ring-opacity-5 ring-black dark:ring-white dark:ring-opacity-5"
+                 :style="dropdownStyle"
+                 role="group"
+                 @click.stop>
+                <slot :toggle="toggle" :show="show" :hide="hide" />
+            </div>
+        </Teleport>
     </div>
 </template>
 
@@ -139,8 +140,8 @@ export default defineComponent({
                 return style;
             }
 
-            const contentParameters: DOMRect = uiDropdown.value.getBoundingClientRect();
-            const dropdownParameters = dropdown.value?.getBoundingClientRect();
+            const dropdownRect: DOMRect = uiDropdown.value.getBoundingClientRect();
+            const contentRect = dropdown.value?.getBoundingClientRect();
 
             style.maxHeight = props.maxHeight;
             style.width = props.width;
@@ -151,34 +152,54 @@ export default defineComponent({
                 const maxHeight = getPxValue(props.width);
 
                 // doesn't fit on the right
-                if (globalThis?.document.documentElement.clientWidth - (contentParameters.x + mousePos.x) <= width) {
-                    style.left = `${mousePos.x - width}px`;
+                if (globalThis?.document.documentElement.clientWidth - (dropdownRect.x + mousePos.x) <= width) {
+                    style.left = `${dropdownRect.left + mousePos.x - width}px`;
                 } else {
-                    style.left = `${mousePos.x}px`;
+                    style.left = `${dropdownRect.left + mousePos.x}px`;
                 }
 
+                const top = dropdownRect.top + mousePos.y + globalThis?.document.documentElement.scrollTop;
                 // doesn't fit on the bottom
-                if (
-                    globalThis?.document.documentElement.clientHeight - (contentParameters.y + mousePos.y) <= maxHeight
+                if (globalThis?.document.documentElement.scrollTop
+                    + globalThis?.document.documentElement.clientHeight
+                    - top <= maxHeight
                 ) {
-                    style.top = `${mousePos.y - (dropdownParameters ? dropdownParameters.height : maxHeight)}px`;
+                    style.top = `${top - (contentRect ? contentRect.height : maxHeight)}px`;
                 } else {
-                    style.top = `${mousePos.y}px`;
+                    style.top = `${top}px`;
                 }
 
                 return style;
             }
 
+            const contentHeight = contentRect ? contentRect.height : 0;
+            const contentWidth = contentRect ? contentRect.width : 0;
+
             if (props.horizontal === 'left') {
-                style.left = '0px';
+                style.left = `${dropdownRect.left}px`;
             } else {
-                style.right = '0px';
+                style.left = `${dropdownRect.left + dropdownRect.width - contentWidth}px`;
             }
 
+            // todo - if there's no space to show the content in the current clientHeight(it can still scroll)
+            //  anchor to bottom of the screen
             if (props.vertical === 'top') {
-                style.bottom = `${contentParameters.height}px`;
+                const position = globalThis.document.documentElement.scrollTop
+                    + dropdownRect.top
+                    - contentHeight
+                    - getPxValue('1rem');
+                // if negative value, anchor to top of window
+                style.top = `${Math.max(0, position)}px`;
             } else {
-                style.top = `${contentParameters.height}px`;
+                let top = globalThis?.document.documentElement.scrollTop
+                    + dropdownRect.top
+                    + dropdownRect.height;
+
+                if (globalThis?.document.documentElement.scrollHeight <= top + contentHeight) {
+                    top = globalThis?.document.documentElement.scrollHeight - contentHeight;
+                }
+
+                style.top = `${top}px`;
             }
 
             return style;
