@@ -8,22 +8,20 @@
               :hide="hide" />
 
         <Teleport to="body">
-            <template v-if="transitionComponent">
-                <component :is="transitionComponent">
-                    <div v-if="isOpen"
-                         v-bind="$attrs"
-                         ref="dropdown"
-                         v-click-away="hide"
-                         class="dropdown absolute z-50 rounded overflow-auto flex flex-col items-stretch shadow-lg
+            <component :is="transitionComponent" v-if="transitionComponent">
+                <div v-if="isOpen"
+                     v-bind="$attrs"
+                     ref="dropdown"
+                     v-click-away="hide"
+                     class="dropdown absolute z-50 rounded overflow-auto flex flex-col items-stretch shadow-lg
                                 bg-white dark:bg-gray-600 h-max
                                 ring-1 ring-opacity-5 ring-black dark:ring-white dark:ring-opacity-5"
-                         :style="dropdownStyle"
-                         role="group"
-                         @click.stop>
-                        <slot :toggle="toggle" :show="show" :hide="hide" />
-                    </div>
-                </component>
-            </template>
+                     :style="dropdownStyle"
+                     role="group"
+                     @click.stop>
+                    <slot :toggle="toggle" :show="show" :hide="hide" />
+                </div>
+            </component>
             <div v-else-if="isOpen"
                  v-bind="$attrs"
                  ref="dropdown"
