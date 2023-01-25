@@ -23,15 +23,17 @@
 
             <div class="grow flex flex-col items-center justify-center py-24 px-2 text-center cursor-pointer"
                  @click="openFileBrowser">
-                <p class="mb-4 text-brand-600" v-html="uploadIcon" />
-                <p class="text-lg">
-                    Drag and Drop file
-                    <br>
-                    or
-                </p>
-                <UIButton theme="brand" class="mt-2">
-                    Browse
-                </UIButton>
+                <slot :upload-icon="uploadIcon">
+                    <p class="mb-4 text-brand-600" v-html="uploadIcon" />
+                    <p class="text-lg">
+                        Drag and Drop file
+                        <br>
+                        or
+                    </p>
+                    <UIButton theme="brand" class="mt-2">
+                        Browse
+                    </UIButton>
+                </slot>
             </div>
             <div v-show="files.length"
                  class="w-full sm:w-1/2 flex flex-col py-6 px-2

@@ -1,14 +1,31 @@
 <template>
-    <div class="flex justify-evenly mb-6">
-        <UIButton theme="red" @click="error ? error = '' : error = 'Error message.'">
-            {{ error ? 'Remove' : 'Set' }} Error state
-        </UIButton>
-    </div>
+    <div class="space-y-6">
+        <div class="flex justify-evenly">
+            <UIButton theme="red" @click="error ? error = '' : error = 'Error message.'">
+                {{ error ? 'Remove' : 'Set' }} Error state
+            </UIButton>
+        </div>
 
-    <UIFileUploader :error="error"
-                    :upload="upload"
-                    class="border-brand-400"
-                    @validation-error="logError" />
+        <UIFileUploader :error="error"
+                        :upload="upload"
+                        class="border-brand-400"
+                        @validation-error="logError" />
+
+        <UIFileUploader :error="error"
+                        :upload="upload"
+                        class="border-brand-400"
+                        @validation-error="logError">
+            <template #default="{ uploadIcon }">
+                <p class="text-pink-600" v-html="uploadIcon" />
+                <p class="text-lg">
+                    Drop files here to upload them
+                </p>
+                <UIButton theme="pink" class="mt-2">
+                    Browse
+                </UIButton>
+            </template>
+        </UIFileUploader>
+    </div>
 </template>
 
 <script lang="ts">
