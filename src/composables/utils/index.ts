@@ -40,7 +40,7 @@ export const createFileList = (files: File | File[]): FileList => {
  * Determine whether the given file is an image.
  */
 export const isImage = (file: File): boolean => {
-    return !!RegExp(/[/.](gif|jp(e)?g|png)$/i).exec(file.name);
+    return file.type.startsWith('image/');
 };
 
 /**

@@ -3,12 +3,13 @@ import { createFileList, getExtension, getSizeString, isImage } from './index';
 describe('utils', () => {
     describe('isImage', () => {
         it('should correctly determine the image based on the extension', () => {
-            expect(isImage(new File([''], 'text.txt'))).toBe(false);
+            expect(isImage(new File([''], 'text.txt', { type: 'text/plain' }))).toBe(false);
 
-            expect(isImage(new File([''], 'img.jpeg'))).toBe(true);
-            expect(isImage(new File([''], 'img.jpg'))).toBe(true);
-            expect(isImage(new File([''], 'img.png'))).toBe(true);
-            expect(isImage(new File([''], 'img.gif'))).toBe(true);
+            expect(isImage(new File([''], 'img.jpeg', { type: 'image/jpeg' }))).toBe(true);
+            expect(isImage(new File([''], 'img.jpg', { type: 'image/jpeg' }))).toBe(true);
+            expect(isImage(new File([''], 'img.png', { type: 'image/png' }))).toBe(true);
+            expect(isImage(new File([''], 'img.gif', { type: 'image/gif' }))).toBe(true);
+            expect(isImage(new File([''], 'img.webp', { type: 'image/webp' }))).toBe(true);
         });
     });
 
