@@ -21,18 +21,19 @@
                    :accept="acceptedMimes.join(',')"
                    @change.prevent="addFiles">
 
-            <div class="grow flex flex-col items-center justify-center py-24 px-2 text-center cursor-pointer"
-                 @click="openFileBrowser">
+            <div class="grow flex" @click="openFileBrowser">
                 <slot :upload-icon="uploadIcon">
-                    <p class="mb-4 text-brand-600" v-html="uploadIcon" />
-                    <p class="text-lg">
-                        Drag and Drop file
-                        <br>
-                        or
-                    </p>
-                    <UIButton theme="brand" class="mt-2">
-                        Browse
-                    </UIButton>
+                    <div class="grow flex flex-col items-center justify-center py-24 px-2 text-center cursor-pointer">
+                        <p class="mb-4 text-brand-600" v-html="uploadIcon" />
+                        <p class="text-lg">
+                            Drag and Drop file
+                            <br>
+                            or
+                        </p>
+                        <UIButton theme="brand" class="mt-2">
+                            Browse
+                        </UIButton>
+                    </div>
                 </slot>
             </div>
             <div v-show="files.length"

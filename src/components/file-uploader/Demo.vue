@@ -16,13 +16,15 @@
                         class="border-brand-400"
                         @validation-error="logError">
             <template #default="{ uploadIcon }">
-                <p class="text-pink-600" v-html="uploadIcon" />
-                <p class="text-lg">
-                    Drop files here to upload them
-                </p>
-                <UIButton theme="pink" class="mt-2">
-                    Browse
-                </UIButton>
+                <div class="grow flex flex-col items-center justify-center py-12 px-2 text-center cursor-pointer">
+                    <p class="text-pink-600" v-html="uploadIcon" />
+                    <p class="text-lg">
+                        Drop files here to upload them
+                    </p>
+                    <UIButton theme="pink" class="mt-2">
+                        Browse
+                    </UIButton>
+                </div>
             </template>
         </UIFileUploader>
     </div>
