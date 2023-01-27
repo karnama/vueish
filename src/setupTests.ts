@@ -4,6 +4,7 @@ import defaultSettings from '@/defaultSettings';
 import type { ComponentPublicInstance } from 'vue';
 
 beforeAll(() => {
+    // @ts-expect-error
     config.global.config.globalProperties = {
         // eslint-disable-next-line @typescript-eslint/naming-convention
         Vueish: defaultSettings
