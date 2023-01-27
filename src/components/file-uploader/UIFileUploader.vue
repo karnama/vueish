@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="h-full">
         <div :class="{
                  'active': isDraggedOver && !isLoading,
                  'pointer-events-none': isLoading,
@@ -7,7 +7,7 @@
              }"
              aria-label="File Upload"
              class="rounded-lg drop-zone border-2 border-dashed transition-colors flex flex-wrap items-stretch
-                    dark:text-white relative border-current"
+                    dark:text-white relative border-current h-full"
              tabindex="0"
              v-bind="$attrs"
              @dragover.prevent="isDraggedOver = true"
@@ -21,7 +21,7 @@
                    :accept="acceptedMimes.join(',')"
                    @change.prevent="addFiles">
 
-            <div class="grow flex flex-col items-center justify-center py-24 px-2 text-center cursor-pointer"
+            <div class="grow flex flex-col items-center justify-center p-2 text-center cursor-pointer"
                  @click="openFileBrowser">
                 <slot :upload-icon="uploadIcon">
                     <p class="mb-4 text-brand-600" v-html="uploadIcon" />

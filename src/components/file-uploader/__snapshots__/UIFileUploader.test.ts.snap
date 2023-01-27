@@ -1,10 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`UIFileUploader should display correctly 1`] = `
-<div>
+<div
+  class="h-full"
+>
   <div
     aria-label="File Upload"
-    class="rounded-lg drop-zone border-2 border-dashed transition-colors flex flex-wrap items-stretch dark:text-white relative border-current"
+    class="rounded-lg drop-zone border-2 border-dashed transition-colors flex flex-wrap items-stretch dark:text-white relative border-current h-full"
     tabindex="0"
   >
     <input
@@ -14,7 +16,7 @@ exports[`UIFileUploader should display correctly 1`] = `
       type="file"
     />
     <div
-      class="grow flex flex-col items-center justify-center py-24 px-2 text-center cursor-pointer"
+      class="grow flex flex-col items-center justify-center p-2 text-center cursor-pointer"
     >
       
       <p
