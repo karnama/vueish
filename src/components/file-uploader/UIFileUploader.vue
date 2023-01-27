@@ -1,5 +1,5 @@
 <template>
-    <div class="h-full">
+    <div class="h-full" :class="$attrs.class" :style="$attrs.style">
         <div :class="{
                  'active': isDraggedOver && !isLoading,
                  'pointer-events-none': isLoading,
@@ -9,7 +9,7 @@
              class="rounded-lg drop-zone border-2 border-dashed transition-colors flex flex-wrap items-stretch
                     dark:text-white relative border-current h-full"
              tabindex="0"
-             v-bind="$attrs"
+             v-bind="omit($attrs, 'class', 'style')"
              @dragover.prevent="isDraggedOver = true"
              @keydown.enter="openFileBrowser"
              @dragleave="isDraggedOver = false"
@@ -80,6 +80,7 @@ import type { FileError } from 'types';
 import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
 import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 import { error, positiveOptionalNumber } from '@/shared-props';
+import { omit } from 'lodash-es';
 
 // todo - UIFile may make the uploader overflow if the side menu is open when using files with long titles
 export default defineComponent({
@@ -234,7 +235,8 @@ export default defineComponent({
             addFiles,
             removeFile,
             openFileBrowser,
-            uploadFiles
+            uploadFiles,
+            omit
         };
     }
 });

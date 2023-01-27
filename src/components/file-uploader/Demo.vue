@@ -6,25 +6,27 @@
             </UIButton>
         </div>
 
-        <UIFileUploader :error="error"
-                        :upload="upload"
-                        class="border-brand-400"
-                        @validation-error="logError" />
-
-        <UIFileUploader :error="error"
-                        :upload="upload"
-                        class="border-brand-400"
-                        @validation-error="logError">
-            <template #default="{ uploadIcon }">
-                <p class="text-pink-600" v-html="uploadIcon" />
-                <p class="text-lg">
-                    Drop files here to upload them
-                </p>
-                <UIButton theme="pink" class="mt-2">
-                    Browse
-                </UIButton>
-            </template>
-        </UIFileUploader>
+        <div class="grid grid-cols-2 grid-rows-2 gap-2" style="height: calc(100vh - 200px)">
+            <UIFileUploader :error="error"
+                            :upload="upload"
+                            class="border-brand-400 col-span-1"
+                            @validation-error="logError" />
+            <div />
+            <UIFileUploader :error="error"
+                            :upload="upload"
+                            class="border-brand-400 col-span-2"
+                            @validation-error="logError">
+                <template #default="{ uploadIcon }">
+                    <p class="text-pink-600" v-html="uploadIcon" />
+                    <p class="text-lg">
+                        Drop files here to upload them
+                    </p>
+                    <UIButton theme="pink" class="mt-2">
+                        Browse
+                    </UIButton>
+                </template>
+            </UIFileUploader>
+        </div>
     </div>
 </template>
 
