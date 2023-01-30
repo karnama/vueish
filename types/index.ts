@@ -5,6 +5,8 @@ export type Icon = 'clear' | 'check' | 'dash' | 'lock' | 'chevron' | 'person' | 
 export type Settings = {
     /**
      * Whether the inputs should be clearable by default.
+     *
+     * @default false;
      */
     clearableByDefault: boolean;
 

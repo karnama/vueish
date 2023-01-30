@@ -3,7 +3,7 @@
 exports[`UIPagination should render correctly 1`] = `
 <div
   aria-label="Pagination navigation"
-  class="flex flex-wrap justify-between items-center max-w-max space-x-2"
+  class="flex flex-wrap justify-between items-center space-x-2"
   role="navigation"
 >
   <button

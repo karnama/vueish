@@ -47,9 +47,10 @@
                        :step="step"
                        :min="min"
                        :max="max"
-                       :aria-placeholder="$attrs.placeholder"
+                       :placeholder="placeholder"
+                       :aria-placeholder="placeholder"
                        class="flex-1 p-3.5 appearance-none bg-transparent outline-none
-                              text-color disabled:text-gray-400"
+                              text-color disabled:text-gray-400 overflow-x-scroll"
                        :disabled="disabled"
                        :class="{ 'px-7 py-5': large }"
                        @keydown="handleKeydown">
@@ -118,7 +119,8 @@ import {
     clearable,
     disabled,
     useVModel,
-    error
+    error,
+    placeholder
 } from 'composables/input';
 import { large } from 'composables/style';
 import { getIcon, getPrecision } from '@/helpers';
@@ -203,14 +205,15 @@ export default defineComponent({
         clearable,
         name,
         disabled,
-        error
+        error,
+        placeholder
     },
 
     emits: ['update:modelValue'],
 
     setup(props) {
         const input = ref<HTMLInputElement>();
-        const inputType = ref<typeof types[number]>(props.type);
+        const inputType = ref(props.type);
 
         const lockIcon = getIcon('lock');
         const clearIcon = getIcon('clear');

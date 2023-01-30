@@ -1,64 +1,83 @@
 <template>
-    <UIPanel closed class="mb-4">
-        <template #header>
-            Table with slots
-        </template>
-        <UITable :headers="headers"
-                 :rows="rows"
-                 hover-highlight
-                 :items-per-page="Number(5)">
-            <template #header="slotProps">
-                slotted {{ slotProps.header.rowProperty }}
-            </template>
-            <template #name="slotProps">
-                slotted {{ slotProps.row.name }}
-            </template>
-            <template #action>
-                <UIButton category="brand">
-                    CTA
-                </UIButton>
-            </template>
-            <template #footer>
-                <span class="font-bold text-color">
-                    My wildly
-                    long slotted footer content that I have to
-                    make up words for such as
-                    fubershlung (the act of drinking a beer after a devastating loss)
-                    and shmelolia (a rare type of tulip's petals)
-                </span>
-            </template>
-        </UITable>
-    </UIPanel>
+    <div class="space-y-4">
+        <UIPanel closed header="Table with slots">
+            <UITable :headers="headers"
+                     :rows="rows"
+                     hover-highlight
+                     :items-per-page="Number(5)">
+                <template #header="slotProps">
+                    slotted {{ slotProps.header.rowProperty }}
+                </template>
+                <template #name="slotProps">
+                    slotted {{ slotProps.row.name }}
+                </template>
+                <template #action>
+                    <UIButton category="brand">
+                        CTA
+                    </UIButton>
+                </template>
+                <template #footer>
+                    <span class="font-bold text-color">
+                        My wildly
+                        long slotted footer content that I have to
+                        make up words for such as
+                        fubershlung (the act of drinking a beer after a devastating loss)
+                        and shmelolia (a rare type of tulip's petals)
+                    </span>
+                </template>
+            </UITable>
+        </UIPanel>
 
-    <p class="text-color mt-12">
-        Searchable
-    </p>
-    <UITable :headers="headers"
-             :rows="rows"
-             search
-             disable-sorting />
+        <UIPanel closed header="Searchable">
+            <UITable :headers="headers"
+                     :rows="rows"
+                     search
+                     disable-sorting />
+        </UIPanel>
 
-    <p class="text-color mt-12">
-        With Selection
-    </p>
-    <UITable v-model="selectedRows"
-             :headers="headers"
-             :rows="rows"
-             selectable
-             disable-pagination
-             disable-sorting />
+        <UIPanel closed header="With Selection">
+            <UITable v-model="selectedRows"
+                     :headers="headers"
+                     :rows="rows"
+                     selectable
+                     disable-pagination
+                     disable-sorting />
+        </UIPanel>
+
+        <UIPanel closed header="Using custom paginator">
+            <UITable :headers="headers"
+                     :items-per-page="5"
+                     :rows="rows">
+                <template #pagination="slotProps">
+                    <div class="flex justify-end w-full">
+                        <UIPagination :model-value="slotProps.page"
+                                      :length="slotProps.pageCount"
+                                      @update:model-value="val => slotProps.jumpToPage(val)" />
+                    </div>
+                </template>
+            </UITable>
+        </UIPanel>
+    </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import type { Column, Row } from 'types';
 
+interface Dessert {
+    name: string;
+    calories: number;
+    fat: number;
+    carbs: number;
+    protein: number;
+    iron: string;
+}
+
 export default defineComponent({
-    // eslint-disable-next-line vue/no-reserved-component-names
     name: 'TableDemo',
 
     setup() {
-        const headers = ref<Column[]>([
+        const headers = ref<Column<Dessert>[]>([
             { header: 'Dessert (100g serving)', rowProperty: 'name' },
             { header: 'Calories', rowProperty: 'calories' },
             { header: 'Fat (g)', rowProperty: 'fat' },

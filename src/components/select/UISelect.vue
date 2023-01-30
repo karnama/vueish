@@ -35,7 +35,7 @@
                     {{ selectionDisplay }}
                 </span>
 
-                <span v-else>
+                <span v-else class="text-color-muted">
                     {{ placeholder }}
                 </span>
             </slot>
@@ -70,12 +70,13 @@
                  ref="list"
                  v-click-away="closeList"
                  role="listbox"
-                 class="list overflow-y-scroll absolute w-full border text-color
-                        bg-white dark:bg-gray-600 dark:border-gray-500 shadow-md"
+                 class="list overflow-y-scroll absolute w-full border border-gray-300 text-color
+                        bg-white dark:bg-gray-600 dark:border-gray-500 shadow-md rounded"
                  :style="style"
                  @keydown.esc="closeList">
                 <!--Header to display instructions-->
-                <div class="flex items-center justify-between px-2 py-1 text-sm border-b select-none">
+                <div class="flex items-center justify-between px-2 py-1 text-sm
+                            border-b border-gray-300 dark:border-gray-500 select-none">
                     <slot name="header">
                         {{ header }}
                     </slot>
@@ -113,7 +114,7 @@
                                justify-center focus:bg-brand-200 dark:focus:bg-brand-500 outline-none"
                         :class="{
                             'selected-option bg-gray-200 dark:bg-gray-500 dark:hover:bg-gray-500': currentlySelected,
-                            'border-t': index > 0 || !noSearch && index === 0
+                            'border-t border-gray-300 dark:border-gray-500': index > 0 || !noSearch && index === 0
                         }"
                         role="option"
                         tabindex="0"
@@ -156,7 +157,8 @@ import clickAway from '@/directives/click-away';
 import UIFadeTransition from 'components/transitions/UIFadeTransition.vue';
 import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 
-type Option = Record<string, any>;
+type OptionObject = Record<string, any>;
+type Option = OptionObject | string;
 
 export default defineComponent({
     name: 'UISelect',
@@ -167,14 +169,14 @@ export default defineComponent({
 
     props: {
         modelValue: {
-            type: [Object, Array] as PropType<MaybeArray<Option> | null>
+            type: [Object, Array] as PropType<MaybeArray<Option> | MaybeArray<string> | null>
         },
 
         /**
          * Array of option objects.
          */
         options: {
-            type: Array as () => Option[],
+            type: Array as PropType<Option[]>,
             required: true
         },
 
@@ -188,7 +190,7 @@ export default defineComponent({
 
         /**
          * The key on the options to compare the objects by.
-         * Otherwise if set to 'whole' The objects will
+         * Otherwise, if set to 'whole' The objects will
          * be compared based on deep equality.
          */
         optionKey: {
@@ -217,7 +219,7 @@ export default defineComponent({
          * Function to use when evaluating a search term.
          */
         searchClosure: {
-            type: Function as PropType<(o: Option, term: string) => boolean>
+            type: Function as PropType<(o: OptionObject, term: string) => boolean>
         },
 
         /**
@@ -228,8 +230,16 @@ export default defineComponent({
             default: false
         },
 
+        /**
+         * The placeholder the input should display.
+         */
+        // eslint-disable-next-line vue/require-prop-types
+        placeholder: {
+            ...placeholder,
+            default: 'Please select...'
+        },
+
         label,
-        placeholder,
         clearable,
         autofocus,
         disabled,
@@ -246,7 +256,7 @@ export default defineComponent({
         const searchInput = ref<HTMLInputElement>();
         const selectComp = ref<HTMLDivElement>();
         const list = ref<HTMLDivElement>();
-        const selected = useVModel<MaybeArray<Option> | null>(props);
+        const selected = useVModel<MaybeArray<Option | string> | null>(props);
         const lockIcon = getIcon('lock');
         const clearIcon = getIcon('clear');
         const selectionDisplay = computed<string>(() => {
@@ -254,30 +264,37 @@ export default defineComponent({
                 return '';
             }
 
-            const options = wrap<Option>(cloneDeep(selected.value));
-            return options.map(option => option[props.optionLabel]).join(', ');
+            const options = wrap<Option | string>(cloneDeep(selected.value));
+
+            return options.map(option => typeof option === 'string' ? option : option[props.optionLabel]).join(', ');
         });
-        const filteredOptions = computed<Option[]>(() => {
+        const filteredOptions = computed<OptionObject[]>(() => {
+            const formattedOptions = props.options.map(option =>
+                typeof option === 'string' ? { [props.optionKey]: option, [props.optionLabel]: option } : option
+            );
+
             if (!search.value) {
-                return props.options ?? [];
+                return formattedOptions;
             }
 
-            const options = selected.value ? wrap(cloneDeep(selected.value)) : [];
+            let selectedOptions = (selected.value ? wrap(cloneDeep(selected.value)) : []).map(option =>
+                typeof option === 'string' ? { [props.optionKey]: option, [props.optionLabel]: option } : option
+            );
 
-            (props.options ?? [])
+            formattedOptions
                 // exclude already selected
-                .filter(option => !options.find(opt => isEqual(option, opt)))
+                .filter(option => !selectedOptions.find(opt => isEqual(option, opt)))
                 .forEach(option => {
                     const isHit = props.searchClosure
                         ? props.searchClosure(option, search.value)
                         : (option[props.optionLabel] as string).toLowerCase().includes(search.value.toLowerCase());
 
                     if (isHit) {
-                        options.push(option);
+                        selectedOptions.push(option);
                     }
                 });
 
-            return options;
+            return selectedOptions;
         });
         const selectionCount = computed(() => {
             if (!selected.value) return 0;
@@ -304,7 +321,7 @@ export default defineComponent({
             searchInput.value?.focus({ preventScroll: true });
             window.addEventListener('resize', setPosition);
         };
-        const clearSelection = (option?: Option) => {
+        const clearSelection = (option?: OptionObject) => {
             if (
                 // nothing to clear
                 selectionCount.value === 0
@@ -323,34 +340,48 @@ export default defineComponent({
 
             selected.value = props.multi ? [] : null;
         };
+
         const isEqual = (previous: Option, next: Option): boolean => {
+            // Compare as strings options (checking type of previous/next to satisfy TS).
+            if (typeof previous === 'string' || typeof next === 'string') {
+                const previousString: string = typeof previous === 'string' ? previous : previous[props.optionKey];
+                const nextString: string = typeof next === 'string' ? next : next[props.optionKey];
+
+                return previousString === nextString;
+            }
+
+            // Compare as object options.
             return props.optionKey === 'whole'
                 ? _isEqual(previous, next)
                 : _isEqual(previous[props.optionKey], next[props.optionKey]);
         };
-        const isSelected = (option: Option) => {
+        const isSelected = (option: OptionObject) => {
             const values = selected.value ? wrap(cloneDeep(selected.value)) : [];
 
             return values.findIndex(selectedOption => isEqual(selectedOption, option)) !== -1;
         };
-        const select = async (option: Option) => {
+        const select = async (option: OptionObject) => {
             if (isSelected(option)) {
                 return;
             }
 
+            const value = props.options.every(option => typeof option === 'string')
+                ? option[props.optionLabel]
+                : option;
+
             if (!props.multi) {
-                selected.value = option;
+                selected.value = value;
                 await closeList();
                 return;
             }
 
             if (!Array.isArray(selected.value)) {
-                selected.value = selected.value ? [selected.value, option] : [option];
+                selected.value = selected.value ? [selected.value, value] : [value];
                 return;
             }
 
             // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-            selected.value = [...selected.value, option];
+            selected.value = [...selected.value, value];
         };
         const setPosition = () => {
             const selectRect = selectComp.value!.getBoundingClientRect();
