@@ -27,7 +27,7 @@ export const createClickAwayListener = (el: ClickAwayElement, binding: Directive
                 event.preventDefault();
             }
 
-            if ((!el || !el.contains(event.target as Node)) && nextTick && cb && typeof cb === 'function') {
+            if (!el?.contains(event.target as Node) && nextTick && cb && typeof cb === 'function') {
                 return cb.call(event);
             }
         }

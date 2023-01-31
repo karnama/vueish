@@ -4,7 +4,7 @@ import defaultSettings from '@/defaultSettings';
 import type { ComponentPublicInstance } from 'vue';
 
 beforeAll(() => {
-    // @ts-expect-error
+    // @ts-expect-error - shim doesn't have vueish, added as user doesn't need to know
     config.global.config.globalProperties = {
         // eslint-disable-next-line @typescript-eslint/naming-convention
         Vueish: defaultSettings

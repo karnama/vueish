@@ -70,7 +70,7 @@
 <script lang="ts">
 import { computed, defineComponent, getCurrentInstance, ref, watch } from 'vue';
 import LocalCache from '@/helpers/cache/LocalCache';
-import type { Router, RouteRecord } from 'vue-router';
+import type { RouteRecord } from 'vue-router';
 import { getIcon } from '@/helpers';
 import { getVersion } from '@/main';
 
@@ -86,7 +86,7 @@ export default defineComponent({
 
         const darkMode = ref(cache.get<'light' | 'dark'>('theme', 'light') === 'dark');
         const routeMap = computed(() => {
-            const routes = (instance.appContext.app.config.globalProperties.$router as Router).getRoutes();
+            const routes = instance.appContext.app.config.globalProperties.$router .getRoutes();
             const map: { Directives?: RouteRecord[]; Components?: RouteRecord[] } = {};
 
             routes.forEach(route => {
