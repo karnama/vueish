@@ -126,7 +126,7 @@
                 </template>
 
                 <tr v-else>
-                    <td :colspan="selectable ? normalisedHeaders.length + 1 : normalisedHeaders.length">
+                    <td :colspan="normalisedHeaders.length + (selectable ? 1 : 0) + (showActionSlot ? 1 : 0)">
                         <span class="block text-center text-gray-400" :class="[small ? 'px-2 py-3' : 'py-6 px-8']">
                             <slot name="empty">
                                 {{ empty }}
