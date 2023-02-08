@@ -150,6 +150,20 @@ describe('UITable', () => {
         wrapper.unmount();
     });
 
+    it('should not display space for actions if no rows given', () => {
+        const wrapper = mount(UITable, {
+            props: {
+                headers,
+                rows: []
+            },
+            slots: {
+                action: '<div class="action-divs" />'
+            }
+        });
+
+        expect(wrapper.findAll('.action-divs')).toHaveLength(0);
+    });
+
     describe('search', () => {
         it('should only show the relevant rows on search', async () => {
             jest.useFakeTimers();
