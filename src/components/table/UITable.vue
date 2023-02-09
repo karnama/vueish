@@ -8,7 +8,7 @@
             <thead class="sticky top-0 bg-gray-50 dark:bg-gray-650 border-b border-b-gray-300 dark:border-b-gray-500
                           shadow-sm dark:shadow-lg sm:!shadow-none z-10">
                 <tr v-if="!!search" class="block sm:table-row">
-                    <th :colspan=" normalisedHeaders.length + (showActionSlot ? 1 : 0) + (selectable ? 1 : 0)"
+                    <th :colspan=" normalisedHeaders.length + ($slots.action ? 1 : 0) + (selectable ? 1 : 0)"
                         :class="[small ? 'p-2' : 'px-4 py-8 ']"
                         class="block sm:table-cell">
                         <span class="block">
@@ -60,7 +60,7 @@
                         </span>
                     </th>
 
-                    <th v-if="showActionSlot" />
+                    <th v-if="$slots.action && pageRows.length" />
                 </tr>
             </thead>
 
@@ -119,14 +119,17 @@
                             </span>
                         </td>
 
-                        <td v-if="showActionSlot" :class="[small ? 'px-2 py-1' : 'p-4']">
+                        <td v-if="normalisedRows.length && $slots.action" :class="[small ? 'px-2 py-1' : 'p-4']">
                             <slot name="action" :row="row" />
                         </td>
                     </tr>
                 </template>
 
                 <tr v-else>
-                    <td :colspan="normalisedHeaders.length + (selectable ? 1 : 0) + (showActionSlot ? 1 : 0)">
+                    <td :colspan="normalisedHeaders.length +
+                        (selectable ? 1 : 0) +
+                        (normalisedRows.length && $slots.action ? 1 : 0)
+                    ">
                         <span class="block text-center text-gray-400" :class="[small ? 'px-2 py-3' : 'py-6 px-8']">
                             <slot name="empty">
                                 {{ empty }}
@@ -148,7 +151,7 @@
                    }">
                 <tr class="w-full flex sm:table-row">
                     <td class="block grow sm:table-cell"
-                        :colspan="normalisedHeaders.length + (showActionSlot ? 1 : 0) + (selectable ? 1 : 0)">
+                        :colspan="normalisedHeaders.length + ($slots.action ? 1 : 0) + (selectable ? 1 : 0)">
                         <span class="flex flex-col sm:flex-row items-center justify-between
                                      flex-wrap break-words relative"
                               :class="[small ? 'p-2' : 'py-6 px-8']">
@@ -464,7 +467,6 @@ export default defineComponent({
                 .length;
         });
         const hasPrevious = computed(() => currentPage.value > 1);
-        const showActionSlot = computed(() => normalisedRows.value.length && ctx.slots.action);
 
         const term = debouncedRef('');
         const hoverClass = ref('');
@@ -631,7 +633,6 @@ export default defineComponent({
             currentPage,
             hoverClass,
             pageCount,
-            showActionSlot,
             selected,
             pageRows,
             hasNext,

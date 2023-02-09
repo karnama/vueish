@@ -150,7 +150,7 @@ describe('UITable', () => {
         wrapper.unmount();
     });
 
-    it('should not display space for actions if no rows given', () => {
+    it('should not display space for actions if no rows given', async () => {
         const wrapper = mount(UITable, {
             props: {
                 headers,
@@ -162,6 +162,8 @@ describe('UITable', () => {
         });
 
         expect(wrapper.findAll('.action-divs')).toHaveLength(0);
+        await wrapper.setProps({ rows });
+        expect(wrapper.findAll('.action-divs')).toHaveLength(rows.length);
     });
 
     describe('search', () => {

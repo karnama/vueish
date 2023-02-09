@@ -97,7 +97,7 @@ export default defineComponent({
             { header: 'Protein (g)', rowProperty: 'protein' },
             { header: 'Iron (%)', rowProperty: 'iron', suffix: '%', sortable: true }
         ]);
-        const rows = markRaw<Row & Dessert[]>([
+        const rows = markRaw<(Row & Dessert)[]>([
             {
                 name: 'Frozen Yogurt',
                 calories: 159,
