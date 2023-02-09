@@ -58,6 +58,7 @@ export interface FileError extends UIError {
 export interface UIModal {
     open: () => Promise<void>;
     close: (event: 'accept' | 'cancel') => Promise<void>;
+    confirm: () => Promise<boolean>;
     isOpen: Readonly<boolean>;
 }
 
