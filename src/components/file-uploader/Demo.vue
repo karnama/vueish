@@ -28,7 +28,7 @@
                     </UIButton>
                 </template>
                 <template #files="slotProps">
-                    <template v-if="slotProps.files.length <= 0">
+                    <template v-if="slotProps.files.length <= 1">
                         <UIFile v-for="(file, index) in slotProps.files"
                                 :key="index"
                                 :file="file"
