@@ -39,7 +39,7 @@
             </div>
             <div v-show="files.length"
                  class="w-full flex flex-col py-6 px-2 overflow-y-auto pl-6 pr-4
-                        justify-between items-center bg-gray-200 dark:bg-gray-600 overflow-y-auto"
+                        justify-between items-center bg-gray-200 dark:bg-gray-600"
                  @keydown.enter.stop>
                 <div class="file-list w-full divide-y">
                     <!-- eslint-disable-next-line vue/attribute-hyphenation-->
