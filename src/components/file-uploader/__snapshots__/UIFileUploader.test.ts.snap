@@ -6,7 +6,8 @@ exports[`UIFileUploader should display correctly 1`] = `
 >
   <div
     aria-label="File Upload"
-    class="rounded-lg drop-zone border-2 border-dashed transition-colors flex flex-wrap items-stretch dark:text-white relative border-current h-full"
+    class="rounded-lg drop-zone border-2 border-dashed transition-colors grid items-stretch dark:text-white relative border-current h-full"
+    style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));"
     tabindex="0"
   >
     <input
@@ -17,6 +18,7 @@ exports[`UIFileUploader should display correctly 1`] = `
     />
     <div
       class="grow flex flex-col items-center justify-center p-2 text-center cursor-pointer"
+      style="min-width: 50%;"
     >
       
       <p
@@ -50,12 +52,15 @@ exports[`UIFileUploader should display correctly 1`] = `
       
     </div>
     <div
-      class="w-full sm:w-1/2 flex flex-col py-6 px-2 justify-between bg-gray-200 dark:bg-gray-600 items-center"
+      class="w-full flex flex-col py-6 px-2 overflow-y-auto pl-6 pr-4 justify-between items-center bg-gray-200 dark:bg-gray-600 overflow-y-auto"
       style="display: none;"
     >
       <div
-        class="max-h-64 pl-6 mr-2 pr-4 file-list w-full divide-y"
+        class="file-list w-full divide-y"
       >
+        <!-- eslint-disable-next-line vue/attribute-hyphenation-->
+        
+        
         
         
       </div>
