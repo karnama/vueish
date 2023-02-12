@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-center justify-between dark:text-white">
+    <div class="flex items-center justify-between dark:text-white w-full px-2" style="min-width: 210px">
         <div class="flex items-center flex-row overflow-hidden">
             <UISpinnerLoader :determinate="!isLoading" :diameter="50" :stroke="2">
                 <UIAvatar :src="src" class="avatar text-xs" :content="extension" />
