@@ -42,12 +42,15 @@
                         justify-between items-center bg-gray-200 dark:bg-gray-600 overflow-y-auto"
                  @keydown.enter.stop>
                 <div class="file-list w-full divide-y">
-                    <UIFile v-for="(file, index) in files"
-                            :key="index"
-                            :file="file"
-                            class="py-2"
-                            :upload="upload"
-                            @removed="removeFile" />
+                    <!-- eslint-disable-next-line vue/attribute-hyphenation-->
+                    <slot name="files" :files="files" :removeFile="removeFile">
+                        <UIFile v-for="(file, index) in files"
+                                :key="index"
+                                :file="file"
+                                class="py-2"
+                                :upload="upload"
+                                @removed="removeFile" />
+                    </slot>
                 </div>
                 <UIButton v-if="!uploadAsap"
                           theme="brand"
@@ -248,17 +251,15 @@ export default defineComponent({
 
     & .file-list {
         pointer-events: none;
-    }
+}
 }
 
 .drop-zone:not(.active) {
     @apply border-gray-300;
 }
-
 .error.drop-zone {
     border-color: theme('colors.red.700') !important;
 }
-
 .dark .error.drop-zone {
     border-color: theme('colors.red.600') !important;
 }
