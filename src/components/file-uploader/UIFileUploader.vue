@@ -48,6 +48,7 @@
                                 :key="index"
                                 :file="file"
                                 class="py-2"
+                                :upload-on-mounted="uploadAsap"
                                 :upload="upload"
                                 @removed="removeFile" />
                     </slot>
