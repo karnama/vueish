@@ -11,7 +11,7 @@
         </UIExpandTransition>
 
         <div ref="slot"
-             class="slot flex"
+             class="slot flex w-full"
              role="radiogroup"
              :class="{
                  'space-x-6': horizontal,
