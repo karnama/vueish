@@ -204,7 +204,6 @@ export default defineComponent({
             loading.value = false;
         };
 
-
         return {
             headers,
             rows,

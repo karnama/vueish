@@ -32,15 +32,19 @@ export interface Row {
      * Whether the row is selectable or not
      */
     isSelectable?: boolean;
+
+    /**
+     * Property of the row.
+     */
     [key: string]: any;
 }
-export interface Column<T extends Row = Row> {
+export interface Column<T extends Record<PropertyKey, any> = Record<PropertyKey, any>> {
     header?: string;
-    rowProperty: Exclude<keyof Omit<T, 'isSelectable'>, number> | string;
-    suffix?: string | ((row: T) => string | undefined);
-    prefix?: string | ((row: T) => string | undefined);
+    rowProperty: Exclude<keyof T, number | symbol> | string;
+    suffix?: string | ((row: T & Row) => string | undefined);
+    prefix?: string | ((row: T & Row) => string | undefined);
     sortable?: boolean;
-    sortByFunc?: SortByFunc<T>;
+    sortByFunc?: SortByFunc<T & Row>;
 }
 export interface SortOrder {
     column: string;
