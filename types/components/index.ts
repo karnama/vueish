@@ -40,7 +40,7 @@ export interface Row {
 }
 export interface Column<T extends Record<PropertyKey, any> = Record<PropertyKey, any>> {
     header?: string;
-    rowProperty: Exclude<keyof T, number | symbol> | string;
+    rowProperty: keyof T | string;
     suffix?: string | ((row: T & Row) => string | undefined);
     prefix?: string | ((row: T & Row) => string | undefined);
     sortable?: boolean;
