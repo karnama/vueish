@@ -1,7 +1,7 @@
 <template>
     <div class="ui-textarea relative">
         <UIExpandTransition>
-            <label v-if="label"
+            <label v-if="label || $slots.label"
                    :for="$attrs.id ?? name"
                    class="font-medium text-color inline-flex items-center mb-1.5"
                    :class="{ 'text-color-error': error || $slots.error }">

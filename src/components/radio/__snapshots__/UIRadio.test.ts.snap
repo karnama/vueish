@@ -16,7 +16,7 @@ exports[`UIRadioGroup should display correctly 1`] = `
     
   </transition-stub>
   <div
-    class="slot flex flex-col space-y-4"
+    class="slot flex w-full flex-col space-y-4"
     role="radiogroup"
   >
     

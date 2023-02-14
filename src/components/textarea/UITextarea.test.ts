@@ -118,6 +118,22 @@ describe('UITextarea', () => {
         expect(wrapper.get('label').text()).toBe(label);
     });
 
+    it('should correctly display the label when passed as a slot', () => {
+        const label = 'text';
+
+        const wrapper = mount(UITextarea, {
+            props: {
+                modelValue: '',
+                name: 'input'
+            },
+            slots: {
+                label
+            }
+        });
+
+        expect(wrapper.get('label').text()).toBe(label);
+    });
+
     it('should autofocus on the input when the prop is provided', () => {
         const elem = document.createElement('div');
         document.body.appendChild(elem);

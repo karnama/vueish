@@ -21,7 +21,7 @@
                 </slot>
             </h1>
 
-            <div v-if="open">
+            <div v-if="open && $slots.actions">
                 <slot name="actions" />
             </div>
         </header>

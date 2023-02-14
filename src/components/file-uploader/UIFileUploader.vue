@@ -6,9 +6,10 @@
                  error
              }"
              aria-label="File Upload"
-             class="rounded-lg drop-zone border-2 border-dashed transition-colors flex flex-wrap items-stretch
+             class="rounded-lg drop-zone border-2 border-dashed transition-colors grid items-stretch
                     dark:text-white relative border-current h-full"
              tabindex="0"
+             style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));"
              v-bind="omit($attrs, 'class', 'style')"
              @dragover.prevent="isDraggedOver = true"
              @keydown.enter="openFileBrowser"
@@ -22,6 +23,7 @@
                    @change.prevent="addFiles">
 
             <div class="grow flex flex-col items-center justify-center p-2 text-center cursor-pointer"
+                 style="min-width: 50%;"
                  @click="openFileBrowser">
                 <slot :upload-icon="uploadIcon">
                     <p class="mb-4 text-brand-600" v-html="uploadIcon" />
@@ -36,17 +38,20 @@
                 </slot>
             </div>
             <div v-show="files.length"
-                 class="w-full sm:w-1/2 flex flex-col py-6 px-2
+                 class="w-full flex flex-col py-6 overflow-y-auto pl-6 pr-4
                         justify-between bg-gray-200 dark:bg-gray-600 items-center"
                  @keydown.enter.stop>
-                <div class="max-h-64 pl-6 mr-2 pr-4 file-list w-full divide-y">
-                    <UIFile v-for="(file, index) in files"
-                            :key="index"
-                            :file="file"
-                            class="py-2"
-                            :upload="upload"
-                            :upload-on-mounted="uploadAsap"
-                            @removed="removeFile" />
+                <div class="file-list w-full divide-y">
+                    <!-- eslint-disable-next-line vue/attribute-hyphenation-->
+                    <slot name="files" :files="files" :removeFile="removeFile">
+                        <UIFile v-for="(file, index) in files"
+                                :key="index"
+                                :file="file"
+                                class="py-2"
+                                :upload="upload"
+                                :upload-on-mounted="uploadAsap"
+                                @removed="removeFile" />
+                    </slot>
                 </div>
                 <UIButton v-if="!uploadAsap"
                           theme="brand"
@@ -82,7 +87,6 @@ import UIExpandTransition from 'components/transitions/UIExpandTransition.vue';
 import { error, positiveOptionalNumber } from '@/shared-props';
 import { omit } from 'lodash-es';
 
-// todo - UIFile may make the uploader overflow if the side menu is open when using files with long titles
 export default defineComponent({
     name: 'UIFileUploader',
 
@@ -170,7 +174,7 @@ export default defineComponent({
             }
 
             if (typeof props.maxSize === 'number') {
-                const tooBigFiles = filteredList.filter(file => file.size > props.maxSize);
+                const tooBigFiles = filteredList.filter(file => file.size > props.maxSize!);
 
                 if (filteredList.length && tooBigFiles.length) {
                     ctx.emit('validationError', {
@@ -178,7 +182,7 @@ export default defineComponent({
                         files: tooBigFiles
                     } as FileError);
 
-                    filteredList = filteredList.filter(file => file.size <= props.maxSize);
+                    filteredList = filteredList.filter(file => file.size <= props.maxSize!);
                 }
             }
 
@@ -259,9 +263,5 @@ export default defineComponent({
 }
 .dark .error.drop-zone {
     border-color: theme('colors.red.600') !important;
-}
-
-.drop-zone {
-    overflow: clip;
 }
 </style>

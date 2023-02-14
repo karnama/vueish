@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-center justify-between dark:text-white">
+    <div class="flex items-center justify-between dark:text-white w-full px-2" style="min-width: 210px">
         <div class="flex items-center flex-row overflow-hidden">
             <UISpinnerLoader :determinate="!isLoading" :diameter="50" :stroke="2">
                 <UIAvatar :src="src" class="avatar text-xs" :content="extension" />
@@ -17,7 +17,7 @@
                         @click="$emit('removed', file)"
                         v-html="clearIcon" />
                 <button v-else-if="failedToUpload"
-                        class="transition hover:rotate-180 !duration-200"
+                        class="transition-transform hover:-rotate-180 duration-300"
                         @click="uploadFile"
                         v-html="retryIcon" />
                 <span v-else class="text-green-600 dark:text-green-500" v-html="checkIcon" />

@@ -60,7 +60,7 @@
                         </span>
                     </th>
 
-                    <th v-if="$slots.action" />
+                    <th v-if="$slots.action && pageRows.length" />
                 </tr>
             </thead>
 
@@ -119,14 +119,17 @@
                             </span>
                         </td>
 
-                        <td v-if="$slots.action" :class="[small ? 'px-2 py-1' : 'p-4']">
+                        <td v-if="normalisedRows.length && $slots.action" :class="[small ? 'px-2 py-1' : 'p-4']">
                             <slot name="action" :row="row" />
                         </td>
                     </tr>
                 </template>
 
                 <tr v-else>
-                    <td :colspan="selectable ? normalisedHeaders.length + 1 : normalisedHeaders.length">
+                    <td :colspan="normalisedHeaders.length +
+                        (selectable ? 1 : 0) +
+                        (normalisedRows.length && $slots.action ? 1 : 0)
+                    ">
                         <span class="block text-center text-gray-400" :class="[small ? 'px-2 py-3' : 'py-6 px-8']">
                             <slot name="empty">
                                 {{ empty }}

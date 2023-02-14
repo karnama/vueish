@@ -6,6 +6,7 @@ node_modules
 
 # generated content
 dist
+karnama-vueish-*
 
 jest.config.js
 jest.config.js.map

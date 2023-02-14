@@ -125,13 +125,14 @@ export default defineComponent({
 
     emits: ['cancel', 'accept'],
 
-    expose: ['open', 'close', 'isOpen'],
+    expose: ['open', 'close', 'isOpen', 'confirm'],
 
     setup(props, ctx) {
         const clearIcon = getIcon('clear');
 
         const isOpen = ref(false);
         const isVisible = ref(false);
+        let confirmPromiseResolve: ((value: boolean) => void) | null = null;
 
         const open = async (): Promise<void> => {
             isOpen.value = true;
@@ -142,7 +143,7 @@ export default defineComponent({
             }, 100));
         };
         const close = async (event: 'accept' | 'cancel' = 'cancel'): Promise<void> => {
-            // filter out events if user doesn't define the argument.
+            // Ensure we have only expected event names.
             event = ['accept', 'cancel'].includes(event) ? event : 'cancel';
 
             // Callback to close the modal.
@@ -152,15 +153,27 @@ export default defineComponent({
 
                 return new Promise(resolve => setTimeout(() => {
                     isOpen.value = false;
+
+                    if (confirmPromiseResolve) {
+                        confirmPromiseResolve(event === 'accept');
+                        confirmPromiseResolve = null;
+                    }
+
                     resolve();
                 }, 100));
             };
 
-            if (typeof props.closeCallback === 'function') {
+            if (props.closeCallback) {
                 return props.closeCallback(closeModal, event === 'accept');
             }
 
             return closeModal();
+        };
+        const confirm = async (): Promise<boolean> => {
+            await open();
+            return new Promise(resolve => {
+                confirmPromiseResolve = resolve;
+            });
         };
 
         return {
@@ -168,7 +181,8 @@ export default defineComponent({
             isOpen,
             isVisible,
             open,
-            close
+            close,
+            confirm
         };
     }
 });
