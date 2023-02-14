@@ -38,8 +38,8 @@
                 </slot>
             </div>
             <div v-show="files.length"
-                 class="w-full flex flex-col py-6 px-2 overflow-y-auto pl-6 pr-4
-                        justify-between items-center bg-gray-200 dark:bg-gray-600"
+                 class="w-full flex flex-col py-6 overflow-y-auto pl-6 pr-4
+                        justify-between bg-gray-200 dark:bg-gray-600 items-center"
                  @keydown.enter.stop>
                 <div class="file-list w-full divide-y">
                     <!-- eslint-disable-next-line vue/attribute-hyphenation-->
@@ -48,8 +48,8 @@
                                 :key="index"
                                 :file="file"
                                 class="py-2"
-                                :upload-on-mounted="uploadAsap"
                                 :upload="upload"
+                                :upload-on-mounted="uploadAsap"
                                 @removed="removeFile" />
                     </slot>
                 </div>
